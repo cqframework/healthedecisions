@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:kaoutput:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:ka="urn:hl7-org:knowledgeartifact:r1" xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:kaoutput:r1" elementFormDefault="qualified">
+	<xs:import namespace="urn:hl7-org:cdsdt:r2" schemaLocation="../common/datatypes.xsd"/>
+	<xs:import namespace="urn:hl7-org:vmr:r2" schemaLocation="../vmr/vmr.xsd"/>
+	<xs:import namespace="urn:hl7-org:knowledgeartifact:r1" schemaLocation="../knowledgeartifact/expression.xsd"/>
+	<xs:complexType name="CDSExecutionMessage">
+		<xs:sequence>
+			<xs:element name="id" type="dt:II" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A server generated identifier for the execution message.
+						This identifier can be used for resolving problems.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reason">
+				<xs:complexType>
+					<xs:attribute name="value" type="CDSExecutionMessageReason">
+						<xs:annotation>
+							<xs:documentation>A codified representation of the reason for the message.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="level">
+				<xs:complexType>
+					<xs:attribute name="value" type="CDSExecutionMessageLevel">
+						<xs:annotation>
+							<xs:documentation>A value indicating the relative severity of the message.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="message" type="dt:ST">
+				<xs:annotation>
+					<xs:documentation>Descriptive text explaining why the execution message was
+						issued and potential ways to resolve the message.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sourceComponentType" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:attribute name="value" type="DSSComponentType">
+						<xs:annotation>
+							<xs:documentation>The type of the component within the DSS
+								"ecosystem" that caused the execution message. A value for this element
+								must
+								be provided if a value for the sourceComponentId is provided.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="sourceComponentId" type="ka:ObjectDescriptor" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The specific source component instance that
+						caused the execution message. This can be a knowledge module id, a clinical
+						statement id for patient data, a URL for an external resource.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="CDSExecutionMessageLevel">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Information">
+				<xs:annotation>
+					<xs:documentation>The message may provide helpful information to the requestor when the evaluation proceeded as expected. The message is issued as payload for a DSS Response.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Warning">
+				<xs:annotation>
+					<xs:documentation>The message is issued when issues were encountered but did not prevent the evaluation of the data. This can occur when the DSS can correct a problem, for example. The message is issued as payload for a DSS Response.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Error">
+				<xs:annotation>
+					<xs:documentation>This message is issued when problems were encountered that prevented a successful evaluation. Typically, these problems can be corrected by the requestor for future requests. The message is issued as payload for a DSS Exception.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Fatal">
+				<xs:annotation>
+					<xs:documentation>This message is issued when there were severe problems within the DSS that prevent the evaluation. The problem must be corrected by the DSS administrator. The message is issued as payload for a DSS Exception.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CDSExecutionMessageReason">
+		<xs:annotation>
+			<xs:documentation>
+				A reason (in codified form) for issuing an execution message.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DataFormatNotRecognized">
+				<xs:annotation>
+					<xs:documentation>
+						The format in which the patient data was sent
+						was
+						not recognized. This may include
+						non-conformance to a VMR template.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DataValueIsOutOfRange">
+				<xs:annotation>
+					<xs:documentation>
+						Value for data item is out of expected range.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DataIsMissing">
+				<xs:annotation>
+					<xs:documentation>
+						Data item or value for a data item property is
+						missing.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KnowledgeModuleIsNotCurrent">
+				<xs:annotation>
+					<xs:documentation>
+						A knowledge module is not current and has been
+						superceded by a new version.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KnowledgeModuleIsNotApplicable">
+				<xs:annotation>
+					<xs:documentation>
+						The requested knowledge module is not applicable
+						to the given context - i.e., patient, care
+						location, encounter,
+						user, or recipient.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ResourceIssuedMessage">
+				<xs:annotation>
+					<xs:documentation>
+						A message that was issued by another resource (e.g.,
+						terminology server).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AuthenticationCredentialsNearingExpiry">
+				<xs:annotation>
+					<xs:documentation>The credentials used for establishing
+						connectivity will expire in the near future.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DSSComponentType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Data">
+				<xs:annotation>
+					<xs:documentation>The message is related to the data being sent as
+						part of the request. This cause of the message would typically be
+						something that an end-user or end-user organization
+						could correct,
+						such as a missing data value or an out-of-range value.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Connectivity">
+				<xs:annotation>
+					<xs:documentation>The message is related to connectivity with one
+						or more components within the system. This type of error would
+						typically be something that the service administrator could
+						correct.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KnowledgeBase">
+				<xs:annotation>
+					<xs:documentation>The message is related to an inappropriate use of
+						a knowledge base. This type of message would typically be
+						something that an end user could correct by requesting evaluation
+						by an appropriate knowledge base.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Security">
+				<xs:annotation>
+					<xs:documentation>The message is related to authentication or
+						authorization of the request.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="System">
+				<xs:annotation>
+					<xs:documentation>The message is an internal message from the CDS
+						engine. This type of message would typically be something that
+						would require further diagnostics and possibly development effort
+						to correct.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

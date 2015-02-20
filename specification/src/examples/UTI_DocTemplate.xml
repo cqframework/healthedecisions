@@ -1,0 +1,912 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?schematron-schema href="../main/schematron/knowledgeartifact.sch"?>
+<?schematron-schema href="../main/schematron/documentationtemplates.sch"?>
+<knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
+	xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:dt="urn:hl7-org:cdsdt:r2"
+	xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../main/schema/knowledgeartifact/knowledgedocument.xsd
+		urn:hl7-org:vmr:r2  ../main/schema/vmr/vmr.xsd">
+	<!-- 
+	UTI Documentation Template
+	
+	This example illustrates the use of the HeD schema for representing 
+	a structured documentation template for physician entered progress notes. 
+	The artifact models a progress note for acute urinary tract information. 
+
+	This template was chosen because it is representative of a structured documentation 
+	template used commonly within electronic health record systems. 
+	-->
+
+	<!-- The artifact shows how codes from terminologies are associated with 
+		the documentation concepts and with individual values for the concepts. It 
+		also illustrates the collection of patient data elements used to determine the E&M code for a visit. However, the latter is a placeholder 
+		since the E&M codes are not modeled as a terminology or a value set. Work 
+		on that is ongoing within the Health eDecisions project -->
+	<metadata>
+		<identifiers>
+			<identifier root="WKH:CLNID:7982345" version="1" />
+		</identifiers>
+		<artifactType value="Documentation Template" />
+		<schemaIdentifier root="urn:hl7-org:knowledgeartifact:r1"/>
+		<dataModels>
+			<modelReference>
+				<description value="Virtual Medical Record model" />
+				<referencedModel value="urn:hl7-org:vmr:r2"/>
+			</modelReference>
+		</dataModels>
+		
+		<title value="UTI, Acute" />
+		<applicability>
+			<coverage>
+				<focus value="ClinicalFocus" />
+				<value code="431309003" codeSystem="2.16.840.1.113883.6.96"
+					codeSystemName="SNOMED Clinical Terms">
+					<dt:displayName value="Acute urinary tract infection" />
+				</value>
+			</coverage>
+			<coverage>
+				<focus value="ClinicalVenue" />
+				<value code="261QP2300X" codeSystem="2.16.840.1.113883.1.11.13955"
+					codeSystemName="NUCC Non-individual Provider">
+					<dt:displayName value="Primary Care" />
+				</value>
+			</coverage>
+			<coverage>
+				<focus value="TargetUser" />
+				<value code="309343006" codeSystem="2.16.840.1.113883.6.96"
+					codeSystemName="SNOMED Clinical Terms" >
+					<dt:displayName value="Physician" />
+				</value>
+			</coverage>
+		</applicability>
+		<status value="Draft" />
+		<contributions>
+			<contribution>
+				<contributor xsi:type="Organization">
+					<addresses>
+						<address>
+							<dt:part type="SAL" value="800 Washington Avenue N Ste. 400" />
+							<dt:part type="CTY" value="minneapolis" />
+							<dt:part type="ZIP" value="55401" />
+							<dt:part type="STA" value="MN" />
+							<dt:part type="CNT" value="USA" />
+						</address>
+					</addresses>
+					<contacts>
+						<contact value="tel:888-952-6673" use="WP" />
+						<contact value="mailto:pvmd_support@wolterskluwer.com" />
+					</contacts>
+					<name value="Wolters Kluwer Health" />
+				</contributor>
+				<role value="Author" />
+			</contribution>
+		</contributions>
+	</metadata>
+	<actionGroup>
+		<title value="History of Present Illness" />
+		<subElements>
+			<actionGroup>
+				<title value="Reason for Visit" />
+				<subElements>
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Visit Type" />
+							<responseDataType value="String"/>
+							<responseCardinality value="Single"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="Initial Evaluation" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Follow-Up" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Follow-Up - From Hospitalization" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Follow-Up - Previous Urgent Care" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Follow-Up - From ER" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Worsening Symptoms" />
+									<codes>
+										<code code="230993007" codeSystemName="SNOMED-CT"
+											codeSystem="2.16.840.1.113883.6.96" />
+										<code code="267022002" codeSystemName="SNOMED-CT"
+											codeSystem="2.16.840.1.113883.6.96" />
+									</codes>
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+				</subElements>
+			</actionGroup>
+			<actionGroup>
+				<title value="Symptoms" />
+				<subElements>
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Symptoms" />
+							<itemCodes>
+								<!-- GAP -->
+								<itemCode code="EM:HPI:Associated Signs and Symptoms"
+									codeSystem="EMCode" />
+								<itemCode code="138875005" codeSystem="2.16.840.1.113883.6.96" />
+							</itemCodes>
+							<responseDataType value="String"/>
+							<responseCardinality value="Multiple"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="Dysuria" />
+									<codes>
+										<code code="49650001" codeSystemName="SNOMED-CT"
+											codeSystem="2.16.840.1.113883.6.96" />
+									</codes>
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Urinary Frequency" />
+									<codes>
+										<code code="300471006" codeSystemName="SNOMED-CT"
+											codeSystem="2.16.840.1.113883.6.96" />
+									</codes>
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Urinary Urgency" />
+									<codes>
+										<code code="75088002" codeSystemName="SNOMED-CT"
+											codeSystem="2.16.840.1.113883.6.96" />
+									</codes>
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Hematuria" />
+									<codes>
+										<code code="34436003" codeSystemName="SNOMED-CT"
+											codeSystem="2.16.840.1.113883.6.96" />
+									</codes>
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Flank Pain" />
+									<codes>
+										<code code="247355005" codeSystemName="SNOMED-CT"
+											codeSystem="2.16.840.1.113883.6.96" />
+									</codes>
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Vaginal Discharge" />
+									<codes>
+										<code code="271939006" codeSystemName="SNOMED-CT"
+											codeSystem="2.16.840.1.113883.6.96" />
+									</codes>
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Urethral Discharge" />
+									<codes>
+										<code code="9957009" codeSystemName="SNOMED-CT"
+											codeSystem="2.16.840.1.113883.6.96" />
+									</codes>
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Pain Location" />
+							<itemCodes>
+								<itemCode code="Location" codeSystem="EMCode" />
+							</itemCodes>
+							<responseDataType value="String"/>
+							<responseCardinality value="Multiple"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="Suprapubic Area" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Right Flank" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Left Flank" />
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Radiation" />
+							<itemCodes>
+								<itemCode code="Location" codeSystem="EMCode" />
+							</itemCodes>
+							<responseDataType value="String"/>
+							<responseCardinality value="Multiple"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="Penis" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Perineum" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Scrotum" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Right Flank" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Left Flank" />
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Pain Quality" />
+							<itemCodes>
+								<itemCode code="Quality" codeSystem="EMCode" />
+							</itemCodes>
+							<responseDataType value="String"/>
+							<responseCardinality value="Multiple"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="Sharp" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Dull" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Aching" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Burning" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Stinging" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Cramping" />
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Onset Mode" />
+							<itemCodes>
+								<itemCode code="Timing" codeSystem="EMCode" />
+							</itemCodes>
+							<responseDataType value="String"/>
+							<responseCardinality value="Single"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="Gradual" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Sudden" />
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+
+					<actionGroup>
+						<behaviors>
+							<behavior xsi:type="GroupOrganizationBehavior" value="VisualGroup"/>
+						</behaviors>
+						<title value="Onset" />
+						<subElements>
+							<simpleAction xsi:type="CollectInformationAction">
+								<documentationConcept>
+									<displayText value="Quantity" />
+									<itemCodes>
+										<itemCode code="Duration" codeSystem="EMCode" />
+									</itemCodes>
+									<responseDataType value="String"/>
+									<responseCardinality value="Single"/>
+								</documentationConcept>
+							</simpleAction>
+							<simpleAction xsi:type="CollectInformationAction">
+								<documentationConcept>
+									<displayText value="Units" />
+									<responseDataType value="String"/>
+									<responseCardinality value="Single"/>
+									<responseRange xsi:type="ListConstraint"
+										strictSelection="false">
+										<constraintType value="List"/>
+										<item>
+											<value xsi:type="StringLiteral" value="Hour(s) Ago" />
+										</item>
+										<item>
+											<value xsi:type="StringLiteral" value="Day(s) Ago" />
+										</item>
+										<item>
+											<value xsi:type="StringLiteral" value="Week(s) Ago" />
+										</item>
+									</responseRange>
+								</documentationConcept>
+							</simpleAction>
+						</subElements>
+					</actionGroup>
+
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Timing" />
+							<itemCodes>
+								<itemCode code="Timing" codeSystem="EMCode" />
+							</itemCodes>
+							<responseDataType value="String"/>
+							<responseCardinality value="Multiple"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="Constant" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Frequent" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Intermittent" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Daytime" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Nocturnal" />
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+
+					<actionGroup>
+						<behaviors>
+							<behavior xsi:type="GroupOrganizationBehavior" value="VisualGroup"/>
+						</behaviors>
+						<title value="Current Symptom Frequency" />
+						<subElements>
+							<simpleAction xsi:type="CollectInformationAction">
+								<documentationConcept>
+									<displayText value="Quantity" />
+									<itemCodes>
+										<itemCode code="Timing" codeSystem="EMCode" />
+									</itemCodes>
+									<responseDataType value="String"/>
+									<responseCardinality value="Single"/>								</documentationConcept>
+							</simpleAction>
+							<simpleAction xsi:type="CollectInformationAction">
+								<documentationConcept>
+									<displayText value="Units" />
+									<responseDataType value="String"/>
+									<responseCardinality value="Single"/>
+									<responseRange xsi:type="ListConstraint"
+										strictSelection="false">
+										<constraintType value="List"/>
+										<item>
+											<value xsi:type="StringLiteral" value="x Hour" />
+										</item>
+										<item>
+											<value xsi:type="StringLiteral" value="x Day" />
+										</item>
+										<item>
+											<value xsi:type="StringLiteral" value="x Week" />
+										</item>
+										<item>
+											<value xsi:type="StringLiteral" value="x Month" />
+										</item>
+										<item>
+											<value xsi:type="StringLiteral" value="Daily" />
+										</item>
+										<item>
+											<value xsi:type="StringLiteral" value="Weekly" />
+										</item>
+										<item>
+											<value xsi:type="StringLiteral" value="Monthly" />
+										</item>
+									</responseRange>
+								</documentationConcept>
+							</simpleAction>
+						</subElements>
+					</actionGroup>
+
+					<actionGroup>
+						<behaviors>
+							<behavior xsi:type="GroupOrganizationBehavior" value="VisualGroup"/>
+						</behaviors>
+						<title value="Current Symptom Duration" />
+						<subElements>
+							<simpleAction xsi:type="CollectInformationAction">
+								<documentationConcept>
+									<displayText value="Quantity" />
+									<itemCodes>
+										<itemCode code="Duration" codeSystem="EMCode" />
+									</itemCodes>
+									<responseDataType value="String"/>
+									<responseCardinality value="Single"/>
+								</documentationConcept>
+							</simpleAction>
+							<simpleAction xsi:type="CollectInformationAction">
+								<documentationConcept>
+									<displayText value="Units" />
+									<responseDataType value="String"/>
+									<responseCardinality value="Single"/>
+									<responseRange xsi:type="ListConstraint"
+										strictSelection="false">
+										<constraintType value="List"/>
+										<item>
+											<value xsi:type="StringLiteral" value="Minute(s)" />
+										</item>
+										<item>
+											<value xsi:type="StringLiteral" value="Hour(s)" />
+										</item>
+										<item>
+											<value xsi:type="StringLiteral" value="Day(s)" />
+										</item>
+										<item>
+											<value xsi:type="StringLiteral" value="Week(s)" />
+										</item>
+									</responseRange>
+								</documentationConcept>
+							</simpleAction>
+						</subElements>
+					</actionGroup>
+	
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Severity" />
+							<itemCodes>
+								<itemCode code="Severity" codeSystem="EMCode" />
+							</itemCodes>
+							<responseDataType value="String"/>
+							<responseCardinality value="Single"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="Mild" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Moderate" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Severe" />
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Progression" />
+							<itemCodes>
+								<itemCode code="Severity" codeSystem="EMCode" />
+							</itemCodes>
+							<responseDataType value="String"/>
+							<responseCardinality value="Single"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="Worsening" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Unchanged" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Improving" />
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Exacerbating Factors" />
+							<itemCodes>
+								<itemCode code="Modifying Factors" codeSystem="EMCode" />
+							</itemCodes>
+							<responseDataType value="String"/>
+							<responseCardinality value="Multiple"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="Sexual Intercourse" />
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Relieving Factors" />
+							<itemCodes>
+								<itemCode code="Modifying Factors" codeSystem="EMCode" />
+							</itemCodes>
+							<responseDataType value="String"/>
+							<responseCardinality value="Multiple"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="Sitz Baths" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Cranberry Juice" />
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+				</subElements>
+			</actionGroup>
+			<actionGroup>
+				<title value="Current Treatment" />
+				<subElements>
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Current Treatment" />
+							<description value="Current Treatment for UTI" />
+							<itemCodes>
+								<itemCode code="Modifying Factors" codeSystem="EMCode" />
+							</itemCodes>
+							<responseDataType value="String"/>
+							<responseCardinality value="Multiple"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="TMP-SMX" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Nitrofurantoin" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Cephalexin" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Ciprofloxacin" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Levofloxacin" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Doxycycline" />
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+				</subElements>
+			</actionGroup>
+			<actionGroup>
+				<title value="Pertinent History" />
+				<subElements>
+					<actionGroup>
+						<behaviors>
+							<behavior xsi:type="GroupOrganizationBehavior" value="VisualGroup"/>
+						</behaviors>
+						<title value="First Episode" />
+						<subElements>
+							<simpleAction xsi:type="CollectInformationAction">
+								<documentationConcept>
+									<displayText value="Quantity" />
+									<itemCodes>
+										<itemCode code="Duration" codeSystem="EMCode" />
+									</itemCodes>
+									<responseDataType value="String"/>
+									<responseCardinality value="Single"/>
+								</documentationConcept>
+							</simpleAction>
+							<simpleAction xsi:type="CollectInformationAction">
+								<documentationConcept>
+									<displayText value="Units" />
+									<responseDataType value="String"/>
+									<responseCardinality value="Single"/>
+									<responseRange xsi:type="ListConstraint"
+										strictSelection="false">
+										<constraintType value="List"/>
+										<item>
+											<value xsi:type="StringLiteral" value="Week(s) Ago" />
+										</item>
+										<item>
+											<value xsi:type="StringLiteral" value="Month(s) Ago" />
+										</item>
+										<item>
+											<value xsi:type="StringLiteral" value="Years(s) Ago" />
+										</item>
+									</responseRange>
+								</documentationConcept>
+							</simpleAction>
+						</subElements>
+					</actionGroup>
+
+					<actionGroup>
+						<behaviors>
+							<behavior xsi:type="GroupOrganizationBehavior" value="VisualGroup"/>
+						</behaviors>
+						<title value="UTI Frequency" />
+						<subElements>
+							<simpleAction xsi:type="CollectInformationAction">
+								<documentationConcept>
+									<displayText value="Quantity" />
+									<responseDataType value="String"/>
+									<responseCardinality value="Single"/>
+								</documentationConcept>
+							</simpleAction>
+							<simpleAction xsi:type="CollectInformationAction">
+								<documentationConcept>
+									<displayText value="Units" />
+									<responseDataType value="String"/>
+									<responseCardinality value="Single"/>
+									<responseRange xsi:type="ListConstraint"
+										strictSelection="false">
+										<constraintType value="List"/>
+										<item>
+											<value xsi:type="StringLiteral" value="UTIs Past 6 Months" />
+										</item>
+										<item>
+											<value xsi:type="StringLiteral" value="UTIs Past 1 Year" />
+										</item>
+									</responseRange>
+								</documentationConcept>
+							</simpleAction>
+						</subElements>
+					</actionGroup>
+
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Pertinent Medical History" />
+							<itemCodes>
+								<itemCode code="392521001" codeSystem="2.16.840.1.113883.6.96" />
+							</itemCodes>
+							<responseDataType value="String"/>
+							<responseCardinality value="Multiple"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="Diabetes" />
+									<codes>
+										<code code="73211009" codeSystemName="SNOMED-CT"
+											codeSystem="2.16.840.1.113883.6.96" />
+									</codes>
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Impaired Immunity" />
+									<codes>
+										<code code="131145007" codeSystemName="SNOMED-CT"
+											codeSystem="2.16.840.1.113883.6.96" />
+									</codes>
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Chronic Kidney Disease" />
+									<codes>
+										<code code="236425005" codeSystemName="SNOMED-CT"
+											codeSystem="2.16.840.1.113883.6.96" />
+									</codes>
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Urolithiasis" />
+									<codes>
+										<code code="95566004" codeSystemName="SNOMED-CT"
+											codeSystem="2.16.840.1.113883.6.96" />
+									</codes>
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Interstitial Cystitis" />
+									<codes>
+										<code code="197834003" codeSystemName="SNOMED-CT"
+											codeSystem="2.16.840.1.113883.6.96" />
+									</codes>
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="BPH" />
+									<codes>
+										<code code="266569009" codeSystemName="SNOMED-CT"
+											codeSystem="2.16.840.1.113883.6.96" />
+									</codes>
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Risk Factors" />
+							<responseDataType value="String"/>
+							<responseCardinality value="Multiple"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="Sexual Intercourse" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="New Sex Partner" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Estrogen Deficiency" />
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+				</subElements>
+			</actionGroup>
+			<actionGroup>
+				<title value="Evaluation and Treatment History" />
+				<subElements>
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Previous Evaluation Setting" />
+							<itemCodes>
+								<itemCode code="Modifying Factors" codeSystem="EMCode" />
+							</itemCodes>
+							<responseDataType value="String"/>
+							<responseCardinality value="Single"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="This Clinic" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Urgent Care" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Emergency Room" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Evaluated by Me" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Colleague" />
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+
+					<actionGroup>
+						<behaviors>
+							<behavior xsi:type="GroupOrganizationBehavior" value="VisualGroup"/>
+						</behaviors>
+						<title value="Previous Evaluation Timing" />
+						<subElements>
+							<simpleAction xsi:type="CollectInformationAction">
+								<documentationConcept>
+									<displayText value="Quantity" />
+									<itemCodes>
+										<itemCode code="Duration" codeSystem="EMCode" />
+									</itemCodes>
+									<responseDataType value="String"/>
+									<responseCardinality value="Single"/>
+ 								</documentationConcept>
+							</simpleAction>
+							<simpleAction xsi:type="CollectInformationAction">
+								<documentationConcept>
+									<displayText value="Units" />
+									<responseDataType value="String"/>
+									<responseCardinality value="Single"/>
+									<responseRange xsi:type="ListConstraint"
+										strictSelection="false">
+										<constraintType value="List"/>
+										<item>
+											<value xsi:type="StringLiteral" value="Day(s) Ago" />
+										</item>
+										<item>
+											<value xsi:type="StringLiteral" value="Week(s) Ago" />
+										</item>
+										<item>
+											<value xsi:type="StringLiteral" value="Month(s) Ago" />
+										</item>
+										<item>
+											<value xsi:type="StringLiteral" value="Years(s) Ago" />
+										</item>
+									</responseRange>
+								</documentationConcept>
+							</simpleAction>
+						</subElements>
+					</actionGroup>
+
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Presentation" />
+							<responseDataType value="String"/>
+							<responseCardinality value="Multiple"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="Dysuria" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Urinary Frequency" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Urinary Urgency" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Hematuria" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Back Pain" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Fever" />
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+				</subElements>
+			</actionGroup>
+			<actionGroup>
+				<title value="Past Evaluation" />
+				<subElements>
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Past Evaluation" />
+							<description value="Past Evaluation for UTI" />
+							<responseDataType value="String"/>
+							<responseCardinality value="Multiple"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="Urinalysis" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Urine Culture" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="STD Testing" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Pregnancy Test" />
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+				</subElements>
+			</actionGroup>
+			<actionGroup>
+				<title value="Treatment History" />
+				<subElements>
+					<simpleAction xsi:type="CollectInformationAction">
+						<documentationConcept>
+							<displayText value="Past Treatment" />
+							<description value="Past Treatment for UTI" />
+							<responseDataType value="String"/>
+							<responseCardinality value="Multiple"/>
+							<responseRange xsi:type="ListConstraint"
+								strictSelection="false">
+								<constraintType value="List"/>
+								<item>
+									<value xsi:type="StringLiteral" value="TMP-SMX" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Nitrofurantoin" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Cephalexin" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Ciprofloxacin" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Levofloxacin" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="Doxycycline" />
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+				</subElements>
+			</actionGroup>
+		</subElements>
+	</actionGroup>
+</knowledgeDocument>

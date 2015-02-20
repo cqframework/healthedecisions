@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!-- edited with XMLSpy v2013 sp1 (http://www.altova.com) by Bryn Rhodes (Database Consulting Group) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+	<xs:annotation>
+		<xs:documentation>
+			This file defines the behaviors used within knowledge documents.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="enum/behaviortype.xsd"/>
+	<xs:include schemaLocation="expression.xsd"/>
+	<xs:complexType name="Behavior" abstract="true">
+		<xs:annotation>
+			<xs:documentation>A behavior may be specified for a specific action or a group of actions.   This is the base type for all Behaviors.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="value"/>
+	</xs:complexType>
+	<xs:complexType name="Behaviors">
+		<xs:sequence>
+			<xs:element name="behavior" type="Behavior" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GroupSelectionBehavior">
+		<xs:annotation>
+			<xs:documentation>For a group of actions, specifies the number of actions that may be chosen by an end user.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="Behavior">
+				<xs:attribute name="value" type="GroupSelectionBehaviorType"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GroupOrganizationBehavior">
+		<xs:annotation>
+			<xs:documentation>For a group of actions, specifies the organizational intent of the grouping.   This is meant to provide a hint to the system which displays the group of actions to an end user.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="Behavior">
+				<xs:attribute name="value" type="GroupOrganizationBehaviorType"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RequiredBehavior">
+		<xs:annotation>
+			<xs:documentation>For a single action, specifies what level of requiredness is associated with the action.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="Behavior">
+				<xs:attribute name="value" type="RequiredBehaviorType"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PrecheckBehavior">
+		<xs:annotation>
+			<xs:documentation>For a particular action, specifies how often the action is expected to be selected in the particular context of the group containing that action.  In general, depending on the group selection behavior, there may be zero, one or more actions which are frequently selected.  This setting can serve as a hint to the system that displays the action to the end user: some systems will pre-select those actions which are (or should be) most frequently selected.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="Behavior">
+				<xs:attribute name="value" type="PrecheckBehaviorType"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

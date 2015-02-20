@@ -1,0 +1,30 @@
+The following steps must be taken to update the classes that represent the various schemas used within the HeD Schema Framework.
+
+NOTE: This process makes use of Xsd2Code.exe, an open source C# class generator for XSD schemas: http://xsd2code.codeplex.com/
+
+vMR Schema:
+
+1) Copy the vMR schema folders into the main schema folder, retaining the folder structure:
+
+- common\datatypes.xsd
+- cdsInput\cdsInput.xsd
+- cdsInput\cdsInputSpecification.xsd
+- cdsOutput\cdsOutput.xsd
+- cdsOutput\cdsOutputSpecification.xsd
+- vmr\vmr.xsd
+
+2) Run GenerateModelClasses.bat in the common folder to generate the datatypes.cs file. Move the generated file to:
+src\framework\HeDEngine\Model
+
+3) Run GenerateModelClasses.bat in the vmr folder to generate the vmr.cs file. Move the generated file to:
+src\framework\vMR.Model
+
+4) Run GenerateModelClasses.bat in the cdsInput folder to generate the cdsInput.cs file. Move the generated file to:
+src\framework\vMR.Model
+
+HeD Schema:
+
+1) Run GenerateModelClasses.bat in the knowledgeartifact folder to generate the action.cs file. Move the generated file to:
+src\dss\HeD.Model
+
+NOTE: Running GenerateModelClasses.bat on the schema results in an error when parsing in to the xhtml schema. The file appears to be valid schema (according to XMLSpy anyway) so it seems like this is a bug in the Xsd2Code executable. The workaround is to comment out the xhtml reference in base.xsd, and the reference to the div tag in the InlineResource type.

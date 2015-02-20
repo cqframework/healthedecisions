@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+	<xs:annotation>
+		<xs:documentation>
+			This file defines the ContributorType enumeration.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="ContributorType">
+		<xs:annotation>
+			<xs:documentation>Enumeration of roles that contribute to the development and maintenance of a knowledge artifact.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Author"/>
+			<xs:enumeration value="Editor"/>
+			<xs:enumeration value="Endorser"/>
+			<xs:enumeration value="Reviewer"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FB9F3A53-B08F-4B2C-8A79-1E028651A7D6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HeDSchema</RootNamespace>
+    <AssemblyName>HeDSchema</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="examples\CorticoSteroidInhalerReminder.pdf" />
+    <None Include="examples\FLACCScale.pdf" />
+    <None Include="examples\HeartFailureAdmissionToMedSurgOrderSet.pdf" />
+    <None Include="examples\HL7IG_CDS_KNART_R1_D1_2013JAN_Example_Overview.docx" />
+    <None Include="examples\newMentor_HeD_NQF0068_ECArule_example.pdf" />
+    <None Include="examples\PHQ - Questions.pdf" />
+    <None Include="examples\UTI_HPI_Sample.pdf" />
+    <None Include="main\docs\Arden Mapping.docx" />
+    <None Include="main\docs\ArtifactLifeCycleStateDiagram.pptx" />
+    <None Include="main\docs\Behavior.docx" />
+    <None Include="main\docs\Data Mapping for Clinical Decision Support.docx" />
+    <None Include="main\docs\Expressions.docx" />
+    <None Include="main\docs\Trigger.docx" />
+    <None Include="main\docs\vmr.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schematron\documentationtemplates.sch" />
+    <None Include="main\schematron\ecarules.sch" />
+    <None Include="main\schematron\knowledgeartifact.sch" />
+    <None Include="main\schematron\ordersets.sch" />
+    <None Include="main\schema\action.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\actor.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\base.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\behavior.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\catalogitem.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\clinicalexpression.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\condition.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\criteria.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\datatypes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\artifactlifecycleeventtype.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\artifactlifecycleeventtypecore.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\artifactstatustype.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\artifactstatustypecore.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\artifacttype.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\artifacttypecore.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\behaviortype.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\behaviortypecore.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\cardinalitytype.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\conditionroletype.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\conditionroletypecore.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\contributortype.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\contributortypecore.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\criterionroletype.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\criterionroletypecore.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\coveragetype.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\coveragetypecore.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\dataeventtype.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\dataeventtypecore.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\eventtype.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\eventtypecore.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\rangeconstrainttype.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\rangeconstrainttypecore.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\resourcerelationshiptype.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\resourcerelationshiptypecore.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\valuetype.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\enum\valuetypecore.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\expression.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\extdatatypes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\ext\artifactlifecycleeventtypeext.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\ext\artifactstatustypeext.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\ext\artifacttypeext.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\ext\behaviortypeext.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\ext\conditionroletypeext.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\ext\contributortypeext.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\ext\coveragetypeext.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\ext\dataeventtypeext.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\ext\eventtypeext.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\ext\rangeconstrainttypeext.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\ext\resourcerelationshiptypeext.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\ext\valuetypeext.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\knowledgedocument.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\literalexpression.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\measuredocument.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\metadata.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="main\schema\xhtml1-strict.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="test\ComplexMedExamples.ppt" />
+    <None Include="test\ExampleIndex.xlsx" />
+    <None Include="test\ExpressionHarness.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="test\extschema\vmr.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="examples\DopamineComplexIVOrderWithComplexLiteral.xml" />
+    <Content Include="examples\HeartFailureAdmissionToMedSurg.HQMF.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="examples\NQF0024A_NQF0421.xml" />
+    <Content Include="examples\NQF68.HQMF.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="test\CMS117v1.HQMF.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="test\CMS61v2.HQMF.xml" />
+    <Content Include="test\NQF-0038-HeD-eMeasure.xml" />
+    <Content Include="examples\RespiratoryOrderWithComplexLiteral.xml" />
+    <Content Include="examples\CorticoSteroidInhalerReminder.xml" />
+    <Content Include="examples\DopamineComplexIVOrder.xml" />
+    <Content Include="examples\FLACC_DocTemplate.xml" />
+    <Content Include="examples\HeartFailureAdmissionToMedSurgOrderSet.xml" />
+    <Content Include="examples\newMentor_HeD_NQF0068_ECArule_example.xml" />
+    <Content Include="examples\PHQ9_DocTemplate.xml" />
+    <Content Include="examples\RegularInsulinSlidingScaleRegime.xml" />
+    <Content Include="examples\RespiratoryOrder.xml" />
+    <Content Include="examples\UTI_DocTemplate.xml" />
+    <Content Include="test\ArdenMappingWorksheet.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="test\CancelOrdersRule.xml" />
+    <Content Include="test\ComplexMedOrderables.xml" />
+    <Content Include="test\CompositeOrderableExample_InsulinSlidingScale_Auto.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="test\CompositeOrderableExample_InsulinSlidingScale_Manual.xml" />
+    <Content Include="test\CompositeOrderableExample_TPN.xml" />
+    <Content Include="test\DiabetesReminderRule.xml" />
+    <Content Include="test\DocumentationItemTest.xml" />
+    <Content Include="test\expression-schema-notes.txt" />
+    <Content Include="test\Expression-Test.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="test\HgbA1c_Timing.ArdenML.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="test\HgbA1c_Timing.HeDS.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="test\newMentor_HeD_CAP_orderset_example.xml" />
+    <Content Include="test\NQF59.HeDS.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="test\TestECAArtifact.xml" />
+    <Content Include="test\TriggerExample.xml" />
+    <Content Include="test\zynxOS3.xml" />
+    <Content Include="test\zynxOS4.xml" />
+    <Content Include="test\zynxOS5.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="main\model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

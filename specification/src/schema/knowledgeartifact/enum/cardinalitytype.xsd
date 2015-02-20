@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+	<xs:annotation>
+		<xs:documentation>
+			This file defines the Cardinality enumeration.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="Cardinality">
+		<xs:annotation>
+			<xs:documentation>
+				Cardinality defines the expected cardinality of an element, single
+				or multiple.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Single"/>
+			<xs:enumeration value="Multiple"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

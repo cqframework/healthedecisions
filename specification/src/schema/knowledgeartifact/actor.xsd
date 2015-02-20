@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- edited with XMLSpy v2013 sp1 (http://www.altova.com) by Bryn Rhodes (Database Consulting Group) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:annotation>
+		<xs:documentation>
+			This file defines the Actor type.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="expression.xsd"/>
+	<xs:complexType name="Actor">
+		<xs:annotation>
+			<xs:documentation>An actor is an entity responsible for the execution of an action.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="actor" type="Expression">
+				<xs:annotation>
+					<xs:documentation>The expression must evaluate to one of the following:
+1. CD or a List of CD. In this case, the actor defines the role or roles of entities to execute the action.
+2. II or a List of II. In this case, the actor defines entities, such as a provider or a team.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2013 sp1 (http://www.altova.com) by Bryn Rhodes (Veracity Solutions) -->
+<!--
+	HeD Schema Framework
+	Copyright (c) 2012 - 2013 Office of the National Coordinator for Health Information Technology (ONC)
+	This file is licensed under a modified BSD-license which can be found in the HED_License.txt file included with this distribution.
+-->
+<!-- 
+	Handler maps are used within the HeD Schema Framework to provide integration points for implementing and extending functionality.
+	This schema defines the basic structure of a handler map, as well as the types of handlers that are defined within the framework.
+	For each type of handler, an associated interface is defined within the framework to enable implementation of that functionality type.
+	For example, the Verification handler map defines classes that are expected to implement the INodeVerifier interface to provide semantic
+	verification for the various types of nodes within an HeD Artifact.
+-->
+<xs:schema xmlns="urn:hl7-org:knowledgeartifact:r1:engine" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:hl7-org:knowledgeartifact:r1:engine" elementFormDefault="qualified" id="HandlerMap">
+	<xs:complexType name="Entry">
+		<xs:attribute name="key" type="xs:string" use="required"/>
+		<xs:attribute name="value" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Map">
+		<xs:sequence>
+			<xs:element name="entry" type="Entry" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="handlerType" type="HandlerType"/>
+	</xs:complexType>
+	<xs:simpleType name="HandlerType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ModuleRegistration"/>
+			<xs:enumeration value="TypeResolution"/>
+			<xs:enumeration value="Verification"/>
+			<xs:enumeration value="Evaluation"/>
+			<xs:enumeration value="Translation"/>
+			<xs:enumeration value="NodeTranslation"/>
+			<xs:enumeration value="ModelTranslation"/>
+			<xs:enumeration value="Writing"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="map" type="Map"/>
+</xs:schema>

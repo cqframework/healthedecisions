@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<map xmlns="urn:hl7-org:knowledgeartifact:r1:engine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1:engine HandlerMap.xsd" handlerType="TypeResolution">
+	<entry key="DateGranularity" value="HeD.Engine.Verification.ScalarTypeResolver"/>
+	<entry key="http://www.w3.org/2001/XMLSchema-instance:boolean" value="HeD.Engine.Verification.BooleanTypeResolver"/>
+	<entry key="http://www.w3.org/2001/XMLSchema-instance:int" value="HeD.Engine.Verification.IntegerTypeResolver"/>
+	<entry key="http://www.w3.org/2001/XMLSchema-instance:string" value="HeD.Engine.Verification.StringTypeResolver"/>
+	<entry key="http://www.w3.org/2001/XMLSchema-instance:float" value="HeD.Engine.Verification.RealTypeResolver"/>
+	<entry key="http://www.w3.org/2001/XMLSchema-instance:double" value="HeD.Engine.Verification.RealTypeResolver"/>
+	<entry key="http://www.w3.org/2001/XMLSchema-instance:decimal" value="HeD.Engine.Verification.RealTypeResolver"/>
+	<entry key="http://www.w3.org/2001/XMLSchema-instance:dateTime" value="HeD.Engine.Verification.TimestampTypeResolver"/>
+	<!--entry key="http://www.w3.org/2001/XMLSchema-instance:anyURI" value="HeD.Engine.Verification.UrlTypeResolver"/-->
+	<!-- Namespace level model type resolver for all HeD data types. -->
+	<entry key="urn:hl7-org:cdsdt:r2" value="HeD.Model.HeDModelTypeResolver"/>
+	<!-- Specific type overrides for primitive types in the HeD namespace -->
+	<entry key="urn:hl7-org:cdsdt:r2:BL" value="HeD.Engine.Verification.BooleanTypeResolver"/>
+	<entry key="urn:hl7-org:cdsdt:r2:INT" value="HeD.Engine.Verification.IntegerTypeResolver"/>
+	<entry key="urn:hl7-org:cdsdt:r2:REAL" value="HeD.Engine.Verification.RealTypeResolver"/>
+	<entry key="urn:hl7-org:cdsdt:r2:ST" value="HeD.Engine.Verification.StringTypeResolver"/>
+	<entry key="urn:hl7-org:cdsdt:r2:TS" value="HeD.Engine.Verification.TimestampTypeResolver"/>
+	<entry key="Boolean" value="HeD.Engine.Verification.BooleanTypeResolver"/>
+	<entry key="Code" value="HeD.Engine.Verification.CodeTypeResolver"/>
+	<entry key="CodedOrdinal" value="HeD.Engine.Verification.CodedOrdinalTypeResolver"/>
+	<entry key="EntityName" value="HeD.Engine.Verification.EntityNameTypeResolver"/>
+	<entry key="Identifier" value="HeD.Engine.Verification.IdentifierTypeResolver"/>
+	<entry key="Integer" value="HeD.Engine.Verification.IntegerTypeResolver"/>
+	<entry key="IntegerInterval" value="HeD.Engine.Verification.IntegerIntervalTypeResolver"/>
+	<entry key="Period" value="HeD.Engine.Verification.PeriodTypeResolver"/>
+	<entry key="PhysicalQuantity" value="HeD.Engine.Verification.PhysicalQuantityTypeResolver"/>
+	<entry key="PhysicalQuantityInterval" value="HeD.Engine.Verification.PhysicalQuantityIntervalTypeResolver"/>
+	<entry key="QuantityInterval" value="HeD.Engine.Verification.QuantityIntervalTypeResolver"/>
+	<entry key="Ratio" value="HeD.Engine.Verification.RatioTypeResolver"/>
+	<entry key="Real" value="HeD.Engine.Verification.RealTypeResolver"/>
+	<entry key="RealInterval" value="HeD.Engine.Verification.RealIntervalTypeResolver"/>
+	<entry key="String" value="HeD.Engine.Verification.StringTypeResolver"/>
+	<entry key="Timestamp" value="HeD.Engine.Verification.TimestampTypeResolver"/>
+	<entry key="TimestampInterval" value="HeD.Engine.Verification.TimestampIntervalTypeResolver"/>
+	<entry key="URL" value="HeD.Engine.Verification.URLTypeResolver"/>
+	<!-- Namespace-level model type resolver for the vMR -->
+	<entry key="org.opencds.vmr.v1_0.schema.vmr" value="vMR.Model.vMRModelTypeResolver,vMR.Model"/>
+	<entry key="urn:hl7-org:vmr:r2" value="vMR.Model.vMRModelTypeResolver,vMR.Model"/>
+
+</map>

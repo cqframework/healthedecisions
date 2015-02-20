@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+	<xs:annotation>
+		<xs:documentation>
+			This file defines the root knowledge document type and element.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="metadata.xsd"/>
+	<xs:include schemaLocation="clinicalexpression.xsd"/>
+	<xs:include schemaLocation="action.xsd"/>
+	<xs:include schemaLocation="condition.xsd"/>
+	<xs:include schemaLocation="trigger.xsd"/>
+	<xs:element name="knowledgeDocument" type="KnowledgeDocument">
+		<xs:annotation>
+			<xs:documentation>knowledgeDocument represents a serialized Clinical Decision Support (CDS) knowledge artifact. It is intended to define a general serialization format for an Order Set, a Event-Condition-Action (ECA) Rule, and a Document Template. Given the general intended purpose for this schema, it is important to note that the serialization of a given CDS artifact is defined by both this schema, in conjunction with a template defining artifact-specific constraints. For additional information on these artifact-specific constraints, please refer to the Implementation Guide.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="KnowledgeDocument">
+		<xs:annotation>
+			<xs:documentation>A knowledge document is an instance of a CDS
+				knowledge artifact such as a rule, an order set, or a documentation
+				template
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="metadata" type="Metadata" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The metadata section of the knowledge document defines the core metadata associated with this CDS knowledge artifact such as (1) the unique identifier for this artifact, (2) the unique identifier for its associated template(s), (3) the title and description of the artifact, (4) the status and history of the artifact, (5) any relevant entities associated with this artifact, and (6) information needed to categorize and retrieve the artifact.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- Probably should constrain using schematron the expression type to 
+				Request -->
+			<xs:element name="externalData" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The externalData section allows a CDS artifact author to define 'named expressions' to fetch information from an external source and bind this information to the 'context' of the knowledge artifact for later reference by the logic modules (e.g., the condition for the knowledge artifact or actions). It is the responsibility of the implementation to determine the nature of this boundary and how to fetch this information. For instance, one may write an expression to retrieve from a patient vMR the age of a patient or a list of clinical problems whose problem code are contained in a given ICD-9 value set. The age value and the list of patient problems may then be used in the 'condition' section of the same knowledge artifact to determine the applicability of the knowledge document to the given patient.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="parameter" type="ParameterDef" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>The parameter element define a parameters for the knowledge document. Parameters are expected to be provided by the caller when an evaluation is performed. Parameters can be referenced within any expression using a ParameterRef expression.
+
+For instance, one may define a MonthThreshold parameter, and use this parameter to determine whether the span of time that has elapsed since the last A1C has been performed warrants the elicitation of a reminder.
+
+
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="def" type="ExpressionDef" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>The named expression used to retrieve external data. For instance, an expression to retrieve patient demographic data or a set of SNOMED-CT codes subsumed by another SNOMED-CT code from a terminology server.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="expressions" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The expressions section allows a CDS artifact author to define 'named expressions' that can be referenced anywhere within expressions in the artifact. This allows expression logic to be reused, as well as to be organized for readability and maintainability.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="def" type="ExpressionDef" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="triggers" type="Triggers" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The triggers section defines the list of all triggers that 'activate' or 'trigger' the CDS knowledge artifact. For instance, opening a patient record may trigger a rule to execute if the conditions of the rule are met. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="conditions" type="Conditions" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The conditions section lists all conditions that pertain to the knowledge artifact. Conditions define the logic that determine the applicability of the artifact in the given context, any precondition or post condition, and/or any inclusion and exclusion criteria for the given CDS artifact.  Conditions are structured as expressions to be evaluated in the target system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="behaviors" type="Behaviors" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The behaviors section defines the set of behaviors for this knowledge document.  While there are no artifact-level behaviors defined at this time, this element is included as a point of extension, should it be needed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- actions -->
+			<xs:element name="actionGroup" type="ActionGroup" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The actionGroups is essentially the top-level container for the groups of actions that make up a given knowledge document. This container defines the main content of the knowledge artifact: logical grouping constructs such as the clinical sections and orderables in an order set, the tasks to be performed by a rule, or the sections and menu choices that make up a document template. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

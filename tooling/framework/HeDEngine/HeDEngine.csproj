@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DE75F0A0-3755-4D35-886B-C0B53C95980A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HeD.Engine</RootNamespace>
+    <AssemblyName>HeDEngine</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\Artifact.cs" />
+    <Compile Include="Model\DataType.cs" />
+    <Compile Include="Model\datatypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\ExpressionDef.cs" />
+    <Compile Include="Model\Extensions.cs" />
+    <Compile Include="Model\HandlerFactory.cs" />
+    <Compile Include="Model\HandlerType.cs" />
+    <Compile Include="Model\HeDModelTypeResolver.cs" />
+    <Compile Include="Model\ModelRef.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\Operator.cs" />
+    <Compile Include="Model\RequestCardinality.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\Symbol.cs" />
+    <Compile Include="Reading\ArtifactReader.cs" />
+    <Compile Include="Model\Node.cs" />
+    <Compile Include="Reading\NodeReader.cs" />
+    <Compile Include="Model\HandlerMap.cs" />
+    <Compile Include="Model\ParameterDef.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reading\Extensions.cs" />
+    <Compile Include="Reading\MapReader.cs" />
+    <Compile Include="Translation\ArtifactTranslatorFactory.cs" />
+    <Compile Include="Translation\IArtifactTranslator.cs" />
+    <Compile Include="Translation\IModelTranslator.cs" />
+    <Compile Include="Translation\INodeTranslator.cs" />
+    <Compile Include="Translation\ModelTranslatorFactory.cs" />
+    <Compile Include="Translation\NodeTranslatorFactory.cs" />
+    <Compile Include="Translation\TranslationContext.cs" />
+    <Compile Include="Verification\ArtifactVerifier.cs" />
+    <Compile Include="Verification\BaseModuleRegistrar.cs" />
+    <Compile Include="Verification\IModuleRegistrar.cs" />
+    <Compile Include="Verification\INodeVerifier.cs" />
+    <Compile Include="Verification\IOperatorHandler.cs" />
+    <Compile Include="Verification\ITypeResolver.cs" />
+    <Compile Include="Verification\ModuleRegistrarFactory.cs" />
+    <Compile Include="Verification\OperatorHandlerFactory.cs" />
+    <Compile Include="Verification\OperatorHandlers.cs" />
+    <Compile Include="Verification\StringExtensions.cs" />
+    <Compile Include="Verification\TypeResolvers.cs" />
+    <Compile Include="Verification\TypeResolverFactory.cs" />
+    <Compile Include="Verification\VerificationContext.cs" />
+    <Compile Include="Verification\VerificationException.cs" />
+    <Compile Include="Verification\Verifier.cs" />
+    <Compile Include="Verification\NodeVerifierFactory.cs" />
+    <Compile Include="Verification\Verifiers.cs" />
+    <Compile Include="Writing\ArtifactWriterFactory.cs" />
+    <Compile Include="Writing\IArtifactWriter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Runtime\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Maps\HandlerMap.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Maps\ModuleMap.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Maps\VerificationHandlerMap.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Maps\TypeHandlerMap.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

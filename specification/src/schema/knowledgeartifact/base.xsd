@@ -1,0 +1,325 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+	<xs:annotation>
+		<xs:documentation>
+			This file defines the base types used in defining knowledge artifacts.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:hl7-org:cdsdt:r2" schemaLocation="../common/datatypes.xsd"/>
+	<xs:import namespace="http://www.w3.org/1999/xhtml" schemaLocation="../common/xhtml1-strict.xsd"/>
+	<xs:include schemaLocation="enum/resourcerelationshiptype.xsd"/>
+	<xs:complexType name="SupportingEvidence">
+		<xs:annotation>
+			<xs:documentation>The evidence grade and the sources of evidence
+				associated with this artifact.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="evidence" type="Evidence" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A single evidence reference.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SupportingResource">
+		<xs:annotation>
+			<xs:documentation>Didactic or other informational resources
+				associated with the artifact that can be provided to the CDS
+				recipient. Information resources can include inline text commentary
+				and links to web resources.Note, supporting resources excludes
+				supporting evidence. For supporting evidence, use
+				SupportingEvidence.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="resource" type="KnowledgeResource" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>An individual supporting resource.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Party" abstract="true">
+		<xs:annotation>
+			<xs:documentation>Party represents the abstract base type for entities that have addresses and contact information. It is intended to be extended and specialized by the Person and Organization concept. Note that Party allows for polymorphism using the xsi:type construct. For instance, by defining a 'contributor' to be of type 'Party', one allows the contributor to be either a person or a company (its derived types).
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="addresses" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The set of addresses associated with this entity.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="address" type="dt:AD" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>An individual address of type AD associated with this entity.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="contacts" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The set of contact information associated with this entity.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="contact" type="dt:TEL" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>An individual contact item of type TEL associated with this entity.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Organization">
+		<xs:annotation>
+			<xs:documentation>Identifies an organization, a corporation, an institution, or a government department that has relevance to the knowledge artifact. Note that organization extends Party by adding a name attribute of type ST.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="Party">
+				<xs:sequence>
+					<xs:element name="name" type="dt:ST">
+						<xs:annotation>
+							<xs:documentation>The name of the organization.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Person">
+		<xs:annotation>
+			<xs:documentation>Identifies a person who is associated with the knowledge artifact. A person may be a contributor, a rights holder, a publisher, and so on. Person extends party by adding a person name attribute and an affiliation. Note, Person.name should be constrained to be of type EN.PN
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="Party">
+				<xs:sequence>
+					<xs:element name="name" type="dt:EN">
+						<xs:annotation>
+							<xs:documentation>The name of the person.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="affiliation" type="Organization" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The organizational affiliation for this person.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ResourceRelationshipReference">
+		<xs:annotation>
+			<xs:documentation>ResourceRelationshipReference defines the
+				association between a resource and a resource set. If one consider
+				such relationship as a triple (subject-predicate-object or
+				node-arc-node) with the source entity as the subject of the triple,
+				then ResourceRelationshipType defines the predicate and the object
+				of this relationship.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="relationship">
+				<xs:annotation>
+					<xs:documentation>Relationship defines the association between two
+						resources - i.e., the predicate/arc of a triple. The object of the
+						relationship is often a pre-existing resource that predates the
+						subject of the relationship. This predicate can be one of six
+						types: (1) AdaptedFrom - the subject was adapted from the object
+						of the relationship. For instance, a diabetes visit order set may
+						be adapted from the HbA1c reminder (2) AssociatedResource - the
+						object is associated with the subject. For instance, an HbA1c
+						reminder may be associated with an HbA1c eMeasure (3) DependsOn -
+						the subject depends on the object. For instance, an HbA1c reminder
+						may depend on a Diabetes Value Set (4) DerivedFrom - the subject
+						was derived from the object. For instance, an HbA1c reminder rule
+						may be derived from a Diabetes Guideline (5) SimilarTo - the
+						subject and object are similar. For instance, an HbA1c reminder
+						may be similar to an LDL reminder and (6) VersionOf - the subject
+						is a version of the object (and vice-versa). For instance, the
+						HbA1c reminder v2 may be a version of the HbA1c reminder v1.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="value" type="ResourceRelationshipType" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="resources" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The set of resources associated with the subject
+						of this relationship.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="resource" type="KnowledgeResource" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>An associated resource instance.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="InlineResource">
+		<xs:annotation>
+			<xs:documentation>An Inline Resource consists of both the resource
+				reference information and the actual resource content/payload to be
+				inserted inline. The content of the document must be represented in
+				valid xhtml format within the content/div node.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="KnowledgeResource">
+				<xs:sequence>
+					<xs:element name="content" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The document content in xhtml format.
+							</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="xhtml:div"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Evidence">
+		<xs:annotation>
+			<xs:documentation>Reference to research on which the artifact is
+				based. This evidence can be 'graded' depending on its quality and
+				pedigree and the strength of the recommendations it makes.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qualityOfEvidence" type="dt:CD" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The quality of the evidence associated with this
+						artifact. The codeSystem attribute specifies the quality scale
+						used to grade this evidence source while the code specifies the
+						actual quality score (represented as a coded value) associated
+						with this evidence reference. CodeSystemName specifies the name of
+						the scale. DisplayName specifies the display name of the coded
+						value (the score).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="strengthOfRecommendation" type="dt:CD" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The strength of the recommendation assigned to
+						this reference. The codeSystem attribute specifies the scale used
+						to grade this evidence source while the code specifies the actual
+						score (represented as a coded value) for the strength of the
+						evidence. CodeSystemName specifies the name of the scale.
+						DisplayName specifies the display name of the coded value (the
+						score).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="resources" type="SupportingResource" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The set of resource references associated with
+						the evidence.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="KnowledgeResource">
+		<xs:annotation>
+			<xs:documentation>KnowledgeResource specifies a reference to an
+				associated resource of relevance to the artifact such as a
+				guideline, a performance measure, another knowledge artifact, or a
+				source of evidence for the artifact.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identifiers" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The set of unique identifiers for this resource.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="identifier" type="VersionedIdentifier">
+							<xs:annotation>
+								<xs:documentation>A unique resource identifier.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="templateIds" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The set of unique identifiers for the templates
+						associated with this resource.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="templateId" type="dt:II">
+							<xs:annotation>
+								<xs:documentation>A unique identifier for the template
+									associated with this resource. Templates are used to constrain
+									the resource model. For more information on this process,
+									please refer to the implementation guide.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="title" type="dt:ST" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The title of the document</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="location" type="dt:TEL" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The URL of the given resource.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="dt:ST" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A short textual description of the resource.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="citation" type="dt:ST" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The resource citation.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VersionedIdentifier">
+		<xs:annotation>
+			<xs:documentation>VersionedIdentifier is composed of two parts: (1)
+				an II identifier which identifies the set of all versions of a given
+				resource. (2) the actual version of the instance of interest in this
+				set. The VersionedIdentifier therefore points to an individual
+				'versioned' instance of a resource such as the third version of a
+				reminder rule.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="dt:II">
+				<xs:attribute name="version" type="xs:string"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

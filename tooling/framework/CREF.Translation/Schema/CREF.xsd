@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://schemas.allscripts.com/cds/evaluation" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mombt="urn:Allscripts:mombt" xmlns:cds="http://schemas.allscripts.com/mom" xmlns:am="http://schema.allscripts.com/mom" targetNamespace="http://schemas.allscripts.com/cds/evaluation" elementFormDefault="qualified">
+	<xs:import namespace="urn:Allscripts:mombt" schemaLocation="MomTypesBase.xsd"/>
+	<xs:import namespace="http://schemas.allscripts.com/mom" schemaLocation="CDSMessages.xsd"/>
+	<xs:element name="DynamicRule" type="DynamicRule"/>
+	<xs:complexType name="DynamicRule">
+		<xs:sequence>
+			<xs:element name="DynamicRule.NamedExpressions" type="NamedExpressions" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="DynamicRule.Criteria" minOccurs="1" maxOccurs="1">
+				<xs:complexType>
+					<xs:choice minOccurs="1" maxOccurs="1">
+						<xs:element name="BinaryExpression" type="BinaryExpression"/>
+						<xs:element name="CalculateAge" type="CalculateAge"/>
+						<xs:element name="Choice" type="Choice"/>
+						<xs:element name="Coalesce" type="Coalesce"/>
+						<xs:element name="Code" type="Code"/>
+						<xs:element name="Condition" type="Condition"/>
+						<xs:element name="DateAdd" type="DateAdd"/>
+						<xs:element name="DateDiff" type="DateDiff"/>
+						<xs:element name="DatePart" type="DatePart"/>
+						<xs:element name="DateRange" type="DateRange"/>
+						<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+						<xs:element name="ExpressionReference" type="ExpressionReference"/>
+						<xs:element name="FilterExpression" type="FilterExpression"/>
+						<xs:element name="IndexerExpression" type="IndexerExpression"/>
+						<xs:element name="ListExpression" type="ListExpression"/>
+						<xs:element name="LogicalConnective" type="LogicalConnective"/>
+						<xs:element name="ParameterExpression" type="ParameterExpression"/>
+						<xs:element name="PropertyExpression" type="PropertyExpression"/>
+						<xs:element name="RequestExpression" type="RequestExpression"/>
+						<xs:element name="SortExpression" type="SortExpression"/>
+						<xs:element name="Today" type="Today"/>
+						<xs:element name="UnaryExpression" type="UnaryExpression"/>
+						<xs:element name="UnionExpression" type="UnionExpression"/>
+						<xs:element name="ValueExpression" type="ValueExpression"/>
+						<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DynamicRule.Assertion" minOccurs="1" maxOccurs="1">
+				<xs:complexType>
+					<xs:choice minOccurs="1" maxOccurs="1">
+						<xs:element name="ClinicalAssertion" type="cds:ClinicalAssertion" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="OutOfRangeAssertion" type="cds:OutOfRangeAssertion" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="MissingDataAssertion" type="cds:MissingDataAssertion" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="CompositeAssertion" type="cds:CompositeAssertion" minOccurs="0" maxOccurs="1"/>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Name" type="xs:string"/>
+		<xs:attribute name="Description" type="xs:string"/>
+		<xs:attribute name="SeverityID" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="NamedExpressions">
+		<xs:sequence>
+			<xs:element name="NamedExpression" type="NamedExpression" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NamedExpression">
+		<xs:choice>
+			<xs:element name="BinaryExpression" type="BinaryExpression"/>
+			<xs:element name="CalculateAge" type="CalculateAge"/>
+			<xs:element name="Choice" type="Choice"/>
+			<xs:element name="Coalesce" type="Coalesce"/>
+			<xs:element name="Code" type="Code"/>
+			<xs:element name="Condition" type="Condition"/>
+			<xs:element name="DateAdd" type="DateAdd"/>
+			<xs:element name="DateDiff" type="DateDiff"/>
+			<xs:element name="DatePart" type="DatePart"/>
+			<xs:element name="DateRange" type="DateRange"/>
+			<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+			<xs:element name="ExpressionReference" type="ExpressionReference"/>
+			<xs:element name="FilterExpression" type="FilterExpression"/>
+			<xs:element name="IndexerExpression" type="IndexerExpression"/>
+			<xs:element name="ListExpression" type="ListExpression"/>
+			<xs:element name="LogicalConnective" type="LogicalConnective"/>
+			<xs:element name="ParameterExpression" type="ParameterExpression"/>
+			<xs:element name="PropertyExpression" type="PropertyExpression"/>
+			<xs:element name="RequestExpression" type="RequestExpression"/>
+			<xs:element name="SortExpression" type="SortExpression"/>
+			<xs:element name="Today" type="Today"/>
+			<xs:element name="UnaryExpression" type="UnaryExpression"/>
+			<xs:element name="UnionExpression" type="UnionExpression"/>
+			<xs:element name="ValueExpression" type="ValueExpression"/>
+			<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+		</xs:choice>
+		<xs:attribute name="Name" type="xs:string"/>
+	</xs:complexType>
+	<xs:simpleType name="BinaryOperator">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="opAnd"/>
+			<xs:enumeration value="opOr"/>
+			<xs:enumeration value="opXor"/>
+			<xs:enumeration value="opLess"/>
+			<xs:enumeration value="opGreater"/>
+			<xs:enumeration value="opLessOrEqual"/>
+			<xs:enumeration value="opGreaterOrEqual"/>
+			<xs:enumeration value="opEqual"/>
+			<xs:enumeration value="opNotEqual"/>
+			<xs:enumeration value="opAdd"/>
+			<xs:enumeration value="opSubtract"/>
+			<xs:enumeration value="opMultiply"/>
+			<xs:enumeration value="opDivide"/>
+			<xs:enumeration value="opPower"/>
+			<xs:enumeration value="opMod"/>
+			<xs:enumeration value="opDiv"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="BinaryExpression">
+		<xs:sequence>
+			<xs:choice minOccurs="2" maxOccurs="2">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="Operator" type="BinaryOperator"/>
+	</xs:complexType>
+	<xs:complexType name="CalculateAge">
+		<xs:sequence>
+			<xs:choice minOccurs="1" maxOccurs="2">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Choice">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Coalesce">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Code">
+		<xs:attribute name="CodeValue" type="xs:string" use="optional"/>
+		<xs:attribute name="CodeDescription" type="xs:string" use="optional"/>
+		<xs:attribute name="CodeType" type="xs:string" use="optional"/>
+		<xs:attribute name="CodingSystem" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Condition">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DateAdd">
+		<xs:sequence>
+			<xs:choice minOccurs="1" maxOccurs="2">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="Granularity" type="DateGranularity"/>
+		<xs:attribute name="NumberOfPeriods" type="xs:int"/>
+	</xs:complexType>
+	<xs:complexType name="DateDiff">
+		<xs:sequence>
+			<xs:choice minOccurs="2" maxOccurs="2">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="Granularity" type="DateGranularity"/>
+	</xs:complexType>
+	<xs:simpleType name="DateGranularity">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Year"/>
+			<xs:enumeration value="Month"/>
+			<xs:enumeration value="Week"/>
+			<xs:enumeration value="Day"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="DatePart">
+		<xs:sequence>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="Granularity" type="DateGranularity"/>
+	</xs:complexType>
+	<xs:complexType name="DateRange">
+		<xs:sequence>
+			<xs:choice minOccurs="2" maxOccurs="2">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DateRangeWithin">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="2">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="Granularity" type="DateGranularity"/>
+		<xs:attribute name="NumberOfPeriods" type="xs:int"/>
+	</xs:complexType>
+	<xs:complexType name="ExpressionReference">
+		<xs:attribute name="Name" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="FilterExpression">
+		<xs:sequence>
+			<xs:choice minOccurs="2" maxOccurs="2">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IndexerExpression">
+		<xs:sequence>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="Index" type="xs:int"/>
+	</xs:complexType>
+	<xs:complexType name="ListExpression">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="LogicalConnectiveOperator">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="opAnd"/>
+			<xs:enumeration value="opOr"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="LogicalConnective">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="Operator" type="LogicalConnectiveOperator"/>
+	</xs:complexType>
+	<xs:complexType name="ParameterExpression">
+		<xs:attribute name="Name" type="xs:string"/>
+		<xs:attribute name="DefaultValue" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="PropertyExpression">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="1">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="Path" type="xs:string"/>
+	</xs:complexType>
+	<xs:simpleType name="RequestCardinality">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Single"/>
+			<xs:enumeration value="Multiple"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="RequestExpression">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="2">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+			<xs:element name="RequestExpression.Codes" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="mombt:CodedValueType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="RequestExpression.DateRange" type="mombt:DateRange" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="Cardinality" type="RequestCardinality"/>
+		<xs:attribute name="Type" type="cds:PatientQueryType"/>
+	</xs:complexType>
+	<xs:complexType name="SortExpression">
+		<xs:sequence>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="OrderBy" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Today"/>
+	<xs:simpleType name="UnaryOperator">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="opNot"/>
+			<xs:enumeration value="opNegate"/>
+			<xs:enumeration value="opExists"/>
+			<xs:enumeration value="opFirst"/>
+			<xs:enumeration value="opLast"/>
+			<xs:enumeration value="opCount"/>
+			<xs:enumeration value="opDayOfWeek"/>
+			<xs:enumeration value="opDayOfYear"/>
+			<xs:enumeration value="opFloor"/>
+			<xs:enumeration value="opCeiling"/>
+			<xs:enumeration value="opRound"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="UnaryExpression">
+		<xs:sequence>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="Operator" type="UnaryOperator"/>
+	</xs:complexType>
+	<xs:complexType name="UnionExpression">
+		<xs:sequence>
+			<xs:choice minOccurs="2" maxOccurs="unbounded">
+				<xs:element name="BinaryExpression" type="BinaryExpression"/>
+				<xs:element name="CalculateAge" type="CalculateAge"/>
+				<xs:element name="Choice" type="Choice"/>
+				<xs:element name="Coalesce" type="Coalesce"/>
+				<xs:element name="Code" type="Code"/>
+				<xs:element name="Condition" type="Condition"/>
+				<xs:element name="DateAdd" type="DateAdd"/>
+				<xs:element name="DateDiff" type="DateDiff"/>
+				<xs:element name="DatePart" type="DatePart"/>
+				<xs:element name="DateRange" type="DateRange"/>
+				<xs:element name="DateRangeWithin" type="DateRangeWithin"/>
+				<xs:element name="ExpressionReference" type="ExpressionReference"/>
+				<xs:element name="FilterExpression" type="FilterExpression"/>
+				<xs:element name="IndexerExpression" type="IndexerExpression"/>
+				<xs:element name="ListExpression" type="ListExpression"/>
+				<xs:element name="LogicalConnective" type="LogicalConnective"/>
+				<xs:element name="ParameterExpression" type="ParameterExpression"/>
+				<xs:element name="PropertyExpression" type="PropertyExpression"/>
+				<xs:element name="RequestExpression" type="RequestExpression"/>
+				<xs:element name="SortExpression" type="SortExpression"/>
+				<xs:element name="Today" type="Today"/>
+				<xs:element name="UnaryExpression" type="UnaryExpression"/>
+				<xs:element name="UnionExpression" type="UnionExpression"/>
+				<xs:element name="ValueExpression" type="ValueExpression"/>
+				<xs:element name="ValueSetExpression" type="ValueSetExpression"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="Granularity" type="DateGranularity"/>
+	</xs:complexType>
+	<xs:simpleType name="ValueType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="String"/>
+			<xs:enumeration value="Int32"/>
+			<xs:enumeration value="Int64"/>
+			<xs:enumeration value="Boolean"/>
+			<xs:enumeration value="Byte"/>
+			<xs:enumeration value="Date"/>
+			<xs:enumeration value="Decimal"/>
+			<xs:enumeration value="Double"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ValueExpression">
+		<xs:attribute name="Type" type="ValueType"/>
+		<xs:attribute name="Value" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="ValueSetExpression">
+		<xs:attribute name="ValueSetID" type="xs:string"/>
+		<xs:attribute name="Version" type="xs:int" use="optional"/>
+	</xs:complexType>
+</xs:schema>

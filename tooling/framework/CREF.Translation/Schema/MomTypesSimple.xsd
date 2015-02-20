@@ -1,0 +1,1064 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="urn:Allscripts:momst" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Allscripts:momst" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xs:element name="RequiredForGeneration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AddressType" type="AddressType"/>
+				<xs:element name="CurrencyCodeValue" type="CurrencyCodeValue"/>
+				<xs:element name="NameType" type="NameType"/>
+				<xs:element name="PhoneType" type="PhoneType"/>
+				<xs:element name="TelecommunicationUse" type="TelecommunicationUse"/>
+				<xs:element name="TelecommunicationEquipmentType" type="TelecommunicationEquipmentType"/>
+				<xs:element name="Gender" type="Gender"/>
+				<xs:element name="LanguageName" type="LanguageName"/>
+				<xs:element name="MaritalStatus" type="MaritalStatus"/>
+				<xs:element name="StatusType" type="StatusType"/>
+				<xs:element name="EthnicDescription" type="EthnicDescription"/>
+				<xs:element name="RaceDescription" type="RaceDescription"/>
+				<xs:element name="TypeOfReferral" type="TypeOfReferral"/>
+				<xs:element name="LivingArrangement" type="LivingArrangement"/>
+				<xs:element name="LivingDependency" type="LivingDependency"/>
+				<xs:element name="ReferralStatus" type="ReferralStatus"/>
+				<xs:element name="ArnMatchCriteria" type="ArnMatchCriteria"/>
+				<xs:element name="JobStatus" type="JobStatus"/>
+				<xs:element name="VitalSignType" type="VitalSignType"/>
+				<xs:element name="VitalSignUnit" type="VitalSignUnit"/>
+				<xs:element name="AdverseEventType" type="AdverseEventType"/>
+				<xs:element name="ProblemSeverity" type="ProblemSeverity"/>
+				<xs:element name="Route" type="Route"/>
+				<xs:element name="ProductForm" type="ProductForm"/>
+				<xs:element name="MedicationKind" type="MedicationKind"/>
+				<xs:element name="ProblemType" type="ProblemType"/>
+				<xs:element name="SocialHistoryType" type="SocialHistoryType"/>
+				<xs:element name="ClinicalItemStatus" type="ClinicalItemStatus"/>
+				<xs:element name="InsuranceType" type="InsuranceType"/>
+				<xs:element name="SubscriberRelationship" type="SubscriberRelationship"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="AddressType">
+		<xs:annotation>
+			<xs:documentation>declaring the category or use of the address element</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Billing"/>
+			<xs:enumeration value="Birth"/>
+			<xs:enumeration value="Temporary"/>
+			<xs:enumeration value="Home"/>
+			<xs:enumeration value="Communication"/>
+			<xs:enumeration value="Mailing"/>
+			<xs:enumeration value="CountryOfOrigin"/>
+			<xs:enumeration value="Office"/>
+			<xs:enumeration value="Business"/>
+			<xs:enumeration value="Permanent"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CurrencyCodeValue">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="USD"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NameType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Adopted"/>
+			<xs:enumeration value="Alias"/>
+			<xs:enumeration value="BirthName"/>
+			<xs:enumeration value="Legal"/>
+			<xs:enumeration value="Maiden"/>
+			<xs:enumeration value="Preferred"/>
+			<xs:enumeration value="Unspecified"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PhoneType">
+		<xs:annotation>
+			<xs:documentation>type of phone numbers</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1">
+				<xs:annotation>
+					<xs:documentation>Home</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2">
+				<xs:annotation>
+					<xs:documentation>Business</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3">
+				<xs:annotation>
+					<xs:documentation>Cell</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="4">
+				<xs:annotation>
+					<xs:documentation>Pager</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TelecommunicationUse">
+		<xs:annotation>
+			<xs:documentation>Defines use or purpose of a phone number.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AnsweringServiceNumber"/>
+			<xs:enumeration value="CellularPhone">
+				<xs:annotation>
+					<xs:documentation>Cell Phone also listed in TelecommunicationEquipmentType.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EmergencyNumber"/>
+			<xs:enumeration value="HomeNumber"/>
+			<xs:enumeration value="VacationHomeNumber"/>
+			<xs:enumeration value="OtherResidenceNumber"/>
+			<xs:enumeration value="WorkNumber"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TelecommunicationEquipmentType">
+		<xs:annotation>
+			<xs:documentation>Defines type of device.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Telephone"/>
+			<xs:enumeration value="Fax"/>
+			<xs:enumeration value="Modem"/>
+			<xs:enumeration value="CellularPhone"/>
+			<xs:enumeration value="Beeper"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Gender">
+		<xs:annotation>
+			<xs:documentation>hitsp 1.06; C83-[DE-106-1] gender using C80 2.2.1.2.1</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Female"/>
+			<xs:enumeration value="Male"/>
+			<xs:enumeration value="Undifferentiated"/>
+			<xs:enumeration value="undifferentiated"/>
+			<xs:enumeration value="F"/>
+			<xs:enumeration value="M"/>
+			<xs:enumeration value="U"/>
+			<xs:enumeration value="1">
+				<xs:annotation>
+					<xs:documentation>Female</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2">
+				<xs:annotation>
+					<xs:documentation>Male</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3">
+				<xs:annotation>
+					<xs:documentation>Undifferentiated</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="f"/>
+			<xs:enumeration value="m"/>
+			<xs:enumeration value="u"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LanguageName">
+		<xs:annotation>
+			<xs:documentation>hitsp 2.01; C83-[DE-2.01-CDA-1:5]; C83-[DE-2.0101:2]; C80 2.2.1.2.9</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="English"/>
+			<xs:enumeration value="Spanish"/>
+			<xs:enumeration value="French"/>
+			<xs:enumeration value="German"/>
+			<xs:enumeration value="Irish"/>
+			<xs:enumeration value="Italian"/>
+			<xs:enumeration value="Hatian"/>
+			<xs:enumeration value="Hebrew"/>
+			<xs:enumeration value="Japanese"/>
+			<xs:enumeration value="Polish"/>
+			<xs:enumeration value="Russian"/>
+			<xs:enumeration value="Chinese"/>
+			<xs:enumeration value="Cantonese Chinese"/>
+			<xs:enumeration value="Mandarin Chinese"/>
+			<xs:enumeration value="Sign"/>
+			<xs:enumeration value="Sign Language"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MaritalStatus">
+		<xs:annotation>
+			<xs:documentation>hitsp 1.08; C83-[DE-1.08-1] C80 2.2.1.2.3</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="A">
+				<xs:annotation>
+					<xs:documentation>Annulled</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Annulled"/>
+			<xs:enumeration value="D">
+				<xs:annotation>
+					<xs:documentation>Divorced</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Divorced"/>
+			<xs:enumeration value="I">
+				<xs:annotation>
+					<xs:documentation>Interlocutory</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Interlocutory"/>
+			<xs:enumeration value="L">
+				<xs:annotation>
+					<xs:documentation>Legally separated</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Legally separated"/>
+			<xs:enumeration value="Separated"/>
+			<xs:enumeration value="M">
+				<xs:annotation>
+					<xs:documentation>Married</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Married"/>
+			<xs:enumeration value="P">
+				<xs:annotation>
+					<xs:documentation>Polygamous</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Polygamous"/>
+			<xs:enumeration value="Big Love"/>
+			<xs:enumeration value="S">
+				<xs:annotation>
+					<xs:documentation>Never Married</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Single"/>
+			<xs:enumeration value="T">
+				<xs:annotation>
+					<xs:documentation>Domestic partner</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Domestic partner"/>
+			<xs:enumeration value="Partner"/>
+			<xs:enumeration value="W">
+				<xs:annotation>
+					<xs:documentation>Widowed</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Widowed"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="StatusType">
+		<xs:annotation>
+			<xs:documentation>Used for Various statuses of relationships the patient has. Such as military, marital, student, employment</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="military"/>
+			<xs:enumeration value="marital"/>
+			<xs:enumeration value="student"/>
+			<xs:enumeration value="employment"/>
+			<xs:enumeration value="active"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RaceDescription">
+		<xs:annotation>
+			<xs:documentation>hitsp 1.10; C83-[DE-1.09-1] C80 2.2.1.2.7</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Alaskan Native">
+				<xs:annotation>
+					<xs:documentation>code 1735-0</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Alaskan">
+				<xs:annotation>
+					<xs:documentation>code 1735-0</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="American Indian">
+				<xs:annotation>
+					<xs:documentation>code 1004-1</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Native American">
+				<xs:annotation>
+					<xs:documentation>code 1004-1</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Asian">
+				<xs:annotation>
+					<xs:documentation>code 2028-9; could be broken down into about 10 child enumerations</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Black or African American">
+				<xs:annotation>
+					<xs:documentation>code 2054-5; could be broken down into about 6 child enumerations</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Black">
+				<xs:annotation>
+					<xs:documentation>code 2054-5; could be broken down into about 6 child enumerations</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="African American">
+				<xs:annotation>
+					<xs:documentation>code 2054-5; could be broken down into about 6 child enumerations</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Native Hawaiian or other Pacific Islander">
+				<xs:annotation>
+					<xs:documentation>code 2076-8; could be broken down into about 6 child enumerations</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Hawaiian">
+				<xs:annotation>
+					<xs:documentation>code 2076-8; could be broken down into about 6 child enumerations</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Pacific Islander">
+				<xs:annotation>
+					<xs:documentation>code 2076-8; could be broken down into about 6 child enumerations</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Other Race">
+				<xs:annotation>
+					<xs:documentation>code 2131-1</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Other">
+				<xs:annotation>
+					<xs:documentation>code 2131-1</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="White">
+				<xs:annotation>
+					<xs:documentation>code 2106-3</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EthnicDescription">
+		<xs:annotation>
+			<xs:documentation>hitsp 1.11; C83-[DE-1.11-1]; C80 2.2.1.2.2. Changed from ethnicity to allow for code system ID</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Central American">
+				<xs:annotation>
+					<xs:documentation>code 2155-0</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Cuban">
+				<xs:annotation>
+					<xs:documentation>code 2182-4</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Dominican">
+				<xs:annotation>
+					<xs:documentation>code 21840</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Latin American">
+				<xs:annotation>
+					<xs:documentation>code 2178-2</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Mexican">
+				<xs:annotation>
+					<xs:documentation>code 2148-5</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Puerto Rican">
+				<xs:annotation>
+					<xs:documentation>code 2180-8</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="South American">
+				<xs:annotation>
+					<xs:documentation>code 2165-9</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Hispanic or Latino">
+				<xs:annotation>
+					<xs:documentation>code 2135-2</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Hispanic">
+				<xs:annotation>
+					<xs:documentation>code 2135-2</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Latino">
+				<xs:annotation>
+					<xs:documentation>code 2135-2</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Not Hispanic or Latino">
+				<xs:annotation>
+					<xs:documentation>code 2186-5</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Not Hispanic">
+				<xs:annotation>
+					<xs:documentation>code 2186-5</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Not Latino">
+				<xs:annotation>
+					<xs:documentation>code 2186-5</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TypeOfReferral">
+		<xs:annotation>
+			<xs:documentation>field identifies the situation that the patient lives in at his\her residential address. Able to Repeat A Alone F Family I Institution R Relative U Unknown S Spouse Only</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="C">
+				<xs:annotation>
+					<xs:documentation>Consultation</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="T">
+				<xs:annotation>
+					<xs:documentation>Transition of Care</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LivingArrangement">
+		<xs:annotation>
+			<xs:documentation>field identifies the situation that the patient lives in at his\her residential address. Able to Repeat A Alone F Family I Institution R Relative U Unknown S Spouse Only</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="A"/>
+			<xs:enumeration value="F"/>
+			<xs:enumeration value="I"/>
+			<xs:enumeration value="R"/>
+			<xs:enumeration value="U"/>
+			<xs:enumeration value="S"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LivingDependency">
+		<xs:annotation>
+			<xs:documentation>field identifies specific living conditions (e.g., spouse dependent on patient) that are relevant to an evaluation of the patient�s healthcare needs This information can be used for discharge planning. Able to Repeat S Spouse Dependent M Medical Supervision Required C Small Children Dependent O Other U Unknown P Parent(s)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="S"/>
+			<xs:enumeration value="M"/>
+			<xs:enumeration value="C"/>
+			<xs:enumeration value="O"/>
+			<xs:enumeration value="U"/>
+			<xs:enumeration value="P"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ReferralStatus">
+		<xs:annotation>
+			<xs:documentation>field identifies referral status states.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:enumeration value="1">
+				<xs:annotation>
+					<xs:documentation>Open</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2">
+				<xs:annotation>
+					<xs:documentation>Sent</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3">
+				<xs:annotation>
+					<xs:documentation>Received</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="4">
+				<xs:annotation>
+					<xs:documentation>Accepted</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="5">
+				<xs:annotation>
+					<xs:documentation>Declined</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="6">
+				<xs:annotation>
+					<xs:documentation>Completed</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="7">
+				<xs:annotation>
+					<xs:documentation>Closed</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ArnMatchCriteria">
+		<xs:annotation>
+			<xs:documentation>
+				field identifies search criteria for lookup up provider in the provider directory.
+				hex interpretation: 0000 0100 (city) 
+				                    0000 1000 (state)
+				to search by city and state = 0000 1100 or numeric value of 12							
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:enumeration value="1">
+				<xs:annotation>
+					<xs:documentation>Practice Name</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2">
+				<xs:annotation>
+					<xs:documentation>Last Name/First Name</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="4">
+				<xs:annotation>
+					<xs:documentation>Last Name</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="8">
+				<xs:annotation>
+					<xs:documentation>Full Name</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="16">
+				<xs:annotation>
+					<xs:documentation>City</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="32">
+				<xs:annotation>
+					<xs:documentation>State</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="64">
+				<xs:annotation>
+					<xs:documentation>Zip</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="128">
+				<xs:annotation>
+					<xs:documentation>NPI</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="256">
+				<xs:annotation>
+					<xs:documentation>Specialty</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JobStatus">
+		<xs:annotation>
+			<xs:documentation>Suggested Values: O - Other, P - Permanent, T-Temporary, U-Unknown</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="VitalSignType">
+		<xs:annotation>
+			<xs:documentation>
+				hitsp 14.03; C83-[DE-14.03-1]; C80 2.2.3.6.5
+				2.16.840.1.113883.3.88.12.80.62
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Respiratory Rate"/>
+			<xs:enumeration value="Resipration Rate"/>
+			<xs:enumeration value="Heart Rate"/>
+			<xs:enumeration value="Pulse"/>
+			<xs:enumeration value="O2 SAT"/>
+			<xs:enumeration value="BP Systolic"/>
+			<xs:enumeration value="BP Diastolic"/>
+			<xs:enumeration value="Temperature"/>
+			<xs:enumeration value="Height"/>
+			<xs:enumeration value="Height (Lying)"/>
+			<xs:enumeration value="Head Circumference"/>
+			<xs:enumeration value="Weight"/>
+			<!-- <xs:enumeration value="FiO2"/> not in HITSP List -->
+			<!-- <xs:enumeration value="PulseQuality"/>   not in HITSP List
+			<xs:enumeration value="RespQuality"/>
+			<xs:enumeration value="BMI"/>
+			<xs:enumeration value="BSA"/> -->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="VitalSignUnit">
+		<xs:annotation>
+			<xs:documentation>IHE PCC limits the units</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="/min"/>
+			<xs:enumeration value="%"/>
+			<xs:enumeration value="mm[Hg]"/>
+			<xs:enumeration value="C"/>
+			<xs:enumeration value="c"/>
+			<xs:enumeration value="Cel"/>
+			<xs:enumeration value="F"/>
+			<xs:enumeration value="f"/>
+			<xs:enumeration value="m"/>
+			<xs:enumeration value="cm"/>
+			<xs:enumeration value="in"/>
+			<xs:enumeration value="kg"/>
+			<xs:enumeration value="g"/>
+			<xs:enumeration value="lb"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AdverseEventType">
+		<xs:annotation>
+			<xs:documentation>
+				hitsp 6.02 C83-[DE-6.02-1], C80 2.2.3.4.2
+				2.16.840.1.113883.3.88.12.3221.6.2
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="allergy to substance"/>
+			<xs:enumeration value="drug allergy"/>
+			<xs:enumeration value="food allergy"/>
+			<xs:enumeration value="drug intolerance"/>
+			<xs:enumeration value="food intolerance"/>
+			<xs:enumeration value="propensity to adverse reactions"/>
+			<xs:enumeration value="propensity to adverse reactions to substance"/>
+			<xs:enumeration value="propensity to adverse reactions to drug"/>
+			<xs:enumeration value="propensity to adverse reactions to food"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ProblemSeverity">
+		<xs:annotation>
+			<xs:documentation>
+				hitsp 6.08, C83-[DE-6.08-1], C80 2.2.3.4.3, C80 2.2.3.1.6
+				2.16.840.1.113883.3.88.12.3221.6.8
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Mild"/>
+			<xs:enumeration value="Mild to moderate"/>
+			<xs:enumeration value="Moderate"/>
+			<xs:enumeration value="Moderate to severe"/>
+			<xs:enumeration value="Severe"/>
+			<xs:enumeration value="Fatal"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Route">
+		<xs:annotation>
+			<xs:documentation>
+				hitsp 8.07 C83-[DE-8.07-1]; C80 2.2.3.3.4.1
+				2.16.840.1.113883.3.88.12.3221.8.7
+
+				imported only a subset
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DENTAL"/>
+			<xs:enumeration value="EPIDURAL"/>
+			<xs:enumeration value="INTRA-ARTICULAR"/>
+			<xs:enumeration value="INTRACAVERNOUS"/>
+			<xs:enumeration value="INTRADERMAL"/>
+			<xs:enumeration value="INTRAMUSCULAR"/>
+			<xs:enumeration value="INTRAOCULAR"/>
+			<xs:enumeration value="INTRAPERITONEAL"/>
+			<xs:enumeration value="INTRAPLEURAL"/>
+			<xs:enumeration value="INTRATHECAL"/>
+			<xs:enumeration value="INTRAUTERINE"/>
+			<xs:enumeration value="INTRAVENOUS"/>
+			<xs:enumeration value="INTRAVESICAL"/>
+			<xs:enumeration value="IRRIGATION"/>
+			<xs:enumeration value="NASAL"/>
+			<xs:enumeration value="OPHTHALMIC"/>
+			<xs:enumeration value="ORAL"/>
+			<xs:enumeration value="AURICULAR (OTIC)"/>
+			<xs:enumeration value="RECTAL"/>
+			<xs:enumeration value="RESPIRATORY (INHALATION)"/>
+			<xs:enumeration value="SUBCUTANEOUS"/>
+			<xs:enumeration value="SUBLINGUAL"/>
+			<xs:enumeration value="TRANSDERMAL"/>
+			<xs:enumeration value="URETHRAL"/>
+			<xs:enumeration value="VAGINAL"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ProductForm">
+		<xs:annotation>
+			<xs:documentation>
+				hitsp 8.11 C83-[DE-8.11-1]; C80 2.2.3.3.3
+				2.16.840.1.113883.3.88.12.3221.8.11
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AEROSOL"/>
+			<xs:enumeration value="AEROSOL, FOAM"/>
+			<xs:enumeration value="AEROSOL, METERED"/>
+			<xs:enumeration value="AEROSOL, POWDER"/>
+			<xs:enumeration value="AEROSOL, SPRAY"/>
+			<xs:enumeration value="BAR, CHEWABLE"/>
+			<xs:enumeration value="BEAD"/>
+			<xs:enumeration value="BEAD, IMPLANT, EXTENDED RELEASE"/>
+			<xs:enumeration value="BLOCK"/>
+			<xs:enumeration value="CAPSULE"/>
+			<xs:enumeration value="CAPSULE, COATED"/>
+			<xs:enumeration value="CAPSULE, COATED PELLETS"/>
+			<xs:enumeration value="CAPSULE, COATED, EXTENDED RELEASE"/>
+			<xs:enumeration value="CAPSULE, DELAYED RELEASE"/>
+			<xs:enumeration value="CAPSULE, DELAYED RELEASE PELLETS"/>
+			<xs:enumeration value="CAPSULE, EXTENDED RELEASE"/>
+			<xs:enumeration value="CAPSULE, FILM COATED, EXTENDED RELEASE"/>
+			<xs:enumeration value="CAPSULE, GELATIN COATED"/>
+			<xs:enumeration value="CAPSULE, LIQUID FILLED"/>
+			<xs:enumeration value="CEMENT"/>
+			<xs:enumeration value="CIGARETTE"/>
+			<xs:enumeration value="CLOTH"/>
+			<xs:enumeration value="CONCENTRATE"/>
+			<xs:enumeration value="CONE"/>
+			<xs:enumeration value="CORE, EXTENDED RELEASE"/>
+			<xs:enumeration value="CREAM"/>
+			<xs:enumeration value="CREAM, AUGMENTED"/>
+			<xs:enumeration value="CRYSTAL"/>
+			<xs:enumeration value="CULTURE"/>
+			<xs:enumeration value="DIAPHRAGM"/>
+			<xs:enumeration value="DISC"/>
+			<xs:enumeration value="DOUCHE"/>
+			<xs:enumeration value="DRESSING"/>
+			<xs:enumeration value="DRUG DELIVERY SYSTEM"/>
+			<xs:enumeration value="ELIXIR"/>
+			<xs:enumeration value="EMULSION"/>
+			<xs:enumeration value="ENEMA"/>
+			<xs:enumeration value="EXTRACT"/>
+			<xs:enumeration value="FIBER, EXTENDED RELEASE"/>
+			<xs:enumeration value="FILM"/>
+			<xs:enumeration value="FILM, EXTENDED RELEASE"/>
+			<xs:enumeration value="FILM, SOLUBLE"/>
+			<xs:enumeration value="FOR SOLUTION"/>
+			<xs:enumeration value="FOR SUSPENSION"/>
+			<xs:enumeration value="FOR SUSPENSION, EXTENDED RELEASE"/>
+			<xs:enumeration value="GAS"/>
+			<xs:enumeration value="GEL"/>
+			<xs:enumeration value="GEL, DENTIFRICE"/>
+			<xs:enumeration value="GEL, METERED"/>
+			<xs:enumeration value="GENERATOR"/>
+			<xs:enumeration value="GLOBULE"/>
+			<xs:enumeration value="GRAFT"/>
+			<xs:enumeration value="GRANULE"/>
+			<xs:enumeration value="GRANULE, DELAYED RELEASE"/>
+			<xs:enumeration value="GRANULE, EFFERVESCENT"/>
+			<xs:enumeration value="GRANULE, FOR SOLUTION"/>
+			<xs:enumeration value="GRANULE, FOR SUSPENSION"/>
+			<xs:enumeration value="GRANULE, FOR SUSPENSION, EXTENDED RELEASE"/>
+			<xs:enumeration value="GUM"/>
+			<xs:enumeration value="GUM, CHEWING"/>
+			<xs:enumeration value="GUM, RESIN"/>
+			<xs:enumeration value="IMPLANT"/>
+			<xs:enumeration value="INHALANT"/>
+			<xs:enumeration value="INJECTABLE, LIPOSOMAL"/>
+			<xs:enumeration value="INJECTION"/>
+			<xs:enumeration value="INJECTION, EMULSION"/>
+			<xs:enumeration value="INJECTION, LIPID COMPLEX"/>
+			<xs:enumeration value="INJECTION, POWDER, FOR SOLUTION"/>
+			<xs:enumeration value="INJECTION, POWDER, FOR SUSPENSION"/>
+			<xs:enumeration value="INJECTION, POWDER, FOR SUSPENSION, EXTENDED RELEASE"/>
+			<xs:enumeration value="INJECTION, POWDER, LYOPHILIZED, FOR LIPOSOMAL SUSPENSION"/>
+			<xs:enumeration value="INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION"/>
+			<xs:enumeration value="INJECTION, POWDER, LYOPHILIZED, FOR SUSPENSION"/>
+			<xs:enumeration value="INJECTION, POWDER, LYOPHILIZED, FOR SUSPENSION, EXTENDED RELEASE"/>
+			<xs:enumeration value="INJECTION, SOLUTION"/>
+			<xs:enumeration value="INJECTION, SOLUTION, CONCENTRATE"/>
+			<xs:enumeration value="INJECTION, SUSPENSION"/>
+			<xs:enumeration value="INJECTION, SUSPENSION, EXTENDED RELEASE"/>
+			<xs:enumeration value="INJECTION, SUSPENSION, LIPOSOMAL"/>
+			<xs:enumeration value="INJECTION, SUSPENSION, SONICATED"/>
+			<xs:enumeration value="INSERT"/>
+			<xs:enumeration value="INSERT, EXTENDED RELEASE"/>
+			<xs:enumeration value="INTRAUTERINE DEVICE"/>
+			<xs:enumeration value="IRRIGANT"/>
+			<xs:enumeration value="JELLY"/>
+			<xs:enumeration value="KIT"/>
+			<xs:enumeration value="LINER, DENTAL"/>
+			<xs:enumeration value="LINIMENT"/>
+			<xs:enumeration value="LIPSTICK"/>
+			<xs:enumeration value="LIQUID"/>
+			<xs:enumeration value="LIQUID, EXTENDED RELEASE"/>
+			<xs:enumeration value="LOTION"/>
+			<xs:enumeration value="LOTION, AUGMENTED"/>
+			<xs:enumeration value="LOTION/SHAMPOO"/>
+			<xs:enumeration value="LOZENGE"/>
+			<xs:enumeration value="MOUTHWASH"/>
+			<xs:enumeration value="OIL"/>
+			<xs:enumeration value="OINTMENT"/>
+			<xs:enumeration value="OINTMENT, AUGMENTED"/>
+			<xs:enumeration value="PACKING"/>
+			<xs:enumeration value="PASTE"/>
+			<xs:enumeration value="PASTE, DENTIFRICE"/>
+			<xs:enumeration value="PASTILLE"/>
+			<xs:enumeration value="PATCH"/>
+			<xs:enumeration value="PATCH, EXTENDED RELEASE"/>
+			<xs:enumeration value="PATCH, EXTENDED RELEASE, ELECTRICALLY CONTROLLED"/>
+			<xs:enumeration value="PELLET"/>
+			<xs:enumeration value="PELLET, IMPLANTABLE"/>
+			<xs:enumeration value="PELLETS, COATED, EXTENDED RELEASE"/>
+			<xs:enumeration value="PILL"/>
+			<xs:enumeration value="PLASTER"/>
+			<xs:enumeration value="POULTICE"/>
+			<xs:enumeration value="POWDER"/>
+			<xs:enumeration value="POWDER, DENTIFRICE"/>
+			<xs:enumeration value="POWDER, FOR SOLUTION"/>
+			<xs:enumeration value="POWDER, FOR SUSPENSION"/>
+			<xs:enumeration value="POWDER, METERED"/>
+			<xs:enumeration value="RING"/>
+			<xs:enumeration value="RINSE"/>
+			<xs:enumeration value="SALVE"/>
+			<xs:enumeration value="SHAMPOO"/>
+			<xs:enumeration value="SHAMPOO, SUSPENSION"/>
+			<xs:enumeration value="SOAP"/>
+			<xs:enumeration value="SOLUTION"/>
+			<xs:enumeration value="SOLUTION, CONCENTRATE"/>
+			<xs:enumeration value="SOLUTION, FOR SLUSH"/>
+			<xs:enumeration value="SOLUTION, GEL FORMING / DROPS"/>
+			<xs:enumeration value="SOLUTION, GEL FORMING, EXTENDED RELEASE"/>
+			<xs:enumeration value="SOLUTION/ DROPS"/>
+			<xs:enumeration value="SPONGE"/>
+			<xs:enumeration value="SPRAY"/>
+			<xs:enumeration value="SPRAY, METERED"/>
+			<xs:enumeration value="SPRAY, SUSPENSION"/>
+			<xs:enumeration value="STICK"/>
+			<xs:enumeration value="STRIP"/>
+			<xs:enumeration value="SUPPOSITORY"/>
+			<xs:enumeration value="SUPPOSITORY, EXTENDED RELEASE"/>
+			<xs:enumeration value="SUSPENSION"/>
+			<xs:enumeration value="SUSPENSION, EXTENDED RELEASE"/>
+			<xs:enumeration value="SUSPENSION/ DROPS"/>
+			<xs:enumeration value="SUTURE"/>
+			<xs:enumeration value="SWAB"/>
+			<xs:enumeration value="SYRUP"/>
+			<xs:enumeration value="TABLET"/>
+			<xs:enumeration value="TABLET, CHEWABLE"/>
+			<xs:enumeration value="TABLET, COATED"/>
+			<xs:enumeration value="TABLET, COATED PARTICLES"/>
+			<xs:enumeration value="TABLET, DELAYED RELEASE"/>
+			<xs:enumeration value="TABLET, DELAYED RELEASE PARTICLES"/>
+			<xs:enumeration value="TABLET, EFFERVESCENT"/>
+			<xs:enumeration value="TABLET, EXTENDED RELEASE"/>
+			<xs:enumeration value="TABLET, FILM COATED"/>
+			<xs:enumeration value="TABLET, FILM COATED, EXTENDED RELEASE"/>
+			<xs:enumeration value="TABLET, FOR SOLUTION"/>
+			<xs:enumeration value="TABLET, FOR SUSPENSION"/>
+			<xs:enumeration value="TABLET, MULTILAYER"/>
+			<xs:enumeration value="TABLET, MULTILAYER, EXTENDED RELEASE"/>
+			<xs:enumeration value="TABLET, ORALLY DISINTEGRATING"/>
+			<xs:enumeration value="TABLET, ORALLY DISINTEGRATING, DELAYED RELEASE"/>
+			<xs:enumeration value="TABLET, SOLUBLE"/>
+			<xs:enumeration value="TABLET, SUGAR COATED"/>
+			<xs:enumeration value="TAMPON"/>
+			<xs:enumeration value="TAPE"/>
+			<xs:enumeration value="TINCTURE"/>
+			<xs:enumeration value="TROCHE"/>
+			<xs:enumeration value="UNASSIGNED"/>
+			<xs:enumeration value="WAFER"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MedicationKind">
+		<xs:annotation>
+			<xs:documentation>
+				hitsp 8.19; C83-[DE-8.19-1]; C80 2.2.3.3.5
+				2.16.840.1.113883.3.88.12.3221.8.19
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="over the counter"/>
+			<xs:enumeration value="otc"/>
+			<xs:enumeration value="OTC"/>
+			<xs:enumeration value="prescription"/>
+			<xs:enumeration value="rx"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ProblemType">
+		<xs:annotation>
+			<xs:documentation>
+				hitsp 7.02; C83-[DE-7.02-1]; C80 2.2.3.1.2
+				2.16.840.1.113883.3.88.12.3221.7.2
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Finding"/>
+			<xs:enumeration value="Symptom"/>
+			<xs:enumeration value="Problem"/>
+			<xs:enumeration value="Complaint"/>
+			<xs:enumeration value="Condition"/>
+			<xs:enumeration value="Diagnosis"/>
+			<xs:enumeration value="Functional limitation"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SocialHistoryType">
+		<xs:annotation>
+			<xs:documentation>
+				hitsp 19.02; C83-[De-19.02-1]; C80 2.2.2.4
+				2.16.840.1.113883.3.88.12.80.60
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Smoking"/>
+			<xs:enumeration value="Exercise"/>
+			<xs:enumeration value="Alcohol"/>
+			<xs:enumeration value="Diet"/>
+			<xs:enumeration value="Employment"/>
+			<xs:enumeration value="Toxic"/>
+			<xs:enumeration value="Drug"/>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ClinicalItemStatus">
+		<xs:annotation>
+			<xs:documentation>the set of status values for a clinical item</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Active"/>
+			<xs:enumeration value="Inactive"/>
+			<xs:enumeration value="Complete"/>
+			<xs:enumeration value="Completed"/>
+			<xs:enumeration value="Resolved"/>
+			<xs:enumeration value="Transformed"/>
+			<xs:enumeration value="Deleted"/>
+			<xs:enumeration value="Error"/>
+			<xs:enumeration value="Entered in Error"/>
+			<xs:enumeration value="DC"/>
+			<xs:enumeration value="Discontinued"/>
+			<xs:enumeration value="Pending"/>
+			<xs:enumeration value="Partial"/>
+			<xs:enumeration value="Unverified"/>
+			<xs:enumeration value="Suspect"/>
+			<xs:enumeration value="Denied"/>
+			<xs:enumeration value="Adverse Reaction"/>
+			<xs:enumeration value="Other"/>
+			<xs:enumeration value="Held"/>
+			<xs:enumeration value="Canceled"/>
+			<xs:enumeration value="Administered"/>
+			<xs:enumeration value="Admin Requested"/>
+			<xs:enumeration value="Filled Rx"/>
+			<xs:enumeration value="Refill Requested"/>
+			<xs:enumeration value="Refill Denied"/>
+			<xs:enumeration value="Void"/>
+			<xs:enumeration value="Unauthorized"/>
+			<xs:enumeration value="Auto Complete"/>
+			<xs:enumeration value="Chronic"/>
+			<xs:enumeration value="Permanent"/>
+			<xs:enumeration value="Assumed Resolved"/>
+			<xs:enumeration value="Temporary"/>
+			<xs:enumeration value="Transitioned"/>
+			<xs:enumeration value="Acute"/>
+			<xs:enumeration value="Rejected"/>
+			<xs:enumeration value="Final"/>
+			<xs:enumeration value="Final, Reviewed"/>
+			<xs:enumeration value="Ordered"/>
+			<xs:enumeration value="Prior History"/>
+			<xs:enumeration value="No Longer Active"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="InsuranceType">
+		<xs:annotation>
+			<xs:documentation>C80 2.2.2.1; C83[DE-5.02-1]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="12"/>
+			<xs:enumeration value="Medicare Secondary Working Aged Beneficiary or Spouse with Employer Group Health Plan"/>
+			<xs:enumeration value="13"/>
+			<xs:enumeration value="Medicare Secondary End-Stage Renal Disease Beneficiary in the 12 month coordination period with an employer's group health plan"/>
+			<xs:enumeration value="14"/>
+			<xs:enumeration value="Medicare Secondary, No-fault Insurance including Auto is Primary"/>
+			<xs:enumeration value="15"/>
+			<xs:enumeration value="Medicare Secondary Workers Compensation"/>
+			<xs:enumeration value="16"/>
+			<xs:enumeration value="Medicare Secondary Public Health Service (PHS)or Other Federal Agency"/>
+			<xs:enumeration value="41"/>
+			<xs:enumeration value="Medicare Secondary Black Lung"/>
+			<xs:enumeration value="42"/>
+			<xs:enumeration value="Medicare Secondary Veterans Administration"/>
+			<xs:enumeration value="43"/>
+			<xs:enumeration value="Medicare Secondary Disabled Beneficiary Under Age 65 with Large Group Health Plan (LGHP)"/>
+			<xs:enumeration value="47"/>
+			<xs:enumeration value="Medicare Secondary, Other Liability Insurance is Primary"/>
+			<xs:enumeration value="AP"/>
+			<xs:enumeration value="Auto Insurance Policy"/>
+			<xs:enumeration value="C1"/>
+			<xs:enumeration value="Commercial"/>
+			<xs:enumeration value="CO"/>
+			<xs:enumeration value="Consolidated Omnibus Budget Reconciliation Act (COBRA)"/>
+			<xs:enumeration value="CP"/>
+			<xs:enumeration value="Medicare Conditionally Primary"/>
+			<xs:enumeration value="D"/>
+			<xs:enumeration value="Disability"/>
+			<xs:enumeration value="DB"/>
+			<xs:enumeration value="Disability Benefits"/>
+			<xs:enumeration value="EP"/>
+			<xs:enumeration value="Exclusive Provider Organization"/>
+			<xs:enumeration value="FF"/>
+			<xs:enumeration value="Family or Friends"/>
+			<xs:enumeration value="GP"/>
+			<xs:enumeration value="Group Policy"/>
+			<xs:enumeration value="HM"/>
+			<xs:enumeration value="Health Maintenance Organization (HMO)"/>
+			<xs:enumeration value="HN"/>
+			<xs:enumeration value="Health Maintenance Organization (HMO) - Medicare Risk"/>
+			<xs:enumeration value="HS"/>
+			<xs:enumeration value="Special Low Income Medicare Beneficiary"/>
+			<xs:enumeration value="IN"/>
+			<xs:enumeration value="Indemnity"/>
+			<xs:enumeration value="IP"/>
+			<xs:enumeration value="Individual Policy"/>
+			<xs:enumeration value="LC"/>
+			<xs:enumeration value="Long Term Care"/>
+			<xs:enumeration value="LD"/>
+			<xs:enumeration value="Long Term Policy"/>
+			<xs:enumeration value="LI"/>
+			<xs:enumeration value="Life Insurance"/>
+			<xs:enumeration value="LT"/>
+			<xs:enumeration value="Litigation"/>
+			<xs:enumeration value="MA"/>
+			<xs:enumeration value="Medicare Part A"/>
+			<xs:enumeration value="MB"/>
+			<xs:enumeration value="Medicare Part B"/>
+			<xs:enumeration value="MC"/>
+			<xs:enumeration value="Medicaid"/>
+			<xs:enumeration value="MH"/>
+			<xs:enumeration value="Medigap Part A"/>
+			<xs:enumeration value="MI"/>
+			<xs:enumeration value="Medigap Part B"/>
+			<xs:enumeration value="MP"/>
+			<xs:enumeration value="Medicare Primary"/>
+			<xs:enumeration value="OT"/>
+			<xs:enumeration value="Other"/>
+			<xs:enumeration value="PE"/>
+			<xs:enumeration value="Property Insurance - Personal"/>
+			<xs:enumeration value="PL"/>
+			<xs:enumeration value="Personal"/>
+			<xs:enumeration value="PP"/>
+			<xs:enumeration value="Personal Payment (Cash - No Insurance)"/>
+			<xs:enumeration value="PR"/>
+			<xs:enumeration value="Preferred Provider Organization (PPO)"/>
+			<xs:enumeration value="PS"/>
+			<xs:enumeration value="Point of Service (POS)"/>
+			<xs:enumeration value="QM"/>
+			<xs:enumeration value="Qualified Medicare Beneficiary"/>
+			<xs:enumeration value="RP"/>
+			<xs:enumeration value="Property Insurance - Real"/>
+			<xs:enumeration value="SP"/>
+			<xs:enumeration value="Supplemental Policy"/>
+			<xs:enumeration value="TF"/>
+			<xs:enumeration value="Tax Equity Fiscal Responsibility Act (TEFRA)"/>
+			<xs:enumeration value="WC"/>
+			<xs:enumeration value="Workers Compensation"/>
+			<xs:enumeration value="WU"/>
+			<xs:enumeration value="Wrap Up Policy"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SubscriberRelationship">
+		<xs:annotation>
+			<xs:documentation>C80 2.2.2.2; C83[DE-5.09-1]</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Family dependent"/>
+			<xs:enumeration value="Handicapped dependent"/>
+			<xs:enumeration value="Injured plaintiff"/>
+			<xs:enumeration value="Self"/>
+			<xs:enumeration value="Student"/>
+			<xs:enumeration value="Full-time student"/>
+			<xs:enumeration value="Part-time student"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

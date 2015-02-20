@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?schematron-schema href="../main/schematron/knowledgeartifact.sch"?>
+<?schematron-schema href="../main/schematron/ordersets.sch"?>
+<knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
+	xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:dt="urn:hl7-org:cdsdt:r2"
+	xmlns:p1="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd 
+	urn:hl7-org:vmr:r2 ../schema/vmr/vmr.xsd">
+	<!-- Dopamine Complex IV Order This example describes a complex IV order. 
+		This example was chosen to illustrate a modular order set that could be used 
+		alone or in conjunction with another order set, to illustrate a composite 
+		order that contains both a diluent (base solution) and an additive, and to 
+		illustrate the proposed vMR extension mechanism. -->
+	<!-- Please note that all terminology bindings are for illustrative purposes 
+		only. At this time, the HeD community has not defined the terminologies and 
+		value sets that will be bound to specific clinical attribute types -->
+	<metadata>
+		<identifiers>
+			<identifier root="www.zynx.com/cds/orderset/ivsets"
+				extension="42364" version="0.9" />
+		</identifiers>
+		<artifactType value="Order Set" />
+		<schemaIdentifier root="urn:hl7-org:knowledgeartifact:r1"
+			version="1" />
+		<templateIds>
+			<!-- An IV Set would require a template ID since it makes use of the vMR 
+				extension scheme -->
+			<templateId root="http://www.zynx.com/cds/template/"
+				extension="1237" />
+			<templateId
+				root="http://www.exampleURI.com/HeD/templates/attributeExtension" />
+			<templateId root="http://www.exampleURI.com/HeD/templates/ComplexIVOrders" />
+		</templateIds>
+		<dataModels>
+			<modelReference>
+				<description value="Virtual Medical Record model" />
+				<referencedModel value="urn:hl7-org:vmr:r2" />
+			</modelReference>
+		</dataModels>
+		<title value="IV Set Order" />
+		<description value="Order set illustrating IV Sets" />
+		<documentation>
+			<description value="Explanation" />
+			<content>
+				<xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">IV Sets are examples of complex
+					medications commonly ordered in inpatient order sets.
+				</xhtml:div>
+			</content>
+		</documentation>
+		<status value="Draft" />
+		<eventHistory>
+			<artifactLifeCycleEvent>
+				<eventType value="Created" />
+				<eventDateTime value="20121130" />
+			</artifactLifeCycleEvent>
+		</eventHistory>
+		<contributions>
+			<contribution>
+				<contributor xsi:type="Organization">
+					<addresses>
+						<address>
+							<dt:part type="SAL" value="10880 Wilshire Boulevard" />
+							<dt:part type="CTY" value="Los Angeles" />
+							<dt:part type="ZIP" value="90024" />
+							<dt:part type="STA" value="CA" />
+							<dt:part type="CNT" value="USA" />
+						</address>
+					</addresses>
+					<contacts>
+						<contact value="310-825-3333" use="WP" />
+					</contacts>
+					<name value="Zynx Health" />
+				</contributor>
+				<role />
+			</contribution>
+		</contributions>
+		<publishers>
+			<publisher xsi:type="Organization">
+				<addresses>
+					<address>
+						<dt:part type="SAL" value="10880 Wilshire Boulevard" />
+						<dt:part type="CTY" value="Los Angeles" />
+						<dt:part type="ZIP" value="90024" />
+						<dt:part type="STA" value="CA" />
+						<dt:part type="CNT" value="USA" />
+					</address>
+				</addresses>
+				<contacts>
+					<contact value="310-825-3333" use="WP" />
+				</contacts>
+				<name value="Zynx Health" />
+			</publisher>
+		</publishers>
+	</metadata>
+	<actionGroup>
+		<behaviors>
+			<behavior xsi:type="GroupSelectionBehavior" value="All" />
+		</behaviors>
+		<subElements>
+			<!-- Here we build the IV Set container order. All attributes here pertain 
+				to the IV Set as a whole. -->
+			<simpleAction xsi:type="CreateAction">
+				<textEquivalent value="DOPamine drip 800mg/500mL D5W" />
+				<actionSentence xsi:type="ObjectRedefine">
+					<description>
+								DOPamine drip 800mg/500mL D5W
+								Starting Dose: 2 mcg/kg/min, 
+								Titrate Increment: 0.5 mcg/kg/min every 5 minutes, 
+								Keep MAP Greater Than: 60, 
+								Hold if HR Greater than: 120, 
+								Priority: Routine,
+								Start Time Offset: now, 
+								Special Inst: maximum dose of 20mcg/kg/min, titrate,
+								Comments: Ordered as: DOPamine drip 800mg/500mL D5W,
+								Diluent: D5W Titratable Base 500 mL, IV, 
+								Additive: DOPamine (for infusion) 800 mg
+							</description>
+					<source xsi:type="ComplexLiteral">
+						<!-- AB: Changed type from SubstanceAdminProposal -->
+						<value xsi:type="vmr:CompositeSubstanceProposal">
+							<vmr:id root="12345" /> <!-- TODO: id should not be required -->
+							<!-- Dose Restriction: "maximum dose of 20mcg/kg/min, titrate" -->
+							
+							<!-- AB:added -->
+							<!-- Starting Dose: 2 mcg/kg/min -->
+							<vmr:attribute>
+								<vmr:name value="Starting Dose"/>
+								<vmr:value xsi:type="vmr:Value">
+									<vmr:value xsi:type="dt:PQ" value="2" unit="mcg/kg/min"></vmr:value>
+								</vmr:value>
+							</vmr:attribute>
+
+							<!-- AB:added -->
+							<!-- Titrate Increment: 0.5 mcg/kg/min -->
+							<vmr:attribute>
+								<vmr:name value="Titrate Increment"/>
+								<vmr:value xsi:type="vmr:Value">
+									<vmr:value xsi:type="dt:PQ" value="0.5" unit="mcg/kg/min"></vmr:value>
+								</vmr:value>
+							</vmr:attribute>
+
+							<!-- AB: Added -->
+							<!-- Nursing Instruction: "Hold if HR Greater than: 120" -->
+							<vmr:comment>
+								<vmr:type><dt:displayName value="Instruction"/></vmr:type>
+								<vmr:content value="Hold if HR Greater than: 120"/>
+							</vmr:comment>
+
+							<!-- AB: Added -->
+							<!-- Nursing Instruction: "Keep MAP Greater Than: 60" -->
+							<vmr:comment>
+								<vmr:type><dt:displayName value="Instruction"/></vmr:type>
+								<vmr:content value="Keep MAP Greater Than: 60"/>
+							</vmr:comment>
+
+							<!-- AB: cannot specify this with atttribute since frequency is not 
+								a sub-type of any -->
+							<!-- Titrate Frequency: q5min -->
+							<vmr:relatedClinicalStatement>
+								<vmr:targetRole code="???" codeSystem="???"
+									codeSystemName="???"><dt:displayName value="extendClassWithAttribute"/></vmr:targetRole>
+								<vmr:clinicalStatement
+									xsi:type="vmr:ObservationResult">
+									<vmr:id root="12345" />
+									<vmr:observationFocus code="???"
+										codeSystem="???" codeSystemName="???"><dt:displayName value="Titrate Frequency"/>
+									</vmr:observationFocus>
+									<!-- AB: In the new VMR Frequency is its own type. So this is incorrect. -->
+									<vmr:observationValue xsi:type="vmr:Value">
+										<vmr:value xsi:type="dt:CD"
+											code="???" codeSystem="???" codeSystemName="???">
+											<dt:displayName value="q5min"/>
+										</vmr:value>
+									</vmr:observationValue>
+								</vmr:clinicalStatement>
+							</vmr:relatedClinicalStatement>
+
+							<!-- Specify the drug additive for this Complex IV -->
+							<vmr:substance>
+								<vmr:id root="12345" />
+								<vmr:substanceCode code="1160755"
+									codeSystem="2.16.840.1.113883.6.88" codeSystemName="RxNorm">
+									<dt:displayName value="Dopamine Injectable Product"/>
+								</vmr:substanceCode>
+								<vmr:strength>
+									<dt:numerator xsi:type="dt:PQ" value="800" unit="mg" />
+									<dt:denominator xsi:type="dt:PQ" value="500" unit="ml" />
+								</vmr:strength>
+							</vmr:substance>
+							
+							<vmr:dose>
+								<vmr:doseRestriction>
+									<vmr:maxDoseForInterval value="20" unit="mcg/kg" /> <!-- <originalText>maximum dose of 20mcg/kg/min, titrate</originalText> -->
+									<vmr:timeInterval value="1" unit="min" />
+								</vmr:doseRestriction>
+							</vmr:dose>
+
+							<!-- AB: Added -->
+							<vmr:urgency><dt:displayName value="routine"/></vmr:urgency>
+							
+							<vmr:constituent>
+								<vmr:constituentType code="Diluent"/>
+								<vmr:substance>
+									<vmr:id root="12345" />
+									<vmr:substanceCode code="400420008"
+										codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT">
+										<dt:displayName value="Dextrose 5g/100mL (5%) injection solution 500mL vial"/>
+									</vmr:substanceCode>
+								</vmr:substance>
+								<vmr:dose></vmr:dose>
+							</vmr:constituent>
+
+							<!-- AB: Added -->
+							<vmr:constituent>
+								<vmr:id root="12345" />
+								<vmr:constituentType code="Additive"/>
+								<vmr:substance>
+									<vmr:id root="12345" />
+									<vmr:substanceCode code="1160755"
+										codeSystem="2.16.840.1.113883.6.88" codeSystemName="RxNorm">
+										<dt:displayName value="Dopamine Injectable Product"/>
+									</vmr:substanceCode>
+								</vmr:substance>
+								<vmr:dose>
+									<vmr:doseQuantity>
+										<dt:low value="800" unit="mg" />
+										<dt:high value="800" unit="mg" /> <!-- TODO: highValue and highUnit are required? -->
+									</vmr:doseQuantity>
+								</vmr:dose>
+							</vmr:constituent>
+						</value>
+					</source>
+					<!-- Start Time Offset: Now -->
+					<property name="proposedAdministrationTimeInterval"> <!-- IVL_TS -->
+						<value xsi:type="Interval">
+							<begin xsi:type="Now" />
+						</value>
+					</property>
+				</actionSentence>
+			</simpleAction>
+		</subElements>
+	</actionGroup>
+</knowledgeDocument>

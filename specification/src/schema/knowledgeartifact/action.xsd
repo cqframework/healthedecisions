@@ -1,0 +1,407 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+	<xs:annotation>
+		<xs:documentation>
+			This file defines the Action types used to describe guidance within a knowledge artifact. 
+		</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="urn:hl7-org:cdsdt:r2" schemaLocation="../common/datatypes.xsd"/>
+	<xs:include schemaLocation="base.xsd"/>
+	<xs:include schemaLocation="behavior.xsd"/>
+	<xs:include schemaLocation="actor.xsd"/>
+	<xs:include schemaLocation="catalogitem.xsd"/>
+	<xs:include schemaLocation="condition.xsd"/>
+	<xs:complexType name="ActionBase" abstract="true">
+		<xs:annotation>
+			<xs:documentation>Actions are the output of the CDS system and
+				represent the tasks that must be carried out by a human or a
+				computer system.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element name="actionId" type="dt:II" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>An identifier for the action. The identifier must
+						be unique within the scope of the artifact.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supportingEvidence" type="SupportingEvidence" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The evidence grade and the sources of evidence
+						associated with this artifact.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supportingResources" type="SupportingResource" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Didactic or other informational resources
+						associated with the action that can be provided to the CDS
+						recipient. Information resources can include inline text
+						commentary and links to web resources.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- TODO -->
+			<xs:element name="actors" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="actor" type="Actor" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>The actor that is responsible for executing
+									the action.
+
+									This element is used when an artifact can have
+									multiple actors
+									responsible for the execution of various CDS
+									actions,
+									forexample, an interdisciplinary plan of care.
+
+									It is
+									important to note the distinction between a CDS action and
+									an
+									ensuing clinical action. A CDS action might be to order
+									patient
+									ambulation, the actor for which is a physician
+									responsible for
+									writing the order. A nurse might be responsible
+									for ensuring
+									that the patient ambulates. In this case, the
+									artifact will
+									specify the physician as the actor.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="behaviors" type="Behaviors" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The behaviors associated with how the action is
+						presented and executed. The semantics and the validity of
+						behaviors for actions are described elsewhere.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- Additional conditions specific to the action execution -->
+			<xs:element name="conditions" type="Conditions" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The conditions section lists all conditions that
+						pertain to the action. Conditions define the logic that determine
+						the applicability of the action in the given context, any
+						precondition or post condition, and/or any inclusion and exclusion
+						criteria for the given action.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- <xs:element name="applicableScenario" type="Expression" minOccurs="0" 
+				maxOccurs="1"> <xs:annotation> <xs:documentation>The clinical (sub) scenario 
+				in which this action is applicable. This scenario is additive to any scenarios 
+				specified in the containers of this action such as action groups or the knowledge 
+				document. In other words, this scenario does not override the scenario constraints 
+				specified in the container elements. </xs:documentation> </xs:annotation> 
+				</xs:element> -->
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ActionGroup">
+		<xs:annotation>
+			<xs:documentation>This type of action is used to organize a group of
+				related actions into one container.
+
+				The semantics of how the group's
+				subelements interact with which each
+				other and how the subelements
+				might be presented are specified in
+				the group behavior.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ActionBase">
+				<xs:sequence>
+					<xs:element name="title" type="dt:ST" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>A brief title that is shown to the user of the
+								artifact, i.e., the recipient of the CDS
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="description" type="dt:ST" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>A lengthier description of the action group
+								that can
+								be displayed to the user or the recipient of the CDS
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="representedConcepts" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The concept(s) represented by this action group. 
+								For instance, a section may represent a group of beta-blockers, 
+								a composite orderable such as an insulin sliding scale, or a set 
+								of order sentences for a particular orderable (e.g., Tylenol).</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="concept" type="dt:CD" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="subElements">
+						<xs:annotation>
+							<xs:documentation>The constituent elements of the group can be of
+								different types including subgroups, simple or atomic actions,
+								and subgroups embedded by reference.
+
+								While the group allows
+								artifacts of different types to be mixed and
+								matched in any
+								combination, a particular type of artifact might
+								further restrict
+								the combinations. For example, an artifact type
+								might require
+								subelements of a particular group to be either
+								groups or simple
+								actions; elements of both types cannot exist in
+								the group.
+							</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:choice maxOccurs="unbounded">
+									<xs:element name="simpleAction" type="AtomicAction">
+										<xs:annotation>
+											<xs:documentation>The subelement is an atomic or single
+												action.
+											</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="actionGroup" type="ActionGroup">
+										<xs:annotation>
+											<xs:documentation>This subelement is a group of actions that
+												are specified in line.
+											</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="actionRef" type="ActionRef">
+										<xs:annotation>
+											<xs:documentation>This subelement specifies an action to be included by reference
+											from a referenced library as defined in the libraries section of the metadata.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:choice>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ActionRef">
+		<xs:annotation>
+			<xs:documentation>A reference to an action defined in a library.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ActionBase">
+				<xs:attribute name="referencedActionId" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>The Id of the action being referenced.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="libraryName" type="xs:string" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="AtomicAction" abstract="true">
+		<xs:annotation>
+			<xs:documentation>An action that is not further broken down into
+				constituent actions.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ActionBase">
+				<xs:sequence>
+					<xs:element name="textEquivalent" type="dt:ST" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>A brief textual description of the action that
+								summarizes the action
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CreateAction">
+		<xs:annotation>
+			<xs:documentation>A new action to be executed by a user or a computer
+				system. The sentence provides the details of the action to be
+				executed.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AtomicAction">
+				<xs:sequence>
+					<xs:element name="actionSentence" type="Expression" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The parameters of the action that is to be
+								executed. For example, an action may be to order a medication.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="UpdateAction">
+		<xs:annotation>
+			<xs:documentation>This action changing the value of another
+				existing
+				action. The action being modified may be a proposed
+				action (e.g., an
+				medication being prescribed by a clinician) or be
+				an ongoing action
+				(e.g., an existing prescription). In these cases,
+				a modification can
+				be used to change the dose of the medication. It
+				may also be used to
+				discontinue a medication by changing the stop
+				date.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AtomicAction">
+				<xs:sequence>
+					<xs:element name="actionSentence" type="Expression">
+						<xs:annotation>
+							<xs:documentation>The modification to the action. This is
+								specified by modifying the properties of an existing action using
+								an ObjectRedefine expression.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RemoveAction">
+		<xs:annotation>
+			<xs:documentation>This action removes another proposed action or an
+				ongoing action.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AtomicAction">
+				<xs:sequence>
+					<xs:element name="actionSentence" type="Expression">
+						<xs:annotation>
+							<xs:documentation>The expression must resolve to the action that
+								is being removed.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="FireEventAction">
+		<xs:annotation>
+			<xs:documentation>This action fires an event. The event can serve as
+				a trigger to another artifact.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AtomicAction">
+				<xs:sequence>
+					<xs:element name="eventType" type="EventType">
+						<xs:annotation>
+							<xs:documentation>The type of the event that is fired.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="actionSentence" type="Expression" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The action sentence is the payload of the
+								event. Another artifact receives this payload as an input.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DeclareResponseAction">
+		<xs:annotation>
+			<xs:documentation>
+				The DeclareResponseAction provides a mechanism to declare a container for responses provided by the user
+				in response to CollectInformationActions. The intended semantics are to provide a container that can be
+				used to access responses within expressions used subsequently in an artifact.
+
+				The DeclareResponseAction creates a named container within the Parameters scope of the artifact, and expressions
+				may access the contents of a response using a ParameterRef expression.
+
+				The container is expected to be a collection of name-value pairs, and the intended semantics are to allow the
+				Property expression to be used, in connection with a ParameterRef expression as the source, to retrieve the current
+				value for a property.
+
+				The CollectInformationAction contains a responseBinding attribute that specifies the name of the container, and the
+				name of the property to be used to store the response value.
+
+				If no Name attribute is provided, the response container will be named Responses.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AtomicAction">
+				<xs:attribute name="name" type="xs:string" use="optional" default="Responses"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ResponseBinding">
+		<xs:annotation>
+			<xs:documentation>
+				Defines the attributes required to specify a binding path for documentation item responses.
+
+				The container attribute specifies the name of the response container that will be used. If
+				no container attribute is provided, the default container name of Responses will be used.
+
+				The property attribute specifies the name of the property within the container that will be 
+				used to store the user response value.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="container" type="xs:string" use="optional" default="Responses"/>
+		<xs:attribute name="property" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="CollectInformationAction">
+		<xs:annotation>
+			<xs:documentation>This action requests information from the actor. The
+				information request is specified as a DocumentationItem.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="AtomicAction">
+				<xs:sequence>
+					<xs:element name="documentationConcept" type="DocumentationItem">
+						<xs:annotation>
+							<xs:documentation>This provides a specification of the
+								information to be collected from the user.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="initialValue" type="Expression" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>An expression to compute an initial value for
+								the documentation concept. The initial value could be computed
+								from previous data about the patient available via expressions
+								specified in the external data
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="responseBinding" type="ResponseBinding" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Defines the response binding for the documentation item.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

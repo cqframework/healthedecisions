@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+	<xs:annotation>
+		<xs:documentation>
+			This file defines the ArtifactType enumeration.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="ArtifactType">
+		<xs:annotation>
+			<xs:documentation>Three types of artifacts are in scope for Health eDecisions Use Case #1:  Event-condition-action rules, order sets and documentation templates.</xs:documentation>
+			<!-- BTR-> There was a comment within the documentation here:   In addition, a CDS artifact may also be a value set.  !!! Get more info from Aziz about this ...  !!! -->
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Rule">
+				<xs:annotation>
+					<xs:documentation>Denotes an Event-Condition-Action Rule.  An ECA rule has a specific structure that is a restriction on the general structure of a CDS Knowledge Artifact.  See the Implementation Guide for the constraints applicable to ECA rules.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Order Set">
+				<xs:annotation>
+					<xs:documentation>Denotes an Order Set for use by physicians at the point of care.  An Order Set has a specific structure that is a restriction on the general structure of a CDS Knowledge Artifact.  See the Implementation Guide for the constraints applicable to Order Sets.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Documentation Template">
+				<xs:annotation>
+					<xs:documentation>Denotes a Documentation Template for use by care providers.  A Documentation Template has a specific structure that is a restriction on the general structure of a CDS Knowledge Artifact.  See the Implementation Guide for the constraints applicable to Documentation Templates.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Library">
+				<xs:annotation>
+					<xs:documentation>Denotes a Library of artifact components that can be reused by reference in other artifacts.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

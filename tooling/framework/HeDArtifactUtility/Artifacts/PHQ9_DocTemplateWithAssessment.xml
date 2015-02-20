@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?schematron-schema href="../main/schematron/knowledgeartifact.sch"?>
+<?schematron-schema href="../main/schematron/documentationtemplates.sch"?>
+<knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
+	xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:dt="urn:hl7-org:cdsdt:r2"
+	xmlns:p1="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd ">
+
+	<!-- PHQ-9 Depression Patient Questionnaire This example illustrates the 
+		use of the HeD schema for representing a patient questionnaire. The schema 
+		models the PHQ-9 instrument for depression. This questionnaire was chosen 
+		because it is used in a quality measure, specifically NQF eMeasure 0712. -->
+	<!-- The questionnaire is modeled as a documentation template. It contains 
+		11 documentation concepts: nine items of the instrument that form the basis 
+		of the score, one item for recording the score, and one item that is part 
+		of the instrument but does not contribute to the score. Each of the nine 
+		scoring items are modeled as a documentation concept with a list constraining 
+		the response. Each textual response has a numeric equivalent value that is 
+		used to compute the total score. -->
+	<!-- The instructions on how to calculate the score and to interpret the 
+		results are included in the documentation element of the metadata. The instructions 
+		included with the source instrument were designed for a paper form (e.g., 
+		they refer to shaded areas of the form). Thus, some discretion was used by 
+		the author in translating the instructions for incorporation into this artifact. 
+		The example has been enhanced from the Dec 2012 version to specify formally 
+		how the PHQ9 score is computed. There also is a new CreateAction that constructs 
+		an ObservationResult to make an assessment of severe depression when the 
+		PHQ9 score is greater than or equal to 20. -->
+	<metadata>
+		<identifiers>
+			<identifier root="Meliorix:HeD:PHQ9Assessment" version="2" />
+		</identifiers>
+		<artifactType value="Documentation Template" />
+
+		<schemaIdentifier root="urn:hl7-org:knowledgeartifact:r1" />
+
+		<dataModels>
+			<modelReference>
+				<description value="Virtual Medical Record model" />
+				<referencedModel value="urn:hl7-org:vmr:r2" />
+			</modelReference>
+		</dataModels>
+
+		<!-- -->
+		<title value="Patient Health Questionnaire (PHQ-9)" />
+		<documentation>
+			<content>
+				<p1:div>
+					<p1:h1>PHQ-9 Patient Depression Questionnaire</p1:h1>
+
+					<p1:h2>Depression indicators:</p1:h2>
+					<p1:ol>
+						<p1:li>The first eight items: a score of 2 or more</p1:li>
+						<p1:li>The ninth item: a score of 1 or more</p1:li>
+					</p1:ol>
+
+					<p1:h2>For initial diagnosis:</p1:h2>
+					<p1:ol>
+						<p1:li>Patient completes PHQ-9 Quick Depression Assessment.
+						</p1:li>
+						<p1:li>If there are at
+							least 4 items with a depression indicator,
+							consider a depressive
+							disorder. Add
+							score to determine severity.
+						</p1:li>
+					</p1:ol>
+
+					<p1:h2>Consider Major Depressive Disorder</p1:h2>
+					- If there are at least 5 items with a depression indicator (one of
+					which
+					corresponds to Question #1 or #2)
+
+					<p1:h2>Consider Other Depressive Disorder</p1:h2>
+					- If there are 2 items with a depression indicator (one of which
+					corresponds to
+					Question #1 or #2)
+
+
+					<p1:p>
+						<p1:b>Note:</p1:b>
+						Since the questionnaire relies on patient self-report, all
+						responses should be
+						verified by the clinician, and a definitive
+						diagnosis is made on clinical
+						grounds taking into account how well
+						the patient understood the
+						questionnaire,
+						as well as other relevant
+						information from the patient.
+					</p1:p>
+
+					<p1:p>Diagnoses of Major Depressive Disorder or Other Depressive
+						Disorder also require
+						impairment of social, occupational, or other
+						important areas of functioning
+						(Question #10) and ruling out normal
+						bereavement, a history of a
+						Manic Episode
+						(Bipolar Disorder), and a
+						physical disorder, medication, or other drug as
+						the biological
+						cause of the depressive symptoms.
+					</p1:p>
+
+					<p1:p>
+						<p1:b>To monitor severity over time for newly diagnosed patients
+							or patients in current
+							treatment for depression:
+						</p1:b>
+					</p1:p>
+					<p1:ol>
+						<p1:li>Patients may complete questionnaires at baseline and at
+							regular intervals (eg, every 2 weeks) at home and bring them in
+							at their next appointment for scoring or they
+							may complete the
+							questionnaire during each scheduled appointment.
+						</p1:li>
+						<p1:li>Add together item scores to get a TOTAL score.</p1:li>
+						<p1:li>
+							Refer to the accompanying
+							<p1:b>PHQ-9 Scoring Box </p1:b>
+							to interpret the TOTAL score.
+						</p1:li>
+						<p1:li>Results may be included in patient records to assist you in
+							setting up a treatment goal, determining degree of response, as
+							well as guiding treatment intervention.
+						</p1:li>
+					</p1:ol>
+
+					<p1:p>
+						<p1:b>Scoring: add up scores for all items on the PHQ-9</p1:b>
+					</p1:p>
+					For every:
+					<p1:ul>
+						<p1:li>Not at all = 0</p1:li>
+						<p1:li>Several days = 1</p1:li>
+						<p1:li>More than half the days = 2</p1:li>
+						<p1:li>Nearly every day = 3</p1:li>
+					</p1:ul>
+
+					<p1:h2>Interpretation of Total Score</p1:h2>
+
+					<p1:table>
+						<p1:tr>
+							<p1:td>Total Score</p1:td>
+							<p1:td>Depression Severity</p1:td>
+						</p1:tr>
+						<p1:tr>
+							<p1:td>1-4</p1:td>
+							<p1:td>Minimal depression</p1:td>
+						</p1:tr>
+						<p1:tr>
+							<p1:td>5-9</p1:td>
+							<p1:td>Mild depression</p1:td>
+						</p1:tr>
+						<p1:tr>
+							<p1:td>10-14</p1:td>
+							<p1:td>Moderate depression</p1:td>
+						</p1:tr>
+						<p1:tr>
+							<p1:td>15-19</p1:td>
+							<p1:td>Moderately severe depression</p1:td>
+						</p1:tr>
+						<p1:tr>
+							<p1:td>20-27</p1:td>
+							<p1:td>Severe depression</p1:td>
+						</p1:tr>
+					</p1:table>
+
+					<p1:p>PHQ9 Copyright © Pfizer Inc. All rights reserved. PRIME-MD ®
+						is a trademark of Pfizer Inc.
+					</p1:p>
+				</p1:div>
+			</content>
+		</documentation>
+		<relatedResources>
+			<relatedResource>
+				<relationship value="DerivedFrom" />
+				<resources>
+					<resource>
+						<title value="PHQ-9 Patient Depression Questionnaire" />
+						<location
+							value="http://www.integration.samhsa.gov/images/res/PHQ%20-%20Questions.pdf" />
+					</resource>
+				</resources>
+			</relatedResource>
+			<relatedResource>
+				<relationship value="AssociatedResource" />
+				<resources>
+					<resource>
+						<identifiers>
+							<identifier root="0712" />
+						</identifiers>
+						<title value="Depression Utilization of the PHQ-9 Tool" />
+						<location value="http://www.qualityforum.org/QPS/0712" />
+					</resource>
+				</resources>
+			</relatedResource>
+		</relatedResources>
+		<supportingEvidence>
+			<evidence>
+				<resources>
+					<resource>
+						<citation
+							value="Kurt Kroenke, Robert L Spitzer, Janet B W Williams. The PHQ-9: Validity of a Brief Depression Severity Measure. J Gen Intern Med. 2001 September; 16(9): 606–613. doi: 10.1046/j.1525-1497.2001.016009606.x. PMCID: PMC1495268" />
+					</resource>
+				</resources>
+			</evidence>
+		</supportingEvidence>
+		<applicability>
+			<coverage>
+				<focus value="ClinicalFocus" />
+				<value xsi:type="dt:CD" code="35489007" codeSystem="2.16.840.1.113883.6.96"
+					codeSystemName="SNOMED Clinical Terms" ><dt:displayName value="Depression disorder"/></value>
+			</coverage>
+			<coverage>
+				<focus value="TargetUser" />
+				<value xsi:type="dt:CD" code="116154003" codeSystem="2.16.840.1.113883.6.96"
+					codeSystemName="SNOMED Clinical Terms" ><dt:displayName value="Patient"/></value>
+			</coverage>
+		</applicability>
+
+		<status value="Draft" />
+		<eventHistory>
+			<artifactLifeCycleEvent>
+				<eventType value="Created"></eventType>
+				<eventDateTime value="20121128" />
+			</artifactLifeCycleEvent>
+		</eventHistory>
+		<contributions>
+			<contribution>
+				<contributor xsi:type="Organization">
+					<addresses>
+						<address>
+							<dt:part type="CTY" value="La Jolla" />
+							<dt:part type="ZIP" value="92037" />
+							<dt:part type="STA" value="CA" />
+							<dt:part type="CNT" value="USA" />
+						</address>
+					</addresses>
+					<contacts>
+						<contact value="mailto:aziz.boxwala@meliorix.com" />
+					</contacts>
+					<name value="Meliorix Inc." />
+				</contributor>
+				<role value="Author" />
+			</contribution>
+		</contributions>
+	</metadata>
+
+	<actionGroup>
+		<title value="Patient Health Questionnaire (PHQ-9)" />
+		<!-- Modified the text of the description from what was included in the 
+			paper form to make it more relevant to an electronic form -->
+		<description
+			value="Your responses to this questionnaire will help your doctor diagnose and manage your mental health. In responding to the question, please consider how often have you been bothered by any of the following problems over the last 2 weeks?" />
+		<representedConcepts>
+			<concept code="44249-1"
+				codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC">
+				<dt:displayName value="PHQ-9 quick depression assessment panel:-:Pt:^Patient:-:Reported.PHQ-9"/>
+			</concept>
+		</representedConcepts>
+
+
+		<subElements>
+			<simpleAction xsi:type="DeclareResponseAction" />
+			<simpleAction xsi:type="CollectInformationAction">
+				<!-- The patient must enter a response for this item -->
+				<behaviors>
+					<behavior xsi:type="RequiredBehavior" value="Must" />
+				</behaviors>
+				<documentationConcept>
+					<!-- The question or item shown to the patient -->
+					<displayText value="Little interest or pleasure in doing things" />
+					<itemCodes>
+						<itemCode code="44250-9" codeSystem="2.16.840.1.113883.6.1"
+							codeSystemName="LOINC" />
+					</itemCodes>
+					<responseDataType value="Integer" />
+					<!-- The patient must select a single value from one of the items in 
+						the list below -->
+					<responseCardinality value="Single" />
+					<responseRange xsi:type="ListConstraint"
+						strictSelection="true">
+						<constraintType value="List" />
+						<item>
+							<value xsi:type="IntegerLiteral" value="0" />
+							<displayText value="Not at all" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="1" />
+							<displayText value="Several days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="2" />
+							<displayText value="More than half the days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="3" />
+							<displayText value="Nearly every day" />
+						</item>
+					</responseRange>
+				</documentationConcept>
+				<responseBinding property="LittleInterest" />
+			</simpleAction>
+
+			<simpleAction xsi:type="CollectInformationAction">
+				<behaviors>
+					<behavior xsi:type="RequiredBehavior" value="Must" />
+				</behaviors>
+				<documentationConcept>
+					<displayText value="Feeling down, depressed, or hopeless" />
+					<itemCodes>
+						<itemCode code="44255-8" codeSystem="2.16.840.1.113883.6.1"
+							codeSystemName="LOINC" />
+					</itemCodes>
+					<responseDataType value="Integer" />
+					<responseCardinality value="Single" />
+					<responseRange xsi:type="ListConstraint"
+						strictSelection="true">
+						<constraintType value="List" />
+						<item>
+							<value xsi:type="IntegerLiteral" value="0" />
+							<displayText value="Not at all" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="1" />
+							<displayText value="Several days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="2" />
+							<displayText value="More than half the days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="3" />
+							<displayText value="Nearly every day" />
+						</item>
+					</responseRange>
+				</documentationConcept>
+				<responseBinding property="FeelingDown" />
+			</simpleAction>
+
+			<simpleAction xsi:type="CollectInformationAction">
+				<behaviors>
+					<behavior xsi:type="RequiredBehavior" value="Must" />
+				</behaviors>
+				<documentationConcept>
+					<displayText value="Trouble falling or staying asleep" />
+					<itemCodes>
+						<itemCode code="44259-0" codeSystem="2.16.840.1.113883.6.1"
+							codeSystemName="LOINC" />
+					</itemCodes>
+					<responseDataType value="Integer" />
+					<responseCardinality value="Single" />
+					<responseRange xsi:type="ListConstraint"
+						strictSelection="true">
+						<constraintType value="List" />
+						<item>
+							<value xsi:type="IntegerLiteral" value="0" />
+							<displayText value="Not at all" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="1" />
+							<displayText value="Several days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="2" />
+							<displayText value="More than half the days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="3" />
+							<displayText value="Nearly every day" />
+						</item>
+					</responseRange>
+				</documentationConcept>
+				<responseBinding property="TroubleSleeping" />
+			</simpleAction>
+
+			<simpleAction xsi:type="CollectInformationAction">
+				<behaviors>
+					<behavior xsi:type="RequiredBehavior" value="Must" />
+				</behaviors>
+				<documentationConcept>
+					<displayText value="Feeling tired or having little energy" />
+					<itemCodes>
+						<itemCode code="44254-1" codeSystem="2.16.840.1.113883.6.1"
+							codeSystemName="LOINC" />
+					</itemCodes>
+					<responseDataType value="Integer" />
+					<responseCardinality value="Single" />
+					<responseRange xsi:type="ListConstraint"
+						strictSelection="true">
+						<constraintType value="List" />
+						<item>
+							<value xsi:type="IntegerLiteral" value="0" />
+							<displayText value="Not at all" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="1" />
+							<displayText value="Several days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="2" />
+							<displayText value="More than half the days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="3" />
+							<displayText value="Nearly every day" />
+						</item>
+					</responseRange>
+				</documentationConcept>
+				<responseBinding property="FeelingTired" />
+			</simpleAction>
+
+			<simpleAction xsi:type="CollectInformationAction">
+				<behaviors>
+					<behavior xsi:type="RequiredBehavior" value="Must" />
+				</behaviors>
+				<documentationConcept>
+					<displayText value="Poor appetite or overeating" />
+					<itemCodes>
+						<itemCode code="44251-7" codeSystem="2.16.840.1.113883.6.1"
+							codeSystemName="LOINC" />
+					</itemCodes>
+					<responseDataType value="Integer" />
+					<responseCardinality value="Single" />
+					<responseRange xsi:type="ListConstraint"
+						strictSelection="true">
+						<constraintType value="List" />
+						<item>
+							<value xsi:type="IntegerLiteral" value="0" />
+							<displayText value="Not at all" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="1" />
+							<displayText value="Several days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="2" />
+							<displayText value="More than half the days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="3" />
+							<displayText value="Nearly every day" />
+						</item>
+					</responseRange>
+				</documentationConcept>
+				<responseBinding property="BadAppetite" />
+			</simpleAction>
+
+			<simpleAction xsi:type="CollectInformationAction">
+				<behaviors>
+					<behavior xsi:type="RequiredBehavior" value="Must" />
+				</behaviors>
+				<documentationConcept>
+					<displayText
+						value="Feeling bad about yourself - or that you are a failure or have let yourself or your family down" />
+					<itemCodes>
+						<itemCode code="44258-2" codeSystem="2.16.840.1.113883.6.1"
+							codeSystemName="LOINC" />
+					</itemCodes>
+					<responseDataType value="Integer" />
+					<responseCardinality value="Single" />
+					<responseRange xsi:type="ListConstraint"
+						strictSelection="true">
+						<constraintType value="List" />
+						<item>
+							<value xsi:type="IntegerLiteral" value="0" />
+							<displayText value="Not at all" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="1" />
+							<displayText value="Several days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="2" />
+							<displayText value="More than half the days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="3" />
+							<displayText value="Nearly every day" />
+						</item>
+					</responseRange>
+				</documentationConcept>
+				<responseBinding property="FeelingBadAboutSelf" />
+			</simpleAction>
+
+			<simpleAction xsi:type="CollectInformationAction">
+				<behaviors>
+					<behavior xsi:type="RequiredBehavior" value="Must" />
+				</behaviors>
+				<documentationConcept>
+					<displayText
+						value="Trouble concentrating on things, such as reading the newspaper or watching television" />
+					<itemCodes>
+						<itemCode code="44252-5" codeSystem="2.16.840.1.113883.6.1"
+							codeSystemName="LOINC" />
+					</itemCodes>
+					<responseDataType value="Integer" />
+					<responseCardinality value="Single" />
+					<responseRange xsi:type="ListConstraint"
+						strictSelection="true">
+						<constraintType value="List" />
+						<item>
+							<value xsi:type="IntegerLiteral" value="0" />
+							<displayText value="Not at all" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="1" />
+							<displayText value="Several days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="2" />
+							<displayText value="More than half the days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="3" />
+							<displayText value="Nearly every day" />
+						</item>
+					</responseRange>
+				</documentationConcept>
+				<responseBinding property="TroubleConcentrating" />
+			</simpleAction>
+
+			<simpleAction xsi:type="CollectInformationAction">
+				<behaviors>
+					<behavior xsi:type="RequiredBehavior" value="Must" />
+				</behaviors>
+				<documentationConcept>
+					<displayText
+						value="Moving or speaking so slowly that other people could have noticed. Or the opposite - being so figety or restless that you have been moving around a lot more than usual" />
+					<itemCodes>
+						<itemCode code="44253-3" codeSystem="2.16.840.1.113883.6.1"
+							codeSystemName="LOINC" />
+					</itemCodes>
+					<responseDataType value="Integer" />
+					<responseCardinality value="Single" />
+					<responseRange xsi:type="ListConstraint"
+						strictSelection="true">
+						<constraintType value="List" />
+						<item>
+							<value xsi:type="IntegerLiteral" value="0" />
+							<displayText value="Not at all" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="1" />
+							<displayText value="Several days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="2" />
+							<displayText value="More than half the days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="3" />
+							<displayText value="Nearly every day" />
+						</item>
+					</responseRange>
+				</documentationConcept>
+				<responseBinding property="MovingSpeaking" />
+			</simpleAction>
+
+			<simpleAction xsi:type="CollectInformationAction">
+				<behaviors>
+					<behavior xsi:type="RequiredBehavior" value="Must" />
+				</behaviors>
+				<documentationConcept>
+					<displayText
+						value="Thoughts that you would be better off dead, or of hurting yourself" />
+					<itemCodes>
+						<itemCode code="44250-8" codeSystem="2.16.840.1.113883.6.1"
+							codeSystemName="LOINC" />
+					</itemCodes>
+					<responseDataType value="Integer" />
+					<responseCardinality value="Single" />
+					<responseRange xsi:type="ListConstraint"
+						strictSelection="true">
+						<constraintType value="List" />
+						<item>
+							<value xsi:type="IntegerLiteral" value="0" />
+							<displayText value="Not at all" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="1" />
+							<displayText value="Several days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="2" />
+							<displayText value="More than half the days" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="3" />
+							<displayText value="Nearly every day" />
+						</item>
+					</responseRange>
+				</documentationConcept>
+				<responseBinding property="ThoughtsOfHurting" />
+			</simpleAction>
+
+			<simpleAction xsi:type="CollectInformationAction">
+				<!-- A required behavior is not specified here. It is up to the integrator 
+					on how to implement this action. It is possible that some systems may be 
+					able to compute the score autonomously, i.e., without the patient typing 
+					in the score -->
+				<documentationConcept>
+					<displayText value="Total Score" />
+					<description value="Add the score from each of the nine questions above" />
+					<!-- The score is computed by adding the numeric equivalent values of 
+						each of the responses. -->
+					<itemCodes>
+						<itemCode code="44261-6" codeSystem="2.16.840.1.113883.6.1"
+							codeSystemName="LOINC" />
+					</itemCodes>
+					<responseDataType value="Integer" />
+					<responseCardinality value="Single" />
+					<!-- The total score must range between 0 and 27 -->
+					<responseRange xsi:type="ExpressionConstraint">
+						<constraintType value="Minimum" />
+						<constraint xsi:type="IntegerLiteral" value="0" />
+					</responseRange>
+					<responseRange xsi:type="ExpressionConstraint">
+						<constraintType value="Maximum" />
+						<constraint xsi:type="IntegerLiteral" value="27" />
+					</responseRange>
+				</documentationConcept>
+				<initialValue xsi:type="Sum">
+					<source xsi:type="List">
+						<element xsi:type="Property" path="LittleInterest">
+							<source xsi:type="ParameterRef" name="Responses" />
+						</element>
+						<element xsi:type="Property" path="FeelingDown">
+							<source xsi:type="ParameterRef" name="Responses" />
+						</element>
+						<element xsi:type="Property" path="TroubleSleeping">
+							<source xsi:type="ParameterRef" name="Responses" />
+						</element>
+						<element xsi:type="Property" path="FeelingTired">
+							<source xsi:type="ParameterRef" name="Responses" />
+						</element>
+						<element xsi:type="Property" path="BadAppetite">
+							<source xsi:type="ParameterRef" name="Responses" />
+						</element>
+						<element xsi:type="Property" path="FeelingBadAboutSelf">
+							<source xsi:type="ParameterRef" name="Responses" />
+						</element>
+						<element xsi:type="Property" path="TroubleConcentrating">
+							<source xsi:type="ParameterRef" name="Responses" />
+						</element>
+						<element xsi:type="Property" path="MovingSpeaking">
+							<source xsi:type="ParameterRef" name="Responses" />
+						</element>
+						<element xsi:type="Property" path="ThoughtsOfHurting">
+							<source xsi:type="ParameterRef" name="Responses" />
+						</element>
+					</source>
+				</initialValue>
+				<responseBinding property="PHQ9Score" />
+			</simpleAction>
+
+			<!-- An example of an assessment action -->
+			<simpleAction xsi:type="CreateAction">
+				<conditions>
+					<condition>
+						<!-- Assessment is made only if the PHQ 9 score is greater than or 
+							equal to 20 -->
+						<logic xsi:type="GreaterOrEqual">
+							<operand xsi:type="Property" path="PHQ9Score">
+								<source xsi:type="ParameterRef" name="Responses" />
+							</operand>
+							<operand xsi:type="IntegerLiteral" value="20" />
+						</logic>
+						<conditionRole value="ApplicableScenario" />
+					</condition>
+				</conditions>
+				<textEquivalent
+					value="Assess Severe Depression due to PHQ9 Score greater than 20" />
+				<!-- The assessment is recorded as a VMR Observation Event -->
+				<actionSentence xsi:type="ObjectExpression"
+					objectType="vmr:ObservationResult">
+					<!-- Could specify a template property here -->
+					<property name="observationFocus">
+						<value xsi:type="CodeLiteral" code="405049007" codeSystem="2.16.840.1.113883.6.96"
+							displayName="Level of depression" />
+					</property>
+					<property name="observationValue">
+						<value xsi:type="ObjectExpression" objectType="vmr:Value">
+							<property name="value">
+								<value xsi:type="StringLiteral" value="Severe depression" />
+							</property>
+						</value>
+					</property>
+				</actionSentence>
+			</simpleAction>
+
+			<simpleAction xsi:type="CollectInformationAction">
+				<behaviors>
+					<behavior xsi:type="RequiredBehavior" value="Must" />
+				</behaviors>
+				<documentationConcept>
+					<displayText
+						value="If you checked off any problems, how difficult have these problems made it for you to do your work, take care of things at home, or get along with other people" />
+					<itemCodes>
+						<itemCode code="44256-6" codeSystem="2.16.840.1.113883.6.1"
+							codeSystemName="LOINC" />
+					</itemCodes>
+					<responseDataType value="String" />
+					<responseCardinality value="Single" />
+					<responseRange xsi:type="ListConstraint"
+						strictSelection="true">
+						<constraintType value="List" />
+						<item>
+							<value xsi:type="StringLiteral" value="Not difficult at all" />
+						</item>
+						<item>
+							<value xsi:type="StringLiteral" value="Somewhat difficult" />
+						</item>
+						<item>
+							<value xsi:type="StringLiteral" value="Very difficult" />
+						</item>
+						<item>
+							<value xsi:type="StringLiteral" value="Extremely difficult" />
+						</item>
+					</responseRange>
+				</documentationConcept>
+			</simpleAction>
+		</subElements>
+	</actionGroup>
+</knowledgeDocument>

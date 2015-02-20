@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+	<xs:annotation>
+		<xs:documentation>
+			This file defines the ArtifactStatusType enumeration.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="ArtifactStatusType">
+		<xs:annotation>
+			<xs:documentation>A specific status is associated with each version of an artifact. 
+
+See the Implementation Guide for a state-transition diagram showing the legal transitions from each state; each state is equivalent to particular status.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Draft">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="InTest"/>
+			<xs:enumeration value="Active"/>
+			<xs:enumeration value="Inactive"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<map xmlns="urn:hl7-org:knowledgeartifact:r1:engine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1:engine ..\..\HeDEngine\Maps\HandlerMap.xsd" handlerType="ModelTranslation">
+	<!-- Model transformation classes for CREF Artifacts -->
+	<entry key="EvaluatedPerson" value="CREF.Translation.PatientTranslator,CREF.Translation"/>
+    <entry key="AD" value="CREF.Translation.AddressTranslator,CREF.Translation"/>
+	<entry key="ADXP" value="CREF.Translation.AddressPartTranslator,CREF.Translation"/>
+	<entry key="AdverseEvent" value="CREF.Translation.AllergyTranslator,CREF.Translation"/>
+	<entry key="DeniedAdverseEvent" value="CREF.Translation.AllergyTranslator,CREF.Translation"/>
+	<entry key="EncounterEvent" value="CREF.Translation.EncounterTranslator,CREF.Translation"/>
+	<entry key="ObservationOrder" value="CREF.Translation.ResultTranslator,CREF.Translation"/>
+	<entry key="ObservationProposal" value="CREF.Translation.ResultTranslator,CREF.Translation"/>
+	<entry key="ObservationResult" value="CREF.Translation.ResultTranslator,CREF.Translation"/>
+	<entry key="UnconductedObservation" value="CREF.Translation.ResultTranslator,CREF.Translation"/>
+	<entry key="Problem" value="CREF.Translation.ProblemTranslator,CREF.Translation"/>
+	<entry key="DeniedProblem" value="CREF.Translation.ProblemTranslator,CREF.Translation"/>
+	<entry key="ProcedureEvent" value="CREF.Translation.ProcedureTranslator,CREF.Translation"/>
+	<entry key="ProcedureOrder" value="CREF.Translation.ProcedureTranslator,CREF.Translation"/>
+	<entry key="ProcedureProposal" value="CREF.Translation.ProcedureTranslator,CREF.Translation"/>
+	<entry key="SubstanceAdministrationEvent" value="CREF.Translation.MedicationTranslator,CREF.Translation"/>
+	<entry key="SubstanceAdministrationOrder" value="CREF.Translation.MedicationTranslator,CREF.Translation"/>
+	<entry key="SubstanceAdministrationProposal" value="CREF.Translation.MedicationTranslator,CREF.Translation"/>
+	<entry key="UndeliveredSubstanceAdministration" value="CREF.Translation.MedicationTranslator,CREF.Translation"/>
+    <entry key="RelatedClinicalStatement" value="CREF.Translation.RelatedClinicalStatementTranslator,CREF.Translation"/>
+</map>

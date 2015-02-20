@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 rel. 2 (http://www.altova.com) by Chris Christiansen (Allscripts) -->
+<xs:schema xmlns="urn:Allscripts:momci" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:momst="urn:Allscripts:momst" xmlns:mombt="urn:Allscripts:mombt" targetNamespace="urn:Allscripts:momci" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xs:import namespace="urn:Allscripts:momst" schemaLocation="MomTypesSimple.xsd"/>
+	<xs:import namespace="urn:Allscripts:mombt" schemaLocation="MomTypesBase.xsd"/>
+	<xs:element name="VitalSignObservation" type="VitalSignObservation"/>
+		<xs:complexType name="VaccineInformationStatement">
+		<xs:sequence>
+			<xs:element name="PublicationDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="ReceiptDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date that the Vaccine Information Statement was presented to the Patient.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VitalSignObservation">
+		<xs:annotation>
+			<xs:documentation>vital sign observation type</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IDs" type="mombt:CodedValueType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>14.01</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Codes" type="mombt:CodedValueType" maxOccurs="unbounded"/>
+			<xs:element name="VitalSign" type="momst:VitalSignType">
+				<xs:annotation>
+					<xs:documentation>14.03 C83-[DE-14.03-1] C80 2.2.3.6.4</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Status" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>14.04</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CommentText" type="xs:string" minOccurs="0"/>
+			<xs:element name="ResultDateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>14.02</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Value" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>14.05</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Units" type="momst:VitalSignUnit"/>
+			<xs:element name="UnitModifier" type="xs:string" minOccurs="0"/>
+			<xs:element name="Interpretation" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>14.06</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReferenceRange" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>14.06</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProviderID" type="mombt:CodedValueType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>a pointer to a healthcareProvider</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EncounterID" type="mombt:CodedValueType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ClinicalItemBase" type="ClinicalItemBase"/>
+	<xs:complexType name="ClinicalItemBase" abstract="true">
+		<xs:annotation>
+			<xs:documentation>base properties for all clinical items</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IDs" type="mombt:CodedValueType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Codes" type="mombt:CodedValueType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Status" type="momst:ClinicalItemStatus" minOccurs="0"/>
+			<xs:element name="CommentText" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>comments may be added to any item</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SearchText" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>from import processing; may represent a shorter name than the productName, problem, or full medication text</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EncounterID" type="mombt:CodedValueType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReactionObservation">
+		<xs:sequence>
+			<xs:element name="ReactionCode" type="mombt:CodedValueType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Identifies the reaction to the immunization.  Multiple codes were allowed to support multiple coding systems.
+									</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObservationDateTime" type="xs:date"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Immunization" type="Immunization"/>
+	<xs:complexType name="Immunization">
+		<xs:complexContent>
+			<xs:extension base="ClinicalItemBase">
+				<xs:sequence>
+					<xs:element name="ProductName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Supplemental textual name of vaccine.  Coded values are the primary source of the information.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdministeredDate" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>13.02</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Dose" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:appinfo>Supports HL7.RXA.6</xs:appinfo>
+							<xs:documentation>This field records the amount of immunization administered.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DoseUnits" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:appinfo>Supports HL7.RXA.7</xs:appinfo>
+							<xs:documentation>This field is conditional because it is required if the administered amount code does not imply units.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdministrationNotes" type="mombt:CodedValueType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:appinfo>Supports HL7.RXA.9</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdministeringProvider" type="mombt:Provider" minOccurs="0">
+						<xs:annotation>
+							<xs:appinfo>Supports HL7.RXA.10</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdministeringLocation" type="mombt:Organization" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+								Implements data requirements for HL7 Field: RXA-11
+								The name and address of the facility that administered the immunization.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SubstanceLotNumber" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:appinfo>Supports HL7.RXA.15</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="VaccineExpirationDate" type="xs:date" minOccurs="0">
+						<xs:annotation>
+							<xs:appinfo>Supports HL7.RXA.16</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SubstanceManufacturerName" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:appinfo>Supports HL7.RXA.17</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="MedicationSeriesNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>13.03</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RefusalReason" type="mombt:CodedValueType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:appinfo>Supports HL7.RXA.18</xs:appinfo>
+							<xs:documentation/>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Indication" type="mombt:CodedValueType" minOccurs="0">
+						<xs:annotation>
+							<xs:appinfo>Supports HL7.RXA.19</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CompletionStatus" type="mombt:CodedValueType" minOccurs="0">
+						<xs:annotation>
+							<xs:appinfo>Supports HL7.RXA.20</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Route" type="mombt:CodedValueType" minOccurs="0">
+						<xs:annotation>
+							<xs:appinfo>Supports HL7.RXR.1</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdministrationSite" minOccurs="0">
+						<xs:annotation>
+							<xs:appinfo>Supports HL7.RXR.2</xs:appinfo>
+							<xs:documentation>Identiies the area on body that the immunization was injected or applied.  Supports multiple coding systems.  see also "element site" on ci:immunization.
+							</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="code" type="mombt:CodedValueType" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="ReactionObservation" type="ReactionObservation" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="VaccinationComponent" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="VaccinationGroup" type="mombt:CodedValueType" minOccurs="0"/>
+								<xs:element name="VaccineInformationStatement" type="VaccineInformationStatement" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="ImmunizationScheduleUsed" type="mombt:CodedValueType" minOccurs="0"/>
+					<xs:element name="MedicationSeriesName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Name of the specific set of doses and recommendations that were used to evaluate this dose and make recommendations.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdministeringProviderID" type="mombt:CodedValueType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>a pointer to a healthcareProvider</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="PlanOfCare" type="PlanOfCare"/>
+	<xs:complexType name="PlanOfCare">
+		<xs:complexContent>
+			<xs:extension base="ClinicalItemBase">
+				<xs:sequence>
+					<xs:element name="OrderText" type="xs:string"/>
+					<xs:element name="OrderDate" type="xs:dateTime" minOccurs="0"/>
+					<xs:element name="OrderProvider" type="xs:int" minOccurs="0"/>
+					<xs:element name="OrderPriority" type="xs:string" minOccurs="0"/>
+					<xs:element name="OrderFrequency" type="xs:string" minOccurs="0"/>
+					<xs:element name="DeferredFlag" type="xs:boolean" minOccurs="0"/>
+					<xs:element name="DeferredUntilDate" type="xs:dateTime" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Allergy" type="Allergy"/>
+	<xs:complexType name="Allergy">
+		<xs:complexContent>
+			<xs:extension base="ClinicalItemBase">
+				<xs:sequence>
+					<xs:element name="EventDate" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>6.01</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="EventType" type="momst:AdverseEventType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>6.02 C83-[DE-6.02-1]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ProductText" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>6.03</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Reactions" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>6.05 and 6.06</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Reaction" maxOccurs="unbounded">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="ReactionText" type="xs:string"/>
+											<xs:element name="ReactionCode" type="mombt:CodedValueType" minOccurs="0">
+												<xs:annotation>
+													<xs:documentation>C83-[DE-6.08-1]</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="SeverityText" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>6.07</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SeverityCode" type="momst:ProblemSeverity" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>6.08 C83-[DE-6.08-1]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ProviderID" type="mombt:CodedValueType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>a pointer to a healthcareProvider</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="LabOrder" type="LabOrder"/>
+	<xs:complexType name="LabOrder">
+		<xs:complexContent>
+			<xs:extension base="ClinicalItemBase">
+				<xs:sequence>
+					<xs:element name="OrderName" type="xs:string"/>
+					<xs:element name="OrderDateTime" type="xs:dateTime">
+						<xs:annotation>
+							<xs:documentation>15.02</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ProviderID" type="mombt:CodedValueType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>a pointer to a healthcareProvider</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Result" type="Result"/>
+	<xs:complexType name="Result">
+		<xs:complexContent>
+			<xs:extension base="ClinicalItemBase">
+				<xs:sequence>
+					<xs:element name="ResultName" type="xs:string"/>
+					<xs:element name="ResultDateTime" type="xs:dateTime">
+						<xs:annotation>
+							<xs:documentation>15.02</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Value" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>15.05</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Units" type="xs:string" minOccurs="0"/>
+					<xs:element name="UnitsModifier" type="xs:string" minOccurs="0"/>
+					<xs:element name="Interpretation" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>15.06</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ReferenceRange" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>15.07</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ProviderID" type="mombt:CodedValueType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>a pointer to a healthcareProvider</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LabOrderID" type="mombt:CodedValueType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>a pointer to a labOrder</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Medication" type="Medication"/>
+	<xs:complexType name="Medication">
+		<xs:annotation>
+			<xs:documentation>we omitted fulfillment component elements 8.32 and above</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ClinicalItemBase">
+				<xs:sequence>
+					<xs:element name="Administered" type="xs:boolean"/>
+					<!-- administered or not; Prescribed is not administered, but patient reported is -->
+					<xs:element name="FreeTextSIG" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>8.01</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="StartDateTime" type="xs:dateTime" minOccurs="0"/>
+					<xs:element name="StopDateTime" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.02</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AdminTiming" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.03</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Frequency" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.04</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Interval" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.05</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Duration" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.06</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Route" type="momst:Route" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.07 C83-[DE-8.07-1]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<!-- TODO: Should this use hub:DoseType? -->
+					<xs:element name="Dose" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.08 C83-[DE-8.08-1]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DoseUnits" type="xs:string" minOccurs="0"/>
+					<xs:element name="Site" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.09 FUTURE: C83-[DE-8.09-1]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DoseRestriction" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.10</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ProductForm" type="momst:ProductForm" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.11 C83-[DE-8.11-1]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DeliveryMethod" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.12</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ProductName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>
+								8.15 C83-[DE-8.15-1]
+
+								this is text associated with 8.13, Coded Product (which should be in the code element of the clinicalItemBaseGroup)
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BrandName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>
+								8.16 C83-[DE-8.16-1]
+
+								this is text associated with 8.14, Coded Brand name
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DrugManufacturer" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.17</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ProductConcentration" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.18</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="MedicationKind" type="momst:MedicationKind" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.19 C83-[DE-8.19-1]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Indication" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.21 C83-[DE-8.21-1]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PatientInstructions" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.22</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Reaction" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.23</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Vehicle" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.24 C83-[DE-8.23-1]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DoseIndicator" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.25</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OrderNumber" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.26</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Fills" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.27</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="QuantityOrdered" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.28</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OrderExpirationDateTime" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.29</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OrderDateTime" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.30</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OrderingProvider" type="mombt:CodedValueType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>8.31</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LastUpdatedDateTime" type="xs:dateTime" minOccurs="0"/>
+					<xs:element name="DaysToTake" type="xs:int" minOccurs="0"/>
+					<xs:element name="QuantityToDispense" type="xs:int" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Procedure" type="Procedure"/>
+	<xs:complexType name="Procedure">
+		<xs:complexContent>
+			<xs:extension base="ClinicalItemBase">
+				<xs:sequence>
+					<xs:element name="ProcedureText" type="xs:string"/>
+					<xs:element name="ProcedureDate" type="xs:dateTime" minOccurs="0"/>
+					<xs:element name="ProcedureProvider" type="mombt:CodedValueType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Encounter" type="Encounter"/>
+	<xs:complexType name="Encounter">
+		<xs:complexContent>
+			<xs:extension base="ClinicalItemBase">
+				<xs:sequence>
+					<xs:element name="EncounterText" type="xs:string"/>
+					<xs:element name="EncounterDate" type="xs:dateTime" minOccurs="0"/>
+					<xs:element name="ProviderID" type="mombt:CodedValueType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ProblemItemBase" type="ProblemItemBase"/>
+	<xs:complexType name="ProblemItemBase" abstract="true">
+		<xs:annotation>
+			<xs:documentation>base properties for all problem items</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ClinicalItemBase">
+				<xs:sequence>
+					<xs:element name="ProblemDate" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>7.01</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ProblemType" type="momst:ProblemType">
+						<xs:annotation>
+							<xs:documentation>7.02 C83-[DE-7.02-1]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ProblemText" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>7.03</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ResolvedDate" type="xs:dateTime" minOccurs="0"/>
+					<xs:element name="TreatingProviderID" type="mombt:CodedValueType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>7.05</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Denied" type="xs:boolean" minOccurs="0"/>
+					<xs:element name="Category" type="xs:string" minOccurs="0"/>
+					<xs:element name="Severity" type="xs:string" minOccurs="0"/>
+					<xs:element name="ClinicalProgress" type="xs:string" minOccurs="0"/>
+					<xs:element name="Laterality" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Problem" type="Problem"/>
+	<xs:complexType name="Problem">
+		<xs:complexContent>
+			<xs:extension base="ProblemItemBase">
+				<xs:sequence>
+					<xs:element name="WasOneCauseOfDeath" type="xs:boolean" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>7.07</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="SocialHistory" type="SocialHistory"/>
+	<xs:complexType name="SocialHistory">
+		<xs:complexContent>
+			<xs:extension base="ProblemItemBase">
+				<xs:sequence>
+					<xs:element name="SocialHistoryType" type="momst:SocialHistoryType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="FamilyHistory" type="FamilyHistory"/>
+	<xs:complexType name="FamilyHistory">
+		<xs:complexContent>
+			<xs:extension base="ProblemItemBase">
+				<xs:sequence>
+					<xs:element name="FamilyMemberID" type="mombt:CodedValueType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

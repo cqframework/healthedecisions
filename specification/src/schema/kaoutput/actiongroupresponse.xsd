@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:kaoutput:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:ka="urn:hl7-org:knowledgeartifact:r1" xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:cdso="urn:hl7-org:cdsoutput:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" targetNamespace="urn:hl7-org:kaoutput:r1" elementFormDefault="qualified">
+	<xs:import namespace="urn:hl7-org:cdsdt:r2" schemaLocation="../common/datatypes.xsd"/>
+	<xs:import namespace="urn:hl7-org:knowledgeartifact:r1" schemaLocation="../knowledgeartifact/action.xsd"/>
+	<xs:import namespace="urn:hl7-org:vmr:r2" schemaLocation="../vmr/vmr.xsd"/>
+	<xs:import namespace="urn:hl7-org:cdsoutput:r2" schemaLocation="../cdsoutput/cdsOutput.xsd"/>
+	<xs:complexType name="CDSActionGroupResponse">
+		<xs:complexContent>
+			<xs:extension base="cdso:CDSOutput">
+				<xs:sequence>
+					<xs:element name="patientId" type="dt:II" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="actionGroup" type="ka:ActionGroup" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

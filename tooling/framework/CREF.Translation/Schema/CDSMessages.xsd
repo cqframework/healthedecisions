@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Initially generated from Allscripts.CDS.dll, 6/14/2010 9:38 PM -->
+<!-- Edited to add Allscripts Envelope usage by Bryn Rhodes -->
+<!-- Edited to reference new ClinicalObjects instead of the CED extract schemas, 7/1/2010 by Bryn Rhodes -->
+<!-- Edited to reference refactored MomTypes schemas, 7/2/2010 by Jim Doble -->
+<xs:schema xmlns="http://schemas.allscripts.com/mom" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:momst="urn:Allscripts:momst" xmlns:mombt="urn:Allscripts:mombt" xmlns:momci="urn:Allscripts:momci" targetNamespace="http://schemas.allscripts.com/mom" elementFormDefault="qualified">
+	<xs:import namespace="urn:Allscripts:momst" schemaLocation="MomTypesSimple.xsd"/>
+	<xs:import namespace="urn:Allscripts:mombt" schemaLocation="MomTypesBase.xsd"/>
+	<xs:import namespace="urn:Allscripts:momci" schemaLocation="MomTypesClinicalItem.xsd"/>
+	<xs:complexType name="HubMessages">
+		<xs:choice>
+			<xs:element ref="RulesRequested"/>
+			<xs:element ref="RulesProvided"/>
+			<xs:element ref="RuleEvaluationRequested"/>
+			<xs:element ref="RecommendationsGenerated"/>
+			<xs:element ref="RecommendationsRequested"/>
+			<xs:element ref="RecommendationsProvided"/>
+			<xs:element ref="RecommendationsAddressed"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:element name="RuleEvaluationRequested" type="RuleEvaluationRequested" nillable="true"/>
+	<xs:complexType name="RuleEvaluationRequested"/>
+	<xs:complexType name="ArrayOfKeyValue">
+		<xs:sequence>
+			<xs:element name="KeyValue" type="KeyValue" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="KeyValue">
+		<xs:sequence>
+			<xs:element name="Key" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Value" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RecommendationsAddressed" type="RecommendationsAddressed" nillable="true"/>
+	<xs:complexType name="RecommendationsAddressed">
+		<xs:sequence>
+			<xs:element name="RecommendationContext" type="RecommendationContext" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Dispositions" type="ArrayOfRecommendationDisposition" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArrayOfRecommendationDisposition">
+		<xs:sequence>
+			<xs:element name="RecommendationDisposition" type="RecommendationDisposition" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RecommendationDisposition">
+		<xs:sequence>
+			<xs:element name="PatientID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ProviderID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="UserID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RecommendationID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RuleID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="TypeID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CodeSet" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Code" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="SeverityID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="StatusID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RuleSource" type="RuleSource" nillable="true"/>
+	<xs:complexType name="RuleSource">
+		<xs:sequence>
+			<xs:element name="RuleID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RuleName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RuleVersion" type="xs:int" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="RuleSetID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RuleSetName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RuleSetVersion" type="xs:int" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="RuleAgentID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RuleAgentName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="SubscriptionSource" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ProviderID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ExternalReference" type="ExternalReference" nillable="true"/>
+	<xs:complexType name="ExternalReference">
+		<xs:sequence>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Uri" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RuleInfo" type="RuleInfo" nillable="true"/>
+	<xs:complexType name="RuleInfo">
+		<xs:sequence>
+			<xs:element name="RuleIdentifier" type="RuleIdentifier" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RuleSetIdentifier" type="RuleIdentifier" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Notes" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Definition" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Parameters" type="ArrayOfKeyValue" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RuleIdentifier">
+		<xs:sequence>
+			<xs:element name="RuleID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RuleVersion" type="xs:int" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="SubscriptionInfo" type="RuleSubscriptionInfo" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RuleSubscriptionInfo">
+		<xs:sequence>
+			<xs:element name="IsEnabled" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="SubscriptionSource" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SubscriptionChanged">
+		<xs:sequence>
+			<xs:element name="Context" type="RecommendationContext" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Organizations" type="ArrayOfOrganization" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Providers" type="ArrayOfProvider" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RuleDefinitionChanged">
+		<xs:sequence>
+			<xs:element name="Context" type="RecommendationContext" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Rules" type="ArrayOfRuleIdentifier" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArrayOfProvider">
+		<xs:sequence>
+			<xs:element name="Provider" type="mombt:Provider" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArrayOfRuleIdentifier">
+		<xs:sequence>
+			<xs:element name="RuleIdentifier" type="RuleIdentifier" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArrayOfOrganization">
+		<xs:sequence>
+			<xs:element name="Organization" type="mombt:Organization" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RecommendationDisposition" type="RecommendationDisposition" nillable="true"/>
+	<xs:element name="RulesProvided" type="RulesProvided" nillable="true"/>
+	<xs:complexType name="RulesProvided">
+		<xs:sequence>
+			<xs:element name="RecommendationContext" type="RecommendationContext" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Rules" type="ArrayOfRuleInfo" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArrayOfRuleInfo">
+		<xs:sequence>
+			<xs:element name="RuleInfo" type="RuleInfo" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="EvaluationResult" type="EvaluationResult" nillable="true"/>
+	<xs:complexType name="EvaluationResult">
+		<xs:sequence>
+			<xs:element name="PatientQueries" type="ArrayOfPatientQuery" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Recommendations" type="ArrayOfRecommendationSet" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArrayOfPatientQuery">
+		<xs:sequence>
+			<xs:element name="PatientQuery" type="PatientQuery" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PatientQuery">
+		<xs:sequence>
+			<xs:element name="Patient" type="mombt:Patient" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="RequestType" type="PatientQueryType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Codes" type="ArrayOfCode" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DateRange" type="mombt:DateRange" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArrayOfCode">
+		<xs:sequence>
+			<xs:element name="Code" type="mombt:CodedValueType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="PatientQueryType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Patient"/>
+			<xs:enumeration value="Person"/>
+			<xs:enumeration value="Encounter"/>
+			<xs:enumeration value="Allergy"/>
+			<xs:enumeration value="Problem"/>
+			<xs:enumeration value="LabOrder"/>
+			<xs:enumeration value="Result"/>
+			<xs:enumeration value="Immunization"/>
+			<xs:enumeration value="Medication"/>
+			<xs:enumeration value="VitalSignObservation"/>
+			<xs:enumeration value="ObservationResult"/>
+			<xs:enumeration value="Procedure"/>
+			<xs:enumeration value="PlanOfCare"/>
+			<xs:enumeration value="FamilyHistory"/>
+			<xs:enumeration value="SocialHistory"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ArrayOfRecommendationSet">
+		<xs:sequence>
+			<xs:element name="RecommendationSet" type="RecommendationSet" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RecommendationSet">
+		<xs:sequence>
+			<xs:element name="RuleAgentID" type="mombt:CodedValueType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Patient" type="mombt:Patient" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Provider" type="mombt:Provider" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Recommendations" type="ArrayOfRecommendation" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArrayOfRecommendation">
+		<xs:sequence>
+			<xs:element name="Recommendation" type="Recommendation" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RecommendationContext">
+		<xs:sequence>
+			<xs:element name="Patient" type="mombt:Patient" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Provider" type="mombt:Provider" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Organization" type="mombt:Organization" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="InstallationID" type="mombt:CodedValueType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="UserID" type="mombt:CodedValueType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="UserName" type="mombt:Name" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="EncounterInContextID" type="mombt:CodedValueType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ContextID" type="mombt:CodedValueType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="ContextDescription" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RecommendationComment">
+		<xs:sequence>
+			<xs:element name="RecommendationID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="UserID" type="mombt:CodedValueType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="UserName" type="mombt:Name" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Rating" type="xs:int" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Comment" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="StatusID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArrayOfRecommendationComment">
+		<xs:sequence>
+			<xs:element name="RecommendationComment" type="RecommendationComment" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Recommendation">
+		<xs:sequence>
+			<xs:element name="ID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Patient" type="mombt:Patient" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DateTime" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Guidance" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="SeverityID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RuleSources" type="ArrayOfRuleSource" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Authors" type="ArrayOfParty" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Sponsors" type="ArrayOfParty" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Sources" type="ArrayOfParty" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="References" type="ArrayOfExternalReference" minOccurs="0" maxOccurs="1"/>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:element name="ClinicalAssertion" type="ClinicalAssertion" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="OutOfRangeAssertion" type="OutOfRangeAssertion" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="MissingDataAssertion" type="MissingDataAssertion" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="CompositeAssertion" type="CompositeAssertion" minOccurs="0" maxOccurs="1"/>
+			</xs:choice>
+			<xs:element name="Comments" type="ArrayOfRecommendationComment" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArrayOfRuleSource">
+		<xs:sequence>
+			<xs:element name="RuleSource" type="RuleSource" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArrayOfParty">
+		<xs:sequence>
+			<xs:element name="Party" type="Party" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Party">
+		<xs:sequence>
+			<xs:element name="ID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Uri" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArrayOfExternalReference">
+		<xs:sequence>
+			<xs:element name="ExternalReference" type="ExternalReference" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ClinicalAssertion">
+		<xs:sequence>
+			<xs:element name="UIExtension" type="UIExtension" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="ID" type="xs:string" use="optional"/>
+		<xs:attribute name="Description" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="UIExtension">
+		<xs:sequence>
+			<xs:element name="ID" type="xs:int" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="AssemblyName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="FullTypeName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Parameters" type="ArrayOfUIExtensionKeyedValue" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArrayOfUIExtensionKeyedValue">
+		<xs:sequence>
+			<xs:element name="UIExtensionKeyedValue" type="UIExtensionKeyedValue" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UIExtensionKeyedValue">
+		<xs:sequence>
+			<xs:element name="Key" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Value" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OutOfRangeAssertion" mixed="false">
+		<xs:complexContent>
+			<xs:extension base="ClinicalAssertion">
+				<xs:sequence>
+					<xs:element name="Value" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="Min" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="Max" type="xs:string" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="MissingDataAssertion" mixed="false">
+		<xs:complexContent>
+			<xs:extension base="ClinicalAssertion">
+				<xs:attribute name="CodeSet" type="xs:string" use="optional"/>
+				<xs:attribute name="Code" type="xs:string" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CompositeAssertion" mixed="false">
+		<xs:complexContent>
+			<xs:extension base="ClinicalAssertion">
+				<xs:sequence>
+					<xs:element name="CompositeAssertion.Assertions" minOccurs="1" maxOccurs="1">
+						<xs:complexType>
+							<xs:choice minOccurs="0" maxOccurs="unbounded">
+								<xs:element name="MissingDataAssertion" type="MissingDataAssertion" minOccurs="0" maxOccurs="1"/>
+								<xs:element name="OutOfRangeAssertion" type="OutOfRangeAssertion" minOccurs="0" maxOccurs="1"/>
+								<xs:element name="CompositeAssertion" type="CompositeAssertion" minOccurs="0" maxOccurs="1"/>
+								<xs:element name="ClinicalAssertion" type="ClinicalAssertion" minOccurs="0" maxOccurs="1"/>
+							</xs:choice>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="CompositionType" type="CompositionType" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="CompositionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ANY"/>
+			<xs:enumeration value="ALL"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="RuleSubscriptionInfo" type="RuleSubscriptionInfo" nillable="true"/>
+	<xs:element name="PatientQueryResult" type="PatientQueryResult" nillable="true"/>
+	<xs:complexType name="PatientQueryResult">
+		<xs:sequence>
+			<xs:element name="Patient" type="mombt:Patient" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ResultType" type="PatientQueryType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Codes" type="ArrayOfCode" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="DateRange" type="mombt:DateRange" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Results" type="ArrayOfPatientQueryResultContainer" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArrayOfPatientQueryResultContainer">
+		<xs:sequence>
+			<xs:element name="Info" type="PatientQueryResultContainer" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PatientQueryResultContainer">
+		<xs:sequence>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:element name="Person" type="mombt:Person" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="FamilyHistory" type="momci:FamilyHistory" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="SocialHistory" type="momci:SocialHistory" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="Immunization" type="momci:Immunization" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="PlanOfCare" type="momci:PlanOfCare" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="Allergy" type="momci:Allergy" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="Problem" type="momci:Problem" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="Result" type="momci:Result" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="Medication" type="momci:Medication" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="VitalSignObservation" type="momci:VitalSignObservation" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="Procedure" type="momci:Procedure" minOccurs="0" maxOccurs="1"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RuleIdentifier" type="RuleIdentifier" nillable="true"/>
+	<xs:element name="Recommendation" type="Recommendation" nillable="true"/>
+	<xs:element name="RecommendationComment" type="RecommendationComment" nillable="true"/>
+	<xs:element name="RecommendationContext" type="RecommendationContext" nillable="true"/>
+	<xs:element name="Party" type="Party" nillable="true"/>
+	<xs:element name="PatientQueryType" type="PatientQueryType"/>
+	<xs:element name="PatientQuery" type="PatientQuery" nillable="true"/>
+	<xs:element name="PatientQueryResultContainer" type="PatientQueryResultContainer" nillable="true"/>
+	<xs:element name="RecommendationsGenerated" type="RecommendationsGenerated" nillable="true"/>
+	<xs:complexType name="RecommendationsGenerated">
+		<xs:sequence>
+			<xs:element name="RecommendationContext" type="RecommendationContext" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Recommendations" type="ArrayOfRecommendationSet" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RulesRequested" type="RulesRequested" nillable="true"/>
+	<xs:complexType name="RulesRequested">
+		<xs:sequence>
+			<xs:element name="RecommendationContext" type="RecommendationContext" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RecommendationSet" type="RecommendationSet" nillable="true"/>
+	<xs:element name="RecommendationsProvided" type="RecommendationsProvided" nillable="true"/>
+	<xs:complexType name="RecommendationsProvided">
+		<xs:sequence>
+			<xs:element name="RecommendationContext" type="RecommendationContext" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Recommendations" type="ArrayOfRecommendationSet" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RecommendationsRequested" type="RecommendationsRequested" nillable="true"/>
+	<xs:complexType name="RecommendationsRequested">
+		<xs:sequence>
+			<xs:element name="RecommendationContext" type="RecommendationContext" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

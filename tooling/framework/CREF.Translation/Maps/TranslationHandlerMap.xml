@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<map xmlns="urn:hl7-org:v3:knowledgeartifact:r1:engine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:v3:knowledgeartifact:r1:engine HandlerMap.xsd" handlerType="Translation">
+	<!-- Artifact translator for CREF Artifacts -->
+	<entry key="CREF" value="CREF.Translation.CREFTranslator,CREF.Translation"/>
+</map>

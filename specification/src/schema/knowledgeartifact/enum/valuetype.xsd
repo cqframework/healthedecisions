@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+	<xs:annotation>
+		<xs:documentation>
+			This file defines the ValueType enumeration.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="ValueType">
+		<xs:annotation>
+			<xs:documentation>A specification of a constraint on the range of values for an item.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Boolean"/>
+			<xs:enumeration value="Code"/>
+			<xs:enumeration value="CodedOrdinal"/>
+			<xs:enumeration value="EntityName"/>
+			<xs:enumeration value="Identifier"/>
+			<xs:enumeration value="Integer"/>
+			<xs:enumeration value="IntegerInterval"/>
+			<xs:enumeration value="Period"/>
+			<xs:enumeration value="PhysicalQuantity"/>
+			<xs:enumeration value="PhysicalQuantityInterval"/>
+			<xs:enumeration value="QuantityInterval"/>
+			<xs:enumeration value="Ratio"/>
+			<xs:enumeration value="Real"/>
+			<xs:enumeration value="RealInterval"/>
+			<xs:enumeration value="SimpleCode"/>
+			<xs:enumeration value="String"/>
+			<xs:enumeration value="Timestamp"/>
+			<xs:enumeration value="TimestampInterval"/>
+			<xs:enumeration value="URL"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

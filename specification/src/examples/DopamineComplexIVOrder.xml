@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?schematron-schema href="../main/schematron/knowledgeartifact.sch"?>
+<?schematron-schema href="../main/schematron/ordersets.sch"?>
+<knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
+	xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:dt="urn:hl7-org:cdsdt:r2"
+	xmlns:p1="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../main/schema/knowledgeartifact/knowledgedocument.xsd
+	 urn:hl7-org:vmr:r2 ../main/schema/vmr/vmr.xsd">
+
+	<!-- Dopamine Complex IV Order This example describes a complex IV order. 
+		This example was chosen to illustrate a modular order set that could be used 
+		alone or in conjunction with another order set, to illustrate a composite 
+		order that contains both a diluent (base solution) and an additive, and to 
+		illustrate the proposed vMR extension mechanism. -->
+	<!-- Please note that all terminology bindings are for illustrative purposes 
+		only. At this time, the HeD community has not defined the terminologies and 
+		value sets that will be bound to specific clinical attribute types -->
+	<metadata>
+		<identifiers>
+			<identifier root="www.zynx.com/cds/orderset/ivsets"
+				extension="42364" version="0.9" />
+		</identifiers>
+		<artifactType value="Order Set" />
+		<schemaIdentifier root="urn:hl7-org:knowledgeartifact:r1"
+			version="1" />
+		<templateIds>
+			<!-- An IV Set would require a template ID since it makes use of the vMR 
+				extension scheme -->
+			<templateId root="http://www.zynx.com/cds/template/"
+				extension="1237" />
+			<templateId
+				root="http://www.exampleURI.com/HeD/templates/attributeExtension" />
+			<templateId root="http://www.exampleURI.com/HeD/templates/ComplexIVOrders" />
+		</templateIds>
+		<dataModels>
+			<modelReference>
+				<description value="Virtual Medical Record model" />
+				<referencedModel value="urn:hl7-org:vmr:r2" />
+			</modelReference>
+		</dataModels>
+		<title value="IV Set Order" />
+		<description value="Order set illustrating IV Sets" />
+		<documentation>
+			<description value="Explanation" />
+			<content>
+				<xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">IV Sets are examples of complex
+					medications commonly ordered in inpatient order sets.
+				</xhtml:div>
+			</content>
+		</documentation>
+		<status value="Draft" />
+		<eventHistory>
+			<artifactLifeCycleEvent>
+				<eventType value="Created" />
+				<eventDateTime value="20121130" />
+			</artifactLifeCycleEvent>
+		</eventHistory>
+		<contributions>
+			<contribution>
+				<contributor xsi:type="Organization">
+					<addresses>
+						<address>
+							<dt:part type="SAL" value="10880 Wilshire Boulevard" />
+							<dt:part type="CTY" value="Los Angeles" />
+							<dt:part type="ZIP" value="90024" />
+							<dt:part type="STA" value="CA" />
+							<dt:part type="CNT" value="USA" />
+						</address>
+					</addresses>
+					<contacts>
+						<contact value="310-825-3333" use="WP" />
+					</contacts>
+					<name value="Zynx Health" />
+				</contributor>
+				<role />
+			</contribution>
+		</contributions>
+		<publishers>
+			<publisher xsi:type="Organization">
+				<addresses>
+					<address>
+						<dt:part type="SAL" value="10880 Wilshire Boulevard" />
+						<dt:part type="CTY" value="Los Angeles" />
+						<dt:part type="ZIP" value="90024" />
+						<dt:part type="STA" value="CA" />
+						<dt:part type="CNT" value="USA" />
+					</address>
+				</addresses>
+				<contacts>
+					<contact value="310-825-3333" use="WP" />
+				</contacts>
+				<name value="Zynx Health" />
+			</publisher>
+		</publishers>
+	</metadata>
+	<actionGroup>
+		<subElements>
+			<actionGroup> <!-- DOPamine IV Set Order -->
+				<behaviors>
+					<behavior xsi:type="GroupSelectionBehavior" value="All" />
+				</behaviors>
+				<subElements>
+					<!-- Here we build the IV Set container order. All attributes here pertain 
+						to the IV Set as a whole. -->
+					<simpleAction xsi:type="CreateAction">
+						<textEquivalent value="DOPamine drip 800mg/500mL D5W" />
+						<actionSentence xsi:type="ObjectExpression"
+							objectType="vmr:CompositeSubstanceProposal">
+							<description>
+								DOPamine drip 800mg/500mL D5W
+								Starting Dose: 2 mcg/kg/min, 
+								Titrate Increment: 0.5 mcg/kg/min every 5 minutes, 
+								Keep MAP Greater Than: 60, 
+								Hold if HR Greater than: 120, 
+								Priority: Routine,
+								Start Time Offset: now, 
+								Special Inst: maximum dose of 20mcg/kg/min, titrate,
+								Comments: Ordered as: DOPamine drip 800mg/500mL D5W,
+								Diluent: D5W Titratable Base 500 mL, IV, 
+								Additive: DOPamine (for infusion) 800 mg
+							</description>
+							<property name="substance.substanceCode"> <!-- The IV Set code -->
+								<value xsi:type="CodeLiteral" code="1160755"
+									codeSystem="2.16.840.1.113883.6.88" codeSystemName="RxNorm"
+									displayName="Dopamine Injectable Product" />
+							</property>
+							<!-- Now we add the attributes for the complex IV -->
+							<!-- GAP WITH WORKAROUND: Unfortunately, there is no good way to model 
+								the concentration well using RTO. What we need is a ratio of physical quantities. 
+								For now, we place this in a non-interoperable string field. -->
+							<!-- <property name="substance.strength.numerator.originalText"> <value 
+								xsi:type="StringLiteral" value="800mg"/> </property> -->
+							<property name="substance.strength.numerator">
+								<value xsi:type="ComplexLiteral">
+									<value xsi:type="dt:PQ" value="800" unit="mg" />
+								</value>
+							</property>
+							<!-- <property name="substance.strength.denominator.originalText"> 
+								<value xsi:type="StringLiteral" value="500ml"/> </property> -->
+							<property name="substance.strength.denominator">
+								<value xsi:type="ComplexLiteral">
+									<value xsi:type="dt:PQ" value="500" unit="ml" />
+								</value>
+							</property>
+							<property name="relatedClinicalStatement">
+								<value xsi:type="List">
+									<!-- Starting Dose: 2 mcg/kg/min -->
+									<element xsi:type="ObjectExpression" objectType="vmr:RelatedClinicalStatement">
+										<property name="targetRole">
+											<value xsi:type="CodeLiteral" code="???" codeSystem="???"
+												codeSystemName="???" displayName="extendClassWithAttribute" />
+										</property>
+										<property name="clinicalStatement">
+											<value xsi:type="ObjectExpression" objectType="vmr:ObservationResult">
+												<property name="observationFocus">
+													<value xsi:type="CodeLiteral" code="???" codeSystem="???"
+														codeSystemName="???" displayName="Starting Dose" />
+												</property>
+												<!-- Probably should be modeled differently as a ratio of physican 
+													quantities? -->
+												<property name="observationValue">
+													<value xsi:type="ObjectExpression" objectType="vmr:Value">
+														<property name="value">
+															<value xsi:type="PhysicalQuantityLiteral" value="2"
+																unit="mcg/kg/min" />
+														</property>
+													</value>
+												</property>
+											</value>
+										</property>
+									</element>
+									<!-- Titrate Increment: 0.5 mcg/kg/min -->
+									<element xsi:type="ObjectExpression" objectType="vmr:RelatedClinicalStatement">
+										<property name="targetRole">
+											<value xsi:type="CodeLiteral" code="???" codeSystem="???"
+												codeSystemName="???" displayName="extendClassWithAttribute" />
+										</property>
+										<property name="clinicalStatement">
+											<value xsi:type="ObjectExpression" objectType="vmr:ObservationResult">
+												<property name="observationFocus">
+													<value xsi:type="CodeLiteral" code="???" codeSystem="???"
+														codeSystemName="???" displayName="Titrate Increment" />
+												</property>
+												<!-- Probably should be modeled differently as a ratio of physican 
+													quantities? -->
+												<property name="observationValue">
+													<value xsi:type="ObjectExpression" objectType="vmr:Value">
+														<property name="value">
+															<value xsi:type="PhysicalQuantityLiteral" value="0.5"
+																unit="mcg/kg/min" />
+														</property>
+													</value>
+												</property>
+											</value>
+										</property>
+									</element>
+									<!-- Titrate Frequency: q5min -->
+									<element xsi:type="ObjectExpression" objectType="vmr:RelatedClinicalStatement">
+										<property name="targetRole">
+											<value xsi:type="CodeLiteral" code="???" codeSystem="???"
+												codeSystemName="???" displayName="extendClassWithAttribute" />
+										</property>
+										<property name="clinicalStatement">
+											<value xsi:type="ObjectExpression" objectType="vmr:ObservationResult">
+												<property name="observationFocus">
+													<value xsi:type="CodeLiteral" code="???" codeSystem="???"
+														codeSystemName="???" displayName="Titrate Frequency" />
+												</property>
+												<property name="observationValue">
+													<value xsi:type="ObjectExpression" objectType="vmr:Value">
+														<property name="value">
+															<value xsi:type="CodeLiteral" code="???" codeSystem="???"
+																codeSystemName="???" displayName="q5min" />
+														</property>
+													</value>
+												</property>
+											</value>
+										</property>
+									</element>
+
+								</value>
+							</property>
+							<!-- Dose Restriction: "maximum dose of 20mcg/kg/min, titrate" -->
+							<property name="dose[1].doseRestriction.maxDoseForInterval">
+								<value xsi:type="PhysicalQuantityLiteral" value="20" unit="mcg/kg" />
+							</property>
+							<property name="dose[1].doseRestriction.timeInterval">
+								<value xsi:type="PhysicalQuantityLiteral" value="1" unit="min" />
+							</property>
+							<!-- Start Time Offset: Now -->
+							<property name="proposedAdministrationTimeInterval"> <!-- IVL_TS -->
+								<value xsi:type="Interval">
+									<begin xsi:type="Now" />
+									<!-- NOTE: This should be empty to indicate an open-ended interval, 
+										but the schema does not allow this. This will be rectified in the comment 
+										reconciliation phase. -->
+									<end xsi:type="Now" />
+								</value>
+							</property>
+
+							<property name="constituent">
+								<!-- Specify the drug diluent for this Complex IV -->
+								<value xsi:type="List">
+									<element xsi:type="ObjectExpression" objectType="vmr:Constituent">
+										<property name="constituentType">
+											<value xsi:type="CodeLiteral" code="Diluent" codeSystem="ConstituentType"/>
+										</property>
+										<property name="substance.substanceCode">
+											<value xsi:type="CodeLiteral" code="400420008"
+												codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"
+												displayName="Dextrose 5g/100mL (5%) injection solution 500mL vial" />
+										</property>
+									</element>
+									<element xsi:type="ObjectExpression" objectType="vmr:Constituent">
+										<property name="constituentType">
+											<value xsi:type="CodeLiteral" code="Additive" codeSystem="ConstituentType"/>
+										</property>
+										<property name="substance.substanceCode">
+											<value xsi:type="CodeLiteral" code="400420008"
+												codeSystem="2.16.840.1.113883.6.88" codeSystemName="RxNorm"
+												displayName="Dopamine Injectable Product"/>
+										</property>
+									</element>
+								</value>
+							</property>
+
+							<property name="urgency">
+								<value xsi:type="CodeLiteral" code="???" codeSystem="???"
+									codeSystemName="???" displayName="Routine" />
+							</property>
+
+							<property name="comment">
+								<value xsi:type="List">
+									<element xsi:type="ComplexLiteral">
+										<value xsi:type="vmr:Documentation">
+											<vmr:type code="???" codeSystem="???"
+												codeSystemName="???" ><dt:displayName value="Nursing Instructions"/></vmr:type>
+											<vmr:content value="Keep MAP Greater Than: 60" />
+										</value>
+									</element>
+									<element xsi:type="ComplexLiteral">
+										<value xsi:type="vmr:Documentation">
+											<vmr:type code="???" codeSystem="???"
+												codeSystemName="???" ><dt:displayName value="Nursing Instructions"/></vmr:type>
+											<vmr:content value="Hold if HR Greater than: 120"/>
+										</value>
+									</element>
+								</value>
+							</property>
+
+						</actionSentence>
+					</simpleAction>
+				</subElements>
+			</actionGroup>
+		</subElements>
+	</actionGroup>
+</knowledgeDocument>

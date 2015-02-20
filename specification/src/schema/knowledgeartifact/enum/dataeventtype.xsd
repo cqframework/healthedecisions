@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+	<xs:annotation>
+		<xs:documentation>
+			This file defines the DataEventType enumeration.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="DataEventType">
+		<xs:annotation>
+			<xs:documentation>Enumeration of types of events related to access, creation, removal, or update of data.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DataElementAdded"/>
+			<xs:enumeration value="DataElementModified"/>
+			<xs:enumeration value="DataElementRemoved"/>
+			<xs:enumeration value="DataElementAccessed"/>
+			<xs:enumeration value="DataElementAccessEnded"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

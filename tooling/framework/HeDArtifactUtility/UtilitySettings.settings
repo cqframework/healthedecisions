@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="HeDArtifactUtility" GeneratedClassName="UtilitySettings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MapLocation" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Maps</Value>
+    </Setting>
+    <Setting Name="SchemaLocation" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Schema\knowledgeartifact\knowledgedocument.xsd;Schema\vmr\vmr.xsd</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

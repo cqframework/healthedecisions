@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+	<xs:annotation>
+		<xs:documentation>
+			This file defines the ResourceRelationshipType enumeration.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="ResourceRelationshipType">
+		<xs:annotation>
+			<xs:documentation>A specific status is associated with each version of an artifact. 
+
+See the Implementation Guide for a state-transition diagram showing the legal transitions from each state; each state is equivalent to particular status.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AdaptedFrom"/>
+			<xs:enumeration value="AssociatedResource"/>
+			<xs:enumeration value="DependsOn"/>
+			<xs:enumeration value="DerivedFrom"/>
+			<xs:enumeration value="SimilarTo"/>
+			<xs:enumeration value="VersionOf"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

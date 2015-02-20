@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?schematron-schema href="../main/schematron/knowledgeartifact.sch"?>
+<?schematron-schema href="../main/schematron/documentationtemplates.sch"?>
+<knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
+	xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:dt="urn:hl7-org:cdsdt:r2"
+	xmlns:p1="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd ">
+	<!-- FLACC Pain Scale Documentation Template This example describes the 
+		FLACC pain scale as a documentation template. The example was chosen to illustrate 
+		the use of a documentation template to describe a typical practitioner administered 
+		patient evaluation instrument. -->
+	<metadata>
+		<identifiers>
+			<identifier root="FLACCExampleForHeD" version="2" />
+		</identifiers>
+		<artifactType value="Documentation Template" />
+
+		<schemaIdentifier root="urn:hl7-org:knowledgeartifact:r1"
+			version="1" />
+
+		<dataModels>
+			<modelReference>
+				<description value="Virtual Medical Record model" />
+				<referencedModel value="urn:hl7-org:vmr:r2" />
+			</modelReference>
+		</dataModels>
+		<title value="FLACC Pain Scale" />
+		<relatedResources>
+			<relatedResource>
+				<relationship value="DerivedFrom" />
+				<resources>
+					<resource>
+						<title value="FLACC Scale" />
+						<location
+							value="http://painconsortium.nih.gov/pain_scales/FLACCScale.pdf" />
+						<description value="NIH Pain Intnesity Instruments" />
+					</resource>
+				</resources>
+			</relatedResource>
+		</relatedResources>
+		<supportingEvidence>
+			<evidence>
+				<resources>
+					<resource>
+						<citation
+							value="Merkel, SI, Voepel-Lewis, T., Shayevitz, JR, &amp; Malviya, S. (1997).  The FLACC: a behavioral 
+scale for scoring postoperative pain in young children.  Pediatric Nursing, 23(3): 293-297" />
+					</resource>
+				</resources>
+			</evidence>
+		</supportingEvidence>
+		<applicability>
+			<coverage>
+				<focus value="PatientAgeGroup" />
+				<description value="Population between the age of 2 months to 7 years" />
+				<value code="D007223" codeSystem="2.16.840.1.113883.11.75"
+					codeSystemName="MeSH - AgeGroupObservationValue">
+					<dt:displayName value="Infant; 1 to 23 months" />
+				</value>
+			</coverage>
+			<coverage>
+				<focus value="PatientAgeGroup" />
+				<description value="Population between the age of 2 months to 7 years" />
+				<value code="D002675" codeSystem="2.16.840.1.113883.11.75"
+					codeSystemName="MeSH - AgeGroupObservationValue">
+					<dt:displayName value="child, preschool; 2 to 5 years" />
+				</value>
+			</coverage>
+			<coverage>
+				<focus value="PatientAgeGroup" />
+				<description value="Population between the age of 2 months to 7 years" />
+				<value code="D002648" codeSystem="2.16.840.1.113883.11.75"
+					codeSystemName="MeSH - AgeGroupObservationValue">
+					<dt:displayName value="child; 6 to 12 years" />
+				</value>
+			</coverage>
+		</applicability>
+		<status value="Draft" />
+		<contributions>
+			<contribution>
+				<contributor xsi:type="Person">
+					<contacts>
+						<contact value="mailto:aziz.boxwala@meliorix.com" />
+					</contacts>
+					<name use="C">
+						<dt:part value="Aziz" type="GIV" />
+						<dt:part value="Boxwala" type="FAM" />
+					</name>
+					<affiliation>
+						<name value="Meliorix Inc." />
+					</affiliation>
+				</contributor>
+				<role value="Author" />
+			</contribution>
+		</contributions>
+
+	</metadata>
+
+	<externalData>
+		<def name="Patient">
+			<expression xsi:type="ClinicalRequest" cardinality="Single"
+				dataType="vmr:EvaluatedPerson" isInitial="true" />
+		</def>
+	</externalData>
+
+	<expressions>
+		<def name="PatientAgeInMonths">
+			<expression xsi:type="DateDiff">
+				<description>Number of years from patient's birth time to today</description>
+				<startDate xsi:type="Property" path="birthTime">
+					<source xsi:type="ExpressionRef" name="Patient" />
+				</startDate>
+				<endDate xsi:type="Today" />
+				<granularity xsi:type="Literal" valueType="DateGranularity"
+					value="Month" />
+			</expression>
+		</def>
+	</expressions>
+
+	<conditions>
+		<condition>
+			<logic xsi:type="And">
+				<description>Patient is between 2 months and 7 years of age</description>
+				<operand xsi:type="GreaterOrEqual">
+					<description>Patient is more than 2 months old</description>
+					<operand xsi:type="ExpressionRef" name="PatientAgeInMonths"></operand>
+					<!-- NOTE: A physical quantity with units of months is used here. The 
+						intended semantics are that the implementation engine will perform any conversions 
+						required to perform the comparison. -->
+					<operand xsi:type="RealLiteral" value="2" />
+				</operand>
+				<operand xsi:type="LessOrEqual">
+					<description>Patient is less than 7 years old (or 84 months)</description>
+					<operand xsi:type="ExpressionRef" name="PatientAgeInMonths"></operand>
+					<operand xsi:type="RealLiteral" value="84" />
+				</operand>
+			</logic>
+			<conditionRole value="ApplicableScenario" />
+		</condition>
+	</conditions>
+
+	<actionGroup>
+		<title value="FLACC Scale" />
+		<representedConcepts>
+			<concept code="38213-5" codeSystem="2.16.840.1.113883.6.1"
+				codeSystemName="LOINC">
+				<dt:displayName value="FLACC pain assessment panel:-:Pt:^Patient:-" />
+			</concept>
+		</representedConcepts>
+		<subElements>
+			<!-- Define the container to store responses to the documentation items. -->
+			<simpleAction xsi:type="DeclareResponseAction" name="Responses" />
+
+			<simpleAction xsi:type="CollectInformationAction">
+				<documentationConcept>
+					<displayText value="Face" />
+					<itemCodes>
+						<itemCode code="38216-8" codeSystem="2.16.840.1.113883.6.1"
+							codeSystemName="LOINC" />
+					</itemCodes>
+					<responseDataType value="Integer" />
+					<responseCardinality value="Single" />
+					<responseRange xsi:type="ListConstraint"
+						strictSelection="true">
+						<constraintType value="List" />
+						<item>
+							<value xsi:type="IntegerLiteral" value="0" />
+							<displayText value="No particular expression or smile" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="1" />
+							<displayText
+								value="Occasional grimace or frown, withdrawn, disinterested" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="2" />
+							<displayText value="Frequent to constant quivering chin, clenched jaw" />
+						</item>
+					</responseRange>
+				</documentationConcept>
+				<responseBinding property="Face" />
+			</simpleAction>
+			<simpleAction xsi:type="CollectInformationAction">
+				<documentationConcept>
+					<displayText value="Legs" />
+					<itemCodes>
+						<itemCode code="38217-6" codeSystem="2.16.840.1.113883.6.1"
+							codeSystemName="LOINC" />
+					</itemCodes>
+					<responseDataType value="Integer" />
+					<responseCardinality value="Single" />
+					<responseRange xsi:type="ListConstraint"
+						strictSelection="true">
+						<constraintType value="List" />
+						<item>
+							<value xsi:type="IntegerLiteral" value="0" />
+							<displayText value="Normal position or relaxed" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="1" />
+							<displayText value="Uneasy, restless, tense" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="2" />
+							<displayText value="Kicking, or legs drawn up" />
+						</item>
+					</responseRange>
+				</documentationConcept>
+				<responseBinding property="Legs" />
+			</simpleAction>
+
+			<simpleAction xsi:type="CollectInformationAction">
+				<documentationConcept>
+					<displayText value="Activity" />
+					<itemCodes>
+						<itemCode code="38218-4" codeSystem="2.16.840.1.113883.6.1"
+							codeSystemName="LOINC" />
+					</itemCodes>
+					<responseDataType value="Integer" />
+					<responseCardinality value="Single" />
+					<responseRange xsi:type="ListConstraint"
+						strictSelection="true">
+						<constraintType value="List" />
+						<item>
+							<value xsi:type="IntegerLiteral" value="0" />
+							<displayText value="Lying quietly, normal position, moves easily" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="1" />
+							<displayText value="Squirming, shifting back and forth, tense" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="2" />
+							<displayText value="Arched, rigid or jerking" />
+						</item>
+					</responseRange>
+				</documentationConcept>
+				<responseBinding property="Activity" />
+			</simpleAction>
+
+			<simpleAction xsi:type="CollectInformationAction">
+				<documentationConcept>
+					<displayText value="Cry" />
+					<itemCodes>
+						<itemCode code="38219-2" codeSystem="2.16.840.1.113883.6.1"
+							codeSystemName="LOINC" />
+					</itemCodes>
+					<responseDataType value="Integer" />
+					<responseCardinality value="Single" />
+					<responseRange xsi:type="ListConstraint"
+						strictSelection="true">
+						<constraintType value="List" />
+						<item>
+							<value xsi:type="IntegerLiteral" value="0" />
+							<displayText value="No cry (awake or asleep)" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="1" />
+							<displayText value="Moans or whimpers; occasional complaint" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="2" />
+							<displayText
+								value="Crying steadily, screams or sobs, frequent complaints" />
+						</item>
+					</responseRange>
+				</documentationConcept>
+				<responseBinding property="Cry" />
+			</simpleAction>
+
+			<simpleAction xsi:type="CollectInformationAction">
+				<documentationConcept>
+					<displayText value="Consolability" />
+					<itemCodes>
+						<itemCode code="38220-0" codeSystem="2.16.840.1.113883.6.1"
+							codeSystemName="LOINC" />
+					</itemCodes>
+					<responseDataType value="Integer" />
+					<responseCardinality value="Single" />
+					<responseRange xsi:type="ListConstraint"
+						strictSelection="true">
+						<constraintType value="List" />
+						<item>
+							<value xsi:type="IntegerLiteral" value="0" />
+							<displayText value="Content, relaxed" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="1" />
+							<displayText
+								value="Reassured by occasional touching, hugging or being talked to, distractible" />
+						</item>
+						<item>
+							<value xsi:type="IntegerLiteral" value="2" />
+							<displayText value="Difficult to console or comfort" />
+						</item>
+					</responseRange>
+				</documentationConcept>
+				<responseBinding property="Consolability" />
+			</simpleAction>
+
+			<simpleAction xsi:type="CollectInformationAction">
+				<documentationConcept>
+					<displayText value="Total Score" />
+					<description
+						value="Each of the five (5) categories is scored from 0-2, which results in a total score between 0 
+	and 10." />
+					<itemCodes>
+						<itemCode code="38215-0" codeSystem="2.16.840.1.113883.6.1"
+							codeSystemName="LOINC" />
+					</itemCodes>
+					<responseDataType value="Integer" />
+					<responseCardinality value="Single" />
+					<responseRange xsi:type="ExpressionConstraint">
+						<constraintType value="Minimum" />
+						<constraint xsi:type="IntegerLiteral" value="0" />
+					</responseRange>
+					<responseRange xsi:type="ExpressionConstraint">
+						<constraintType value="Maximum" />
+						<constraint xsi:type="IntegerLiteral" value="10" />
+					</responseRange>
+				</documentationConcept>
+				<initialValue xsi:type="Sum">
+					<source xsi:type="List">
+						<element xsi:type="Property" path="Face">
+							<source xsi:type="ParameterRef" name="Responses" />
+						</element>
+						<element xsi:type="Property" path="Legs">
+							<source xsi:type="ParameterRef" name="Responses" />
+						</element>
+						<element xsi:type="Property" path="Activity">
+							<source xsi:type="ParameterRef" name="Responses" />
+						</element>
+						<element xsi:type="Property" path="Cry">
+							<source xsi:type="ParameterRef" name="Responses" />
+						</element>
+						<element xsi:type="Property" path="Consolability">
+							<source xsi:type="ParameterRef" name="Responses" />
+						</element>
+					</source>
+				</initialValue>
+				<responseBinding property="TotalScore" />
+			</simpleAction>
+		</subElements>
+	</actionGroup>
+
+</knowledgeDocument>

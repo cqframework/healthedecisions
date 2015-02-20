@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:v3:cdss:r2"
+	xmlns:dt="urn:hl7-org:v3:cdsdt:r2" xmlns:ka="urn:hl7-org:v3:knowledgeartifact:r1"
+	xmlns:vmr="urn:hl7-org:v3:vmr:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+	xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:v3:cdss:r2"
+	elementFormDefault="qualified">
+
+	<xs:import namespace="urn:hl7-org:v3:cdsdt:r2"
+		schemaLocation="../common/datatypes.xsd" />
+	<xs:import namespace="urn:hl7-org:v3:vmr:r2" schemaLocation="../vmr/vmr.xsd" />
+	<xs:import namespace="urn:hl7-org:v3:knowledgeartifact:r1"
+		schemaLocation="../knowledgeartifact/expression.xsd" />
+
+	<xs:complexType name="CDSWarning">
+		<xs:sequence>
+			<xs:element name="id" type="dt:II" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A server generated identifier for the warning.
+						This identifier can be used for resolving problems.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reason">
+				<xs:complexType>
+					<xs:attribute name="value" type="CDSWarningReason">
+						<xs:annotation>
+							<xs:documentation>A code indicating the specific reason for the
+								warning.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="message" type="dt:ST">
+				<xs:annotation>
+					<xs:documentation>Descriptive text explaining why the warning was
+						issued and potential ways to resolve the warning.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sourceComponentType" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:attribute name="value" type="DSSComponentType">
+						<xs:annotation>
+							<xs:documentation>The type of the component within the DSS
+								"ecosystem" that caused the warning. A value for this element
+								must
+								be provided if a value for the sourceComponentId is provided.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="sourceComponentId" type="ka:ObjectDescriptor"
+				minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The specific source component instance that
+						caused the warning. This can be a knowledge module id, a clinical
+						statement id for patient data, a URL for an external resource.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+
+	<xs:simpleType name="CDSWarningReason">
+		<xs:annotation>
+			<xs:documentation>
+				A reason (in codified form)for issuing a warning.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DataFormatNotRecognized">
+				<xs:annotation>
+					<xs:documentation>
+						The format in which the patient data was sent
+						was
+						not recognized. This may include
+						non-conformance to a VMR template.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DataValueIsOutOfRange">
+				<xs:annotation>
+					<xs:documentation>
+						Value for data item is out of expected range.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DataIsMissing">
+				<xs:annotation>
+					<xs:documentation>
+						Data item or value for a data item property is
+						missing.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KnowledgeModuleIsNotCurrent">
+				<xs:annotation>
+					<xs:documentation>
+						A knowledge module is not current and has been
+						superceded by a new version.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KnowledgeModuleIsNotApplicable">
+				<xs:annotation>
+					<xs:documentation>
+						The requested knowledge module is not applicable
+						to the given context - i.e., patient, care
+						location, encounter,
+						user, or recipient.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ResourceIssuedWarning">
+				<xs:annotation>
+					<xs:documentation>
+						A warning was issued by another resource (e.g.,
+						terminology server).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AuthenticationCredentialsNearingExpiry">
+				<xs:annotation>
+					<xs:documentation>The credentials used for establishing
+						connectivity will expire in the near future.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="DSSComponentType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Data">
+				<xs:annotation>
+					<xs:documentation>The warning is related to the data being sent as
+						part of the request. This cause of warning would typically be
+						something that an end-user or end-user organization
+						could correct,
+						such as a missing data value or an out-of-range value.					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Connectivity">
+				<xs:annotation>
+					<xs:documentation>The warning is related to connectivity with one
+						or more components within the system. This type of error would
+						typically be something that the service administrator could
+						correct.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KnowledgeBase">
+				<xs:annotation>
+					<xs:documentation>The warning is related to an inappropriate use of
+						a knowledge base. This type of warning would typically be
+						something that an end user could correct by requesting evaluation
+						by an appropriate knowledge base.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Security">
+				<xs:annotation>
+					<xs:documentation>The warning is related to authentication or
+						authorization of the request.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="System">
+				<xs:annotation>
+					<xs:documentation>The warning is an internal warning from the CDS
+						engine. This type of warning would typically be something that
+						would require further diagnostics and possibly development effort
+						to correct.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
+	xmlns:vmr="org.opencds.vmr.v1_0.schema.vmr"
+	xmlns:dt="urn:hl7-org:v3/cdsdt" xmlns:p1="http://www.w3.org/1999/xhtml"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../main/schema/knowledgeartifact/knowledgedocument.xsd ">
+	<!--
+	NQF-0024A - Weight Assessment and Counseling for Children and Adolescents
+	NQF-0421 - Adult Weight Screening and Follow-up: BMI
+
+	This examples encodes weight assessment rules for patients 2 years or older, by
+	determining whether or not a patient has had a Height and Weight measurement taken
+	on the same day within the last 12 months.
+
+	This example was chosen to illustrate the ability of the HeDS specification to handle
+	complex decision support logic easily.
+	-->
+
+	<metadata>
+		<identifiers>
+			<identifier root="NQF-0024A,NQF-0421" version="1.0" />
+		</identifiers>
+		<artifactType value="Rule" />
+		<schemaIdentifier
+			root="urn:hl7-org:v3:knowledgeartifact:r1" version="1.0" />
+		<dataModels>
+			<modelReference>
+				<description value="Virtual Medical Record model" />
+				<referencedModel value="org.opencds.vmr.v1_0.schema.vmr"/>
+			</modelReference>
+		</dataModels>
+		<title
+			value="Weight Assessment and Counseling for Children and Adolescents, and Adult Weight Screening and Follow-up: BMI" />
+		<description
+			value="TODO" />
+		<documentation>
+			<description value="Explanation" />
+
+		</documentation>
+		<status value="Draft" />
+		<eventHistory>
+			<artifactLifeCycleEvent>
+				<eventType value="Created" />
+				<eventDateTime value="20130110" />
+			</artifactLifeCycleEvent>
+			<artifactLifeCycleEvent>
+				<eventType value="Pre-published" />
+				<eventDateTime value="20130110" />
+			</artifactLifeCycleEvent>
+		</eventHistory>
+		<!-- TODO: RelatedResources, Supported Evidence, Applicability, and KeyTerms -->
+	</metadata>
+	<externalData>
+		<def name="Patient">
+			<expression xsi:type="ClinicalRequest" cardinality="Single"
+				dataType="vmr:Patient" isInitial="true" />
+		</def>
+		<def name="HeightAndWeightMeasurements">
+			<expression xsi:type="ClinicalRequest" cardinality="Multiple" dataType="vmr:ObservationResult" codeProperty="observationFocus" dateProperty="observationEventTime">
+				<codes xsi:type="List">
+					<element xsi:type="CodeLiteral" code="???" codeSystem="???" codeSystemName="???" displayName="Height Measurement"/>
+					<element xsi:type="CodeLiteral" code="???" codeSystem="???" codeSystemName="???" displayName="Weight Measurement"/>
+				</codes>
+				<dateRange xsi:type="Interval">
+					<begin xsi:type="DateAdd">
+						<date xsi:type="Today" />
+						<granularity xsi:type="Literal" valueType="DateGranularity" value="Month" />
+						<numberOfPeriods xsi:type="IntegerLiteral" value="-12" />
+					</begin>
+					<end xsi:type="Today" />
+				</dateRange>
+			</expression>
+		</def>
+	</externalData>
+	<expressions>
+		<def name="PatientAge">
+			<expression xsi:type="Property" path="demographics.age">
+				<source xsi:type="ExpressionRef" name="Patient" />
+			</expression>
+		</def>
+		<def name="MostRecentHeightMeasurementDate">
+			<expression xsi:type="Property" path="observationEventTime">
+				<source xsi:type="Last" orderBy="observationEventTime">
+					<source xsi:type="Filter">
+						<source xsi:type="ExpressionRef" name="HeightAndWeightMeasurements"/>
+						<condition xsi:type="Equal">
+							<operand xsi:type="Property" path="observationFocus"/>
+							<operand xsi:type="CodeLiteral" code="???" codeSystem="???" codeSystemName="???" displayName="Height Measurement"/>
+						</condition>
+					</source>
+				</source>
+			</expression>
+		</def>
+		<def name="MostRecentWeightMeasurementDate">
+			<expression xsi:type="Property" path="observationEventTime">
+				<source xsi:type="Last" orderBy="observationEventTime">
+					<source xsi:type="Filter">
+						<source xsi:type="ExpressionRef" name="HeightAndWeightMeasurements"/>
+						<condition xsi:type="Equal">
+							<operand xsi:type="Property" path="observationFocus"/>
+							<operand xsi:type="CodeLiteral" code="???" codeSystem="???" codeSystemName="???" displayName="Weight Measurement"/>
+						</condition>
+					</source>
+				</source>
+			</expression>
+		</def>
+	</expressions>
+	<conditions>
+		<condition>
+			<logic xsi:type="And">
+				<operand xsi:type="GreaterOrEqual">
+					<description>Patient age greater than or equal to 2</description>
+					<operand xsi:type="ExpressionRef" name="PatientAge"/>
+					<operand xsi:type="IntegerLiteral" value="2" />
+				</operand>
+				<operand xsi:type="Equal">
+					<operand xsi:type="DateDiff">
+						<startDate xsi:type="ExpressionRef" name="MostRecentHeightMeasurementDate"/>
+						<endDate xsi:type="ExpressionRef" name="MostRecentWeightMeasurementDate"/>
+						<granularity xsi:type="Literal" valueType="DateGranularity" value="Day" />
+					</operand>
+					<operand xsi:type="IntegerLiteral" value="0"/>
+				</operand>
+			</logic>
+			<conditionRole value="ApplicableScenario"/>
+		</condition>
+	</conditions>
+	<actionGroup>
+		<!-- TODO: Actions... -->
+		<subElements>
+			<simpleAction xsi:type="CreateAction"></simpleAction>
+		</subElements>
+	</actionGroup>
+</knowledgeDocument>

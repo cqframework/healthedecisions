@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+	<xs:annotation>
+		<xs:documentation>
+			This file defines the RangeConstraintType enumeration.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="RangeConstraintType">
+		<xs:annotation>
+			<xs:documentation>The enumeration of different types of range constraints on values. </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Minimum">
+				<xs:annotation>
+					<xs:documentation>The constraint specifies the lower bound or minimum value of a documentation item value. This constraint type applies to quantitative value types only.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Maximum">
+				<xs:annotation>
+					<xs:documentation>The constraint specifies the upper bound or minimum value of a documentation item value. This constraint type applies to quantitative value types only.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="List">
+				<xs:annotation>
+					<xs:documentation>The constraint restricts the value to items from a list.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Component"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

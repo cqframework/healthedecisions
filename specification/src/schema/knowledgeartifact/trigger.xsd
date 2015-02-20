@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+	<xs:annotation>
+		<xs:documentation>
+			This file defines the condition components used in knowledge artifacts.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="expression.xsd"/>
+	<xs:include schemaLocation="enum/eventtype.xsd"/>
+	<xs:complexType name="Trigger">
+		<xs:sequence>
+			<xs:element name="eventType" type="EventType">
+				<xs:annotation>
+					<xs:documentation>The event type can be one of either a DataEvent or a PeriodicEvent. A DataEvent is an event that is triggered by the value, presence, or absence of a particular data item. For instance, a data event may be triggered by a new serum potassium result below 3.5, a new appointment event to a Primary Care Clinic, or a new susbstance administration proposal for dabigatran. A periodic event is an event that is triggered on a regular basis. For instance, every day at midnight.
+ </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="expression" type="Expression" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The event expression that must be met for the trigger to activate the record.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Triggers">
+		<xs:sequence>
+			<xs:element name="trigger" type="Trigger" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The trigger element represents an event that 'triggers' the knowledge artifact. For instance, 'evaluate this artifact whenever a new Problem with a Diabetes Diagnosis code is added to the patient's record' or 'Evaluate this artifact every week day at 10:00 PM'. A trigger can model either a data event or a periodic event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

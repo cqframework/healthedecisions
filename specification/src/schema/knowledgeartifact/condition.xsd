@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+	<xs:annotation>
+		<xs:documentation>
+			This file defines the condition components used in knowledge artifacts.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="expression.xsd"/>
+	<xs:include schemaLocation="enum/conditionroletype.xsd"/>
+	<xs:complexType name="Condition">
+		<xs:annotation>
+			<xs:documentation>A condition specifies when a knowledge component is
+				to be executed. For example, an ECA rule uses an ApplicableScenario
+				condition to determine whether or not the action described by
+				the artifact should be executed.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="logic" type="Expression">
+				<xs:annotation>
+					<xs:documentation>The logic specification of the condition. Often,
+						though not necessarily, the logic is an expression about patient
+						data. The expression must evaluate to a Boolean value.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="conditionRole">
+				<xs:annotation>
+					<xs:documentation>The role determines when to evaluate the
+						expression and how to proceed based on the expression results.
+						Different artifact types use different types of conditions to
+						control various aspects of the artifact. See the condition role
+						type enumeration documentation for more discussion.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="value" type="ConditionRoleType"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Conditions">
+		<xs:annotation>
+			<xs:documentation>A collection of conditions that are used to
+				define whether various aspects of the artifact, such as
+				whether or not a particular action should be executed, or
+				whether a particular order set item is applicable to a 
+				given patient.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="condition" type="Condition" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
