@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<map xmlns="urn:hl7-org:knowledgeartifact:r1:engine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1:engine ..\..\HeDEngine\Maps\HandlerMap.xsd" handlerType="NodeTranslation">
+	<!-- Artifact translator for SQL Artifacts -->
+	<entry key="urn:hl7-org:knowledgeartifact:r1:ExpressionRef" value="SQL.Translation.ExpressionRefTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:ParameterRef" value="SQL.Translation.ParameterRefTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Literal" value="SQL.Translation.LiteralTranslator,SQL.Translation"/>
+	<!--entry key="urn:hl7-org:knowledgeartifact:r1:Interval" value="SQL.Translation.IntervalTranslator,SQL.Translation"/-->
+	<entry key="urn:hl7-org:knowledgeartifact:r1:List" value="SQL.Translation.ListTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:And" value="SQL.Translation.AndTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Or" value="SQL.Translation.OrTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Not" value="SQL.Translation.NotTranslator,SQL.Translation"/>
+	<!--entry key="urn:hl7-org:knowledgeartifact:r1:Case" value="SQL.Translation.CaseTranslator,SQL.Translation"/-->
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Conditional" value="SQL.Translation.ConditionalTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Null" value="SQL.Translation.NullTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:IfNull" value="SQL.Translation.IfNullTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Coalesce" value="SQL.Translation.CoalesceTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:As" value="SQL.Translation.AsTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Equal" value="SQL.Translation.EqualTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:NotEqual" value="SQL.Translation.NotEqualTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Less" value="SQL.Translation.LessTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:LessOrEqual" value="SQL.Translation.LessOrEqualTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Greater" value="SQL.Translation.GreaterTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:GreaterOrEqual" value="SQL.Translation.GreaterOrEqualTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Add" value="SQL.Translation.AddTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Divide" value="SQL.Translation.LessTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:TruncatedDivide" value="SQL.Translation.TruncatedDivideTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Modulo" value="SQL.Translation.LessTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Ceiling" value="SQL.Translation.LessTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Floor" value="SQL.Translation.LessTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Negate" value="SQL.Translation.NegateTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Round" value="SQL.Translation.RoundTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Power" value="SQL.Translation.PowerTranslator,SQL.Translation"/>
+	<!--entry key="urn:hl7-org:knowledgeartifact:r1:First" value="SQL.Translation.FirstTranslator,SQL.Translation"/-->
+	<!--entry key="urn:hl7-org:knowledgeartifact:r1:Last" value="SQL.Translation.LastTranslator,SQL.Translation"/-->
+	<entry key="urn:hl7-org:knowledgeartifact:r1:DateAdd" value="SQL.Translation.DateAddTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Today" value="SQL.Translation.TodayTranslator,SQL.Translation"/>
+	<!--entry key="urn:hl7-org:knowledgeartifact:r1:Contains" value="SQL.Translation.ContainsTranslator,SQL.Translation"/-->
+	<entry key="urn:hl7-org:knowledgeartifact:r1:IsEmpty" value="SQL.Translation.IsEmptyTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:IsNotEmpty" value="SQL.Translation.IsNotEmptyTranslator,SQL.Translation"/>
+	<!--entry key="urn:hl7-org:knowledgeartifact:r1:Filter" value="SQL.Translation.FilterTranslator,SQL.Translation"/-->
+	<!--entry key="urn:hl7-org:knowledgeartifact:r1:In" value="SQL.Translation.InTranslator,SQL.Translation"/-->
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Property" value="SQL.Translation.PropertyTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:BooleanLiteral" value="SQL.Translation.BooleanLiteralTranslator,SQL.Translation"/>
+	<!--entry key="urn:hl7-org:knowledgeartifact:r1:CodeLiteral" value="SQL.Translation.CodeLiteralTranslator,SQL.Translation"/-->
+	<entry key="urn:hl7-org:knowledgeartifact:r1:PhysicalQuantityLiteral" value="SQL.Translation.PhysicalQuantityLiteralTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:StringLiteral" value="SQL.Translation.StringLiteralTranslator,SQL.Translation"/>
+	<!--entry key="urn:hl7-org:knowledgeartifact:r1:ClinicalRequest" value="SQL.Translation.ClinicalRequestTranslator,SQL.Translation"/-->
+	<!--entry key="urn:hl7-org:knowledgeartifact:r1:ValueSet" value="SQL.Translation.ValueSetTranslator,SQL.Translation"/-->
+	<!--entry key="urn:hl7-org:knowledgeartifact:r1:InValueSet" value="SQL.Translation.InValueSetTranslator,SQL.Translation"/-->
+
+	<!-- ELM Nodes -->
+	<entry key="urn:hl7-org:elm:r1:ExpressionRef" value="SQL.Translation.ExpressionRefTranslator,SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:FunctionRef" value="SQL.Translation.FunctionRefTranslator,SQL.Translation"/-->
+	<entry key="urn:hl7-org:elm:r1:ParameterRef" value="SQL.Translation.ParameterRefTranslator,SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:IdentifierRef" value="SQL.Translation.IdentifierRefTranslator,SQL.Translation"/-->
+	<entry key="urn:hl7-org:elm:r1:Literal" value="SQL.Translation.LiteralTranslator,SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:Tuple" value="SQL.Translation.TupleTranslator,SQL.Translation"/-->
+	<!--entry key="urn:hl7-org:elm:r1:Interval" value="SQL.Translation.IntervalTranslator,SQL.Translation"/-->
+	<entry key="urn:hl7-org:elm:r1:List" value="SQL.Translation.ListTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:And" value="SQL.Translation.AndTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Or" value="SQL.Translation.OrTranslator,SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:Xor" value="SQL.Translation.XorTranslator,SQL.Translation"/-->
+	<entry key="urn:hl7-org:elm:r1:Not" value="SQL.Translation.NotTranslator,SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:Case" value="SQL.Translation.CaseTranslator,SQL.Translation"/-->
+	<entry key="urn:hl7-org:elm:r1:If" value="SQL.Translation.ConditionalTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Null" value="SQL.Translation.NullTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:IsNull" value="SQL.Translation.IsNullTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:IfNull" value="SQL.Translation.IfNullTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Coalesce" value="SQL.Translation.CoalesceTranslator,SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:Is" value="SQL.Translation.IsTranslator,SQL.Translation"/-->
+	<entry key="urn:hl7-org:elm:r1:As" value="SQL.Translation.AsTranslator,SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:Convert" value="SQL.Translation.ConvertTranslator,SQL.Translation"/-->
+	<entry key="urn:hl7-org:elm:r1:Equal" value="SQL.Translation.EqualTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:NotEqual" value="SQL.Translation.NotEqualTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Less" value="SQL.Translation.LessTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:LessOrEqual" value="SQL.Translation.LessOrEqualTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Greater" value="SQL.Translation.GreaterTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:GreaterOrEqual" value="SQL.Translation.GreaterOrEqualTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Add" value="SQL.Translation.AddTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Subtract" value="SQL.Translation.SubtractTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Multiply" value="SQL.Translation.MultiplyTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Divide" value="SQL.Translation.LessTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:TruncatedDivide" value="SQL.Translation.TruncatedDivideTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Modulo" value="SQL.Translation.ModuloTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Ceiling" value="SQL.Translation.CeilingTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Floor" value="SQL.Translation.FloorTranslator,SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:Truncate" value="SQL.Translation.TruncateTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Abs" value="SQL.Translation.AbsTranslator,SQL.Translation"/-->
+	<entry key="urn:hl7-org:elm:r1:Negate" value="SQL.Translation.NegateTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Round" value="SQL.Translation.RoundTranslator,SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:Ln" value="SQL.Translation.LnTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Log" value="SQL.Translation.LogTranslator,SQL.Translation"/-->
+	<entry key="urn:hl7-org:elm:r1:Power" value="SQL.Translation.PowerTranslator,SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:Successor" value="SQL.Translation.SuccessorTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Predecessor" value="SQL.Translation.PredecessorTranslator,SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:MinValue" value="SQL.Translation.BoundaryValueTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:MaxValue" value="SQL.Translation.BoundaryValueTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Concat" value="SQL.Translation.ConcatTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Combine" value="SQL.Translation.OperatorNodeTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Split" value="SQL.Translation.OperatorNodeTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Length" value="SQL.Translation.LengthTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Upper" value="SQL.Translation.OperatorNodeTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Lower" value="SQL.Translation.OperatorNodeTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Indexer" value="SQL.Translation.IndexerTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Pos" value="SQL.Translation.OperatorNodeTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Substring" value="SQL.Translation.OperatorNodeTranslator, SQL.Translation"/-->
+	<entry key="urn:hl7-org:elm:r1:DurationBetween" value="SQL.Translation.DurationBetweenTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:DateFrom" value="SQL.Translation.DateFromTranslator, SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:TimeFrom" value="SQL.Translation.OperatorNodeTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:TimezoneFrom" value="SQL.Translation.OperatorNodeTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:DateTimeComponentFrom" value="SQL.Translation.OperatorNodeTranslator, SQL.Translation"/-->
+	<entry key="urn:hl7-org:elm:r1:Today" value="SQL.Translation.TodayTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Now" value="SQL.Translation.NowTranslator, SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:DateTime" value="SQL.Translation.OperatorNodeTranslator, SQL.Translation"/-->
+	<entry key="urn:hl7-org:elm:r1:SameAs" value="SQL.Translation.EqualTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:SameOrBefore" value="SQL.Translation.LessOrEqualTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:SameOrAfter" value="SQL.Translation.GreaterOrEqualTranslator, SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:Width" value="SQL.Translation.OperatorNodeTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Contains" value="SQL.Translation.ContainsTranslator, SQL.Translation"/-->
+	<entry key="urn:hl7-org:elm:r1:In" value="SQL.Translation.InTranslator, SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:Includes" value="SQL.Translation.BinaryListOrIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:IncludedIn" value="SQL.Translation.BinaryListOrIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:ProperIncludes" value="SQL.Translation.BinaryListOrIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:ProperIncludedIn" value="SQL.Translation.BinaryListOrIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Before" value="SQL.Translation.BinaryIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:After" value="SQL.Translation.BinaryIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Starts" value="SQL.Translation.BinaryIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Ends" value="SQL.Translation.BinaryIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Meets" value="SQL.Translation.BinaryIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:MeetsBefore" value="SQL.Translation.BinaryIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:MeetsAfter" value="SQL.Translation.BinaryIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Overlaps" value="SQL.Translation.BinaryIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:OverlapsBefore" value="SQL.Translation.BinaryIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:OverlapsAfter" value="SQL.Translation.BinaryIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Union" value="SQL.Translation.NaryListOrIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Intersect" value="SQL.Translation.NaryListOrIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Except" value="SQL.Translation.BinaryListOrIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Start" value="SQL.Translation.UnaryIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:End" value="SQL.Translation.UnaryIntervalTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Collapse" value="SQL.Translation.CollapseTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Expand" value="SQL.Translation.ExpandTranslator, SQL.Translation"/-->
+	<entry key="urn:hl7-org:elm:r1:Exists" value="SQL.Translation.IsNotEmptyTranslator, SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:Times" value="ELM.Model.Verification.TimesTranslator, ELM.Model"/-->
+	<entry key="urn:hl7-org:elm:r1:First" value="SQL.Translation.FirstTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Last" value="SQL.Translation.LastTranslator, SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:Filter" value="SQL.Translation.FilterTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:IndexOf" value="SQL.Translation.IndexOfTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:In" value="SQL.Translation.InTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Sort" value="SQL.Translation.SortTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Distinct" value="SQL.Translation.DistinctTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:ForEach" value="SQL.Translation.ForEachTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Current" value="SQL.Translation.CurrentTranslator, SQL.Translation"/-->
+	<entry key="urn:hl7-org:elm:r1:SingletonFrom" value="SQL.Translation.FirstTranslator, SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:Count" value="SQL.Translation.CountTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Sum" value="SQL.Translation.SumTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Min" value="SQL.Translation.MinTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Max" value="SQL.Translation.MaxTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Avg" value="SQL.Translation.AvgTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Median" value="SQL.Translation.MedianTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Mode" value="SQL.Translation.ModeTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Variance" value="SQL.Translation.VarianceTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:PopulationVariance" value="SQL.Translation.VarianceTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:StdDev" value="SQL.Translation.StdDevTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:PopulationStdDev" value="SQL.Translation.StdDevTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:AllTrue" value="SQL.Translation.LogicalAggregateTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:AnyTrue" value="SQL.Translation.LogicalAggregateTranslator, SQL.Translation"/-->
+	<entry key="urn:hl7-org:elm:r1:Property" value="SQL.Translation.PropertyTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Query" value="SQL.Translation.QueryTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:AliasRef" value="SQL.Translation.AliasRefTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:QueryDefineRef" value="SQL.Translation.QueryDefineRefTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:Retrieve" value="SQL.Translation.RetrieveTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:ValueSetRef" value="SQL.Translation.ValueSetRefTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:InValueSet" value="SQL.Translation.InValueSetTranslator, SQL.Translation"/>
+	<!--entry key="urn:hl7-org:elm:r1:Quantity" value="SQL.Translation.QuantityTranslator, SQL.Translation"/-->
+	<entry key="urn:hl7-org:elm:r1:CalculateAge" value="SQL.Translation.CalculateAgeTranslator, SQL.Translation"/>
+	<entry key="urn:hl7-org:elm:r1:CalculateAgeAt" value="SQL.Translation.CalculateAgeAtTranslator, SQL.Translation"/>
+</map>

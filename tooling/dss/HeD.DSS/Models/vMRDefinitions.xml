@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<definitions 
+    xmlns="urn:hl7-org:knowledgeartifact:r1:definitions" 
+    xmlns:vmr="urn:hl7-org:vmr:r2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1:definitions ModelDefinitions.xsd"
+>
+    <!-- Key definition for all clinical statements -->
+    <keyDef objectType="vmr:ClinicalStatement">
+        <property name="id"/>
+    </keyDef>
+</definitions>

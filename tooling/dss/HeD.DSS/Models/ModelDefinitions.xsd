@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2013 sp1 (http://www.altova.com) by Bryn Rhodes (Veracity Solutions) -->
+<!--
+	HeD Schema Framework
+	Copyright (c) 2012 - 2013 Office of the National Coordinator for Health Information Technology (ONC)
+	This file is licensed under a modified BSD-license which can be found in the HED_License.txt file included with this distribution.
+-->
+<!-- 
+    Model definitions are used to provide additional information about the data model used by an HeD Artifact to represent patient
+    information. Specifically, the definitions provide key information for types defined within the model. Although XSD does have
+    a mechanism for representing key information, doing so with XSD would also enforce the keys, and make any key attributes required
+    in all contexts. Since we only need to know what constitutes the key properties for each type, we do not want the keys enforced,
+    this definitions schema is used to provide that information.
+
+    Evaluation services would use this information to construct an ObjectDescriptor element for use as part of the action sentences in
+    actions returned as guidance by the CDS Service.
+-->
+<xs:schema xmlns="urn:hl7-org:knowledgeartifact:r1/definitions" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:hl7-org:knowledgeartifact:r1/definitions" elementFormDefault="qualified" id="ModelDefinitions">
+	<xs:complexType name="KeyDef">
+        <xs:sequence>
+            <xs:element name="property" type="PropertyRef" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+		<xs:attribute name="objectType" type="xs:QName" use="required"/>
+	</xs:complexType>
+    <xs:complexType name="PropertyRef">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+	<xs:complexType name="Definitions">
+		<xs:sequence>
+			<xs:element name="keyDef" type="KeyDef" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="definitions" type="Definitions"/>
+</xs:schema>
