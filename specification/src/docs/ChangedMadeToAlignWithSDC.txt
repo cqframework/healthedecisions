@@ -1,0 +1,25 @@
+Alignment changes made
+
+base.xsd
+--------
+Added complexType FormattedText
+Added complexType FormattedNumber
+Changed type of KnowledgeResource.title to FormattedText
+Changed type of KnowledgeResource.description to FormattedText
+
+
+action.xsd
+----------
+Changed type of ActionGroup.title to FormattedText
+Changed type of ActionGroup.description to FormattedText
+Added new element called ActionGroup.groupNumber
+
+behaviortype.xsd
+----------------
+Added CardinalityBehaviorType
+
+behavior.xsd
+------------
+Added CardinalityBehavior
+
+

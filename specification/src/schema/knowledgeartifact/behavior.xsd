@@ -59,4 +59,14 @@
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
+	<xs:complexType name="CardinalityBehavior">
+		<xs:annotation>
+			<xs:documentation>For a group or an action, specifies if that item may be repeated.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="Behavior">
+				<xs:attribute name="value" type="CardinalityBehaviorType"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
 </xs:schema>

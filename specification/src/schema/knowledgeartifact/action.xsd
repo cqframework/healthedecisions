@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified" xmlns:pref="http://nlm.nih.gov/sdc/form"
+  xmlns:qr="http://nlm.nih.gov/sdc/form">
 	<xs:annotation>
 		<xs:documentation>
 			This file defines the Action types used to describe guidance within a knowledge artifact. 
@@ -11,6 +12,8 @@
 	<xs:include schemaLocation="actor.xsd"/>
 	<xs:include schemaLocation="catalogitem.xsd"/>
 	<xs:include schemaLocation="condition.xsd"/>
+	
+	<xs:import schemaLocation="questionresponse.xsd" namespace="http://nlm.nih.gov/sdc/form"/>
 	<xs:complexType name="ActionBase" abstract="true">
 		<xs:annotation>
 			<xs:documentation>Actions are the output of the CDS system and
@@ -118,14 +121,19 @@
 		<xs:complexContent>
 			<xs:extension base="ActionBase">
 				<xs:sequence>
-					<xs:element name="title" type="dt:ST" minOccurs="0">
+					<xs:element name="title" type="FormattedText" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>A brief title that is shown to the user of the
 								artifact, i.e., the recipient of the CDS
 							</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="description" type="dt:ST" minOccurs="0">
+					<xs:element name="groupNumber" type="FormattedText" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>A number for the group primarily for display to the user. This is different than the actionId which is used to identify the group internally.</xs:documentation>
+						</xs:annotation>
+					</xs:element>					
+					<xs:element name="description" type="FormattedText" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>A lengthier description of the action group
 								that can
@@ -379,7 +387,7 @@
 		<xs:complexContent>
 			<xs:extension base="AtomicAction">
 				<xs:sequence>
-					<xs:element name="documentationConcept" type="DocumentationItem">
+					<xs:element name="documentationConcept" type="qr:Question_Element">
 						<xs:annotation>
 							<xs:documentation>This provides a specification of the
 								information to be collected from the user.

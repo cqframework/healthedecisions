@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1"
+	xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1"
+	elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>
 			This file defines the BehaviorType enumeration.
@@ -7,100 +9,179 @@
 	</xs:annotation>
 	<xs:simpleType name="GroupSelectionBehaviorType">
 		<xs:annotation>
-			<xs:documentation>Defines selection behavior of a group:  specifies the number of selectable items in the group that may be selected by the end user when the items of the group are displayed.</xs:documentation>
+			<xs:documentation>Defines selection behavior of a group: specifies
+				the number of selectable items in the group that may be selected by
+				the end user when the items of the group are displayed.
+			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Any">
 				<xs:annotation>
-					<xs:documentation>Any number of the items in the group may be chosen, from zero to all.</xs:documentation>
+					<xs:documentation>Any number of the items in the group may be
+						chosen, from zero to all.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="All">
 				<xs:annotation>
-					<xs:documentation>All the items in the group must be selected as a single unit.</xs:documentation>
+					<xs:documentation>All the items in the group must be selected as a
+						single unit.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="AllOrNone">
 				<xs:annotation>
-					<xs:documentation>All the items in the group are meant to be chosen as a single unit:  either all must be selected by the end user, or none may be selected.</xs:documentation>
+					<xs:documentation>All the items in the group are meant to be chosen
+						as a single unit: either all must be selected by the end user, or
+						none may be selected.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="ExactlyOne">
 				<xs:annotation>
-					<xs:documentation>The end user must choose one and only one of the selectable items in the group.  The user may not choose none of the items in the group.</xs:documentation>
+					<xs:documentation>The end user must choose one and only one of the
+						selectable items in the group. The user may not choose none of the
+						items in the group.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="AtMostOne">
 				<xs:annotation>
-					<xs:documentation>The end user may choose zero or at most one of the items in the group.</xs:documentation>
+					<xs:documentation>The end user may choose zero or at most one of
+						the items in the group.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="OneOrMore">
 				<xs:annotation>
-					<xs:documentation>The end user must choose a minimum of one, and as many additional as desired.</xs:documentation>
+					<xs:documentation>The end user must choose a minimum of one, and as
+						many additional as desired.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="GroupOrganizationBehaviorType">
 		<xs:annotation>
-			<xs:documentation>Defines organization behavior of a group:  gives the reason why the items are grouped together.  </xs:documentation>
+			<xs:documentation>Defines organization behavior of a group: gives the
+				reason why the items are grouped together.  </xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="VisualGroup">
 				<xs:annotation>
-					<xs:documentation>Any group marked with this behavior should be displayed as a visual group to the end user. </xs:documentation>
+					<xs:documentation>Any group marked with this behavior should be
+						displayed as a visual group to the end user. </xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="LogicalGroup">
 				<xs:annotation>
-					<xs:documentation>A group with this behavior logically groups its sub-elements, and may be shown as a visual group to the end user, but it is not required to do so.  </xs:documentation>
+					<xs:documentation>A group with this behavior logically groups its
+						sub-elements, and may be shown as a visual group to the end user,
+						but it is not required to do so.  </xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="SentenceGroup">
 				<xs:annotation>
-					<xs:documentation>A group of related alternative actions is a sentence group if the item referenced by the action is the same in all the actions, and each action simply constitutes a different variation on how to specify the details for that item.  For example, two actions that could be in a SentenceGroup are "aspirin, 500 mg, 2 times per day" and "aspirin, 300 mg, 3 times per day".  In both cases, aspirin is the item referenced by the action, and the two actions represent two different options for how aspirin might be ordered for the patient.  Note that a SentenceGroup would almost always have an associated selection behavior of "AtMostOne", unless it's a required action, in which case, it would be "ExactlyOne".</xs:documentation>
+					<xs:documentation>A group of related alternative actions is a
+						sentence group if the item referenced by the action is the same in
+						all the actions, and each action simply constitutes a different
+						variation on how to specify the details for that item. For
+						example, two actions that could be in a SentenceGroup are
+						"aspirin, 500 mg, 2 times per day" and "aspirin, 300 mg, 3 times
+						per day". In both cases, aspirin is the item referenced by the
+						action, and the two actions represent two different options for
+						how aspirin might be ordered for the patient. Note that a
+						SentenceGroup would almost always have an associated selection
+						behavior of "AtMostOne", unless it's a required action, in which
+						case, it would be "ExactlyOne".</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="RequiredBehaviorType">
 		<xs:annotation>
-			<xs:documentation>Defines requiredness behavior for selecting an action or an action group; i.e., whether the action or action group is required or optional.</xs:documentation>
+			<xs:documentation>Defines requiredness behavior for selecting an
+				action or an action group; i.e., whether the action or action group
+				is required or optional.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Must">
 				<xs:annotation>
-					<xs:documentation>An action with this behavior must be included in the actions processed by the end user; the end user may not choose not to include this action.</xs:documentation>
+					<xs:documentation>An action with this behavior must be included in
+						the actions processed by the end user; the end user may not choose
+						not to include this action.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="Could">
 				<xs:annotation>
-					<xs:documentation>An action with this behavior may be included in the set of actions processed by the end user.</xs:documentation>
+					<xs:documentation>An action with this behavior may be included in
+						the set of actions processed by the end user.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="MustUnlessDocumented">
 				<xs:annotation>
-					<xs:documentation>An action with this behavior must be included in the set of actions processed by the end user, unless the end user provides documentation as to why the action was not included.</xs:documentation>
+					<xs:documentation>An action with this behavior must be included in
+						the set of actions processed by the end user, unless the end user
+						provides documentation as to why the action was not included.
+					</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="PrecheckBehaviorType">
 		<xs:annotation>
-			<xs:documentation>Defines selection frequency behavior for an action or group; i.e., for most frequently selected items, the end-user system may provide convenience options in the UI (such as pre-selection) in order to (1) communicate to the end user what the most frequently selected item is, or should, be in a particular context, and (2) save the end user time.  </xs:documentation>
+			<xs:documentation>Defines selection frequency behavior for an action
+				or group; i.e., for most frequently selected items, the end-user
+				system may provide convenience options in the UI (such as
+				pre-selection) in order to (1) communicate to the end user what the
+				most frequently selected item is, or should, be in a particular
+				context, and (2) save the end user time.  </xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Yes">
 				<xs:annotation>
-					<xs:documentation>An action with this behavior is one of the most frequent actions that is, or should be, included by an end user, for the particular context in which the action occurs.  The system displaying the action to the end user should consider "pre-checking" such an action as a convenience for the user.</xs:documentation>
+					<xs:documentation>An action with this behavior is one of the most
+						frequent actions that is, or should be, included by an end user,
+						for the particular context in which the action occurs. The system
+						displaying the action to the end user should consider
+						"pre-checking" such an action as a convenience for the user.
+					</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="No">
 				<xs:annotation>
-					<xs:documentation>An action with this behavior is one of the less frequent actions included by the end user, for the particular context in which the action occurs.  The system displaying the actions to the end user would typically not "pre-check" such an action.</xs:documentation>
+					<xs:documentation>An action with this behavior is one of the less
+						frequent actions included by the end user, for the particular
+						context in which the action occurs. The system displaying the
+						actions to the end user would typically not "pre-check" such an
+						action.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 		</xs:restriction>
 	</xs:simpleType>
+
+	<xs:simpleType name="CardinalityBehaviorType">
+		<xs:annotation>
+			<xs:documentation>Defines behavior for an action or a group for how
+				many times that item may be repeated, i.e., cardinality. For example, if a
+				user is documenting lesions, the lesion element may be repeated
+				several times, once for each occurrence of a lesion on the patient or tissue sample or image</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Single">
+				<xs:annotation>
+					<xs:documentation>An action with this behavior is one of the most
+						frequent actions that is, or should be, included by an end user,
+						for the particular context in which the action occurs. The system
+						displaying the action to the end user should consider
+						"pre-checking" such an action as a convenience for the user.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Multiple">
+				<xs:annotation>
+					<xs:documentation>An action with this behavior is one of the less
+						frequent actions included by the end user, for the particular
+						context in which the action occurs. The system displaying the
+						actions to the end user would typically not "pre-check" such an
+						action.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
 </xs:schema>
