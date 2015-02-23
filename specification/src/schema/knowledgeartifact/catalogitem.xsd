@@ -44,14 +44,14 @@
 		<xs:complexContent>
 			<xs:extension base="ItemDefinition">
 				<xs:sequence>
-					<xs:element name="displayText" type="dt:ST">
+					<xs:element name="prompt" type="FormattedText">
 						<xs:annotation>
-							<xs:documentation>Brief text or title for this documentation item
+							<xs:documentation>Brief text, title, or question for this documentation item
 								that is the caption displayed to the user performing the
 								documentation.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="description" type="dt:ST" minOccurs="0" maxOccurs="1">
+					<xs:element name="description" type="FormattedText" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>A lengthier description of this documentation
 								item that is displayed to the user.</xs:documentation>
@@ -129,17 +129,52 @@
 				<xs:sequence>
 					<xs:element name="constraint" type="Expression">
 						<xs:annotation>
-							<xs:documentation/>
+							<xs:documentation>The expression returns a single element, the constraint type may not be a list</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="ListConstraint">
+	<xs:complexType name="LookupConstraint">
 		<xs:annotation>
-			<xs:documentation>A constraint specifying that the value is from a
-				list included here.</xs:documentation>
+			<xs:documentation>This constraint constructs a "lookup" list for the value range.
+			 The constraint type must be List</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="RangeConstraint">
+				<xs:sequence>
+					<xs:element name="items" type="Expression">
+						<xs:annotation>
+							<xs:documentation>The expression returns a list of items that form 
+							the range of values.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="displayField" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>The field from the returned expression objects that is set as the field to display.
+							It is required when the list elements are non-primitive types</xs:documentation>
+						</xs:annotation>					
+					</xs:attribute>
+				<xs:attribute name="strictSelection" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>If strictSelection is set to true, the value
+							entered by the user must be
+							an item from the returned list. If this is set
+							to false, the value may not be restricted to the returned list.
+						</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="EnumerationConstraint">
+		<xs:annotation>
+			<xs:documentation>A constraint specifying that the value is from
+				an enumeration explicitly included here. This provides a more convenient mechanism
+				to specify an enumeration rather than using the ExpressionConstraint.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="RangeConstraint">
@@ -191,8 +226,8 @@
 					<xs:annotation>
 						<xs:documentation>If strictSelection is set to true, the value
 							entered by the user must be
-							an item from the list. If this is set
-							to false, the value may not be restricted to this list.
+							an item from the enumeration. If this is set
+							to false, the value may not be restricted to this enumeration.
 						</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
