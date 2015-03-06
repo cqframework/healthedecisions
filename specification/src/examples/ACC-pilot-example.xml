@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?schematron-schema href="../main/schematron/knowledgeartifact.sch"?>
 <?schematron-schema href="../main/schematron/documentationtemplates.sch"?>
+<!--  ************************* -->
+<!-- Will need to update the QUICK and cdsdt references -->
+<!--  ************************* -->
 <knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
-	xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:dt="urn:hl7-org:cdsdt:r2"
+	xmlns:vmr="urn:hl7-org:v3:QUICK:R1" xmlns:dt="urn:hl7-org:cdsdt:r2"
 	xmlns:p1="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd ">
@@ -15,12 +18,14 @@
 
 		<dataModels>
 			<modelReference>
-				<description value="Virtual Medical Record model" />
-				<referencedModel value="urn:hl7-org:vmr:r2" />
+				<description value="QUICK R1"/>
+				<!-- Match the URN in the ELM file -->
+				<referencedModel value="urn:hl7-org:v3:QUICK:R1"/>
 			</modelReference>
 		</dataModels>
 		<libraries>
-			<libraryReference name="ImagingForCAD" path="./imagingCAD.cql" />
+			<!-- Reference to the ELM XML file -->
+			<libraryReference name="ImagingForCAD" path="./imagingCAD.xml" />
 		</libraries>
 		<title value="Detection and Risk Assessment of Coronary Artery Disease" />
 		<status value="Draft" />
@@ -30,8 +35,7 @@
 	<triggers>
 		<!-- This rule triggers when a new "proposal" is created for an imaging 
 			exam -->
-		<trigger>
-			<eventType>DataEvent</eventType>
+		<trigger xsi:type="DataEventTrigger" triggerType="DataElementAdded">
 			<!-- This expression links to a proposal (an imaging order being written) 
 				for one of the ACC-defined triggering exams -->
 			<!-- Chris to create expression -->
@@ -52,6 +56,8 @@
 			<label>Main Rule</label>
 		</title>
 		<subElements>
+			<!-- holds all responses to questions -->
+			<simpleAction xsi:type="DeclareResponseAction" />
 			<!-- Every condition element in the ACC XML file results in an actionGroup. 
 				If the ACC condition is -->
 			<actionGroup>
@@ -75,8 +81,6 @@
 					<label>Patients with a prior coronary calcium, unknown when performed</label>
 				</description>
 				<subElements>
-					<!-- holds all responses to questions -->
-					<simpleAction xsi:type="DeclareResponseAction" />
 					<!-- for every question element in ACC -->
 					<simpleAction xsi:type="CollectInformationAction">
 						<!-- Question/@id -->
@@ -86,11 +90,13 @@
 							<behavior xsi:type="RequiredBehavior" value="Must" />
 						</behaviors>
 						<documentationConcept>
+							<!--  ignored the Derived element in ACC XML - not clear what it means -->
 							<!-- Question/Text -->
 							<prompt>
 								<label>When was prior test?</label>
 							</prompt>
 							<responseDataType value="String" />
+							<responseCardinality value="Single"/>
 							<!-- Question/Answers -->
 							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="true">
@@ -112,6 +118,7 @@
 								</item>
 							</responseRange>
 						</documentationConcept>
+						<!-- Discusses  -->
 						<!-- The responses to questions by default are stored in a Dictionary 
 							whose names is "Responses" Accessed in Elm via a ParameterRef 
 							e.g., &lt;source xsi:type="ParameterRef" name="Responses"/&gt;. In this case, one would
@@ -146,7 +153,7 @@
 							<!-- Advice/Text translates to a FHIR communication proposal -->
 							<simpleAction xsi:type="CreateAction">
 								<!--
-									This expression, Advice_2, would construct a tuple of FHIR's communication proposal type
+									This expression, Advice_2, would construct a tuple of QUICK's CommunicationRequest type
 								 -->
 								<actionSentence xsi:type="ExpressionRef" name="Advice_2" libraryName="ImagingForCAD"/>
 							</simpleAction>

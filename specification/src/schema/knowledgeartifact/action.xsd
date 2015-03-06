@@ -12,8 +12,6 @@
 	<xs:include schemaLocation="actor.xsd"/>
 	<xs:include schemaLocation="catalogitem.xsd"/>
 	<xs:include schemaLocation="condition.xsd"/>
-	
-	<xs:import schemaLocation="questionresponse.xsd" namespace="http://nlm.nih.gov/sdc/form"/>
 	<xs:complexType name="ActionBase" abstract="true">
 		<xs:annotation>
 			<xs:documentation>Actions are the output of the CDS system and

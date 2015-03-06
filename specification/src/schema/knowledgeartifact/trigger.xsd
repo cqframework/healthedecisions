@@ -1,23 +1,24 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1"
+	xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+	xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1"
+	elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>
-			This file defines the condition components used in knowledge artifacts.
+			This file defines the trigger components used in
+			knowledge artifacts.
 		</xs:documentation>
 	</xs:annotation>
-	<xs:include schemaLocation="expression.xsd"/>
-	<xs:include schemaLocation="enum/eventtype.xsd"/>
-	<xs:complexType name="Trigger">
+	<xs:include schemaLocation="expression.xsd" />
+	<xs:include schemaLocation="enum/eventtype.xsd" />
+	<xs:include schemaLocation="enum/dataeventtype.xsd" />
+	<xs:complexType name="Trigger" abstract="true">
 		<xs:sequence>
-			<xs:element name="eventType" type="EventType">
-				<xs:annotation>
-					<xs:documentation>The event type can be one of either a DataEvent or a PeriodicEvent. A DataEvent is an event that is triggered by the value, presence, or absence of a particular data item. For instance, a data event may be triggered by a new serum potassium result below 3.5, a new appointment event to a Primary Care Clinic, or a new susbstance administration proposal for dabigatran. A periodic event is an event that is triggered on a regular basis. For instance, every day at midnight.
- </xs:documentation>
-				</xs:annotation>
-			</xs:element>
 			<xs:element name="expression" type="Expression" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>The event expression that must be met for the trigger to activate the record.</xs:documentation>
+					<xs:documentation>The event expression that must be met for the
+						trigger to activate the record.
+					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
@@ -26,9 +27,44 @@
 		<xs:sequence>
 			<xs:element name="trigger" type="Trigger" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation>The trigger element represents an event that 'triggers' the knowledge artifact. For instance, 'evaluate this artifact whenever a new Problem with a Diabetes Diagnosis code is added to the patient's record' or 'Evaluate this artifact every week day at 10:00 PM'. A trigger can model either a data event or a periodic event.</xs:documentation>
+					<xs:documentation>The trigger element represents an event that
+						'triggers' the knowledge artifact. For instance, 'evaluate this
+						artifact whenever a new Problem with a Diabetes Diagnosis code is
+						added to the patient's record' or 'Evaluate this artifact every
+						week day at 10:00 PM'. A trigger can model either a data event or
+						a periodic event.
+					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="DataEventTrigger">
+		<xs:annotation>
+			<xs:documentation>An event in which a data item is created, removed,
+				updated, or accessed. For instance, a data event may be triggered by
+				a new serum potassium result below 3.5, a new appointment event to a
+				Primary Care Clinic, or a new susbstance administration proposal for
+				dabigatran. Expression is expected to be an ExpressionRef that
+				references an ExpressionDef in ExternalData, or a Retrieve
+				expression in CQL.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="Trigger">
+				<xs:attribute name="triggerType" type="DataEventType"></xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PeriodicEventTrigger">
+		<xs:annotation>
+			<xs:documentation>A time-based event which occurs at the specified
+				period. For instance, every day at midnight.Expression is expected
+				to be a Period literal expression specifying the period on which the
+				event should be repeated.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="Trigger" />
+		</xs:complexContent>
+	</xs:complexType>
+
 </xs:schema>
