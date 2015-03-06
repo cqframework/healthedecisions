@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?schematron-schema href="../main/schematron/knowledgeartifact.sch"?>
+<?schematron-schema href="../main/schematron/documentationtemplates.sch"?>
+<knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
+	xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:dt="urn:hl7-org:cdsdt:r2"
+	xmlns:p1="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd ">
+	<metadata>
+		<identifiers>
+			<identifier root="3b0a626f-4c55-4649-8f71-1f51d70f51ad" />
+		</identifiers>
+		<artifactType value="Rule" />
+		<schemaIdentifier root="urn:hl7-org:knowledgeartifact:r1" />
+
+		<dataModels>
+			<modelReference>
+				<description value="Virtual Medical Record model" />
+				<referencedModel value="urn:hl7-org:vmr:r2" />
+			</modelReference>
+		</dataModels>
+		<libraries>
+			<libraryReference name="ImagingForCAD" path="./imagingCAD.cql" />
+		</libraries>
+		<title value="Detection and Risk Assessment of Coronary Artery Disease" />
+		<status value="Draft" />
+
+	</metadata>
+
+	<triggers>
+		<!-- This rule triggers when a new "proposal" is created for an imaging 
+			exam -->
+		<trigger>
+			<eventType>DataEvent</eventType>
+			<!-- This expression links to a proposal (an imaging order being written) 
+				for one of the ACC-defined triggering exams -->
+			<!-- Chris to create expression -->
+			<expression xsi:type="ExpressionRef" name="CADImagingOrder"
+				libraryName="ImagingForCAD" />
+		</trigger>
+	</triggers>
+	<conditions>
+		<condition>
+			<!-- Chris to create expression - line 722 of ACC xml file -->
+			<logic xsi:type="ExpressionRef" name="IsOrderForTriggeringIndication"
+				libraryName="ImagingForCAD" />
+			<conditionRole value="ApplicableScenario" />
+		</condition>
+	</conditions>
+	<actionGroup>
+		<title>
+			<label>Main Rule</label>
+		</title>
+		<subElements>
+			<!-- Every condition element in the ACC XML file results in an actionGroup. 
+				If the ACC condition is -->
+			<actionGroup>
+				<!-- actionId value is same as condition's id -->
+				<actionId root="1" />
+				<!-- condition's logic element -->
+				<conditions>
+					<!-- Chris to create expression. Line 901. -->
+					<condition>
+						<logic xsi:type="ExpressionRef" name="IndicationIsRepeatCalciumScoringTest"
+							libraryName="ImagingForCAD" />
+						<conditionRole value="ApplicableScenario" />
+					</condition>
+				</conditions>
+				<!-- condition's name element -->
+				<title>
+					<label>Q: When Was Prior Test?</label>
+				</title>
+				<!-- condition's description element -->
+				<description>
+					<label>Patients with a prior coronary calcium, unknown when performed</label>
+				</description>
+				<subElements>
+					<!-- holds all responses to questions -->
+					<simpleAction xsi:type="DeclareResponseAction" />
+					<!-- for every question element in ACC -->
+					<simpleAction xsi:type="CollectInformationAction">
+						<!-- Question/@id -->
+						<actionId root="Q1" />
+						<behaviors>
+							<!-- Question/Required -->
+							<behavior xsi:type="RequiredBehavior" value="Must" />
+						</behaviors>
+						<documentationConcept>
+							<!-- Question/Text -->
+							<prompt>
+								<label>When was prior test?</label>
+							</prompt>
+							<responseDataType value="String" />
+							<!-- Question/Answers -->
+							<responseRange xsi:type="EnumerationConstraint"
+								strictSelection="true">
+								<constraintType value="List" />
+								<!-- Answers/Answer -->
+								<item>
+									<!-- value is Answer/@id -->
+									<value xsi:type="StringLiteral" value="A1" />
+									<!-- Answers/Text -->
+									<displayText value="Less than 2 years ago" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="A2" />
+									<displayText value="2 to 5 years ago" />
+								</item>
+								<item>
+									<value xsi:type="StringLiteral" value="A3" />
+									<displayText value="More than 5 years ago" />
+								</item>
+							</responseRange>
+						</documentationConcept>
+						<!-- The responses to questions by default are stored in a Dictionary 
+							whose names is "Responses" Accessed in Elm via a ParameterRef 
+							e.g., &lt;source xsi:type="ParameterRef" name="Responses"/&gt;. In this case, one would
+							access the stored response later as Response.Q1 since we have bound it
+							to "Q1" below -->
+						<responseBinding property="Q1" />
+					</simpleAction>
+					<!-- NOT SURE WHAT TO DO WITH THE STATUS ELEMENT OF ACC. NEED MORE OF 
+						AN EXPLANATION. LIKELY IT WILL GO HERE AS A SIMPLEACTION OF TYPE CREATEACTION 
+						AZIZ 2015-03-05 -->
+
+					<!-- This starts the nest condition with id=2 -->
+					<actionGroup>
+						<actionId root="2" />
+						<conditions>
+							<!-- Logic on line 956 -->
+							<!--  The expression is Responses.Q1 = "A1" -->
+							<condition>
+								<logic xsi:type="ExpressionRef" name="CA01ACC_14_1_Q1"
+									libraryName="ImagingForCAD" />
+								<conditionRole value="ApplicableScenario" />
+							</condition>
+						</conditions>
+						<title>
+							<label>Prior CAC &lt;2yr</label>
+						</title>
+						<description>
+							<label>Patients with a prior coronary calcium performed
+								less than 2 years ago</label>
+						</description>
+						<subElements>
+							<!-- Advice/Text translates to a FHIR communication proposal -->
+							<simpleAction xsi:type="CreateAction">
+								<!--
+									This expression, Advice_2, would construct a tuple of FHIR's communication proposal type
+								 -->
+								<actionSentence xsi:type="ExpressionRef" name="Advice_2" libraryName="ImagingForCAD"/>
+							</simpleAction>
+							<!-- Advice/Status element - design is TBD -->
+						</subElements>
+					</actionGroup>
+				</subElements>
+			</actionGroup>
+		</subElements>
+	</actionGroup>
+</knowledgeDocument>

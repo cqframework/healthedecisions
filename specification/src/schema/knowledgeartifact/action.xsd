@@ -387,7 +387,7 @@
 		<xs:complexContent>
 			<xs:extension base="AtomicAction">
 				<xs:sequence>
-					<xs:element name="documentationConcept" type="qr:Question_Element">
+					<xs:element name="documentationConcept" type="DocumentationItem">
 						<xs:annotation>
 							<xs:documentation>This provides a specification of the
 								information to be collected from the user.
