@@ -248,4 +248,26 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
+	
+	<xs:complexType name="MaskConstraint">
+		<xs:annotation>
+			<xs:documentation>A regular-expression that constrains free text entry such as for zip codes, email addresses, and telephone numbers.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="RangeConstraint">
+				<xs:sequence>
+					<xs:element name="maskExpression" type="dt:ST">
+						<xs:annotation>
+							<xs:documentation>The regular expression for the mask</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="maskHelp" type="dt:ST">
+						<xs:annotation>
+							<xs:documentation>Text explaining the mask</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
 </xs:schema>

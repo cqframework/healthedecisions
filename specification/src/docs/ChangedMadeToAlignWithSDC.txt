@@ -29,3 +29,4 @@ Changed type of prompt to FormattedText
 Changed type of description to FormattedText
 Renamed ListConstraint to EnumerationConstraint to clarify meaning
 Added a new subtype of RangeConstraint called LookupConstraint
+Added a new subtype of RangeConstraint called MaskConstraint
