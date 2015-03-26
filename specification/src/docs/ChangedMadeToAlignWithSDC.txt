@@ -30,3 +30,12 @@ Changed type of description to FormattedText
 Renamed ListConstraint to EnumerationConstraint to clarify meaning
 Added a new subtype of RangeConstraint called LookupConstraint
 Added a new subtype of RangeConstraint called MaskConstraint
+Added new element called textAfterResponse in DocumentationItem
+Added new element called scopedIdentifier to ItemDefinition
+Moved list item from an inner type to an independent complex type called EnumerationItem
+Added new element called identifier to EnumerationItem
+Added new element called number to EnumerationItem
+Added new element called additionalInstructions to EnumerationItem 
+Added new element called valueMeaning to EnumerationItem 
+Added new attribute called fillIn to EnumerationItem
+Added new element called additionalInstructions to DocumentationItem

@@ -1,38 +1,48 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1"
+	xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+	xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1"
+	elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>
-			This file defines catalog items used to describe questions and responses for the documentation template knowledge artifact type.
+			This file defines catalog items used to describe
+			questions and responses for the documentation template knowledge
+			artifact type.
 		</xs:documentation>
 	</xs:annotation>
-	<xs:import namespace="urn:hl7-org:cdsdt:r2" schemaLocation="../common/datatypes.xsd"/>
-	<xs:include schemaLocation="base.xsd"/>
-	<xs:include schemaLocation="clinicalexpression.xsd"/>
-	<xs:include schemaLocation="enum/cardinalitytype.xsd"/>
-	<xs:include schemaLocation="enum/rangeconstrainttype.xsd"/>
-	<xs:include schemaLocation="enum/valuetype.xsd"/>
-	<!--xs:element name="itemDefinitions">
-		<xs:annotation>
-			<xs:documentation>A collection of item definitions</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="item" type="ItemDefinition" minOccurs="0" maxOccurs="unbounded"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element-->
+	<xs:import namespace="urn:hl7-org:cdsdt:r2" schemaLocation="../common/datatypes.xsd" />
+	<xs:include schemaLocation="base.xsd" />
+	<xs:include schemaLocation="clinicalexpression.xsd" />
+	<xs:include schemaLocation="enum/cardinalitytype.xsd" />
+	<xs:include schemaLocation="enum/rangeconstrainttype.xsd" />
+	<xs:include schemaLocation="enum/valuetype.xsd" />
+	<!--xs:element name="itemDefinitions"> <xs:annotation> <xs:documentation>A 
+		collection of item definitions</xs:documentation> </xs:annotation> <xs:complexType> 
+		<xs:sequence> <xs:element name="item" type="ItemDefinition" minOccurs="0" 
+		maxOccurs="unbounded"/> </xs:sequence> </xs:complexType> </xs:element -->
 	<xs:complexType name="ItemDefinition" abstract="true">
 		<xs:annotation>
 			<xs:documentation>An item definition is the equivalent of an item in
 				a data dictionary or a catalog in an electronic health record
-				system.</xs:documentation>
+				system.
+			</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="identifier" type="VersionedIdentifier" minOccurs="0">
+			<xs:element name="identifier" type="VersionedIdentifier"
+				minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>The identifier for the item.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="scopedIdentifier" type="VersionedIdentifier"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The unique identifier of a specific item (such as
+						a data element) in a registry that maps to this item.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="DocumentationItem">
@@ -46,28 +56,48 @@
 				<xs:sequence>
 					<xs:element name="prompt" type="FormattedText">
 						<xs:annotation>
-							<xs:documentation>Brief text, title, or question for this documentation item
-								that is the caption displayed to the user performing the
-								documentation.</xs:documentation>
+							<xs:documentation>Brief text, title, or question for this
+								documentation item
+								that is the caption displayed to the user
+								performing the
+								documentation.
+							</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="description" type="FormattedText" minOccurs="0" maxOccurs="1">
+					<xs:element name="additionalInstructions" type="FormattedText" minOccurs="0" maxOccurs="unbounded">
+					</xs:element>
+					<xs:element name="textAfterResponse" type="FormattedText"
+						minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Brief text that is displayed following the
+								response fields. This is to support finer control of rendering
+								of the documentation template for regulatory forms such as in
+								clinical trials
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="description" type="FormattedText"
+						minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>A lengthier description of this documentation
-								item that is displayed to the user.</xs:documentation>
+								item that is displayed to the user.
+							</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="itemCodes" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>A collection of codes for concepts that are the
-								equivalents of this documentation item.</xs:documentation>
+								equivalents of this documentation item.
+							</xs:documentation>
 						</xs:annotation>
 						<xs:complexType>
 							<xs:sequence>
-								<xs:element name="itemCode" type="dt:CD" minOccurs="0" maxOccurs="unbounded">
+								<xs:element name="itemCode" type="dt:CD" minOccurs="0"
+									maxOccurs="unbounded">
 									<xs:annotation>
 										<xs:documentation>A code for a concept that is the equivalent
-											of this documentation item.</xs:documentation>
+											of this documentation item.
+										</xs:documentation>
 									</xs:annotation>
 								</xs:element>
 							</xs:sequence>
@@ -76,25 +106,30 @@
 					<xs:element name="responseDataType">
 						<xs:annotation>
 							<xs:documentation>The data type of the value or the response that
-								is entered by the user.</xs:documentation>
+								is entered by the user.
+							</xs:documentation>
 						</xs:annotation>
 						<xs:complexType>
-							<xs:attribute name="value" type="ValueType"/>
+							<xs:attribute name="value" type="ValueType" />
 						</xs:complexType>
 					</xs:element>
-					<xs:element name="responseCardinality" minOccurs="0" maxOccurs="1">
+					<xs:element name="responseCardinality" minOccurs="0"
+						maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The number of allowed responses, single or
-								multiple.</xs:documentation>
+								multiple.
+							</xs:documentation>
 						</xs:annotation>
 						<xs:complexType>
-							<xs:attribute name="value" type="Cardinality"/>
+							<xs:attribute name="value" type="Cardinality" />
 						</xs:complexType>
 					</xs:element>
-					<xs:element name="responseRange" type="RangeConstraint" minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="responseRange" type="RangeConstraint"
+						minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation>The constraints (within the responseDataType)
-								on the values that may be entered by the user</xs:documentation>
+								on the values that may be entered by the user
+							</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -107,10 +142,11 @@
 				<xs:annotation>
 					<xs:documentation>The constraint type defines how the value range
 						is being constrained. For example, the constraint type may
-						indicate the lower bound of the range.</xs:documentation>
+						indicate the lower bound of the range.
+					</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
-					<xs:attribute name="value" type="RangeConstraintType"/>
+					<xs:attribute name="value" type="RangeConstraintType" />
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
@@ -120,7 +156,8 @@
 			<xs:documentation>A constraint specified in the form of an
 				expression. The constraint type and the constraint expression
 				combine together to specify the full constraint. For example,
-				the constraint type specifies that the lower bound is being specified
+				the
+				constraint type specifies that the lower bound is being specified
 				and the expression provides the lower bound value.
 			</xs:documentation>
 		</xs:annotation>
@@ -129,7 +166,9 @@
 				<xs:sequence>
 					<xs:element name="constraint" type="Expression">
 						<xs:annotation>
-							<xs:documentation>The expression returns a single element, the constraint type may not be a list</xs:documentation>
+							<xs:documentation>The expression returns a single element, the
+								constraint type may not be a list
+							</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -138,96 +177,69 @@
 	</xs:complexType>
 	<xs:complexType name="LookupConstraint">
 		<xs:annotation>
-			<xs:documentation>This constraint constructs a "lookup" list for the value range.
-			 The constraint type must be List</xs:documentation>
+			<xs:documentation>This constraint constructs a "lookup" list for the
+				value range.
+				The constraint type must be List
+			</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="RangeConstraint">
 				<xs:sequence>
 					<xs:element name="items" type="Expression">
 						<xs:annotation>
-							<xs:documentation>The expression returns a list of items that form 
-							the range of values.</xs:documentation>
+							<xs:documentation>The expression returns a list of items that
+								form
+								the range of values.
+							</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
 				<xs:attribute name="displayField" type="xs:string">
-						<xs:annotation>
-							<xs:documentation>The field from the returned expression objects that is set as the field to display.
-							It is required when the list elements are non-primitive types</xs:documentation>
-						</xs:annotation>					
-					</xs:attribute>
+					<xs:annotation>
+						<xs:documentation>The field from the returned expression objects
+							that is set as the field to display.
+							It is required when the list
+							elements are non-primitive types
+						</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 				<xs:attribute name="strictSelection" type="xs:boolean">
 					<xs:annotation>
 						<xs:documentation>If strictSelection is set to true, the value
 							entered by the user must be
-							an item from the returned list. If this is set
-							to false, the value may not be restricted to the returned list.
+							an item from the returned list. If
+							this is set
+							to false, the value may not be restricted to the
+							returned list.
 						</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	
+
 	<xs:complexType name="EnumerationConstraint">
 		<xs:annotation>
 			<xs:documentation>A constraint specifying that the value is from
-				an enumeration explicitly included here. This provides a more convenient mechanism
-				to specify an enumeration rather than using the ExpressionConstraint.</xs:documentation>
+				an
+				enumeration explicitly included here. This provides a more
+				convenient mechanism
+				to specify an enumeration rather than using the
+				ExpressionConstraint.
+			</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="RangeConstraint">
 				<xs:sequence>
-					<xs:element name="item" minOccurs="1" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation>An item in the list of possible values
-							</xs:documentation>
-						</xs:annotation>
-						<xs:complexType>
-							<xs:sequence>
-								<xs:element name="value" type="Expression">
-									<xs:annotation>
-										<xs:documentation>The value of the item is specified as an
-											expression. This is the value that could be displayed to the
-											user and which forms the recorded value of the documentation
-											item.</xs:documentation>
-									</xs:annotation>
-								</xs:element>
-								<xs:element name="codes" minOccurs="0">
-									<xs:annotation>
-										<xs:documentation>A collection of codes that are the
-											equivalent of this value.</xs:documentation>
-									</xs:annotation>
-									<xs:complexType>
-										<xs:sequence>
-											<xs:element name="code" type="dt:CD" minOccurs="0" maxOccurs="unbounded">
-												<xs:annotation>
-													<xs:documentation>An individual code that is the equivalent
-														of this value.</xs:documentation>
-												</xs:annotation>
-											</xs:element>
-										</xs:sequence>
-									</xs:complexType>
-								</xs:element>
-								<xs:element name="displayText" type="dt:ST" minOccurs="0">
-									<xs:annotation>
-										<xs:documentation>Short text label for the list item. When
-											displayText is present, this is displayed to the user
-											performing the documentation. In such a case, the value is
-											displayed optionally</xs:documentation>
-									</xs:annotation>
-								</xs:element>
-							</xs:sequence>
-						</xs:complexType>
-					</xs:element>
+					<xs:element name="item" minOccurs="1" maxOccurs="unbounded"
+						type="EnumerationItem" />
 				</xs:sequence>
 				<xs:attribute name="strictSelection" type="xs:boolean">
 					<xs:annotation>
 						<xs:documentation>If strictSelection is set to true, the value
-							entered by the user must be
-							an item from the enumeration. If this is set
-							to false, the value may not be restricted to this enumeration.
+							entered by the user must be an item from the enumeration. If this
+							is set to false, the value may not be restricted to this
+							enumeration, allowing the user to fill-in items
 						</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
@@ -236,29 +248,36 @@
 	</xs:complexType>
 	<xs:complexType name="ValueSetConstraint">
 		<xs:annotation>
-			<xs:documentation>A constraint specifying that the value is an item from the
-				value set specified. This constraint applies to list type constraints only.
-				The response data type for this DocumentationItem will be Code.</xs:documentation>
+			<xs:documentation>A constraint specifying that the value is an item
+				from the
+				value set specified. This constraint applies to list type
+				constraints only.
+				The response data type for this DocumentationItem
+				will be Code.
+			</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="RangeConstraint">
 				<xs:sequence>
-					<xs:element name="valueSet" type="ValueSet"/>
+					<xs:element name="valueSet" type="ValueSet" />
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	
+
 	<xs:complexType name="MaskConstraint">
 		<xs:annotation>
-			<xs:documentation>A regular-expression that constrains free text entry such as for zip codes, email addresses, and telephone numbers.</xs:documentation>
+			<xs:documentation>A regular-expression that constrains free text
+				entry such as for zip codes, email addresses, and telephone numbers.
+			</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="RangeConstraint">
 				<xs:sequence>
 					<xs:element name="maskExpression" type="dt:ST">
 						<xs:annotation>
-							<xs:documentation>The regular expression for the mask</xs:documentation>
+							<xs:documentation>The regular expression for the mask
+							</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="maskHelp" type="dt:ST">
@@ -270,4 +289,89 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
+
+	<xs:complexType name="EnumerationItem">
+		<xs:annotation>
+			<xs:documentation>An item in a list of possible values
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="identifier" type="VersionedIdentifier"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The identifier for the item.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="number" type="FormattedText" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A number for the item primarily for display to
+						the user. This is different than the identifier which is used as a
+						key to identify the item internally.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="value" type="Expression" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The value of the item is specified as an
+						expression. This is the value that could be displayed to the
+						user
+						and which forms the recorded value of the documentation
+						item. This is required unless the item is of type fill-in
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="codes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A collection of codes that are the
+						equivalent of
+						this value.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="code" type="dt:CD" minOccurs="0"
+							maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>An individual code that is the equivalent
+									of
+									this value.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="displayText" type="FormattedText"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Short text label for the list item. When
+						displayText is present, this is displayed to the user
+						performing
+						the documentation. In such a case, the value is
+						displayed
+						optionally
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="additionalInstructions" type="FormattedText"
+				minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Additional instructions to assist the user in
+						selecting this item.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="valueMeaning" type="FormattedText"
+				minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>An explanation of the meaning of this list item
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="fillIn" type="xs:boolean" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>Item is used for user to enter or "fill in" a value (i.e., Other)</xs:documentation>
+			</xs:annotation></xs:attribute>
+	</xs:complexType>
+
 </xs:schema>

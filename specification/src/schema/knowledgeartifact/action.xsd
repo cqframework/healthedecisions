@@ -27,6 +27,11 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="number" type="FormattedText" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>A number for the action primarily for display to the user. This is different than the actionId which is used as a key to identify the action or group internally.</xs:documentation>
+						</xs:annotation>
+			</xs:element>
 			<xs:element name="supportingEvidence" type="SupportingEvidence" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>The evidence grade and the sources of evidence
@@ -132,11 +137,6 @@
 								that can
 								be displayed to the user or the recipient of the CDS
 							</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="number" type="FormattedText" minOccurs="0">
-						<xs:annotation>
-							<xs:documentation>A number for the action primarily for display to the user. This is different than the actionId which is used as a key to identify the action or group internally.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="representedConcepts" minOccurs="0">
