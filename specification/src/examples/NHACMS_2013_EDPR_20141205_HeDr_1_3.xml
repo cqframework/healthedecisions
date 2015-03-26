@@ -26,6 +26,18 @@
 			value="National Hospital Ambulatory Medical Care Survey 2013 Emergency Department Patient Record" />
 		<status value="Draft" />
 	</metadata>
+	<externalData>
+		<def name="Patient">
+			<expression xsi:type="ClinicalRequest" cardinality="Single" dataType="vmr:EvaluatedPerson"/>
+		</def>
+	</externalData>
+	<expressions>
+		<def name="PatientDoB">
+			<expression xsi:type="Property" path="dateOfBirth">
+				<source xsi:type="ExpressionRef"  name="Patient"/>
+			</expression>
+		</def>
+	</expressions>
 	<actionGroup>
 		<subElements>
 			<simpleAction xsi:type="DeclareResponseAction"/>
@@ -81,6 +93,26 @@
 							<responseDataType value="Timestamp"/>
 							<responseCardinality value="Single" />
 						</documentationConcept>
+					</simpleAction>
+					<!-- Illustration of how the initial value can be used to prefill the field with
+					an arbitrary expression -->
+					<simpleAction xsi:type="CollectInformationAction">
+						<behaviors>
+							<behavior xsi:type="RequiredBehavior" value="Must" />
+						</behaviors>
+						<documentationConcept>
+							<identifier
+								root="oid:2.16.840.1.113883.3.2146.1.1000.2.2.3:2012-09-21"/>
+							<prompt>
+								<label>Date and time of visit</label>
+							</prompt>
+							<additionalInstructions>
+							    <label>Date of Birth</label>
+							</additionalInstructions>
+							<responseDataType value="Timestamp"/>
+							<responseCardinality value="Single" />
+						</documentationConcept>
+						<initialValue xsi:type="ExpressionRef" name="PatientDoB"/>
 					</simpleAction>
 				</subElements>
 			</actionGroup>
