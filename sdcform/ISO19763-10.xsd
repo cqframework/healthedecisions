@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.iso.org/19763/10/2013" xmlns="http://www.iso.org/19763/10/2013"
+    xmlns:mdr3="http://www.iso.org/11179/3/2013">
+    <xs:annotation>
+        <xs:documentation>Version 1.0</xs:documentation>
+        <xs:documentation>This is a partial schema, developed in collaboration with ISO 19763
+            project editors for use with ISO19763-13. It will be developed further over time and is
+            intended to be submitted for standardization as a technical report, as an enabling
+            technology</xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 1.1 03-11-2014 DWarzel</xs:documentation>
+        <xs:documentation> AHRQ-NCI pilot feedback 
+            Changed Model from xs:all to xs:sequence 
+            Changed Model_Mapping from xs:all to xs:sequence 
+            Changed Modelling_Language from xs:all to xs:sequence 
+            Changed Model_Element_Set_Mapping from xs:all to xs:sequence 
+            Changed Model_Element_Set from xs:all to xs:sequence </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 2 03-12-2014 DWarzel</xs:documentation>
+        <xs:documentation> AHRQ-NCI pilot feedback 
+            remove Model/identifier element. Model is based on 11179-3 Administered Item, which already has an identifier attribute </xs:documentation>
+    </xs:annotation>
+
+    <xs:import namespace="http://www.iso.org/11179/3/2013" schemaLocation="ISO11179-3.xsd"/>
+
+    <xs:element name="Model" type="Model"/>
+
+    <xs:complexType name="Model" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="mdr3:Administered_Item"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="Model_Mapping" abstract="true">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="designation" type="mdr3:Designatable_Item" minOccurs="1"
+                    maxOccurs="unbounded"/>
+                <xs:element name="subject_model" type="mdr3:Identifier" minOccurs="1" maxOccurs="1"
+                    ><!--source model identifier--></xs:element>
+                <xs:element name="object_model" type="mdr3:Identifier" minOccurs="1" maxOccurs="1"
+                    ><!--target model identifier--></xs:element>
+                <xs:element name="contains" type="Model_Element_Set_Mapping" minOccurs="1"
+                    maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="mdr3:identified_item"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="Modelling_Language" abstract="true" mixed="false">
+        <xs:sequence>
+            <xs:element name="designation" type="mdr3:Designatable_Item" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <!--modelling language elements in here -->
+        </xs:sequence>
+        <xs:attributeGroup ref="mdr3:identified_item"/>
+    </xs:complexType>
+
+    <xs:complexType name="Model_Element" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="mdr3:Designatable_Item"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Model_Element_Set_Mapping" abstract="true">
+        <xs:sequence>
+            <xs:element name="subject_set" type="Model_Element_Set" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="object_set" type="Model_Element_Set" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="described_by" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Model_Element_Set" abstract="true">
+        <xs:sequence>
+            <xs:element name="mapped_element" type="mdr3:Identifier" minOccurs="1"
+                maxOccurs="unbounded">
+                <!--references the identifier of the model element-->
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

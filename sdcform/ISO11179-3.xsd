@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.iso.org/11179/3/2013"
+    xmlns:ISO11179-3="http://www.iso.org/11179/3/2013">
+
+
+    <xs:annotation>
+        <xs:documentation>Version 1.0</xs:documentation>
+        <xs:documentation>This is a partial schema, developed in collaboration with ISO 11179-3 and
+            ISO 19763-13 project editors for use with ISO19763-13. It will be developed further over
+            time and is intended to be submitted for standardization as a technical report, as an
+            enabling companion to ISO 11179 MDR </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation>Version 2.0 03-10-2014</xs:documentation>
+        <xs:documentation>Updated based on AHRQ feedback Changed Identified_Item xs:all to
+            xs:sequence Changed Designatable_Item xs:all to xs:sequence Changed Registered_Item
+            xs:all to xs:sequence Changed Administered_Item/ISO11179-3:Registered_Item xs:all to
+            xs:sequence Changed Designation xs:all to xs:sequence Changed Individual xs:all to
+            xs:sequence Changed Language_Identification xs:all to xs:sequence Changed Organization
+            xs:all to xs:sequence Changed Reference_Document xs:all to xs:sequence Changed Role
+            xs:all to xs:sequence Changed Contact xs:all to xs:sequence </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation>Version 3.0 03-12-2014</xs:documentation>
+        <xs:documentation> Change Registered_Item to extension of Identified_Item to be consistent
+            with 11179, all Registered items are subclasses of Identified items </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 4 06-01-2014 DWarzel</xs:documentation>
+        <xs:documentation> fixed typo in mdr3:language/mdr3:langauge_itentiier changed to
+            mdr3:language/mdr3:langauge_identifier </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 5 06-24-2014 DWarzel</xs:documentation>
+        <xs:documentation> changed minOccurs to "0" for all elements in State except Registration Status to align with FHIR rules</xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 6 07-05-2014 DWarzel </xs:documentation>
+        <xs:documentation> add minOccurs/maxOccurs to mdr3:Language_Identification, only the
+            language_identifier is required, and variatn and extension are unbounded. </xs:documentation>
+        <xs:documentation> add datatypes for elemetns in Stage. Change State.administrative_note and State.until_date to minOccurs=0
+        </xs:documentation>
+    </xs:annotation>
+
+
+    <xs:attributeGroup name="identified_item">
+        <xs:attribute name="identifier" type="ISO11179-3:Identifier"/>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="classification_item">
+        <xs:attribute name="type" type="ISO11179-3:String"/>
+    </xs:attributeGroup>
+
+    <xs:simpleType name="Identifier">
+        <xs:restriction base="xs:anyURI">
+            <!--contains the namespace and version-->
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="acceptability">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="preferred"/>
+            <xs:enumeration value="admitted">
+                <xs:annotation>
+                    <xs:documentation>ISO 10241-1:2011 defines "admitted term" as: synonymous term
+                        (3.4.1.1.2) for a preferred term (3.4.1.3.1), but not rated as a preferred
+                        term by a standardizing body </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="deprecated"/>
+            <xs:enumeration value="obsolete"/>
+            <xs:enumeration value="superseded"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Boolean">
+        <xs:annotation>
+            <xs:documentation>A mathematical datatype (3.1.8) associated with two-valued logic.
+                [ISO/IEC 11404:2007, 8.1.1 Boolean]. NOTE The notation and semantics for Boolean are
+                as described in ISO/IEC 11404.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:boolean"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="Date">
+        <xs:annotation>
+            <xs:documentation>A datatype (3.1.8) whose values are points in time to the resolution:
+                year, month, and day. [ISO/IEC 11404:2007, 8.1.6 Date-and-Time]. </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="ISO11179-3:String"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="Datetime">
+        <xs:annotation>
+            <xs:documentation>A datatype (3.1.8) whose values are points in time to the resolution:
+                year, month, day, hour, minute, second, and optionally fractions of seconds.
+                [ISO/IEC 11404:2007, 8.1.6 Date-and-Time]. <xs:documentation>EXAMPLE — time(second,
+                    10, 0) designates a date-and-time datatype whose values are points in time with
+                    accuracy to the second. "19910401T120000" specifies the value of that datatype
+                    which is exactly noon on April 1, 1991, universal time.</xs:documentation>
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="ISO11179-3:String"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="Integer">
+        <xs:annotation>
+            <xs:documentation> A mathematical datatype (3.1.8) comprising the exact integral values
+                [ISO/IEC 11404:2007, 8.1.7 Integer]. NOTE Both the notation and semantics of the
+                Integer datatype is as specified in ISO/IEC 11404:2007:8.1.7. </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:integer"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="Natural_Range">
+        <xs:annotation>
+            <xs:documentation>Natural_Range is a datatype (3.1.8) comprising a range of “natural
+                numbers“, i.e. the positive integers, including zero. Any instance of Natural_Range
+                is one of a constant non-negative Integer, a bounded range of non-negative Integers
+                defined by a minimum and a (strictly larger) maximum value, an unbounded range
+                defined by only a non-negative minimum (e.g., 0..*, 1..*, 2..*). </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d+|\d+(..)\d+|\d+(\.\.\*)"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Phone_Number">
+        <xs:restriction base="ISO11179-3:String"/>
+        <!-- Phone number ITU-T E 164 ir 19773 /Module 17 -->
+    </xs:simpleType>
+
+    <xs:simpleType name="Postal_Address">
+        <xs:annotation>
+            <xs:documentation>A postal address (3.2.99) enables the unambiguous determination of an
+                actual or potential delivery point, usually combined with the specification of an
+                addressee and/or a mailee. The data structure of Postal_Address may conform to
+                ISO/IEC19773 Information technology - Metadata registries (MDR) Modules - Module 16:
+                Data Structure for UPU postal data. NOTE ISO/IEC 19773 is referenced but not
+                required.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="ISO11179-3:Text"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="Sign">
+        <xs:annotation>
+            <xs:documentation>A sign (3.2.123) may be a character string, graphic image, sound clip
+                or other symbol that can be used to denote or designate a concept (3.2.18). The Sign
+                datatype (3.1.8) may be implemented using the Reflit(of_type) data structure (see
+                ISO/IEC19773:2011 10.4.2), where the list of supported types is implementation
+                defined. At a minimum, datatype String must be supported.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="String">
+        <xs:annotation>
+            <xs:documentation>String is a family of datatypes (3.1.8) which represent strings of
+                symbols from standard character-sets. The syntax and semantics of the String
+                datatype are as defined in ISO/IEC 11404:2007 10.1.5 Character String.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="Notation">
+        <xs:annotation>
+            <xs:documentation>Notation denotes a notation (3.2.86) defined elsewhere, but used by an
+                item within the registry. A notation defines a formal syntax and semantics, meant
+                for machine processing. In this metamodel, Notation is used by Concept_System
+                (9.1.2.2), Derivation_Rule (11.5.2.6) and Reference_Document
+                (6.3.7).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="ISO11179-3:String"/>
+    </xs:simpleType>
+
+
+    <xs:simpleType name="Text">
+        <xs:annotation>
+            <xs:documentation>Text is data (3.2.27) in the form of characters, symbols, words,
+                phrases, paragraphs, sentences, tables, or other character arrangements, intended to
+                convey a meaning, and whose interpretation is essentially based upon the reader's
+                knowledge of some natural language or artificial language [ISO/IEC 2382-23:1994].
+                EXAMPLE A business letter printed on paper or displayed on a screen.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="ISO11179-3:String"/>
+    </xs:simpleType>
+
+    <xs:complexType name="Identified_Item">
+        <xs:annotation>
+            <xs:documentation>Any metadata item that is to be retrieved directly (as opposed to
+                indirectly through a related item), shall be an Identified_Item (see 7.2.2.1), so
+                the item can be referenced. An example of metadata items that might not be
+                explicitly identified are the Permissible Values (11.3.2.7) within a Value Domain
+                (11.3.2.5).</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="designation" type="ISO11179-3:Designatable_Item" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xs:element name="classifier" type="ISO11179-3:Classifiable_Item" minOccurs="0"
+                maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attributeGroup ref="ISO11179-3:identified_item"/>
+    </xs:complexType>
+
+    <xs:complexType name="Designatable_Item" mixed="false">
+        <xs:annotation>
+            <xs:documentation>Any metadata item that is to be designated (named) and/or defined
+                shall be a Designatable_Item (7.3.2.2).</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="designation" type="ISO11179-3:Designation" minOccurs="1"
+                maxOccurs="unbounded"/>
+            <xs:element name="definition" type="ISO11179-3:Definition" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xs:element name="classifier" type="ISO11179-3:Classifiable_Item" minOccurs="0"
+                maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Registered_Item" abstract="true">
+        <xs:annotation>
+            <xs:documentation>Any metadata item that is to be registered in the registry shall be a
+                Registered_Item (8.1.2.1). Registered_Item is an abstract class, which means that
+                each such item must be instantiated as one of the subclasses: Administered_Item
+                (8.1.2.2), or Attached_Item (8.1.2.3). These subclasses are mutually exclusive and
+                collectively exhaustive (mece). </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="ISO11179-3:Identified_Item">
+                <xs:sequence>
+                    <xs:element name="state" type="ISO11179-3:State" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="submission_record" type="ISO11179-3:Submission_Record"
+                        minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="document_reference" type="ISO11179-3:Reference_Document"
+                        minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Administered_Item">
+        <xs:annotation>
+            <xs:documentation>Administered_Item (8.1.2.2) are a subclass of Registered_Item.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="ISO11179-3:Registered_Item">
+                <xs:sequence>
+                    <xs:element name="stewardship_record" type="ISO11179-3:Stewardship_Record"
+                        minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="creation_date" type="ISO11179-3:Datetime" minOccurs="1"/>
+                    <xs:element name="last_change_date" type="ISO11179-3:Datetime" minOccurs="0"
+                        maxOccurs="1"/>
+                    <xs:element name="change_description" type="ISO11179-3:Text" minOccurs="0"
+                        maxOccurs="1"/>
+                    <xs:element name="explanatory_comment" type="ISO11179-3:Text" minOccurs="0"
+                        maxOccurs="1"/>
+                    <xs:element name="origin" type="ISO11179-3:Text" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Attached_Item">
+        <xs:annotation>
+            <xs:documentation>Registered_Item instantiated as an Administered_Item (8.1.2.2).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="ISO11179-3:Registered_Item"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Designation">
+        <xs:sequence>
+            <xs:element name="designation_context" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="sign" type="ISO11179-3:Sign" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="language" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="namespace" type="ISO11179-3:Identifier" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xs:element name="convention" type="ISO11179-3:Identifier" minOccurs="0"
+                maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="acceptability" type="ISO11179-3:acceptability"/>
+    </xs:complexType>
+
+    <xs:complexType name="Classifiable_Item">
+        <xs:complexContent>
+            <xs:extension base="ISO11179-3:Concept">
+                <xs:attributeGroup ref="ISO11179-3:classification_item"/>
+                <xs:attributeGroup ref="ISO11179-3:identified_item"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Concept">
+        <xs:complexContent>
+            <xs:extension base="ISO11179-3:Designatable_Item"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Contact">
+        <xs:annotation>
+            <xs:documentation>Contact is a class each instance of which models a contact (3.2.23),
+                which specifies a role (3.2.121) and/or an individual (3.2.65) within an
+                organization (3.2.90) or an organization part (3.2.93) to whom information item(s),
+                material object(s) and/or person(s) can be sent to or from. Registrar (8.1.2.4) is a
+                subclass of Contact.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="individual" type="ISO11179-3:Individual" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="organization" type="ISO11179-3:Organization" minOccurs="0"
+                maxOccurs="1"/>
+            <xs:element name="role" type="ISO11179-3:Role" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Definition">
+        <xs:all>
+            <xs:element name="text" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="language" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="source" type="ISO11179-3:Identifier" minOccurs="0" maxOccurs="1"
+                ><!-- a reference document identifier for the source of a definition-->
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="acceptability" type="ISO11179-3:acceptability"/>
+    </xs:complexType>
+
+    <xs:complexType name="Document_Type">
+        <xs:annotation>
+            <xs:documentation> The composite datatype (3.1.8) Document_Type is used to specify the
+                document type of a Reference_Document (6.3.7). The document type may be specified
+                using an identifier (6.3.3.2.1) or a description (6.3.3.2.2). </xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element name="identifier" type="ISO11179-3:String" minOccurs="0"/>
+            <xs:element name="description" type="ISO11179-3:Text" minOccurs="0"/>
+            <xs:element name="scheme_reference" type="ISO11179-3:Sign" minOccurs="0"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="Individual">
+        <xs:sequence>
+            <xs:element name="name" type="ISO11179-3:Sign" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="title" type="ISO11179-3:Sign" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="mail_address" type="ISO11179-3:Postal_Address" minOccurs="0"
+                maxOccurs="1"/>
+            <xs:element name="email_address" type="ISO11179-3:String" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xs:element name="phone_number" type="ISO11179-3:Phone_Number" minOccurs="0"
+                maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Language_Identification">
+        <xs:sequence>
+            <xs:element name="langauge_identifier" type="ISO11179-3:String" minOccurs="1"
+                maxOccurs="1"/>
+            <xs:element name="script_identifier" type="ISO11179-3:String" minOccurs="0"
+                maxOccurs="1"/>
+            <xs:element name="geopolitical_territory_identifier" type="ISO11179-3:String"
+                minOccurs="0" maxOccurs="1"/>
+            <xs:element name="variant_identifier" type="ISO11179-3:String" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xs:element name="extension_identifer" type="ISO11179-3:String" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xs:element name="private_use_qualifier" type="ISO11179-3:String" minOccurs="0"
+                maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Organization">
+        <xs:sequence>
+            <xs:element name="name" type="ISO11179-3:Sign" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element name="mail_address" type="ISO11179-3:Postal_Address" minOccurs="0"
+                maxOccurs="1"/>
+            <xs:element name="email_address" type="ISO11179-3:String" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xs:element name="phone_number" type="ISO11179-3:Phone_Number" minOccurs="0"
+                maxOccurs="1"/>
+            <xs:element name="uri" type="ISO11179-3:String" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Reference_Document">
+        <xs:sequence>
+            <xs:element name="identifier" type="ISO11179-3:String" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="document_type" type="ISO11179-3:Document_Type" minOccurs="0"
+                maxOccurs="1"/>
+            <xs:element name="language" type="ISO11179-3:Language_Identification" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xs:element name="notation" type="ISO11179-3:Notation" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="title" type="ISO11179-3:Text" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="provider" type="ISO11179-3:Organization" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="uri" type="ISO11179-3:String" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Role">
+        <xs:sequence>
+            <xs:element name="title" type="ISO11179-3:Sign" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="mail_addresses" type="ISO11179-3:Postal_Address" minOccurs="0"
+                maxOccurs="1"/>
+            <xs:element name="email_addresses" type="ISO11179-3:String" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="phone_numbers" type="ISO11179-3:Phone_Number" minOccurs="0"
+                maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="State">
+        <xs:all>
+            <xs:element name="registration_status" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="effective_date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="until_date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="administrative_note" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="administrative_status" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="previous_state" minOccurs="0" maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="Stewardship_Record">
+        <xs:all>
+            <xs:element name="organization" type="ISO11179-3:Organization" minOccurs="0"
+                maxOccurs="1"/>
+            <xs:element name="contact" type="ISO11179-3:Contact" minOccurs="0" maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="Submission_Record">
+        <xs:all>
+            <xs:element name="organization" type="ISO11179-3:Organization" minOccurs="0"
+                maxOccurs="1"/>
+            <xs:element name="contact" type="ISO11179-3:Contact" minOccurs="0" maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="Conceptual_Domain"> </xs:complexType>
+
+    <xs:complexType name="Value_Domain">
+        <xs:sequence>
+            <xs:element name="dataytpe" type="ISO11179-3:String" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="unit_of_measure" type="ISO11179-3:String" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="conceptual_domain" type="ISO11179-3:Conceptual_Domain" minOccurs="0"
+                maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Data_Element"> </xs:complexType>
+</xs:schema>

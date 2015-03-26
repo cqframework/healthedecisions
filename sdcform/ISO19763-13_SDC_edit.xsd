@@ -1,0 +1,872 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.iso.org/19763/13/2013" xmlns="http://www.iso.org/19763/13/2013"
+    xmlns:mfi13="http://www.iso.org/19763/13/2013" xmlns:mfi10="http://www.iso.org/19763/10/2013"
+    xmlns:mdr3="http://www.iso.org/11179/3/2013"
+    xmlns:fhir="http://http://www.hl7.org/implement/standards/fhir/datatypes.htm"
+    xmlns:sdc="http://nlm.nih.gov/sdc/form">
+
+    <xs:annotation>
+        <xs:documentation>Version 1.0</xs:documentation>
+        <xs:documentation>This is a partial schema, developed in collaboration with ISO19763 project
+            editors based on 32N2417T-text_for_ballot-CD-19763-13. It will be developed further over
+            time and is intended to be submitted for standardization as a technical report, as an
+            enabling technology. The documentation in this schema came from the draft standards
+            above.</xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation>Version 2.0</xs:documentation>
+        <xs:documentation>Version 2 of this schema inserts documentation from the first CD of
+            19763-13</xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation>Version 3 create Compliance Rule as a type</xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 4 12-23-2013 DWarzel </xs:documentation>
+        <xs:documentation> change the order of the mapping associations to put the mapping_element
+            in between the two identifed items</xs:documentation>
+        <xs:documentation> make rule a complexType and add simple_expression
+            element</xs:documentation>
+        <xs:documentation> make compliance_rule a complexType based on simple_expression
+            element</xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 5 01-14-2014 DWarzel </xs:documentation>
+        <xs:documentation> change the order of the mapping associations to put the mapping_element
+            in between the two identifed items</xs:documentation>
+        <xs:documentation> to match the MFI definitions, externally mapped item first (eg Data
+            Element), then form element (eg Question)</xs:documentation>
+        <xs:documentation> make compliance_rule a complexType based on simple_expression
+            element</xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 6 01-21-2014 DWarzel </xs:documentation>
+        <xs:documentation> make the order of the data element-question mapping associations a
+            sequence instead of all </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 7 01-26-2014 DWarzel </xs:documentation>
+        <xs:documentation> changed as many types to xs:all as possible instead of xs:sequence
+        </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 7.1 03-10-2014 DWarzel </xs:documentation>
+        <xs:documentation> based on all-hands 03-06-2014 IG review/vote changed all
+            data_element_identifier to data_element_scoped_identifier AHRQ/NCI testing: Added
+            type=xs:string attribute for default_value Changed Form_Language definition from xs:all
+            to xs:sequence Changed Form_Design/mfi10:Model definition from xs:all to xs:sequence
+            Changed Form_Template/Form_Design definition from xs:all to xs:sequence Changed rule
+            definition from xs:all to xs:sequence Changed MDR_Mapping definition from xs:all to
+            xs:sequence Replaced Binary_Operation enumeration with new values </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 7.2 03-12-2014 DWarzel </xs:documentation>
+        <xs:documentation> Changed guard to guarded to avoid conflict with SDCForm.xsd in generated
+            java code </xs:documentation>
+        <xs:documentation> Changed datatype to dataType to avoid conflict with SDCForm.xsd in
+            generated java code </xs:documentation>
+        <xs:documentation> Changed textual_language to text_language to avoid conflict with
+            SDCForm.xsd in generated java code </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 7.2 03-14-2014 DWarzel </xs:documentation>
+        <xs:documentation> Added type to maximum_quantity_characters mdr3:xs:Integer
+        </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 7.2 03-15-2014 DWarzel </xs:documentation>
+        <xs:documentation> Fix unit_of_measure to simpleContent</xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 8.0 04-07-2014 DWarzel </xs:documentation>
+        <xs:documentation> correct error in MFI-13 schema 
+            move representation from Text_Field to Text_Element </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 9 06-24-2014 DWarzel </xs:documentation>
+        <xs:documentation> change Form_Design_Element cardinality maximum from xs:string to xs:integer</xs:documentation>
+    </xs:annotation>
+
+    <xs:import namespace="http://www.iso.org/19763/10/2013" schemaLocation="ISO19763-10.xsd"/>
+    <xs:import namespace="http://www.iso.org/11179/3/2013" schemaLocation="ISO11179-3.xsd"/>
+    <xs:import namespace="http://nlm.nih.gov/sdc/form" schemaLocation="SDCForm.xsd"/>
+
+
+    <xs:complexType name="Form">
+        <xs:all>
+            <xs:element name="form_design" type="Form_Design"/>
+            <xs:element name="form_template" type="Form_Template"/>
+        </xs:all>
+    </xs:complexType>
+
+
+    <xs:attributeGroup name="style">
+        <xs:attribute name="style" type="mdr3:String"/>
+    </xs:attributeGroup>
+
+    <xs:complexType name="address">
+        <xs:all>
+            <xs:element name="text" type="mdr3:Postal_Address"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="Form_Language">
+        <xs:annotation>
+            <xs:documentation>Form_Language is a metaclass, each instance of which represents the
+                selection of languages used to express aspects of the design of the associated
+                Form_Design.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="mfi10:Modelling_Language">
+                <xs:sequence>
+                    <xs:element name="style_language" type="mdr3:Reference_Document" minOccurs="0"
+                        maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation> Optional, single reference document describing the
+                                style language used to place Form_Design_Element instances in place
+                                on the form where the maximum multiplity is one. e.g.:
+                                http://www.w3.org/TR/CSS1/ </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="logic_language" type="mdr3:Reference_Document" minOccurs="0"
+                        maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation> Optional, single reference document describing the
+                                logic language where the maximum multiplicity is one. Used to
+                                describe semantic dependencies between instances of
+                                Form_Design_Element </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="format_language" type="mdr3:Reference_Document" minOccurs="0"
+                        maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Optional single reference document describing the
+                                regular expression language used in the format attribute of
+                                instances of Response</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="text_language" type="mdr3:String" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Optional attribute specifying the primary native human
+                                language used for instances of Text_Element on the form. Note: owing
+                                to the difficulties in translation of human languages, we expect
+                                that translations of forms are registered independently and linked
+                                through the use of MFI mapping
+                                http://www.loc.gov/standards/iso639-2/php/code_list.php</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="Form_Design">
+        <xs:annotation>
+            <xs:documentation>Form_Design is a metaclass, each instance of which represents the
+                design of a specific form which is formulary document with blanks for the insertion
+                of particulars.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="mfi10:Model">
+                <xs:sequence>
+                    <xs:element name="form_language" type="Form_Language" minOccurs="0"
+                        maxOccurs="1"> </xs:element>
+                    <xs:element name="mdr_mapping" type="MDR_Mapping" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation/>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="header" type="Section_Element" minOccurs="0"
+                        maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:documentation>Optional, single top level Section_Element providing
+                                text and questions that is displayed at the beginning of a form
+                                where the maximum multiplicity is one.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="section_element" type="Section_Element" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:element name="question_element" type="Question_Element" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:element name="contact" type="sdc:Contact" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:element name="footer" type="Section_Element" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Optional, single bottom level Section_Element
+                                containing text that is at the bottom of a form, where the maximum
+                                multiplicity is one.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="uri"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+
+    <xs:complexType name="Form_Design_Element" abstract="true">
+        <!-- add inheritence from ISO 19763-10 if possible -->
+        <xs:annotation>
+            <xs:documentation>Form_Design_Element is an abstract metaclass, each instance of which
+                represents some component of an instance of the class
+                Form_Design.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="cardinality" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The allowed range of times a Form_Design_Element instance may
+                        be repeated completed by operators completing a form conforms to the design
+                        described by the Form_Design instance, where the maximum multiplicity is
+                        one.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="minimum" type="mdr3:Integer"/>
+                        <xs:element name="maximum" type="mdr3:Integer"/>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="rule" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>A set of rules that describe functional dependencies and
+                        constraints upon data entry relevant to the semantics of the completed
+                        form</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="expression" type="Simple_Expression" minOccurs="1"
+                            maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:simpleType name="Simple_Expression">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+
+    <xs:complexType name="Model_Element" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="mdr3:Designatable_Item"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="Form_Template">
+        <xs:annotation>
+            <xs:documentation>Form_Template is a metaclass, each instance of which represents a
+                specific form template which is a partially complete form design intended to guide
+                the creation of similar form designs</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Form_Design">
+                <xs:sequence>
+                    <xs:element name="compliance_rule" type="Compliance_Rule" minOccurs="0"
+                        maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:documentation>An optional set of rules that must be followed or
+                                satisfied to indicate compliance of some aspect of a Form_Design
+                                instance to its associated Form_Template instance, where the maximum
+                                multiplicity is unbounded.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Compliance_Rule">
+        <xs:sequence>
+            <xs:element name="expression" type="Simple_Expression" minOccurs="0"
+                maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="MDR_Mapping" abstract="true">
+        <xs:annotation>
+            <xs:documentation> MDR_Mapping is a metaclass whose valid instances provide a means by
+                which to map between instances of Form_Design_Elements. For example, to map a
+                Question_Element and a particular data element, either from ISO/IEC 11179 Metadata
+                Registry, or some other data element specification, for the purpose of defining the
+                semantics and input constraints of the Question_Element and its Responses.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="question_element_data_element_association" minOccurs="0"
+                maxOccurs="unbounded" type="Question_Element_Data_Element_Association">
+                <xs:annotation>
+                    <xs:documentation>Question_Element_Data_Element_Association is a metaclass whose
+                        valid instances map a data element to a Question_Element in a metadata
+                        registry, for example an ISO/IEC 11179:2003 Metadata
+                        Registry.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="section_element_concept_association" minOccurs="0"
+                maxOccurs="unbounded" type="Section_Element_Concept_Association">
+                <xs:annotation>
+                    <xs:documentation>Section_Element_Concept_Association is a metaclass whose valid
+                        instances map a Section_Element to a concept in a metadata, for example a
+                        metadata registry conforming to ISO/IEC 11179-3 Information technology —
+                        Metadata registries (MDR) — Part 3: Registry metamodel and basic attributes,
+                        or to a concept in a terminology. </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Question_Element_Data_Element_Association">
+        <xs:sequence>
+            <xs:element name="data_element_scoped_identifier"
+                type="mfi13:Data_Element_Scoped_Identifier" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The unique identifier of a specific registered data element
+                        mapped to a specific Question_Element in this Form_Design where the maximum
+                        multiplicity is one.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="association_type" type="MDR_Association_Type" minOccurs="1"
+                maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>A category describing the association. It is th eThe attribute
+                        is enumerated using MDR_Assocation_Type.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="question_element_identifier" type="mfi13:Question_Element_Identifier"
+                minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The unique identifier of the particular Question_Element in
+                        the Form_Design mapped to the data element through this instance of the
+                        Question_Element_Data_Element_Association, where the maximum multiplicity is
+                        one.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="MDR_Association_Type">
+        <xs:annotation>
+            <xs:documentation> MDR_Association_Type is an enumeration of values for describing the
+                type of association between items mapped between a compliant metadata registry and a
+                Form_Design_Element. </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="mdr3:String">
+            <xs:enumeration value="implements">
+                <xs:annotation>
+                    <xs:documentation>Indicates that the creator of the mapping has asserted that
+                        the Form_Design_Element has been created from the specified MDR element
+                        without change. Note: implementation of a previously created MDR element in
+                        a Form_Design naturally admits the potential for the narrowing of the
+                        meaning of the MDR element, as the form may have a narrower scope than the
+                        MDR element </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="same_as">
+                <xs:annotation>
+                    <xs:documentation>Indicates that the entry in the MDR has been created to
+                        explain the meaning of the Form_Design_Element</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="related">
+                <xs:annotation>
+                    <xs:documentation>ndicates that the MDR element and the Form_Design_Element
+                        share some general relationship. See skos:related</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="broader">
+                <xs:annotation>
+                    <xs:documentation>Indicates that the MDR element has a broader meaning than the
+                        Form_Design_Element. See skos:broader </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="narrower">
+                <xs:annotation>
+                    <xs:documentation>Indicates that the MDR element has a narrower meaning than the
+                        Form_Design_Element. See skos:narrower </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Section_Element_Concept_Association">
+        <xs:annotation>
+            <xs:documentation>Section_Element_Concept_Association is a metaclass whose valid
+                instances map a Section_Element to a concept in a metadata, for example a metadata
+                registry conforming to ISO/IEC 11179-3 Information technology — Metadata registries
+                (MDR) — Part 3: Registry metamodel and basic attributes, or to a concept in a
+                terminology.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="section_element_identifier" type="xs:string" minOccurs="1"
+                maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The unique identifier of the particular Section_Element in the
+                        Form_Design mapped to the concept, where the maximum multiplicity is
+                        one.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="association_type" type="MDR_Association_Type" minOccurs="1"
+                maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>A category describing the association. The attribute is
+                        enumerated using MDR_Assocation_Type.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="concept_identifier" type="xs:string" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>the unique identifier of the specific concept mapped to a
+                        Section_Element in this Form_Design where the maximum multiplicity is
+                        one.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Section_Element">
+        <xs:annotation>
+            <xs:documentation> Section_Element is a metaclass, each instance of which is a section
+                of an instance of the class Form that describes a structural association between a
+                set of Form_Design_Element instances. </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Form_Design_Element">
+                <xs:sequence>
+                    <xs:element name="section_title" type="Prompt" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>An optional association that declares a particular
+                                Text_Element as the section title, where the maximum multiplicity is
+                                one.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="section_number" type="Number" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>An optional association that declares a particular
+                                Text_Element as its number, where the maximum multiplicity is
+                                one.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ordered" type="xs:boolean" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>A flag that indicates if the order of child
+                                Form_Design_Element instances is semantically significant, where the
+                                maximum multipligity is one.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="section_instruction" type="Text_Element" minOccurs="0"
+                        maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:documentation>An optional association that declares a particular
+                                Text_Element as the section instruction with a maximum multiplicity
+                                of one.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="additional_instruction" type="Text_Element" minOccurs="0"
+                        maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:documentation>An optional association that declares a particular
+                                Text_Element as an additional instruction with a maximum
+                                multiplicity of unbounded.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="contained_section" type="Section_Element" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:element name="media" type="Media_Element" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:element name="question" type="Question_Element" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:element name="additional_text" type="Text_Element" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:element name="next_relevant_element" type="Next_Relevant_Element"
+                        minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Question_Element">
+        <xs:complexContent>
+            <xs:extension base="Form_Design_Element">
+                <xs:sequence>
+                    <xs:element name="question_prompt" type="Prompt" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="question_number" type="Number" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="question_instruction" type="Text_Element" minOccurs="0"
+                        maxOccurs="1"/>
+                    <xs:element name="additional_instruction" type="Text_Element" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:choice>
+                        <xs:element name="text_field" type="Text_Field" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="list_field" type="List_Field" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="lookup_field" type="Lookup_Field" minOccurs="0"
+                            maxOccurs="1"/>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Presentation_Element" abstract="true">
+        <xs:annotation>
+            <xs:documentation>Presentation_Element is an abstract metaclass, each instance of which
+                is a presentation component of the form. Presentation elements have no notable
+                semantic context unless specifically linked to a Text_Element linked to a
+                Section_Element, Question_Element, Input_Field or List_Item </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Form_Design_Element"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Text_Element">
+        <xs:annotation>
+            <xs:documentation>Text_element is a metaclass, each instance of which is a textual
+                presentation element of a form intended to instruct or explain to the user of the
+                form what the data should mean, how it should be completed and any actions that must
+                be taken with the completed form.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Presentation_Element">
+                <xs:sequence>
+                    <xs:element name="label" type="xs:string" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>An optional name, label or identifier where the
+                                maximum multiplicity is one.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="style" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:documentation>A optional set of statements in some style language
+                                about the element where the maximum multiplicity is
+                                unbounded.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="representation" type="Media_Element" minOccurs="0"
+                        maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:documentation>An optional association to a Media_Element for
+                                repsentation of a particular Text_Element where the maximum
+                                multiplicity is unbounded.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Number">
+        <xs:complexContent>
+            <xs:extension base="Text_Element"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Prompt">
+        <xs:complexContent>
+            <xs:extension base="Text_Element"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Additional_Text">
+        <xs:complexContent>
+            <xs:extension base="Text_Element"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Text_Field">
+        <xs:complexContent>
+            <xs:extension base="Response"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Media_Element">
+        <xs:annotation>
+            <xs:documentation>Media_Element is a metaclass, each instance of which represents some
+                image, audio or video element within a Form. </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Presentation_Element"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="Guard_State_Type">
+        <xs:annotation>
+            <xs:documentation>Guard_State_Type is an enumeration of values describing the type of
+                guard in operation on a particular List_Item.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="show">
+                <xs:annotation>
+                    <xs:documentation>(19763-13 state name is "selected", the SDC implementation is
+                        slightly different use case. When the value is set to "show", the guard
+                        element contains the next items to be shown in the form design.) ("selected"
+                        Indicates that the guard is active when the associated List_Item is selected
+                        as the value of the Input_Field of the Question_Element on the implemented
+                        form.)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="hide">
+                <xs:annotation>
+                    <xs:documentation>(19763-13 state name is "unselected", the SDC implementation
+                        is slightly different use case. When teh value is set to "hide", the guard
+                        element contains the items to be hiddedn in the form design.) ("unselected"
+                        Indicates that the guard is active when the associated List_Item is not
+                        selected as the value of the Input_Field of the Question_Element on the
+                        implemented form.)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Response" abstract="true">
+        <xs:annotation>
+            <xs:documentation>an abstract metaclass each instance of which represents the part of a
+                Question_Element which allows entry of a value.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="multiselect" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="default_value" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>An optional default value for the input field when nothing is
+                        entered, where the maximum multiplicity is one.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="default_value_read_only" type="mdr3:Boolean" minOccurs="0"
+                maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>An optional indicator of whether the default value, if
+                        specified, can be edited, where the maximum multiplicity is
+                        one.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="maximum_character_quantity" type="mdr3:Integer" minOccurs="0"
+                maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>An optional maximum number of characters that the Input_Field
+                        may accept where the maximum multiplicity is one. If this value is missing
+                        there is no limit on the number of characters the field may accept. Its
+                        value may come mapping to an ISO/IEC 11179 Data Element.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="unit_of_measure" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>An optional textual name for the measurement when the input
+                        field is a physical quantity, where the maximum multiplicity is one. Its
+                        value may be set through a mapping to an ISO/IEC 11179 Data Element. NOTE:
+                        Unit_Of_Measure [ISO/IEC 11179:2013, 11.4.2.1
+                        Unit_Of_Measure].</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attributeGroup ref="sdc:Units_Schema"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="dataType" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Text that identifies the type of data to be stored for the
+                        answer where the maximum multiplicity is one. Its value may be set through
+                        mapping to an ISO/IEC 11179 Data Element. NOTE: Datatype [ISO/IEC
+                        11179:2013, 11.3.2.9 Datatype]</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="format" type="xs:string" minOccurs="0" maxOccurs="1">
+                <!-- SDC would like to use RegEx -->
+                <xs:annotation>
+                    <xs:documentation>An optional template for the structure of the presentation of
+                        the value(s) EXAMPLE – YYYY-MM-DD for a date. Maximum multiplicity is one.
+                        Note: its value may be set through mapping to an ISO/IEC 11179 Data
+                        Element.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="next_relevant_element" type="Next_Relevant_Element" minOccurs="0"
+                maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>an explicity reference to the next element to be shown in the
+                        form design</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="List_Field">
+        <xs:annotation>
+            <xs:documentation>List_Field is a metaclass each instance of which represents a field in
+                which only predefined answers are allowed.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Response">
+                <xs:sequence>
+                    <xs:element name="ordered" type="xs:boolean" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>A flag that indicates if the order of child List_Field
+                                instances is semantically significant, where the maximum
+                                multiplicity is one.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="list_item" type="List_Item" minOccurs="2"
+                        maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:documentation>The set of pre-defined list items that are allowed
+                                answers to the question where the minimum multiplicity is two and
+                                the maximum multiplicity is unbounded.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="List_Item">
+        <xs:sequence>
+            <xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="item_number" type="Number" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="item_prompt" type="Prompt" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="additional_instruction" type="Additional_Text" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xs:element name="value_meaning" type="Additional_Text" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="fill_in" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="guarded" type="xs:string" minOccurs="0" maxOccurs="1"> </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Lookup_Field">
+        <xs:annotation>
+            <xs:documentation>Lookup_Field is a metaclass each instance of which represents a field
+                which – like a List_Field – has a valid list of answers from a defined domain, but
+                where the members of the domain vary with time and between implementations: e.g. a
+                view providing a valid set of active customer IDs for a sales order system; a
+                terminology approved for tagging an experimental result; a web service; open issue
+                lookup in bug tracking software.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Response">
+                <xs:sequence>
+                    <xs:element name="end_point" type="xs:anyURI" minOccurs="0"
+                        maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:documentation>The location of the endpoint providing the value; a
+                                service or function call, a URI call that returns the value list
+                                where the maximum multiplicity is unbounded.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="Next_Relevant_Element">
+        <xs:annotation>
+            <xs:documentation>The identifier of the next element to be shown in the form design.
+                This can be the identifier of either a Question or a Section.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="mdr3:Identifier"/>
+    </xs:simpleType>
+
+    <xs:complexType name="Guarded_Element">
+        <xs:sequence>
+            <xs:element name="value" type="mfi13:Guard_State_Type"/>
+            <xs:choice>
+                <xs:element name="guarded_element_identifier" type="mdr3:Identifier" minOccurs="0"
+                    maxOccurs="1"/>
+                <xs:element name="guarded_element" type="Guarded_Element" minOccurs="0"
+                    maxOccurs="unbounded"/>
+            </xs:choice>
+            <xs:choice>
+                <xs:element name="section" type="Section_Element" minOccurs="0"
+                    maxOccurs="unbounded"/>
+                <xs:element name="question" type="Question_Element" minOccurs="0"
+                    maxOccurs="unbounded"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Local_Definition">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="predicate" type="Predicate" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="consequence" type="Consequence" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Expression" abstract="true">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="constant" type="Constant" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="variable" type="Variable" minOccurs="0" maxOccurs="1"/>
+            </xs:choice>
+            <xs:element name="operation" type="Binary_Operation" minOccurs="1" maxOccurs="1"/>
+            <xs:choice>
+                <xs:element name="constant" type="Constant" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="variable" type="Variable" minOccurs="0" maxOccurs="1"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Predicate">
+        <xs:complexContent>
+            <xs:extension base="Expression"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Consequence">
+        <xs:complexContent>
+            <xs:extension base="Expression"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Constant">
+        <xs:sequence>
+            <xs:element name="value" type="xs:string" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="Variable">
+        <!-- this is the name of the quesiton or section in the form -->
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="Binary_Operation">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PLUS"/>
+            <xs:enumeration value="MINUS"/>
+            <xs:enumeration value="MULTIPLY"/>
+            <xs:enumeration value="DIVIDE"/>
+            <xs:enumeration value="OR"/>
+            <xs:enumeration value="AND"/>
+            <xs:enumeration value="NOT"/>
+            <xs:enumeration value="NOR"/>
+            <xs:enumeration value="GT"/>
+            <xs:enumeration value="LT"/>
+            <xs:enumeration value="GTE"/>
+            <xs:enumeration value="LTE"/>
+            <xs:enumeration value="EQ"/>
+            <xs:enumeration value="NEQ"/>
+            <xs:enumeration value="MOD"/>
+            <xs:enumeration value="IN"/>
+            <xs:enumeration value="CON"/>
+            <xs:enumeration value="EXP"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Data_Element_Scoped_Identifier">
+        <xs:restriction base="mdr3:Identifier"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="Question_Element_Identifier">
+        <xs:restriction base="mdr3:Identifier"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="Section_Element_Identifier">
+        <xs:restriction base="mdr3:Identifier"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="Concept_Identifier">
+        <xs:restriction base="mdr3:Identifier"/>
+    </xs:simpleType>
+
+</xs:schema>
