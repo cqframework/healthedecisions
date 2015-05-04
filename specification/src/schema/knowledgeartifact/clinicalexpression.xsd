@@ -9,7 +9,6 @@
 	<xs:import namespace="urn:hl7-org:cdsdt:r2" schemaLocation="../common/datatypes.xsd"/>
 	<xs:include schemaLocation="expression.xsd"/>
 	<xs:include schemaLocation="literalexpression.xsd"/>
-	<xs:include schemaLocation="enum/eventtype.xsd"/>
 	<xs:include schemaLocation="enum/dataeventtype.xsd"/>
 	<xs:simpleType name="RequestCardinality">
 		<xs:annotation>

@@ -13,6 +13,7 @@ action.xsd
 Changed type of ActionGroup.title to FormattedText
 Changed type of ActionGroup.description to FormattedText
 Added new element called ActionBase.number
+Added new attribute ActionBase.order
 
 behaviortype.xsd
 ----------------

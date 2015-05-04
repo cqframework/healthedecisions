@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified" xmlns:pref="http://nlm.nih.gov/sdc/form"
-  xmlns:qr="http://nlm.nih.gov/sdc/form">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:pref="http://nlm.nih.gov/sdc/form" xmlns:qr="http://nlm.nih.gov/sdc/form" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>
 			This file defines the Action types used to describe guidance within a knowledge artifact. 
@@ -28,9 +27,9 @@
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="number" type="FormattedText" minOccurs="0">
-						<xs:annotation>
-							<xs:documentation>A number for the action primarily for display to the user. This is different than the actionId which is used as a key to identify the action or group internally.</xs:documentation>
-						</xs:annotation>
+				<xs:annotation>
+					<xs:documentation>A number for the action primarily for display to the user. This is different than the actionId which is used as a key to identify the action or group internally.</xs:documentation>
+				</xs:annotation>
 			</xs:element>
 			<xs:element name="supportingEvidence" type="SupportingEvidence" minOccurs="0">
 				<xs:annotation>
@@ -108,6 +107,11 @@
 				specified in the container elements. </xs:documentation> </xs:annotation> 
 				</xs:element> -->
 		</xs:sequence>
+		<xs:attribute name="order" type="xs:int" use="optional">
+			<xs:annotation>
+				<xs:documentation>If specified, determines the ordering for this element within the group.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="ActionGroup">
 		<xs:annotation>
@@ -130,7 +134,7 @@
 								artifact, i.e., the recipient of the CDS
 							</xs:documentation>
 						</xs:annotation>
-					</xs:element>					
+					</xs:element>
 					<xs:element name="description" type="FormattedText" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>A lengthier description of the action group

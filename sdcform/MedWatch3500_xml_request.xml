@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+******************************************************************************
+RFD Retrieve Form Request (ITI-34) containing an HTML based request 
+
+XML FORM NAME:  MedWatch 3500
+PURPOSE:        Requesting the MedWatch 3500 form as SDC XML template
+
+REVISIONS: 
+Ver        Date        Author                Description
+1.0        12/01/2014  Varsha Parekh /       Added RFD wrapper and schema validation
+                       Richard Moldwin
+                       
+1.1        12/03/2014  Denise Warzel         Added formID        
+1.2        12/11/2014  WS/SJ/VP/RM           Instance ID removed, schema location moved
+*******************************************************************************
+-->
+ 
+<RetrieveFormRequest 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:ihe:iti:rfd:2007 ../../../Schemas/RFD.xsd" 
+    xmlns="urn:ihe:iti:rfd:2007">
+
+<prepopData xsi:nil="true"/>
+    <workflowData>
+        <!-- This is the form package name with the form id and return type - xml - embedded within the name -->
+        <!--<formID>MedWatch3500_xml_4617751v1.0</formID> -->
+
+        <formID>http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/form_package_identifier#4617751v1.0/1</formID>
+        <encodedResponse>true</encodedResponse>
+        <archiveURL/>
+        <context xsi:nil="true"/>
+
+        <!-- Comment: Optionally, insert GUID/UUID to track the RFD RetrieveFormResponse transaction -->
+        <instanceID></instanceID>
+
+    </workflowData>
+</RetrieveFormRequest>
