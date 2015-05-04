@@ -1,18 +1,14 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1"
-	xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-	xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1"
-	elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>
 			This file defines the base types used in defining
 			knowledge artifacts.
 		</xs:documentation>
 	</xs:annotation>
-	<xs:import namespace="urn:hl7-org:cdsdt:r2" schemaLocation="../common/datatypes.xsd" />
-	<xs:import namespace="http://www.w3.org/1999/xhtml"
-		schemaLocation="../common/xhtml1-strict.xsd" />
-	<xs:include schemaLocation="enum/resourcerelationshiptype.xsd" />
+	<xs:import namespace="urn:hl7-org:cdsdt:r2" schemaLocation="../common/datatypes.xsd"/>
+	<!--xs:import namespace="http://www.w3.org/1999/xhtml" schemaLocation="../common/xhtml1-strict.xsd"/-->
+	<xs:include schemaLocation="enum/resourcerelationshiptype.xsd"/>
 	<xs:complexType name="SupportingEvidence">
 		<xs:annotation>
 			<xs:documentation>The evidence grade and the sources of evidence
@@ -38,8 +34,7 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="resource" type="KnowledgeResource"
-				maxOccurs="unbounded">
+			<xs:element name="resource" type="KnowledgeResource" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>An individual supporting resource.
 					</xs:documentation>
@@ -134,8 +129,7 @@
 							<xs:documentation>The name of the person.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="affiliation" type="Organization"
-						minOccurs="0">
+					<xs:element name="affiliation" type="Organization" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>The organizational affiliation for this person.
 							</xs:documentation>
@@ -178,8 +172,7 @@
 					</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
-					<xs:attribute name="value" type="ResourceRelationshipType"
-						use="required" />
+					<xs:attribute name="value" type="ResourceRelationshipType" use="required"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="resources" minOccurs="1">
@@ -190,8 +183,7 @@
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="resource" type="KnowledgeResource"
-							maxOccurs="unbounded">
+						<xs:element name="resource" type="KnowledgeResource" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation>An associated resource instance.
 								</xs:documentation>
@@ -220,7 +212,7 @@
 						</xs:annotation>
 						<xs:complexType>
 							<xs:sequence>
-								<xs:element ref="xhtml:div" />
+								<!--xs:element ref="xhtml:div"/-->
 							</xs:sequence>
 						</xs:complexType>
 					</xs:element>
@@ -236,8 +228,7 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="qualityOfEvidence" type="dt:CD"
-				minOccurs="0" maxOccurs="1">
+			<xs:element name="qualityOfEvidence" type="dt:CD" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>The quality of the evidence associated with this
 						artifact. The codeSystem attribute specifies the quality scale
@@ -249,8 +240,7 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="strengthOfRecommendation" type="dt:CD"
-				minOccurs="0" maxOccurs="1">
+			<xs:element name="strengthOfRecommendation" type="dt:CD" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>The strength of the recommendation assigned to
 						this reference. The codeSystem attribute specifies the scale used
@@ -262,8 +252,7 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="resources" type="SupportingResource"
-				minOccurs="0" maxOccurs="1">
+			<xs:element name="resources" type="SupportingResource" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>The set of resource references associated with
 						the evidence.
@@ -317,27 +306,23 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="title" type="FormattedText" minOccurs="0"
-				maxOccurs="1">
+			<xs:element name="title" type="FormattedText" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>The title of the document</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="location" type="dt:TEL" minOccurs="0"
-				maxOccurs="1">
+			<xs:element name="location" type="dt:TEL" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>The URL of the given resource.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="description" type="FormattedText" minOccurs="0"
-				maxOccurs="1">
+			<xs:element name="description" type="FormattedText" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>A short textual description of the resource.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="citation" type="FormattedText" minOccurs="0"
-				maxOccurs="1">
+			<xs:element name="citation" type="FormattedText" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>The resource citation.</xs:documentation>
 				</xs:annotation>
@@ -356,30 +341,28 @@
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="dt:II">
-				<xs:attribute name="version" type="xs:string" />
+				<xs:attribute name="version" type="xs:string"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-
-    <xs:complexType name="FormattedText">
-      <xs:sequence>
-      	<xs:element name="label" type="xs:string" minOccurs="0" maxOccurs="1"/>
-	    <xs:element name="style" type="xs:string" minOccurs="0" maxOccurs="unbounded">
-          <xs:annotation>
-            <xs:documentation>Statements in some style language for rendering of the label.</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="FormattedNumber">
-      <xs:sequence>
-      	<xs:element name="label" type="xs:int" minOccurs="0" maxOccurs="1"/>
-	    <xs:element name="style" type="xs:string" minOccurs="0" maxOccurs="unbounded">
-          <xs:annotation>
-            <xs:documentation>Statements in some style language for rendering of the label.</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-      </xs:sequence>    
-    </xs:complexType>
+	<xs:complexType name="FormattedText">
+		<xs:sequence>
+			<xs:element name="label" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="style" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Statements in some style language for rendering of the label.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FormattedNumber">
+		<xs:sequence>
+			<xs:element name="label" type="xs:int" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="style" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Statements in some style language for rendering of the label.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
 </xs:schema>

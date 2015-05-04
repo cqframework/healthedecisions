@@ -12,13 +12,13 @@ namespace HeD.Model {
     using System.Xml.Schema;
     using System.ComponentModel;
     using System.Collections.Generic;
+	using CQL.ELM.Model;
     
     
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ActionRef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(AtomicAction))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CollectInformationAction))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(DeclareResponseAction))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(FireEventAction))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RemoveAction))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(UpdateAction))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CreateAction))]
@@ -32,6 +32,8 @@ namespace HeD.Model {
         
         private II actionIdField;
         
+        private FormattedText numberField;
+        
         private List<Evidence> supportingEvidenceField;
         
         private List<KnowledgeResource> supportingResourcesField;
@@ -42,12 +44,17 @@ namespace HeD.Model {
         
         private List<Condition> conditionsField;
         
+        private int orderField;
+        
+        private bool orderFieldSpecified;
+        
         public ActionBase() {
             this.conditionsField = new List<Condition>();
             this.behaviorsField = new List<Behavior>();
             this.actorsField = new List<Actor>();
             this.supportingResourcesField = new List<KnowledgeResource>();
             this.supportingEvidenceField = new List<Evidence>();
+            this.numberField = new FormattedText();
             this.actionIdField = new II();
         }
         
@@ -61,7 +68,17 @@ namespace HeD.Model {
             }
         }
         
-        [System.Xml.Serialization.XmlArrayAttribute(Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public FormattedText number {
+            get {
+                return this.numberField;
+            }
+            set {
+                this.numberField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlArrayAttribute(Order=2)]
         [System.Xml.Serialization.XmlArrayItemAttribute("evidence", IsNullable=false)]
         public List<Evidence> supportingEvidence {
             get {
@@ -72,7 +89,7 @@ namespace HeD.Model {
             }
         }
         
-        [System.Xml.Serialization.XmlArrayAttribute(Order=2)]
+        [System.Xml.Serialization.XmlArrayAttribute(Order=3)]
         [System.Xml.Serialization.XmlArrayItemAttribute("resource", IsNullable=false)]
         public List<KnowledgeResource> supportingResources {
             get {
@@ -83,7 +100,7 @@ namespace HeD.Model {
             }
         }
         
-        [System.Xml.Serialization.XmlArrayAttribute(Order=3)]
+        [System.Xml.Serialization.XmlArrayAttribute(Order=4)]
         [System.Xml.Serialization.XmlArrayItemAttribute("actor", IsNullable=false)]
         public List<Actor> actors {
             get {
@@ -94,7 +111,7 @@ namespace HeD.Model {
             }
         }
         
-        [System.Xml.Serialization.XmlArrayAttribute(Order=4)]
+        [System.Xml.Serialization.XmlArrayAttribute(Order=5)]
         [System.Xml.Serialization.XmlArrayItemAttribute("behavior", IsNullable=false)]
         public List<Behavior> behaviors {
             get {
@@ -105,7 +122,7 @@ namespace HeD.Model {
             }
         }
         
-        [System.Xml.Serialization.XmlArrayAttribute(Order=5)]
+        [System.Xml.Serialization.XmlArrayAttribute(Order=6)]
         [System.Xml.Serialization.XmlArrayItemAttribute("condition", IsNullable=false)]
         public List<Condition> conditions {
             get {
@@ -113,6 +130,26 @@ namespace HeD.Model {
             }
             set {
                 this.conditionsField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int order {
+            get {
+                return this.orderField;
+            }
+            set {
+                this.orderField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool orderSpecified {
+            get {
+                return this.orderFieldSpecified;
+            }
+            set {
+                this.orderFieldSpecified = value;
             }
         }
     }
@@ -189,3630 +226,6 @@ namespace HeD.Model {
         }
     }
     
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SetSubsumes))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Subsumes))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ValueSet))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RequestBase))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ClinicalRequest))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DataRequest))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PeriodLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TimestampLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(UrlLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(StringLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RatioLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RealLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PhysicalQuantityLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TimestampIntervalLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RealIntervalLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(QuantityIntervalLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PhysicalQuantityIntervalLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IntegerIntervalLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IntegerLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IdentifierLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(EntityNameLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SimpleCodeLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(CodedOrdinalLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(CodeLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BooleanLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(AddressLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Property))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(AggregateExpression))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(AnyTrue))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(AllTrue))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PopulationStdDev))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(StdDev))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PopulationVariance))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Variance))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Mode))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Median))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Avg))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Max))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Min))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Sum))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Count))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Current))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Distinct))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForEach))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Sort))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IndexOf))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Last))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(First))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Filter))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Date))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Now))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Today))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DatePart))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DateDiff))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DateAdd))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Substring))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Pos))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Indexer))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Split))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Combine))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(MaxValue))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(MinValue))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Round))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Null))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Case))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Conditional))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(List))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Interval))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ObjectRedefine))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ObjectDescriptor))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ObjectExpression))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ComplexLiteral))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Literal))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ParameterRef))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ExpressionRef))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(NaryExpression))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Intersect))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Union))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Concat))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Coalesce))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Or))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(And))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TernaryExpression))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BinaryExpression))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Difference))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Ends))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Begins))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OverlapsAfter))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OverlapsBefore))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Overlaps))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Meets))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(After))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Before))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ProperIncludedIn))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ProperIncludes))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IncludedIn))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Includes))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(In))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Contains))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Power))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Log))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Modulo))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TruncatedDivide))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Divide))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Multiply))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Subtract))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Add))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GreaterOrEqual))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(LessOrEqual))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Greater))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Less))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(NotEqual))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Equal))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IfNull))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(UnaryExpression))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(InValueSet))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Expand))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IsNotEmpty))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IsEmpty))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Collapse))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(End))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Begin))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TimeOf))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DateOf))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Lower))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Upper))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Length))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Pred))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Succ))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Ln))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Negate))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Abs))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Truncate))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Floor))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Ceiling))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Convert))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(As))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Is))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IsNull))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Not))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public abstract partial class Expression {
-        
-        private string descriptionField;
-        
-        private List<object> annotationField;
-        
-        public Expression() {
-            this.annotationField = new List<object>();
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public string description {
-            get {
-                return this.descriptionField;
-            }
-            set {
-                this.descriptionField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute("annotation", Order=1)]
-        public List<object> annotation {
-            get {
-                return this.annotationField;
-            }
-            set {
-                this.annotationField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class SetSubsumes : Expression {
-        
-        private Expression ancestorsField;
-        
-        private Expression descendentsField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression ancestors {
-            get {
-                return this.ancestorsField;
-            }
-            set {
-                this.ancestorsField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression descendents {
-            get {
-                return this.descendentsField;
-            }
-            set {
-                this.descendentsField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Subsumes : Expression {
-        
-        private Expression ancestorField;
-        
-        private Expression descendentField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression ancestor {
-            get {
-                return this.ancestorField;
-            }
-            set {
-                this.ancestorField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression descendent {
-            get {
-                return this.descendentField;
-            }
-            set {
-                this.descendentField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ValueSet : Expression {
-        
-        private string idField;
-        
-        private string versionField;
-        
-        private string authorityField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string id {
-            get {
-                return this.idField;
-            }
-            set {
-                this.idField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string version {
-            get {
-                return this.versionField;
-            }
-            set {
-                this.versionField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string authority {
-            get {
-                return this.authorityField;
-            }
-            set {
-                this.authorityField = value;
-            }
-        }
-    }
-    
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ClinicalRequest))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DataRequest))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public abstract partial class RequestBase : Expression {
-        
-        private Expression timeOffsetField;
-        
-        private string scopeField;
-        
-        private RequestCardinality cardinalityField;
-        
-        private System.Xml.XmlQualifiedName dataTypeField;
-        
-        private string templateIdField;
-        
-        private string idPropertyField;
-        
-        private DataEventType triggerTypeField;
-        
-        private bool triggerTypeFieldSpecified;
-        
-        private bool isInitialField;
-        
-        public RequestBase() {
-            this.isInitialField = true;
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression timeOffset {
-            get {
-                return this.timeOffsetField;
-            }
-            set {
-                this.timeOffsetField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string scope {
-            get {
-                return this.scopeField;
-            }
-            set {
-                this.scopeField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public RequestCardinality cardinality {
-            get {
-                return this.cardinalityField;
-            }
-            set {
-                this.cardinalityField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public System.Xml.XmlQualifiedName dataType {
-            get {
-                return this.dataTypeField;
-            }
-            set {
-                this.dataTypeField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string templateId {
-            get {
-                return this.templateIdField;
-            }
-            set {
-                this.templateIdField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string idProperty {
-            get {
-                return this.idPropertyField;
-            }
-            set {
-                this.idPropertyField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public DataEventType triggerType {
-            get {
-                return this.triggerTypeField;
-            }
-            set {
-                this.triggerTypeField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool triggerTypeSpecified {
-            get {
-                return this.triggerTypeFieldSpecified;
-            }
-            set {
-                this.triggerTypeFieldSpecified = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(true)]
-        public bool isInitial {
-            get {
-                return this.isInitialField;
-            }
-            set {
-                this.isInitialField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public enum RequestCardinality {
-        
-        /// <remarks/>
-        Single,
-        
-        /// <remarks/>
-        Multiple,
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public enum DataEventType {
-        
-        /// <remarks/>
-        DataElementAdded,
-        
-        /// <remarks/>
-        DataElementModified,
-        
-        /// <remarks/>
-        DataElementRemoved,
-        
-        /// <remarks/>
-        DataElementAccessed,
-        
-        /// <remarks/>
-        DataElementAccessEnded,
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ClinicalRequest : RequestBase {
-        
-        private Expression codesField;
-        
-        private Expression dateRangeField;
-        
-        private Expression subjectField;
-        
-        private string codePropertyField;
-        
-        private string datePropertyField;
-        
-        private string subjectPropertyField;
-        
-        private bool useValueSetsField;
-        
-        private bool useSubsumptionField;
-        
-        public ClinicalRequest() {
-            this.useValueSetsField = false;
-            this.useSubsumptionField = false;
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression codes {
-            get {
-                return this.codesField;
-            }
-            set {
-                this.codesField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression dateRange {
-            get {
-                return this.dateRangeField;
-            }
-            set {
-                this.dateRangeField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public Expression subject {
-            get {
-                return this.subjectField;
-            }
-            set {
-                this.subjectField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string codeProperty {
-            get {
-                return this.codePropertyField;
-            }
-            set {
-                this.codePropertyField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string dateProperty {
-            get {
-                return this.datePropertyField;
-            }
-            set {
-                this.datePropertyField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string subjectProperty {
-            get {
-                return this.subjectPropertyField;
-            }
-            set {
-                this.subjectPropertyField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(false)]
-        public bool useValueSets {
-            get {
-                return this.useValueSetsField;
-            }
-            set {
-                this.useValueSetsField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(false)]
-        public bool useSubsumption {
-            get {
-                return this.useSubsumptionField;
-            }
-            set {
-                this.useSubsumptionField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class DataRequest : RequestBase {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class PeriodLiteral : Expression {
-        
-        private IVL_TS phaseField;
-        
-        private PQ periodField;
-        
-        private RTO frequencyField;
-        
-        private INT countField;
-        
-        private CalendarCycle alignmentField;
-        
-        private bool alignmentFieldSpecified;
-        
-        private bool isFlexibleField;
-        
-        private bool isFlexibleFieldSpecified;
-        
-        public PeriodLiteral() {
-            this.countField = new INT();
-            this.frequencyField = new RTO();
-            this.periodField = new PQ();
-            this.phaseField = new IVL_TS();
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public IVL_TS phase {
-            get {
-                return this.phaseField;
-            }
-            set {
-                this.phaseField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public PQ period {
-            get {
-                return this.periodField;
-            }
-            set {
-                this.periodField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public RTO frequency {
-            get {
-                return this.frequencyField;
-            }
-            set {
-                this.frequencyField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
-        public INT count {
-            get {
-                return this.countField;
-            }
-            set {
-                this.countField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public CalendarCycle alignment {
-            get {
-                return this.alignmentField;
-            }
-            set {
-                this.alignmentField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool alignmentSpecified {
-            get {
-                return this.alignmentFieldSpecified;
-            }
-            set {
-                this.alignmentFieldSpecified = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public bool isFlexible {
-            get {
-                return this.isFlexibleField;
-            }
-            set {
-                this.isFlexibleField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool isFlexibleSpecified {
-            get {
-                return this.isFlexibleFieldSpecified;
-            }
-            set {
-                this.isFlexibleFieldSpecified = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class TimestampLiteral : Expression {
-        
-        private string valueField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class UrlLiteral : Expression {
-        
-        private string valueField;
-        
-        private List<TelecommunicationAddressUse> useField;
-        
-        private List<TelecommunicationCapability> capabilitiesField;
-        
-        public UrlLiteral() {
-            this.capabilitiesField = new List<TelecommunicationCapability>();
-            this.useField = new List<TelecommunicationAddressUse>();
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-        public string value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public List<TelecommunicationAddressUse> use {
-            get {
-                return this.useField;
-            }
-            set {
-                this.useField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public List<TelecommunicationCapability> capabilities {
-            get {
-                return this.capabilitiesField;
-            }
-            set {
-                this.capabilitiesField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class StringLiteral : Expression {
-        
-        private string valueField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class RatioLiteral : Expression {
-        
-        private QTY numeratorField;
-        
-        private QTY denominatorField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public QTY numerator {
-            get {
-                return this.numeratorField;
-            }
-            set {
-                this.numeratorField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public QTY denominator {
-            get {
-                return this.denominatorField;
-            }
-            set {
-                this.denominatorField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class RealLiteral : Expression {
-        
-        private double valueField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public double value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class PhysicalQuantityLiteral : Expression {
-        
-        private double valueField;
-        
-        private string unitField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public double value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string unit {
-            get {
-                return this.unitField;
-            }
-            set {
-                this.unitField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class TimestampIntervalLiteral : Expression {
-        
-        private TS lowField;
-        
-        private TS highField;
-        
-        private bool lowClosedField;
-        
-        private bool lowClosedFieldSpecified;
-        
-        private bool highClosedField;
-        
-        private bool highClosedFieldSpecified;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public TS low {
-            get {
-                return this.lowField;
-            }
-            set {
-                this.lowField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public TS high {
-            get {
-                return this.highField;
-            }
-            set {
-                this.highField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public bool lowClosed {
-            get {
-                return this.lowClosedField;
-            }
-            set {
-                this.lowClosedField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool lowClosedSpecified {
-            get {
-                return this.lowClosedFieldSpecified;
-            }
-            set {
-                this.lowClosedFieldSpecified = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public bool highClosed {
-            get {
-                return this.highClosedField;
-            }
-            set {
-                this.highClosedField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool highClosedSpecified {
-            get {
-                return this.highClosedFieldSpecified;
-            }
-            set {
-                this.highClosedFieldSpecified = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class RealIntervalLiteral : Expression {
-        
-        private double lowField;
-        
-        private bool lowFieldSpecified;
-        
-        private double highField;
-        
-        private bool highFieldSpecified;
-        
-        private bool lowClosedField;
-        
-        private bool lowClosedFieldSpecified;
-        
-        private bool highClosedField;
-        
-        private bool highClosedFieldSpecified;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public double low {
-            get {
-                return this.lowField;
-            }
-            set {
-                this.lowField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool lowSpecified {
-            get {
-                return this.lowFieldSpecified;
-            }
-            set {
-                this.lowFieldSpecified = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public double high {
-            get {
-                return this.highField;
-            }
-            set {
-                this.highField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool highSpecified {
-            get {
-                return this.highFieldSpecified;
-            }
-            set {
-                this.highFieldSpecified = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public bool lowClosed {
-            get {
-                return this.lowClosedField;
-            }
-            set {
-                this.lowClosedField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool lowClosedSpecified {
-            get {
-                return this.lowClosedFieldSpecified;
-            }
-            set {
-                this.lowClosedFieldSpecified = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public bool highClosed {
-            get {
-                return this.highClosedField;
-            }
-            set {
-                this.highClosedField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool highClosedSpecified {
-            get {
-                return this.highClosedFieldSpecified;
-            }
-            set {
-                this.highClosedFieldSpecified = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class QuantityIntervalLiteral : Expression {
-        
-        private QTY lowField;
-        
-        private QTY highField;
-        
-        private bool lowClosedField;
-        
-        private bool lowClosedFieldSpecified;
-        
-        private bool highClosedField;
-        
-        private bool highClosedFieldSpecified;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public QTY low {
-            get {
-                return this.lowField;
-            }
-            set {
-                this.lowField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public QTY high {
-            get {
-                return this.highField;
-            }
-            set {
-                this.highField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public bool lowClosed {
-            get {
-                return this.lowClosedField;
-            }
-            set {
-                this.lowClosedField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool lowClosedSpecified {
-            get {
-                return this.lowClosedFieldSpecified;
-            }
-            set {
-                this.lowClosedFieldSpecified = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public bool highClosed {
-            get {
-                return this.highClosedField;
-            }
-            set {
-                this.highClosedField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool highClosedSpecified {
-            get {
-                return this.highClosedFieldSpecified;
-            }
-            set {
-                this.highClosedFieldSpecified = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class PhysicalQuantityIntervalLiteral : Expression {
-        
-        private PQ lowField;
-        
-        private PQ highField;
-        
-        private bool lowClosedField;
-        
-        private bool lowClosedFieldSpecified;
-        
-        private bool highClosedField;
-        
-        private bool highClosedFieldSpecified;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public PQ low {
-            get {
-                return this.lowField;
-            }
-            set {
-                this.lowField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public PQ high {
-            get {
-                return this.highField;
-            }
-            set {
-                this.highField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public bool lowClosed {
-            get {
-                return this.lowClosedField;
-            }
-            set {
-                this.lowClosedField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool lowClosedSpecified {
-            get {
-                return this.lowClosedFieldSpecified;
-            }
-            set {
-                this.lowClosedFieldSpecified = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public bool highClosed {
-            get {
-                return this.highClosedField;
-            }
-            set {
-                this.highClosedField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool highClosedSpecified {
-            get {
-                return this.highClosedFieldSpecified;
-            }
-            set {
-                this.highClosedFieldSpecified = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class IntegerIntervalLiteral : Expression {
-        
-        private int lowField;
-        
-        private bool lowFieldSpecified;
-        
-        private int highField;
-        
-        private bool highFieldSpecified;
-        
-        private bool lowClosedField;
-        
-        private bool lowClosedFieldSpecified;
-        
-        private bool highClosedField;
-        
-        private bool highClosedFieldSpecified;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int low {
-            get {
-                return this.lowField;
-            }
-            set {
-                this.lowField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool lowSpecified {
-            get {
-                return this.lowFieldSpecified;
-            }
-            set {
-                this.lowFieldSpecified = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int high {
-            get {
-                return this.highField;
-            }
-            set {
-                this.highField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool highSpecified {
-            get {
-                return this.highFieldSpecified;
-            }
-            set {
-                this.highFieldSpecified = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public bool lowClosed {
-            get {
-                return this.lowClosedField;
-            }
-            set {
-                this.lowClosedField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool lowClosedSpecified {
-            get {
-                return this.lowClosedFieldSpecified;
-            }
-            set {
-                this.lowClosedFieldSpecified = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public bool highClosed {
-            get {
-                return this.highClosedField;
-            }
-            set {
-                this.highClosedField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool highClosedSpecified {
-            get {
-                return this.highClosedFieldSpecified;
-            }
-            set {
-                this.highClosedFieldSpecified = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class IntegerLiteral : Expression {
-        
-        private int valueField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class IdentifierLiteral : Expression {
-        
-        private string rootField;
-        
-        private string extensionField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string root {
-            get {
-                return this.rootField;
-            }
-            set {
-                this.rootField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string extension {
-            get {
-                return this.extensionField;
-            }
-            set {
-                this.extensionField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class EntityNameLiteral : Expression {
-        
-        private List<ENXP> partField;
-        
-        private List<EntityNameUse> useField;
-        
-        public EntityNameLiteral() {
-            this.useField = new List<EntityNameUse>();
-            this.partField = new List<ENXP>();
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute("part", Order=0)]
-        public List<ENXP> part {
-            get {
-                return this.partField;
-            }
-            set {
-                this.partField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public List<EntityNameUse> use {
-            get {
-                return this.useField;
-            }
-            set {
-                this.useField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class SimpleCodeLiteral : Expression {
-        
-        private string codeField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string code {
-            get {
-                return this.codeField;
-            }
-            set {
-                this.codeField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class CodedOrdinalLiteral : Expression {
-        
-        private string codeSystemField;
-        
-        private string codeField;
-        
-        private string codeSystemNameField;
-        
-        private string displayNameField;
-        
-        private double valueField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string codeSystem {
-            get {
-                return this.codeSystemField;
-            }
-            set {
-                this.codeSystemField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string code {
-            get {
-                return this.codeField;
-            }
-            set {
-                this.codeField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string codeSystemName {
-            get {
-                return this.codeSystemNameField;
-            }
-            set {
-                this.codeSystemNameField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string displayName {
-            get {
-                return this.displayNameField;
-            }
-            set {
-                this.displayNameField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public double value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class CodeLiteral : Expression {
-        
-        private string codeSystemField;
-        
-        private string codeField;
-        
-        private string codeSystemNameField;
-        
-        private string displayNameField;
-        
-        private string codeSystemVersionField;
-        
-        private string valueSetField;
-        
-        private string valueSetVersionField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string codeSystem {
-            get {
-                return this.codeSystemField;
-            }
-            set {
-                this.codeSystemField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string code {
-            get {
-                return this.codeField;
-            }
-            set {
-                this.codeField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string codeSystemName {
-            get {
-                return this.codeSystemNameField;
-            }
-            set {
-                this.codeSystemNameField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string displayName {
-            get {
-                return this.displayNameField;
-            }
-            set {
-                this.displayNameField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string codeSystemVersion {
-            get {
-                return this.codeSystemVersionField;
-            }
-            set {
-                this.codeSystemVersionField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string valueSet {
-            get {
-                return this.valueSetField;
-            }
-            set {
-                this.valueSetField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string valueSetVersion {
-            get {
-                return this.valueSetVersionField;
-            }
-            set {
-                this.valueSetVersionField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class BooleanLiteral : Expression {
-        
-        private bool valueField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public bool value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class AddressLiteral : Expression {
-        
-        private List<ADXP> partField;
-        
-        private List<PostalAddressUse> useField;
-        
-        public AddressLiteral() {
-            this.useField = new List<PostalAddressUse>();
-            this.partField = new List<ADXP>();
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute("part", Order=0)]
-        public List<ADXP> part {
-            get {
-                return this.partField;
-            }
-            set {
-                this.partField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public List<PostalAddressUse> use {
-            get {
-                return this.useField;
-            }
-            set {
-                this.useField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Property : Expression {
-        
-        private Expression sourceField;
-        
-        private string pathField;
-        
-        private string scopeField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression source {
-            get {
-                return this.sourceField;
-            }
-            set {
-                this.sourceField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string path {
-            get {
-                return this.pathField;
-            }
-            set {
-                this.pathField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string scope {
-            get {
-                return this.scopeField;
-            }
-            set {
-                this.scopeField = value;
-            }
-        }
-    }
-    
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(AnyTrue))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(AllTrue))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PopulationStdDev))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(StdDev))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PopulationVariance))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Variance))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Mode))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Median))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Avg))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Max))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Min))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Sum))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Count))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public abstract partial class AggregateExpression : Expression {
-        
-        private Expression sourceField;
-        
-        private string pathField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression source {
-            get {
-                return this.sourceField;
-            }
-            set {
-                this.sourceField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string path {
-            get {
-                return this.pathField;
-            }
-            set {
-                this.pathField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class AnyTrue : AggregateExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class AllTrue : AggregateExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class PopulationStdDev : AggregateExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class StdDev : AggregateExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class PopulationVariance : AggregateExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Variance : AggregateExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Mode : AggregateExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Median : AggregateExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Avg : AggregateExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Max : AggregateExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Min : AggregateExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Sum : AggregateExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Count : AggregateExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Current : Expression {
-        
-        private string scopeField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string scope {
-            get {
-                return this.scopeField;
-            }
-            set {
-                this.scopeField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Distinct : Expression {
-        
-        private Expression sourceField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression source {
-            get {
-                return this.sourceField;
-            }
-            set {
-                this.sourceField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ForEach : Expression {
-        
-        private Expression sourceField;
-        
-        private Expression elementField;
-        
-        private string scopeField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression source {
-            get {
-                return this.sourceField;
-            }
-            set {
-                this.sourceField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression element {
-            get {
-                return this.elementField;
-            }
-            set {
-                this.elementField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string scope {
-            get {
-                return this.scopeField;
-            }
-            set {
-                this.scopeField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Sort : Expression {
-        
-        private Expression sourceField;
-        
-        private string orderByField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression source {
-            get {
-                return this.sourceField;
-            }
-            set {
-                this.sourceField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string orderBy {
-            get {
-                return this.orderByField;
-            }
-            set {
-                this.orderByField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class IndexOf : Expression {
-        
-        private Expression sourceField;
-        
-        private Expression elementField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression source {
-            get {
-                return this.sourceField;
-            }
-            set {
-                this.sourceField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression element {
-            get {
-                return this.elementField;
-            }
-            set {
-                this.elementField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Last : Expression {
-        
-        private Expression sourceField;
-        
-        private string orderByField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression source {
-            get {
-                return this.sourceField;
-            }
-            set {
-                this.sourceField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string orderBy {
-            get {
-                return this.orderByField;
-            }
-            set {
-                this.orderByField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class First : Expression {
-        
-        private Expression sourceField;
-        
-        private string orderByField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression source {
-            get {
-                return this.sourceField;
-            }
-            set {
-                this.sourceField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string orderBy {
-            get {
-                return this.orderByField;
-            }
-            set {
-                this.orderByField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Filter : Expression {
-        
-        private Expression sourceField;
-        
-        private Expression conditionField;
-        
-        private string scopeField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression source {
-            get {
-                return this.sourceField;
-            }
-            set {
-                this.sourceField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression condition {
-            get {
-                return this.conditionField;
-            }
-            set {
-                this.conditionField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string scope {
-            get {
-                return this.scopeField;
-            }
-            set {
-                this.scopeField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Date : Expression {
-        
-        private Expression yearField;
-        
-        private Expression monthField;
-        
-        private Expression dayField;
-        
-        private Expression hourField;
-        
-        private Expression minuteField;
-        
-        private Expression secondField;
-        
-        private Expression millisecondField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression year {
-            get {
-                return this.yearField;
-            }
-            set {
-                this.yearField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression month {
-            get {
-                return this.monthField;
-            }
-            set {
-                this.monthField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public Expression day {
-            get {
-                return this.dayField;
-            }
-            set {
-                this.dayField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
-        public Expression hour {
-            get {
-                return this.hourField;
-            }
-            set {
-                this.hourField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
-        public Expression minute {
-            get {
-                return this.minuteField;
-            }
-            set {
-                this.minuteField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
-        public Expression second {
-            get {
-                return this.secondField;
-            }
-            set {
-                this.secondField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
-        public Expression millisecond {
-            get {
-                return this.millisecondField;
-            }
-            set {
-                this.millisecondField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Now : Expression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Today : Expression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class DatePart : Expression {
-        
-        private Expression dateField;
-        
-        private Expression granularityField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression date {
-            get {
-                return this.dateField;
-            }
-            set {
-                this.dateField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression granularity {
-            get {
-                return this.granularityField;
-            }
-            set {
-                this.granularityField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class DateDiff : Expression {
-        
-        private Expression startDateField;
-        
-        private Expression endDateField;
-        
-        private Expression granularityField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression startDate {
-            get {
-                return this.startDateField;
-            }
-            set {
-                this.startDateField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression endDate {
-            get {
-                return this.endDateField;
-            }
-            set {
-                this.endDateField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public Expression granularity {
-            get {
-                return this.granularityField;
-            }
-            set {
-                this.granularityField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class DateAdd : Expression {
-        
-        private Expression dateField;
-        
-        private Expression granularityField;
-        
-        private Expression numberOfPeriodsField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression date {
-            get {
-                return this.dateField;
-            }
-            set {
-                this.dateField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression granularity {
-            get {
-                return this.granularityField;
-            }
-            set {
-                this.granularityField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public Expression numberOfPeriods {
-            get {
-                return this.numberOfPeriodsField;
-            }
-            set {
-                this.numberOfPeriodsField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Substring : Expression {
-        
-        private object stringToSubField;
-        
-        private object startIndexField;
-        
-        private object lengthField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public object stringToSub {
-            get {
-                return this.stringToSubField;
-            }
-            set {
-                this.stringToSubField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public object startIndex {
-            get {
-                return this.startIndexField;
-            }
-            set {
-                this.startIndexField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public object length {
-            get {
-                return this.lengthField;
-            }
-            set {
-                this.lengthField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Pos : Expression {
-        
-        private Expression patternField;
-        
-        private Expression stringField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression pattern {
-            get {
-                return this.patternField;
-            }
-            set {
-                this.patternField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression @string {
-            get {
-                return this.stringField;
-            }
-            set {
-                this.stringField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Indexer : Expression {
-        
-        private Expression operandField;
-        
-        private Expression indexField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression operand {
-            get {
-                return this.operandField;
-            }
-            set {
-                this.operandField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression index {
-            get {
-                return this.indexField;
-            }
-            set {
-                this.indexField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Split : Expression {
-        
-        private Expression stringToSplitField;
-        
-        private Expression separatorField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression stringToSplit {
-            get {
-                return this.stringToSplitField;
-            }
-            set {
-                this.stringToSplitField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression separator {
-            get {
-                return this.separatorField;
-            }
-            set {
-                this.separatorField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Combine : Expression {
-        
-        private Expression sourceField;
-        
-        private Expression separatorField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression source {
-            get {
-                return this.sourceField;
-            }
-            set {
-                this.sourceField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression separator {
-            get {
-                return this.separatorField;
-            }
-            set {
-                this.separatorField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class MaxValue : Expression {
-        
-        private System.Xml.XmlQualifiedName valueTypeField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public System.Xml.XmlQualifiedName valueType {
-            get {
-                return this.valueTypeField;
-            }
-            set {
-                this.valueTypeField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class MinValue : Expression {
-        
-        private System.Xml.XmlQualifiedName valueTypeField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public System.Xml.XmlQualifiedName valueType {
-            get {
-                return this.valueTypeField;
-            }
-            set {
-                this.valueTypeField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Round : Expression {
-        
-        private Expression operandField;
-        
-        private Expression precisionField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression operand {
-            get {
-                return this.operandField;
-            }
-            set {
-                this.operandField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression precision {
-            get {
-                return this.precisionField;
-            }
-            set {
-                this.precisionField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Null : Expression {
-        
-        private System.Xml.XmlQualifiedName valueTypeField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public System.Xml.XmlQualifiedName valueType {
-            get {
-                return this.valueTypeField;
-            }
-            set {
-                this.valueTypeField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Case : Expression {
-        
-        private Expression comparandField;
-        
-        private List<CaseItem> caseItemField;
-        
-        private Expression elseField;
-        
-        public Case() {
-            this.caseItemField = new List<CaseItem>();
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression comparand {
-            get {
-                return this.comparandField;
-            }
-            set {
-                this.comparandField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute("caseItem", Order=1)]
-        public List<CaseItem> caseItem {
-            get {
-                return this.caseItemField;
-            }
-            set {
-                this.caseItemField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public Expression @else {
-            get {
-                return this.elseField;
-            }
-            set {
-                this.elseField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class CaseItem {
-        
-        private Expression whenField;
-        
-        private Expression thenField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression when {
-            get {
-                return this.whenField;
-            }
-            set {
-                this.whenField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression then {
-            get {
-                return this.thenField;
-            }
-            set {
-                this.thenField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Conditional : Expression {
-        
-        private Expression conditionField;
-        
-        private Expression thenField;
-        
-        private Expression elseField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression condition {
-            get {
-                return this.conditionField;
-            }
-            set {
-                this.conditionField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression then {
-            get {
-                return this.thenField;
-            }
-            set {
-                this.thenField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public Expression @else {
-            get {
-                return this.elseField;
-            }
-            set {
-                this.elseField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class List : Expression {
-        
-        private List<Expression> elementField;
-        
-        private string keyField;
-        
-        public List() {
-            this.elementField = new List<Expression>();
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute("element", Order=0)]
-        public List<Expression> element {
-            get {
-                return this.elementField;
-            }
-            set {
-                this.elementField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string key {
-            get {
-                return this.keyField;
-            }
-            set {
-                this.keyField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Interval : Expression {
-        
-        private Expression beginField;
-        
-        private Expression endField;
-        
-        private bool beginOpenField;
-        
-        private bool endOpenField;
-        
-        public Interval() {
-            this.beginOpenField = false;
-            this.endOpenField = false;
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression begin {
-            get {
-                return this.beginField;
-            }
-            set {
-                this.beginField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression end {
-            get {
-                return this.endField;
-            }
-            set {
-                this.endField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(false)]
-        public bool beginOpen {
-            get {
-                return this.beginOpenField;
-            }
-            set {
-                this.beginOpenField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(false)]
-        public bool endOpen {
-            get {
-                return this.endOpenField;
-            }
-            set {
-                this.endOpenField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ObjectRedefine : Expression {
-        
-        private Expression sourceField;
-        
-        private List<PropertyExpression> propertyField;
-        
-        private string scopeField;
-        
-        public ObjectRedefine() {
-            this.propertyField = new List<PropertyExpression>();
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression source {
-            get {
-                return this.sourceField;
-            }
-            set {
-                this.sourceField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute("property", Order=1)]
-        public List<PropertyExpression> property {
-            get {
-                return this.propertyField;
-            }
-            set {
-                this.propertyField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string scope {
-            get {
-                return this.scopeField;
-            }
-            set {
-                this.scopeField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class PropertyExpression {
-        
-        private Expression valueField;
-        
-        private string nameField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ObjectDescriptor : Expression {
-        
-        private List<PropertyExpression> propertyField;
-        
-        private System.Xml.XmlQualifiedName objectTypeField;
-        
-        public ObjectDescriptor() {
-            this.propertyField = new List<PropertyExpression>();
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute("property", Order=0)]
-        public List<PropertyExpression> property {
-            get {
-                return this.propertyField;
-            }
-            set {
-                this.propertyField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public System.Xml.XmlQualifiedName objectType {
-            get {
-                return this.objectTypeField;
-            }
-            set {
-                this.objectTypeField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ObjectExpression : Expression {
-        
-        private List<PropertyExpression> propertyField;
-        
-        private System.Xml.XmlQualifiedName objectTypeField;
-        
-        public ObjectExpression() {
-            this.propertyField = new List<PropertyExpression>();
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute("property", Order=0)]
-        public List<PropertyExpression> property {
-            get {
-                return this.propertyField;
-            }
-            set {
-                this.propertyField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public System.Xml.XmlQualifiedName objectType {
-            get {
-                return this.objectTypeField;
-            }
-            set {
-                this.objectTypeField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ComplexLiteral : Expression {
-        
-        private object valueField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public object value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Literal : Expression {
-        
-        private System.Xml.XmlQualifiedName valueTypeField;
-        
-        private string valueField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public System.Xml.XmlQualifiedName valueType {
-            get {
-                return this.valueTypeField;
-            }
-            set {
-                this.valueTypeField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ParameterRef : Expression {
-        
-        private string nameField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ExpressionRef : Expression {
-        
-        private string nameField;
-        
-        private string libraryNameField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string libraryName {
-            get {
-                return this.libraryNameField;
-            }
-            set {
-                this.libraryNameField = value;
-            }
-        }
-    }
-    
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Intersect))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Union))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Concat))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Coalesce))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Or))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(And))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public abstract partial class NaryExpression : Expression {
-        
-        private List<Expression> operandField;
-        
-        public NaryExpression() {
-            this.operandField = new List<Expression>();
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute("operand", Order=0)]
-        public List<Expression> operand {
-            get {
-                return this.operandField;
-            }
-            set {
-                this.operandField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Intersect : NaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Union : NaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Concat : NaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Coalesce : NaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Or : NaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class And : NaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class TernaryExpression : Expression {
-        
-        private List<Expression> operandField;
-        
-        public TernaryExpression() {
-            this.operandField = new List<Expression>();
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute("operand", Order=0)]
-        public List<Expression> operand {
-            get {
-                return this.operandField;
-            }
-            set {
-                this.operandField = value;
-            }
-        }
-    }
-    
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Difference))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Ends))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Begins))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OverlapsAfter))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OverlapsBefore))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Overlaps))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Meets))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(After))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Before))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ProperIncludedIn))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ProperIncludes))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IncludedIn))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Includes))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(In))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Contains))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Power))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Log))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Modulo))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TruncatedDivide))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Divide))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Multiply))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Subtract))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Add))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GreaterOrEqual))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(LessOrEqual))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Greater))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Less))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(NotEqual))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Equal))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IfNull))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class BinaryExpression : Expression {
-        
-        private List<Expression> operandField;
-        
-        public BinaryExpression() {
-            this.operandField = new List<Expression>();
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute("operand", Order=0)]
-        public List<Expression> operand {
-            get {
-                return this.operandField;
-            }
-            set {
-                this.operandField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Difference : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Ends : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Begins : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class OverlapsAfter : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class OverlapsBefore : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Overlaps : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Meets : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class After : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Before : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ProperIncludedIn : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ProperIncludes : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class IncludedIn : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Includes : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class In : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Contains : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Power : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Log : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Modulo : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class TruncatedDivide : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Divide : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Multiply : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Subtract : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Add : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class GreaterOrEqual : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class LessOrEqual : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Greater : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Less : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class NotEqual : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Equal : BinaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class IfNull : BinaryExpression {
-    }
-    
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(InValueSet))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Expand))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IsNotEmpty))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IsEmpty))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Collapse))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(End))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Begin))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TimeOf))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DateOf))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Lower))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Upper))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Length))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Pred))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Succ))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Ln))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Negate))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Abs))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Truncate))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Floor))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Ceiling))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Convert))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(As))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Is))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IsNull))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Not))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public abstract partial class UnaryExpression : Expression {
-        
-        private Expression operandField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression operand {
-            get {
-                return this.operandField;
-            }
-            set {
-                this.operandField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class InValueSet : UnaryExpression {
-        
-        private string idField;
-        
-        private string versionField;
-        
-        private string authorityField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string id {
-            get {
-                return this.idField;
-            }
-            set {
-                this.idField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string version {
-            get {
-                return this.versionField;
-            }
-            set {
-                this.versionField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string authority {
-            get {
-                return this.authorityField;
-            }
-            set {
-                this.authorityField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Expand : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class IsNotEmpty : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class IsEmpty : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Collapse : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class End : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Begin : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class TimeOf : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class DateOf : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Lower : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Upper : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Length : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Pred : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Succ : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Ln : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Negate : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Abs : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Truncate : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Floor : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Ceiling : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Convert : UnaryExpression {
-        
-        private System.Xml.XmlQualifiedName toTypeField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public System.Xml.XmlQualifiedName toType {
-            get {
-                return this.toTypeField;
-            }
-            set {
-                this.toTypeField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class As : UnaryExpression {
-        
-        private System.Xml.XmlQualifiedName asTypeField;
-        
-        private bool strictField;
-        
-        public As() {
-            this.strictField = false;
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public System.Xml.XmlQualifiedName asType {
-            get {
-                return this.asTypeField;
-            }
-            set {
-                this.asTypeField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(false)]
-        public bool strict {
-            get {
-                return this.strictField;
-            }
-            set {
-                this.strictField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Is : UnaryExpression {
-        
-        private System.Xml.XmlQualifiedName isTypeField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public System.Xml.XmlQualifiedName isType {
-            get {
-                return this.isTypeField;
-            }
-            set {
-                this.isTypeField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class IsNull : UnaryExpression {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class Not : UnaryExpression {
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3853,8 +266,179 @@ namespace HeD.Model {
         ApplicableScenario,
     }
     
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class EnumerationItem {
+        
+        private VersionedIdentifier identifierField;
+        
+        private FormattedText numberField;
+        
+        private Expression valueField;
+        
+        private List<CD> codesField;
+        
+        private FormattedText displayTextField;
+        
+        private List<FormattedText> additionalInstructionsField;
+        
+        private FormattedText valueMeaningField;
+        
+        private bool fillInField;
+        
+        public EnumerationItem() {
+            this.valueMeaningField = new FormattedText();
+            this.additionalInstructionsField = new List<FormattedText>();
+            this.displayTextField = new FormattedText();
+            this.codesField = new List<CD>();
+            this.numberField = new FormattedText();
+            this.identifierField = new VersionedIdentifier();
+            this.fillInField = false;
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public VersionedIdentifier identifier {
+            get {
+                return this.identifierField;
+            }
+            set {
+                this.identifierField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public FormattedText number {
+            get {
+                return this.numberField;
+            }
+            set {
+                this.numberField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public Expression value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlArrayAttribute(Order=3)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("code", IsNullable=false)]
+        public List<CD> codes {
+            get {
+                return this.codesField;
+            }
+            set {
+                this.codesField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public FormattedText displayText {
+            get {
+                return this.displayTextField;
+            }
+            set {
+                this.displayTextField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute("additionalInstructions", Order=5)]
+        public List<FormattedText> additionalInstructions {
+            get {
+                return this.additionalInstructionsField;
+            }
+            set {
+                this.additionalInstructionsField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        public FormattedText valueMeaning {
+            get {
+                return this.valueMeaningField;
+            }
+            set {
+                this.valueMeaningField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool fillIn {
+            get {
+                return this.fillInField;
+            }
+            set {
+                this.fillInField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class VersionedIdentifier : II {
+        
+        private string versionField;
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string version {
+            get {
+                return this.versionField;
+            }
+            set {
+                this.versionField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class FormattedText {
+        
+        private string labelField;
+        
+        private List<string> styleField;
+        
+        public FormattedText() {
+            this.styleField = new List<string>();
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public string label {
+            get {
+                return this.labelField;
+            }
+            set {
+                this.labelField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute("style", Order=1)]
+        public List<string> style {
+            get {
+                return this.styleField;
+            }
+            set {
+                this.styleField = value;
+            }
+        }
+    }
+    
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(MaskConstraint))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ValueSetConstraint))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ListConstraint))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(EnumerationConstraint))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(LookupConstraint))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ExpressionConstraint))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
     [System.SerializableAttribute()]
@@ -3932,16 +516,43 @@ namespace HeD.Model {
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ValueSetConstraint : RangeConstraint {
+    public partial class MaskConstraint : RangeConstraint {
         
-        private ValueSet valueSetField;
+        private ST maskExpressionField;
         
-        public ValueSetConstraint() {
-            this.valueSetField = new ValueSet();
-        }
+        private ST maskHelpField;
         
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public ValueSet valueSet {
+        public ST maskExpression {
+            get {
+                return this.maskExpressionField;
+            }
+            set {
+                this.maskExpressionField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public ST maskHelp {
+            get {
+                return this.maskHelpField;
+            }
+            set {
+                this.maskHelpField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class ValueSetConstraint : RangeConstraint {
+        
+        private ValueSetRef valueSetField;
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public ValueSetRef valueSet {
             get {
                 return this.valueSetField;
             }
@@ -3955,20 +566,20 @@ namespace HeD.Model {
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ListConstraint : RangeConstraint {
+    public partial class EnumerationConstraint : RangeConstraint {
         
-        private List<ListConstraintItem> itemField;
+        private List<EnumerationItem> itemField;
         
         private bool strictSelectionField;
         
         private bool strictSelectionFieldSpecified;
         
-        public ListConstraint() {
-            this.itemField = new List<ListConstraintItem>();
+        public EnumerationConstraint() {
+            this.itemField = new List<EnumerationItem>();
         }
         
         [System.Xml.Serialization.XmlElementAttribute("item", Order=0)]
-        public List<ListConstraintItem> item {
+        public List<EnumerationItem> item {
             get {
                 return this.itemField;
             }
@@ -4001,47 +612,54 @@ namespace HeD.Model {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ListConstraintItem {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class LookupConstraint : RangeConstraint {
         
-        private Expression valueField;
+        private Expression itemsField;
         
-        private List<CD> codesField;
+        private string displayFieldField;
         
-        private ST displayTextField;
+        private bool strictSelectionField;
         
-        public ListConstraintItem() {
-            this.codesField = new List<CD>();
-        }
+        private bool strictSelectionFieldSpecified;
         
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression value {
+        public Expression items {
             get {
-                return this.valueField;
+                return this.itemsField;
             }
             set {
-                this.valueField = value;
+                this.itemsField = value;
             }
         }
         
-        [System.Xml.Serialization.XmlArrayAttribute(Order=1)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("code", IsNullable=false)]
-        public List<CD> codes {
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string displayField {
             get {
-                return this.codesField;
+                return this.displayFieldField;
             }
             set {
-                this.codesField = value;
+                this.displayFieldField = value;
             }
         }
         
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public ST displayText {
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool strictSelection {
             get {
-                return this.displayTextField;
+                return this.strictSelectionField;
             }
             set {
-                this.displayTextField = value;
+                this.strictSelectionField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool strictSelectionSpecified {
+            get {
+                return this.strictSelectionFieldSpecified;
+            }
+            set {
+                this.strictSelectionFieldSpecified = value;
             }
         }
     }
@@ -4074,7 +692,10 @@ namespace HeD.Model {
         
         private VersionedIdentifier identifierField;
         
+        private VersionedIdentifier scopedIdentifierField;
+        
         public ItemDefinition() {
+            this.scopedIdentifierField = new VersionedIdentifier();
             this.identifierField = new VersionedIdentifier();
         }
         
@@ -4087,23 +708,14 @@ namespace HeD.Model {
                 this.identifierField = value;
             }
         }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class VersionedIdentifier : II {
         
-        private string versionField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string version {
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public VersionedIdentifier scopedIdentifier {
             get {
-                return this.versionField;
+                return this.scopedIdentifierField;
             }
             set {
-                this.versionField = value;
+                this.scopedIdentifierField = value;
             }
         }
     }
@@ -4114,9 +726,13 @@ namespace HeD.Model {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
     public partial class DocumentationItem : ItemDefinition {
         
-        private ST displayTextField;
+        private FormattedText promptField;
         
-        private ST descriptionField;
+        private List<FormattedText> additionalInstructionsField;
+        
+        private FormattedText textAfterResponseField;
+        
+        private FormattedText descriptionField;
         
         private List<CD> itemCodesField;
         
@@ -4131,20 +747,44 @@ namespace HeD.Model {
             this.responseCardinalityField = new DocumentationItemResponseCardinality();
             this.responseDataTypeField = new DocumentationItemResponseDataType();
             this.itemCodesField = new List<CD>();
+            this.descriptionField = new FormattedText();
+            this.textAfterResponseField = new FormattedText();
+            this.additionalInstructionsField = new List<FormattedText>();
+            this.promptField = new FormattedText();
         }
         
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public ST displayText {
+        public FormattedText prompt {
             get {
-                return this.displayTextField;
+                return this.promptField;
             }
             set {
-                this.displayTextField = value;
+                this.promptField = value;
             }
         }
         
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public ST description {
+        [System.Xml.Serialization.XmlElementAttribute("additionalInstructions", Order=1)]
+        public List<FormattedText> additionalInstructions {
+            get {
+                return this.additionalInstructionsField;
+            }
+            set {
+                this.additionalInstructionsField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public FormattedText textAfterResponse {
+            get {
+                return this.textAfterResponseField;
+            }
+            set {
+                this.textAfterResponseField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public FormattedText description {
             get {
                 return this.descriptionField;
             }
@@ -4153,7 +793,7 @@ namespace HeD.Model {
             }
         }
         
-        [System.Xml.Serialization.XmlArrayAttribute(Order=2)]
+        [System.Xml.Serialization.XmlArrayAttribute(Order=4)]
         [System.Xml.Serialization.XmlArrayItemAttribute("itemCode", IsNullable=false)]
         public List<CD> itemCodes {
             get {
@@ -4164,7 +804,7 @@ namespace HeD.Model {
             }
         }
         
-        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
         public DocumentationItemResponseDataType responseDataType {
             get {
                 return this.responseDataTypeField;
@@ -4174,7 +814,7 @@ namespace HeD.Model {
             }
         }
         
-        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
         public DocumentationItemResponseCardinality responseCardinality {
             get {
                 return this.responseCardinalityField;
@@ -4184,7 +824,7 @@ namespace HeD.Model {
             }
         }
         
-        [System.Xml.Serialization.XmlElementAttribute("responseRange", Order=5)]
+        [System.Xml.Serialization.XmlElementAttribute("responseRange", Order=7)]
         public List<RangeConstraint> responseRange {
             get {
                 return this.responseRangeField;
@@ -4338,10 +978,10 @@ namespace HeD.Model {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
     public partial class Actor {
         
-        private Expression actorField;
+        private Party actorField;
         
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression actor {
+        public Party actor {
             get {
                 return this.actorField;
             }
@@ -4349,369 +989,6 @@ namespace HeD.Model {
                 this.actorField = value;
             }
         }
-    }
-    
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PrecheckBehavior))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RequiredBehavior))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroupOrganizationBehavior))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroupSelectionBehavior))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public abstract partial class Behavior {
-        
-        private string valueField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class PrecheckBehavior : Behavior {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class RequiredBehavior : Behavior {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class GroupOrganizationBehavior : Behavior {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class GroupSelectionBehavior : Behavior {
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ParameterDef {
-        
-        private Expression defaultField;
-        
-        private string nameField;
-        
-        private System.Xml.XmlQualifiedName parameterTypeField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression @default {
-            get {
-                return this.defaultField;
-            }
-            set {
-                this.defaultField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public System.Xml.XmlQualifiedName parameterType {
-            get {
-                return this.parameterTypeField;
-            }
-            set {
-                this.parameterTypeField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ExpressionDef {
-        
-        private Expression expressionField;
-        
-        private string nameField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression expression {
-            get {
-                return this.expressionField;
-            }
-            set {
-                this.expressionField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ResourceRelationshipReference {
-        
-        private ResourceRelationshipReferenceRelationship relationshipField;
-        
-        private List<KnowledgeResource> resourcesField;
-        
-        public ResourceRelationshipReference() {
-            this.resourcesField = new List<KnowledgeResource>();
-            this.relationshipField = new ResourceRelationshipReferenceRelationship();
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public ResourceRelationshipReferenceRelationship relationship {
-            get {
-                return this.relationshipField;
-            }
-            set {
-                this.relationshipField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlArrayAttribute(Order=1)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("resource", IsNullable=false)]
-        public List<KnowledgeResource> resources {
-            get {
-                return this.resourcesField;
-            }
-            set {
-                this.resourcesField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class ResourceRelationshipReferenceRelationship {
-        
-        private ResourceRelationshipType valueField;
-        
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ResourceRelationshipType value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public enum ResourceRelationshipType {
-        
-        /// <remarks/>
-        AdaptedFrom,
-        
-        /// <remarks/>
-        AssociatedResource,
-        
-        /// <remarks/>
-        DependsOn,
-        
-        /// <remarks/>
-        DerivedFrom,
-        
-        /// <remarks/>
-        SimilarTo,
-        
-        /// <remarks/>
-        VersionOf,
-    }
-    
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(InlineResource))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class KnowledgeResource {
-        
-        private KnowledgeResourceIdentifiers identifiersField;
-        
-        private KnowledgeResourceTemplateIds templateIdsField;
-        
-        private ST titleField;
-        
-        private TEL locationField;
-        
-        private ST descriptionField;
-        
-        private ST citationField;
-        
-        public KnowledgeResource() {
-            this.locationField = new TEL();
-            this.templateIdsField = new KnowledgeResourceTemplateIds();
-            this.identifiersField = new KnowledgeResourceIdentifiers();
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public KnowledgeResourceIdentifiers identifiers {
-            get {
-                return this.identifiersField;
-            }
-            set {
-                this.identifiersField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public KnowledgeResourceTemplateIds templateIds {
-            get {
-                return this.templateIdsField;
-            }
-            set {
-                this.templateIdsField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public ST title {
-            get {
-                return this.titleField;
-            }
-            set {
-                this.titleField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
-        public TEL location {
-            get {
-                return this.locationField;
-            }
-            set {
-                this.locationField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
-        public ST description {
-            get {
-                return this.descriptionField;
-            }
-            set {
-                this.descriptionField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
-        public ST citation {
-            get {
-                return this.citationField;
-            }
-            set {
-                this.citationField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class KnowledgeResourceIdentifiers {
-        
-        private VersionedIdentifier identifierField;
-        
-        public KnowledgeResourceIdentifiers() {
-            this.identifierField = new VersionedIdentifier();
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public VersionedIdentifier identifier {
-            get {
-                return this.identifierField;
-            }
-            set {
-                this.identifierField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class KnowledgeResourceTemplateIds {
-        
-        private II templateIdField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public II templateId {
-            get {
-                return this.templateIdField;
-            }
-            set {
-                this.templateIdField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class InlineResource : KnowledgeResource {
-        
-        private InlineResourceContent contentField;
-        
-        public InlineResource() {
-            this.contentField = new InlineResourceContent();
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public InlineResourceContent content {
-            get {
-                return this.contentField;
-            }
-            set {
-                this.contentField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public partial class InlineResourceContent {
     }
     
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Person))]
@@ -4809,6 +1086,352 @@ namespace HeD.Model {
         }
     }
     
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(CardinalityBehavior))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PrecheckBehavior))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(RequiredBehavior))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroupOrganizationBehavior))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(GroupSelectionBehavior))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public abstract partial class Behavior {
+        
+        private string valueField;
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class CardinalityBehavior : Behavior {
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class PrecheckBehavior : Behavior {
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class RequiredBehavior : Behavior {
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class GroupOrganizationBehavior : Behavior {
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class GroupSelectionBehavior : Behavior {
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class FormattedNumber {
+        
+        private int labelField;
+        
+        private bool labelFieldSpecified;
+        
+        private List<string> styleField;
+        
+        public FormattedNumber() {
+            this.styleField = new List<string>();
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public int label {
+            get {
+                return this.labelField;
+            }
+            set {
+                this.labelField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool labelSpecified {
+            get {
+                return this.labelFieldSpecified;
+            }
+            set {
+                this.labelFieldSpecified = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute("style", Order=1)]
+        public List<string> style {
+            get {
+                return this.styleField;
+            }
+            set {
+                this.styleField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class ResourceRelationshipReference {
+        
+        private ResourceRelationshipReferenceRelationship relationshipField;
+        
+        private List<KnowledgeResource> resourcesField;
+        
+        public ResourceRelationshipReference() {
+            this.resourcesField = new List<KnowledgeResource>();
+            this.relationshipField = new ResourceRelationshipReferenceRelationship();
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public ResourceRelationshipReferenceRelationship relationship {
+            get {
+                return this.relationshipField;
+            }
+            set {
+                this.relationshipField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlArrayAttribute(Order=1)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("resource", IsNullable=false)]
+        public List<KnowledgeResource> resources {
+            get {
+                return this.resourcesField;
+            }
+            set {
+                this.resourcesField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class ResourceRelationshipReferenceRelationship {
+        
+        private ResourceRelationshipType valueField;
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public ResourceRelationshipType value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public enum ResourceRelationshipType {
+        
+        /// <remarks/>
+        AdaptedFrom,
+        
+        /// <remarks/>
+        AssociatedResource,
+        
+        /// <remarks/>
+        DependsOn,
+        
+        /// <remarks/>
+        DerivedFrom,
+        
+        /// <remarks/>
+        SimilarTo,
+        
+        /// <remarks/>
+        VersionOf,
+    }
+    
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(InlineResource))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class KnowledgeResource {
+        
+        private KnowledgeResourceIdentifiers identifiersField;
+        
+        private KnowledgeResourceTemplateIds templateIdsField;
+        
+        private FormattedText titleField;
+        
+        private TEL locationField;
+        
+        private FormattedText descriptionField;
+        
+        private FormattedText citationField;
+        
+        public KnowledgeResource() {
+            this.citationField = new FormattedText();
+            this.descriptionField = new FormattedText();
+            this.titleField = new FormattedText();
+            this.templateIdsField = new KnowledgeResourceTemplateIds();
+            this.identifiersField = new KnowledgeResourceIdentifiers();
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public KnowledgeResourceIdentifiers identifiers {
+            get {
+                return this.identifiersField;
+            }
+            set {
+                this.identifiersField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public KnowledgeResourceTemplateIds templateIds {
+            get {
+                return this.templateIdsField;
+            }
+            set {
+                this.templateIdsField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public FormattedText title {
+            get {
+                return this.titleField;
+            }
+            set {
+                this.titleField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public TEL location {
+            get {
+                return this.locationField;
+            }
+            set {
+                this.locationField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public FormattedText description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                this.descriptionField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public FormattedText citation {
+            get {
+                return this.citationField;
+            }
+            set {
+                this.citationField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class KnowledgeResourceIdentifiers {
+        
+        private VersionedIdentifier identifierField;
+        
+        public KnowledgeResourceIdentifiers() {
+            this.identifierField = new VersionedIdentifier();
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public VersionedIdentifier identifier {
+            get {
+                return this.identifierField;
+            }
+            set {
+                this.identifierField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class KnowledgeResourceTemplateIds {
+        
+        private II templateIdField;
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public II templateId {
+            get {
+                return this.templateIdField;
+            }
+            set {
+                this.templateIdField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class InlineResource : KnowledgeResource {
+        
+        private InlineResourceContent contentField;
+        
+        public InlineResource() {
+            this.contentField = new InlineResourceContent();
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public InlineResourceContent content {
+            get {
+                return this.contentField;
+            }
+            set {
+                this.contentField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:hl7-org:knowledgeartifact:r1")]
+    public partial class InlineResourceContent {
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -4891,7 +1514,6 @@ namespace HeD.Model {
     
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CollectInformationAction))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(DeclareResponseAction))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(FireEventAction))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(RemoveAction))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(UpdateAction))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CreateAction))]
@@ -4994,50 +1616,6 @@ namespace HeD.Model {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1", IsNullable=true)]
-    public partial class FireEventAction : AtomicAction {
-        
-        private EventType eventTypeField;
-        
-        private Expression actionSentenceField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public EventType eventType {
-            get {
-                return this.eventTypeField;
-            }
-            set {
-                this.eventTypeField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression actionSentence {
-            get {
-                return this.actionSentenceField;
-            }
-            set {
-                this.actionSentenceField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    public enum EventType {
-        
-        /// <remarks/>
-        DataEvent,
-        
-        /// <remarks/>
-        PeriodicEvent,
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1", IsNullable=true)]
     public partial class RemoveAction : AtomicAction {
         
         private Expression actionSentenceField;
@@ -5100,9 +1678,9 @@ namespace HeD.Model {
     [System.Xml.Serialization.XmlRootAttribute(Namespace="urn:hl7-org:knowledgeartifact:r1", IsNullable=true)]
     public partial class ActionGroup : ActionBase {
         
-        private ST titleField;
+        private FormattedText titleField;
         
-        private ST descriptionField;
+        private FormattedText descriptionField;
         
         private List<CD> representedConceptsField;
         
@@ -5111,10 +1689,12 @@ namespace HeD.Model {
         public ActionGroup() {
             this.subElementsField = new ActionGroupSubElements();
             this.representedConceptsField = new List<CD>();
+            this.descriptionField = new FormattedText();
+            this.titleField = new FormattedText();
         }
         
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public ST title {
+        public FormattedText title {
             get {
                 return this.titleField;
             }
@@ -5124,7 +1704,7 @@ namespace HeD.Model {
         }
         
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public ST description {
+        public FormattedText description {
             get {
                 return this.descriptionField;
             }

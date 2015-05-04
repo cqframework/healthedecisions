@@ -47,5 +47,5 @@
 	<entry key="org.opencds.vmr.v1_0.schema.vmr" value="vMR.Model.vMRModelTypeResolver,vMR.Model"/>
 	<entry key="urn:hl7-org:vmr:r2" value="vMR.Model.vMRModelTypeResolver,vMR.Model"/>
 	<!-- TODO: Should be in the FHIR.Model Assembly Maps -->
-	<entry key="http://org.hl7.fhir" value="FHIR.Model.FHIRModelTypeResolver,FHIR.Model"/>
+	<entry key="http://hl7.org/fhir" value="FHIR.Model.FHIRModelTypeResolver,FHIR.Model"/>
 </map>

@@ -67,6 +67,151 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\..\specification\src\schema\common\datatypes.xsd">
+      <Link>Schema\common\datatypes.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\common\xhtml1-strict.xsd">
+      <Link>Schema\common\xhtml1-strict.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\common\xml.xsd">
+      <Link>Schema\common\xml.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\elm\clinicalexpression.xsd">
+      <Link>Schema\elm\clinicalexpression.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\elm\cqlannotations.xsd">
+      <Link>Schema\elm\cqlannotations.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\elm\expression.xsd">
+      <Link>Schema\elm\expression.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\elm\library.xsd">
+      <Link>Schema\elm\library.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\action.xsd">
+      <Link>Schema\knowledgeartifact\action.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\actor.xsd">
+      <Link>Schema\knowledgeartifact\actor.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\base.xsd">
+      <Link>Schema\knowledgeartifact\base.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\behavior.xsd">
+      <Link>Schema\knowledgeartifact\behavior.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\catalogitem.xsd">
+      <Link>Schema\knowledgeartifact\catalogitem.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\condition.xsd">
+      <Link>Schema\knowledgeartifact\condition.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\artifactlifecycleeventtype.xsd">
+      <Link>Schema\knowledgeartifact\enum\artifactlifecycleeventtype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\artifactstatustype.xsd">
+      <Link>Schema\knowledgeartifact\enum\artifactstatustype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\artifacttype.xsd">
+      <Link>Schema\knowledgeartifact\enum\artifacttype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\behaviortype.xsd">
+      <Link>Schema\knowledgeartifact\enum\behaviortype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\cardinalitytype.xsd">
+      <Link>Schema\knowledgeartifact\enum\cardinalitytype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\conditionroletype.xsd">
+      <Link>Schema\knowledgeartifact\enum\conditionroletype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\contributortype.xsd">
+      <Link>Schema\knowledgeartifact\enum\contributortype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\coveragetype.xsd">
+      <Link>Schema\knowledgeartifact\enum\coveragetype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\dataeventtype.xsd">
+      <Link>Schema\knowledgeartifact\enum\dataeventtype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\rangeconstrainttype.xsd">
+      <Link>Schema\knowledgeartifact\enum\rangeconstrainttype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\resourcerelationshiptype.xsd">
+      <Link>Schema\knowledgeartifact\enum\resourcerelationshiptype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\valuetype.xsd">
+      <Link>Schema\knowledgeartifact\enum\valuetype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\knowledgedocument.xsd">
+      <Link>Schema\knowledgeartifact\knowledgedocument.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\metadata.xsd">
+      <Link>Schema\knowledgeartifact\metadata.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\trigger.xsd">
+      <Link>Schema\knowledgeartifact\trigger.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\vmr\vmr.xsd">
+      <Link>Schema\vmr\vmr.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="App.config" />
     <None Include="UtilitySettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -105,6 +250,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Artifacts\ChlamydiaScreeningHeD.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Artifacts\ChlamydiaScreening_CDS.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Artifacts\CorticoSteroidInhalerReminder.xml">
@@ -177,6 +325,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:kaoutput:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:ka="urn:hl7-org:knowledgeartifact:r1" xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:kaoutput:r1" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:kaoutput:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:kaoutput:r1" elementFormDefault="qualified">
 	<xs:import namespace="urn:hl7-org:cdsdt:r2" schemaLocation="../common/datatypes.xsd"/>
 	<xs:import namespace="urn:hl7-org:vmr:r2" schemaLocation="../vmr/vmr.xsd"/>
-	<xs:import namespace="urn:hl7-org:knowledgeartifact:r1" schemaLocation="../knowledgeartifact/expression.xsd"/>
 	<xs:complexType name="CDSExecutionMessage">
 		<xs:sequence>
 			<xs:element name="id" type="dt:II" minOccurs="0" maxOccurs="1">
@@ -52,7 +51,7 @@
 					</xs:attribute>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="sourceComponentId" type="ka:ObjectDescriptor" minOccurs="0" maxOccurs="1">
+			<xs:element name="sourceComponentId" type="dt:II" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>The specific source component instance that
 						caused the execution message. This can be a knowledge module id, a clinical
