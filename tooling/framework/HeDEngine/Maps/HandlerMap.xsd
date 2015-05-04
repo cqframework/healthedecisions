@@ -27,6 +27,7 @@
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="ModuleRegistration"/>
 			<xs:enumeration value="TypeResolution"/>
+			<xs:enumeration value="LibraryReader"/>
 			<xs:enumeration value="Verification"/>
 			<xs:enumeration value="Evaluation"/>
 			<xs:enumeration value="Translation"/>

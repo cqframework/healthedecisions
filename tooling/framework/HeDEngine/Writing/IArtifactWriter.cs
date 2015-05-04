@@ -15,5 +15,7 @@ namespace HeD.Engine.Writing
 	public interface IArtifactWriter
 	{
 		void Write(Stream outputStream, object artifact);
+		
+		string GetExtension();
 	}
 }

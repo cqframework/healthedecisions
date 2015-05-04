@@ -80,7 +80,7 @@
 	<entry key="urn:hl7-org:knowledgeartifact:r1:OverlapsAfter" value="HeD.Engine.Verification.BinaryIntervalVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:knowledgeartifact:r1:Union" value="HeD.Engine.Verification.NaryListOrIntervalVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:knowledgeartifact:r1:Intersect" value="HeD.Engine.Verification.NaryListOrIntervalVerifier, HeDEngine"/>
-	<entry key="urn:hl7-org:knowledgeartifact:r1:Difference" value="HeD.Engine.Verification.BinaryListOrIntervalVerifier, HeDEngine"/>
+	<entry key="urn:hl7-org:knowledgeartifact:r1:Difference" value="HeD.Engine.Verification.NaryListOrIntervalVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:knowledgeartifact:r1:Begin" value="HeD.Engine.Verification.UnaryIntervalVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:knowledgeartifact:r1:End" value="HeD.Engine.Verification.UnaryIntervalVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:knowledgeartifact:r1:Collapse" value="HeD.Engine.Verification.CollapseVerifier, HeDEngine"/>

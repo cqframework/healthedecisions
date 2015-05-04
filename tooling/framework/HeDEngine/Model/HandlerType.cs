@@ -38,6 +38,14 @@ namespace HeD.Engine.Model
 		TypeResolution,
 
 		/// <summary>
+		/// A handler type that provides library reading functionality.
+		/// </summary>
+		/// <remarks>
+		/// Library readers are used to read libraries in various formats.
+		/// </remarks>
+		LibraryReader,
+
+		/// <summary>
 		/// A handler type that provides verification functionality.
 		/// </summary>
 		/// <remarks>

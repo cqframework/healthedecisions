@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
@@ -18,7 +19,7 @@ namespace HeD.Engine.Reading
 {
 	public static class ArtifactReader
 	{
-		public static Artifact Read(XDocument artifact, XmlSchemaSet schemas)
+		public static Artifact Read(XDocument artifact, XmlSchemaSet schemas, string sourcePath)
 		{
 			artifact.Validate(schemas, onValidationEvent, true);
 
@@ -50,6 +51,17 @@ namespace HeD.Engine.Reading
 			}
 
 			// TODO: Add default model of HeDSchema?
+
+			// Pull libraries
+			var librariesElement = artifact.Root.Element(ns + "metadata").Element(ns + "libraries");
+			if (librariesElement != null)
+			{
+				result.Libraries = ReadLibraries(ns, librariesElement.Elements(ns + "libraryReference"), sourcePath).ToList();
+			}
+			else
+			{
+				result.Libraries = new List<LibraryRef>();
+			}
 
 			var externalData = artifact.Root.Element(ns + "externalData");
 
@@ -127,6 +139,30 @@ namespace HeD.Engine.Reading
 			return
 				from model in models
 					select new ModelRef { Uri = model.Element(ns + "referencedModel").Attribute("value").Value };
+		}
+
+		private static string NormalizePath(string sourcePath, string libraryPath)
+		{
+			if (!Path.IsPathRooted(libraryPath))
+			{
+				return Path.Combine(sourcePath, libraryPath);
+			}
+
+			return libraryPath;
+		}
+
+		private static IEnumerable<LibraryRef> ReadLibraries(XNamespace ns, IEnumerable<XElement> libraries, string sourcePath)
+		{
+			return
+				from library in libraries
+					select 
+						new LibraryRef 
+						{ 
+							Name = library.Attribute("name").Value, 
+							MediaType = library.Attribute("mediaType").GetValue() ?? "application/hed+xml",
+							Path = NormalizePath(sourcePath, library.Attribute("path").Value),
+							Version = library.Attribute("version").GetValue()
+						};
 		}
 
 		private static IEnumerable<ParameterDef> ReadParameters(XNamespace ns, IEnumerable<XElement> parameters)

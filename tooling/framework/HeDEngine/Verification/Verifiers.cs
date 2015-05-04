@@ -41,7 +41,7 @@ namespace HeD.Engine.Verification
 
 		public void Verify(VerificationContext context, ASTNode node)
 		{
-			var expressionType = context.ResolveExpressionRef(node.GetAttribute<string>("name"));
+			var expressionType = context.ResolveExpressionRef(node.GetAttribute<string>("libraryName"), node.GetAttribute<string>("name"));
 			if (expressionType.Expression.ResultType == null)
 			{
 				throw new InvalidOperationException("Invalid forward reference.");
@@ -60,7 +60,7 @@ namespace HeD.Engine.Verification
 
 		public void Verify(VerificationContext context, ASTNode node)
 		{
-			var parameterDef = context.ResolveParameterRef(node.GetAttribute<string>("name"));
+			var parameterDef = context.ResolveParameterRef(node.GetAttribute<string>("libraryName"), node.GetAttribute<string>("name"));
 			node.ResultType = parameterDef.ParameterType;
 		}
 
@@ -110,23 +110,44 @@ namespace HeD.Engine.Verification
 		public void Verify(VerificationContext context, ASTNode node)
 		{
 			// objectType
-			var objectType = context.ResolveType(node.GetAttribute<string>("objectType")) as ObjectType;
+            var objectTypeName = node.GetAttribute<string>("objectType");
+            if (objectTypeName != null)
+            {
+			    var objectType = context.ResolveType(node.GetAttribute<string>("objectType")) as ObjectType;
 
-			// foreach property
-			foreach (var child in ((Node)node).Children)
-			{
-				// Verify the property exists
-				var childPropertyType = context.ResolveProperty(objectType, child.GetAttribute<string>("name"));
+			    // foreach property
+			    foreach (var child in ((Node)node).Children)
+			    {
+				    // Verify the property exists
+				    var childPropertyType = context.ResolveProperty(objectType, child.GetAttribute<string>("name"));
 
-				// Verify the value
-				var value = (ASTNode)child.Children[0];
-				Verifier.Verify(context, value);
+				    // Verify the value
+				    var value = (ASTNode)child.Children[0];
+				    Verifier.Verify(context, value);
 
-				// Verify the value type is appropriate for the property type
-				context.VerifyType(value.ResultType, childPropertyType);
-			}
+				    // Verify the value type is appropriate for the property type
+				    context.VerifyType(value.ResultType, childPropertyType);
+			    }
 
-			node.ResultType = objectType;
+			    node.ResultType = objectType;
+            }
+            else
+            {
+                var propertyList = new List<PropertyDef>();
+
+                foreach (var child in ((Node)node).Children)
+                {
+                    var value = (ASTNode)child.Children[0];
+                    Verifier.Verify(context, value);
+
+                    var property = new PropertyDef(child.GetAttribute<string>("name"), value.ResultType);
+                    propertyList.Add(property);
+                }
+
+                var objectType = new ObjectType(Guid.NewGuid().ToString(), propertyList);
+
+                node.ResultType = objectType;
+            }
 		}
 
 		#endregion
@@ -185,13 +206,13 @@ namespace HeD.Engine.Verification
 
 		public void Verify(VerificationContext context, ASTNode node)
 		{
-            var begin = node.Children.FirstOrDefault(c => c.Name == "begin");
+            var begin = node.Children.FirstOrDefault(c => c.Name == "begin" || c.Name == "low");
             if (begin != null)
             {
     			Verifier.Verify(context, begin);
             }
 
-            var end = node.Children.FirstOrDefault(c => c.Name == "end");
+            var end = node.Children.FirstOrDefault(c => c.Name == "end" || c.Name == "high");
             if (end != null)
             {
     			Verifier.Verify(context, end);
@@ -1620,7 +1641,7 @@ namespace HeD.Engine.Verification
 			InternalVerify(context, node, dataType);
 			
 			// cardinality - If single, the result is an object type with all the properties of the type in question.
-			var cardinality = (RequestCardinality)Enum.Parse(typeof(RequestCardinality), node.Attributes["cardinality"].ToString(), true);
+			var cardinality = (RequestCardinality)Enum.Parse(typeof(RequestCardinality), node.GetAttribute<string>("cardinality", "Multiple"), true);
 
 			// If multiple, the result is a list type of that type.
 			if (cardinality == RequestCardinality.Single)

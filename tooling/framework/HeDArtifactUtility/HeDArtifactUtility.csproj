@@ -78,9 +78,21 @@
       <Project>{3ab79fc6-0681-4a66-9ac8-cb3854100709}</Project>
       <Name>CREF.Translation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ELM.Model\ELM.Model.csproj">
+      <Project>{17ace00e-1393-4c7a-b84c-80dff9cbb83d}</Project>
+      <Name>ELM.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FHIR.Model\FHIR.Model.csproj">
+      <Project>{291b40b3-f299-4d4b-b237-2dd072ae04d4}</Project>
+      <Name>FHIR.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HeDEngine\HeDEngine.csproj">
       <Project>{de75f0a0-3755-4d35-886b-c0b53c95980a}</Project>
       <Name>HeDEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SQL.Translation\SQL.Translation.csproj">
+      <Project>{a77c7139-9f45-46af-ac25-b58029210061}</Project>
+      <Name>SQL.Translation</Name>
     </ProjectReference>
     <ProjectReference Include="..\vMR.Model\vMR.Model.csproj">
       <Project>{ad62a3ae-b9be-4360-8aa2-ef633337bf1e}</Project>
@@ -88,6 +100,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Artifacts\ChlamydiaScreeningCDS_ELM.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Artifacts\ChlamydiaScreeningHeD.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Artifacts\CorticoSteroidInhalerReminder.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -122,6 +141,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Artifacts\SDCPertussisClinical-eReportingCriteria.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Artifacts\TestDifference.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Artifacts\TestECAArtifact.xml">

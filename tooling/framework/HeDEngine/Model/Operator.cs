@@ -15,9 +15,12 @@ namespace HeD.Engine.Model
 	/// </remarks>
 	public class OperatorMap
 	{
-		private static Dictionary<string, OperatorEntry> _operatorMap = new Dictionary<string, OperatorEntry>();
+        private static OperatorMap _core = new OperatorMap();
+        public static OperatorMap Core { get { return _core; } }
 
-		public static void RegisterOperator(Operator op)
+		private Dictionary<string, OperatorEntry> _operatorMap = new Dictionary<string, OperatorEntry>(StringComparer.InvariantCultureIgnoreCase);
+
+		public void RegisterOperator(Operator op)
 		{
 			OperatorEntry entry;
 			if (!_operatorMap.TryGetValue(op.Name, out entry))
@@ -29,7 +32,7 @@ namespace HeD.Engine.Model
 			entry.RegisterOperator(op);
 		}
 
-		public static Operator ResolveCall(string operatorName, Signature signature)
+		public Operator ResolveCall(string operatorName, Signature signature)
 		{
 			if (String.IsNullOrEmpty(operatorName))
 			{

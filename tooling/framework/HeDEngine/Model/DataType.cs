@@ -132,7 +132,7 @@ namespace HeD.Engine.Model
 
             if (type.IsEnum)
             {
-                
+                return DataTypes.Code; // TODO: This may not be the best mapping, but it should work for what we're doing right now...
             }
 
 			switch (type.Name)

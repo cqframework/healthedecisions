@@ -22,7 +22,7 @@ namespace HeD.Engine.Model
 	/// </remarks>
 	public class HandlerMap
 	{
-		private Dictionary<string, Type> _handlerMap = new Dictionary<string, Type>();
+		private Dictionary<string, Type> _handlerMap = new Dictionary<string, Type>(StringComparer.InvariantCultureIgnoreCase);
 
 		private object _syncHandle = new object();
 

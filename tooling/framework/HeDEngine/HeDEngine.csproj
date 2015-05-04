@@ -40,15 +40,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Artifact.cs" />
+    <Compile Include="Model\CodeSystemDef.cs" />
     <Compile Include="Model\DataType.cs" />
     <Compile Include="Model\datatypes.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\ExpressionDef.cs" />
     <Compile Include="Model\Extensions.cs" />
+    <Compile Include="Model\FunctionDef.cs" />
     <Compile Include="Model\HandlerFactory.cs" />
     <Compile Include="Model\HandlerType.cs" />
     <Compile Include="Model\HeDModelTypeResolver.cs" />
+    <Compile Include="Model\Library.cs" />
+    <Compile Include="Model\LibraryRef.cs" />
     <Compile Include="Model\ModelRef.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -57,8 +61,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\Symbol.cs" />
+    <Compile Include="Model\ValueSetDef.cs" />
     <Compile Include="Reading\ArtifactReader.cs" />
     <Compile Include="Model\Node.cs" />
+    <Compile Include="Reading\ILibraryReader.cs" />
+    <Compile Include="Reading\LibraryReaderFactory.cs" />
     <Compile Include="Reading\NodeReader.cs" />
     <Compile Include="Model\HandlerMap.cs" />
     <Compile Include="Model\ParameterDef.cs" />
@@ -78,6 +85,8 @@
     <Compile Include="Verification\INodeVerifier.cs" />
     <Compile Include="Verification\IOperatorHandler.cs" />
     <Compile Include="Verification\ITypeResolver.cs" />
+    <Compile Include="Verification\LibraryFactory.cs" />
+    <Compile Include="Verification\LibraryVerifier.cs" />
     <Compile Include="Verification\ModuleRegistrarFactory.cs" />
     <Compile Include="Verification\OperatorHandlerFactory.cs" />
     <Compile Include="Verification\OperatorHandlers.cs" />
@@ -102,6 +111,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Maps\LibraryHandlerMap.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Maps\ModuleMap.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

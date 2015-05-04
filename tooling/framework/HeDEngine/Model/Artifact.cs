@@ -25,6 +25,8 @@ namespace HeD.Engine.Model
 
 		public IEnumerable<ModelRef> Models { get; set; }
 
+		public IEnumerable<LibraryRef> Libraries { get; set; }
+
 		public IEnumerable<ParameterDef> Parameters { get; set; }
 
 		public IEnumerable<ExpressionDef> Expressions { get; set; }
