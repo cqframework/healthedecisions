@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:elm="urn:hl7-org:elm:r1" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>
 			This file defines the root knowledge document type and element.
 		</xs:documentation>
 	</xs:annotation>
+	<xs:import namespace="urn:hl7-org:elm:r1" schemaLocation="../elm/clinicalexpression.xsd"/>
 	<xs:include schemaLocation="metadata.xsd"/>
-	<xs:include schemaLocation="clinicalexpression.xsd"/>
 	<xs:include schemaLocation="action.xsd"/>
 	<xs:include schemaLocation="condition.xsd"/>
 	<xs:include schemaLocation="trigger.xsd"/>
@@ -36,7 +36,17 @@
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="parameter" type="ParameterDef" minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="codesystem" type="elm:CodeSystemDef" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>A code system definition that can be referenced anywhere within the artifact.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="valueset" type="elm:ValueSetDef" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>A value set definition that can be referenced anywhere within the artifact.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="parameter" type="elm:ParameterDef" minOccurs="0" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation>The parameter element define a parameters for the knowledge document. Parameters are expected to be provided by the caller when an evaluation is performed. Parameters can be referenced within any expression using a ParameterRef expression.
 
@@ -46,7 +56,7 @@ For instance, one may define a MonthThreshold parameter, and use this parameter 
 								</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="def" type="ExpressionDef" minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="def" type="elm:ExpressionDef" minOccurs="0" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation>The named expression used to retrieve external data. For instance, an expression to retrieve patient demographic data or a set of SNOMED-CT codes subsumed by another SNOMED-CT code from a terminology server.</xs:documentation>
 							</xs:annotation>
@@ -60,7 +70,7 @@ For instance, one may define a MonthThreshold parameter, and use this parameter 
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="def" type="ExpressionDef" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="def" type="elm:ExpressionDef" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>

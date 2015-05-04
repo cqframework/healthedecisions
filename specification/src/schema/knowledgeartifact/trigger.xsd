@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1"
-	xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-	xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1"
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns="urn:hl7-org:knowledgeartifact:r1" 
+	xmlns:elm="urn:hl7-org:elm:r1"
+	xmlns:sch="http://purl.oclc.org/dsdl/schematron" 
+	xmlns:xhtml="http://www.w3.org/1999/xhtml" 
+	targetNamespace="urn:hl7-org:knowledgeartifact:r1" 
 	elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>
@@ -9,12 +13,11 @@
 			knowledge artifacts.
 		</xs:documentation>
 	</xs:annotation>
-	<xs:include schemaLocation="expression.xsd" />
-	<xs:include schemaLocation="enum/eventtype.xsd" />
-	<xs:include schemaLocation="enum/dataeventtype.xsd" />
+	<xs:import namespace="urn:hl7-org:elm:r1" schemaLocation="../elm/expression.xsd"/>
+	<xs:include schemaLocation="enum/dataeventtype.xsd"/>
 	<xs:complexType name="Trigger" abstract="true">
 		<xs:sequence>
-			<xs:element name="expression" type="Expression" minOccurs="0">
+			<xs:element name="def" type="elm:ExpressionDef" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>The event expression that must be met for the
 						trigger to activate the record.
@@ -51,7 +54,7 @@
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="Trigger">
-				<xs:attribute name="triggerType" type="DataEventType"></xs:attribute>
+				<xs:attribute name="triggerType" type="DataEventType"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -63,8 +66,7 @@
 				event should be repeated.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="Trigger" />
+			<xs:extension base="Trigger"/>
 		</xs:complexContent>
 	</xs:complexType>
-
 </xs:schema>
