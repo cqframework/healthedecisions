@@ -1,9 +1,7 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:elm="urn:hl7-org:elm:r1" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
 	<xs:annotation>
-		<xs:documentation>
-			This file defines the root knowledge document type and element.
-		</xs:documentation>
+		<xs:documentation>This file defines the root knowledge document type and element.</xs:documentation>
 	</xs:annotation>
 	<xs:import namespace="urn:hl7-org:elm:r1" schemaLocation="../elm/clinicalexpression.xsd"/>
 	<xs:include schemaLocation="metadata.xsd"/>
@@ -17,10 +15,7 @@
 	</xs:element>
 	<xs:complexType name="KnowledgeDocument">
 		<xs:annotation>
-			<xs:documentation>A knowledge document is an instance of a CDS
-				knowledge artifact such as a rule, an order set, or a documentation
-				template
-			</xs:documentation>
+			<xs:documentation>A knowledge document is an instance of a CDS knowledge artifact such as a rule, an order set, or a documentation template.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="metadata" type="Metadata" minOccurs="1" maxOccurs="1">
@@ -48,17 +43,18 @@
 						</xs:element>
 						<xs:element name="parameter" type="elm:ParameterDef" minOccurs="0" maxOccurs="unbounded">
 							<xs:annotation>
-								<xs:documentation>The parameter element define a parameters for the knowledge document. Parameters are expected to be provided by the caller when an evaluation is performed. Parameters can be referenced within any expression using a ParameterRef expression.
-
-For instance, one may define a MonthThreshold parameter, and use this parameter to determine whether the span of time that has elapsed since the last A1C has been performed warrants the elicitation of a reminder.
-
-
-								</xs:documentation>
+								<xs:documentation>The parameter element define a parameters for the knowledge document. Parameters are expected to be provided by the caller when an evaluation is performed. Parameters can be referenced within any expression using a ParameterRef expression. For instance, one may define a MonthThreshold parameter, and use this parameter to determine whether the span of time that has elapsed since the last A1C has been performed warrants the elicitation of a reminder.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="def" type="elm:ExpressionDef" minOccurs="0" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation>The named expression used to retrieve external data. For instance, an expression to retrieve patient demographic data or a set of SNOMED-CT codes subsumed by another SNOMED-CT code from a terminology server.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+
+						<xs:element name="trigger" type="Trigger" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>The trigger element represents an event that 'triggers' the knowledge artifact. For instance, 'evaluate this artifact whenever a new Problem with a Diabetes Diagnosis code is added to the patient's record' or 'Evaluate this artifact every week day at 10:00 PM'. A trigger can model either a data event or a periodic event.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 					</xs:sequence>
@@ -74,11 +70,6 @@ For instance, one may define a MonthThreshold parameter, and use this parameter 
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="triggers" type="Triggers" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>The triggers section defines the list of all triggers that 'activate' or 'trigger' the CDS knowledge artifact. For instance, opening a patient record may trigger a rule to execute if the conditions of the rule are met. </xs:documentation>
-				</xs:annotation>
-			</xs:element>
 			<xs:element name="conditions" type="Conditions" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>The conditions section lists all conditions that pertain to the knowledge artifact. Conditions define the logic that determine the applicability of the artifact in the given context, any precondition or post condition, and/or any inclusion and exclusion criteria for the given CDS artifact.  Conditions are structured as expressions to be evaluated in the target system.</xs:documentation>
@@ -92,7 +83,7 @@ For instance, one may define a MonthThreshold parameter, and use this parameter 
 			<!-- actions -->
 			<xs:element name="actionGroup" type="ActionGroup" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
-					<xs:documentation>The actionGroups is essentially the top-level container for the groups of actions that make up a given knowledge document. This container defines the main content of the knowledge artifact: logical grouping constructs such as the clinical sections and orderables in an order set, the tasks to be performed by a rule, or the sections and menu choices that make up a document template. </xs:documentation>
+					<xs:documentation>The actionGroups element is the top-level container for the groups of actions that make up a given knowledge document. This container defines the main content of the knowledge artifact: logical grouping constructs such as the clinical sections and orderables in an order set, the tasks to be performed by a rule, or the sections and menu choices that make up a document template. </xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>

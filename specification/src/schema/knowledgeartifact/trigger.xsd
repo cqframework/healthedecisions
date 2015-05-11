@@ -20,7 +20,9 @@
 			<xs:element name="def" type="elm:ExpressionDef" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>The event expression that must be met for the
-						trigger to activate the record.
+						trigger to activate the record. Note that when accessing this expression within the artifact,
+						only the data that triggered the artifact will be present. For example, if the trigger is an
+						add of a medication, only the added medication will be returned from this expression.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>

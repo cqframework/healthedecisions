@@ -2,11 +2,15 @@
 <?schematron-schema href="../main/schematron/knowledgeartifact.sch"?>
 <?schematron-schema href="../main/schematron/ecarules.sch"?>
 <knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
-	xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:p1="http://www.w3.org/1999/xhtml"
-	xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:dt="urn:hl7-org:cdsdt:r2" 
+	xmlns:elm="urn:hl7-org:elm:r1"
+	xmlns:t="urn:hl7-org:elm-types:r1"
+	xmlns:a="urn:hl7-org:cql-annotations:r1"
+	xmlns:p1="http://www.w3.org/1999/xhtml"
+	xmlns:vmr="urn:hl7-org:vmr:r2" 
+	xmlns:xml="http://www.w3.org/XML/1998/namespace"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../main/schema/knowledgeartifact/knowledgedocument.xsd ">
-
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd urn:hl7-org:elm:r1 ../schema/elm/clinicalexpression.xsd urn:hl7-org:elm-types:r1 ../schema/elm/types.xsd urn:hl7-org:cql-annotations:r1 ../schema/elm/cqlannotations.xsd">
 
 	<!-- NQF-0068 / PQRS-204 - Ischemic Vascular Disease (IVD): Use of Aspirin 
 		or Another Antithrombotic. This example encodes a rule for NQF 0068 / PQRS 
@@ -262,240 +266,248 @@
 		</usageTerms>
 	</metadata>
 	<externalData>
+		<codesystem name="CPT-4" id="2.16.840.1.113883.6.12"/>
+		<!-- newMentor comment: This is the NCQA grouping of aspirin and other 
+			anti-thrombotics value sets. (It currently contains a single value set, using 
+			RxNorm.) -->
+		<valueset name="Aspirin and other Anti-Thrombotics" id="2.16.840.1.113883.3.464.1003.196.12.1211"/>
+		<!-- newMentor comment: This is the NCQA grouping of AMI value sets. (It 
+			currently contains 3 value sets, using ICD-9, ICD-10, SNOMED-CT.) -->
+		<valueset name="Acute Mycardial Infarction" id="2.16.840.1.113883.3.464.1003.104.12.1001" />	
+		<!-- newMentor comment: This is the NCQA grouping of IVD value sets (ICD-9, 
+			ICD-10, SNOMED-CT). -->
+		<valueset name="Ischemic Vascular Disease" id="2.16.840.1.113883.3.464.1003.104.12.1003"/>
+		<!-- newMentor comment: This is the NCQA grouping of CABG value sets (SNOMED-CT,CPT, 
+			HCPCS). -->
+		<valueset name="Coronary Artery Bypass Graft" id="2.16.840.1.113883.3.464.1003.104.12.1002" />	
+		<!-- newMentor comment: This is the NCQA grouping of PCI value sets (SNOMED-CT,CPT, 
+			HCPCS). -->
+		<valueset name="PCI" id="2.16.840.1.113883.3.464.1003.104.12.1010" />
+
 		<def name="Patient">
-			<expression xsi:type="ClinicalRequest" cardinality="Single"
-				dataType="vmr:EvaluatedPerson" isInitial="true" />
+			<elm:expression xsi:type="elm:SingletonFrom">
+				<elm:operand xsi:type="elm:Retrieve" dataType="vmr:EvaluatedPerson"/>
+			</elm:expression>
 		</def>
 		<def name="antithromboticNotPrescribedForDocumentedReason">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
+			<elm:expression xsi:type="elm:Retrieve"
 				dataType="vmr:ObservationResult" codeProperty="observationFocus"
 				dateProperty="observationEventTime.begin">
-				<description>Patient reason or other reason for not prescribing an
-					antithrombotic</description>
-				<codes xsi:type="List">
-					<element xsi:type="CodeLiteral" code="G8697"
-						codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT-4"
-						/>
-				</codes>
-			</expression>
+				<elm:annotation xsi:type="a:Annotation"><a:s>Patient reason or other reason for not prescribing an
+					antithrombotic</a:s></elm:annotation>
+				<elm:codes xsi:type="elm:List">
+					<elm:element xsi:type="elm:Code" code="G8697"><elm:system name="CPT-4"/></elm:element>
+				</elm:codes>
+			</elm:expression>
 		</def>
 		<def name="aspirinAdverseEvent">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
+			<elm:expression xsi:type="elm:Retrieve"
 				dataType="vmr:AdverseEvent" codeProperty="adverseEventAgent"
 				dateProperty="adverseEventTime.begin">
-				<description>Patient had previously recorded adverse event with
-					Aspirin (Ingredient)</description>
-				<codes xsi:type="ValueSet" id="2.16.840.1.113883.3.464.1003.196.12.1211"
-					authority="National Committee for Quality Assurance" />
-			</expression>
+				<elm:annotation xsi:type="a:Annotation"><a:s>Patient had previously recorded adverse event with
+					Aspirin (Ingredient)</a:s></elm:annotation>
+				<elm:codes xsi:type="elm:ValueSetRef" name="Aspirin and other Anti-Thrombotics"/>
+			</elm:expression>
 		</def>
 		<def name="onAntiThrombotic">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
+			<elm:expression xsi:type="elm:Retrieve" 
 				dataType="vmr:SubstanceAdministrationEvent" codeProperty="substanceAdministrationGeneralPurpose"
-				dateProperty="administrationTimeInterval.begin" useValueSets="true">
-				<description>Patient prescribed antithrombotic within the past year
-				</description>
-				<codes xsi:type="ValueSet" id="2.16.840.1.113883.3.464.1003.196.12.1211"
-					authority="National Committee for Quality Assurance" />
-				<!-- newMentor comment: This is the NCQA grouping of aspirin and other 
-					anti-thrombotics value sets. (It currently contains a single value set, using 
-					RxNorm.) -->
-				<dateRange xsi:type="Interval">
-					<begin xsi:type="DateAdd">
-						<date xsi:type="Today" />
-						<granularity xsi:type="Literal" valueType="DateGranularity"
-							value="Month" />
-						<numberOfPeriods xsi:type="Literal" valueType="xsi:int"
-							value="-12" />
-					</begin>
-					<end xsi:type="Today" />
-				</dateRange>
-			</expression>
+				dateProperty="administrationTimeInterval.begin">
+				<elm:annotation xsi:type="a:Annotation"><a:s>Patient prescribed antithrombotic within the past year
+				</a:s></elm:annotation>
+				<elm:codes xsi:type="elm:ValueSetRef" name="Aspirin and other Anti-Thrombotics"/>
+				<elm:dateRange xsi:type="elm:Interval">
+					<elm:low xsi:type="elm:Add">
+						<elm:operand xsi:type="elm:Today" />
+						<elm:operand xsi:type="elm:Quantity" value="-12" unit="months"/>
+					</elm:low>
+					<elm:high xsi:type="elm:Today" />
+				</elm:dateRange>
+			</elm:expression>
 		</def>
 		<def name="hasAntiThromboticProposals">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
+			<elm:expression xsi:type="elm:Retrieve" 
 				dataType="vmr:SubstanceAdministrationProposal" codeProperty="substanceAdministrationGeneralPurpose"
-				dateProperty="proposedAdministrationTimeInterval.begin"
-				useValueSets="true">
-				<description>Patient has a proposal to prescribe antithrombotic
-					today or later.</description>
-				<codes xsi:type="ValueSet" id="2.16.840.1.113883.3.464.1003.196.12.1211"
-					authority="National Committee for Quality Assurance" />
-				<!-- newMentor comment: This is the NCQA grouping of aspirin and other 
-					anti-thrombotics value sets. (It currently contains a single value set, using 
-					RxNorm.) -->
-				<dateRange xsi:type="Interval">
-					<begin xsi:type="Today" />
-				</dateRange>
-			</expression>
+				dateProperty="proposedAdministrationTimeInterval.begin">
+				<elm:annotation xsi:type="a:Annotation"><a:s>Patient has a proposal to prescribe antithrombotic
+					today or later.</a:s></elm:annotation>
+				<elm:codes xsi:type="elm:ValueSetRef" name="Asprin and other Anti-Thrombotics"/>
+				<elm:dateRange xsi:type="elm:Interval">
+					<elm:low xsi:type="elm:Today" />
+				</elm:dateRange>
+			</elm:expression>
 		</def>
 		<def name="AMI_Diagnosis">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
+			<elm:expression xsi:type="elm:Retrieve"
 				dataType="vmr:Problem" codeProperty="conditionCode" dateProperty="diagnosticEventTime.begin">
-				<description>Diagnosis codes for acute myocardial infarction
-				</description>
-				<codes xsi:type="ValueSet" authority="National Committee for Quality Assurance"
-					id="2.16.840.1.113883.3.464.1003.104.12.1001" />	<!-- newMentor comment: This is the NCQA grouping of AMI value sets. (It 
-					currently contains 3 value sets, using ICD-9, ICD-10, SNOMED-CT.) -->
-			</expression>
+				<elm:annotation xsi:type="a:Annotation"><a:s>Diagnosis codes for acute myocardial infarction
+				</a:s></elm:annotation>
+				<elm:codes xsi:type="elm:ValueSetRef" name="Acute Mycardial Infarction"/>
+			</elm:expression>
 		</def>
 		<def name="IVD_Diagnosis">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
+			<elm:expression xsi:type="elm:Retrieve"
 				dataType="vmr:Problem" codeProperty="conditionCode" dateProperty="diagnosticEventTime.begin">
-				<description>Diagnosis codes for ischemic vascular disease
-				</description>
-				<codes xsi:type="ValueSet" authority="National Committee for Quality Assurance"
-					id="2.16.840.1.113883.3.464.1003.104.12.1003" />	<!-- newMentor comment: This is the NCQA grouping of IVD value sets (ICD-9, 
-					ICD-10, SNOMED-CT). -->
-			</expression>
+				<elm:annotation xsi:type="a:Annotation"><a:s>Diagnosis codes for ischemic vascular disease</a:s></elm:annotation>
+				<elm:codes xsi:type="elm:ValueSetRef" name="Ischemic Vascular Disease"/>
+			</elm:expression>
 		</def>
 		<def name="CABG_Encounters">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
+			<elm:expression xsi:type="elm:Retrieve"
 				dataType="vmr:EncounterEvent" codeProperty="encounterType"
 				dateProperty="encounterEventTime.begin">
-				<description>Encounters with procedure codes related to coronary
-					artery bypass graft</description>
-				<codes xsi:type="ValueSet" authority="National Committee for Quality Assurance"
-					id="2.16.840.1.113883.3.464.1003.104.12.1002" />	<!-- newMentor comment: This is the NCQA grouping of CABG value sets (SNOMED-CT,CPT, 
-					HCPCS). -->
-			</expression>
+				<elm:annotation xsi:type="a:Annotation"><a:s>Encounters with procedure codes related to coronary artery bypass graft</a:s></elm:annotation>
+				<elm:codes xsi:type="elm:ValueSetRef" name="Coronary Artery Bypass Graft" />
+			</elm:expression>
 		</def>
 		<def name="CABG_Procedures">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
+			<elm:expression xsi:type="elm:Retrieve"
 				dataType="vmr:ProcedureEvent" codeProperty="procedureCode"
 				dateProperty="procedureTime.begin">
-				<description>Procedure codes related to coronary artery bypass graft
-				</description>
-				<codes xsi:type="ValueSet" authority="National Committee for Quality Assurance"
-					id="2.16.840.1.113883.3.464.1003.104.12.1002" />	<!-- newMentor comment: This is the NCQA grouping of CABG value sets (SNOMED-CT,CPT, 
-					HCPCS). -->
-			</expression>
+				<elm:annotation xsi:type="a:Annotation"><a:s>Procedure codes related to coronary artery bypass graft
+				</a:s></elm:annotation>
+				<elm:codes xsi:type="elm:ValueSetRef" name="Coronary Artery Bypass Graft"/>
+			</elm:expression>
 		</def>
 		<def name="CABG_ProcedureProposals">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
+			<elm:expression xsi:type="elm:Retrieve"
 				dataType="vmr:ProcedureProposal" codeProperty="procedureCode"
 				dateProperty="proposedProcedureTime.begin">
-				<description>Proposals scheduled today or later for procedure codes
-					related to coronary artery bypass graft</description>
-				<codes xsi:type="ValueSet" authority="National Committee for Quality Assurance"
-					id="2.16.840.1.113883.3.464.1003.104.12.1002" />	<!-- newMentor comment: This is the NCQA grouping of CABG value sets (SNOMED-CT,CPT, 
-					HCPCS). -->
-				<dateRange xsi:type="Interval">
-					<begin xsi:type="Today" />
-				</dateRange>
-			</expression>
+				<elm:annotation xsi:type="a:Annotation"><a:s>Proposals scheduled today or later for procedure codes
+					related to coronary artery bypass graft</a:s></elm:annotation>
+				<elm:codes xsi:type="elm:ValueSetRef" name="Coronary Artery Bypass Graft"/>
+				<elm:dateRange xsi:type="elm:Interval">
+					<elm:low xsi:type="elm:Today" />
+				</elm:dateRange>
+			</elm:expression>
 		</def>
 		<def name="PCI_Encounters">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
+			<elm:expression xsi:type="elm:Retrieve"
 				dataType="vmr:EncounterEvent" codeProperty="encounterType"
 				dateProperty="encounterEventTime.begin">
-				<description>Encounters with procedure codes related to percutaneous
-					coronary interventions</description>
-				<codes xsi:type="ValueSet" authority="National Committee for Quality Assurance"
-					id="2.16.840.1.113883.3.464.1003.104.12.1010" />	<!-- newMentor comment: This is the NCQA grouping of PCI value sets (SNOMED-CT,CPT, 
-					HCPCS). -->
-			</expression>
+				<elm:annotation xsi:type="a:Annotation"><a:s>Encounters with procedure codes related to percutaneous
+					coronary interventions</a:s></elm:annotation>
+				<elm:codes xsi:type="elm:ValueSetRef" name="PCI"/>
+			</elm:expression>
 		</def>
 		<def name="PCI_Procedures">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
+			<elm:expression xsi:type="elm:Retrieve"
 				dataType="vmr:ProcedureEvent" codeProperty="procedureCode"
 				dateProperty="procedureTime.begin">
-				<description>Procedure codes related to percutaneous coronary
-					interventions</description>
-				<codes xsi:type="ValueSet" authority="National Committee for Quality Assurance"
-					id="2.16.840.1.113883.3.464.1003.104.12.1010" />	<!-- newMentor comment: This is the NCQA grouping of PCI value sets (SNOMED-CT,CPT, 
-					HCPCS). -->
-			</expression>
+				<elm:annotation xsi:type="a:Annotation"><a:s>Procedure codes related to percutaneous coronary
+					interventions</a:s></elm:annotation>
+				<elm:codes xsi:type="elm:ValueSetRef" name="PCI"/>
+			</elm:expression>
 		</def>
 		<def name="PCI_ProcedureProposals">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
+			<elm:expression xsi:type="elm:Retrieve"
 				dataType="vmr:ProcedureProposal" codeProperty="procedureCode"
 				dateProperty="proposedProcedureTime.begin">
-				<description>Proposals scheduled today or later for procedure codes
-					related to percutaneous coronary interventions</description>
-				<codes xsi:type="ValueSet" authority="National Committee for Quality Assurance"
-					id="2.16.840.1.113883.3.464.1003.104.12.1010" />	<!-- newMentor comment: This is the NCQA grouping of PCI value sets (SNOMED-CT,CPT, 
-					HCPCS). -->
-				<dateRange xsi:type="Interval">
-					<begin xsi:type="Today" />
-				</dateRange>
-			</expression>
+				<elm:annotation xsi:type="a:Annotation"><a:s>Proposals scheduled today or later for procedure codes
+					related to percutaneous coronary interventions</a:s></elm:annotation>
+				<elm:codes xsi:type="elm:ValueSetRef" name="PCI"/>
+				<elm:dateRange xsi:type="elm:Interval">
+					<elm:low xsi:type="elm:Today" />
+				</elm:dateRange>
+			</elm:expression>
 		</def>
 	</externalData>
 	<expressions>
 		<def name="PatientAge">
-			<expression xsi:type="Property" path="age">
-				<source xsi:type="ExpressionRef" name="Patient" />
-			</expression>
+			<elm:expression xsi:type="elm:Property" path="age">
+				<elm:source xsi:type="elm:ExpressionRef" name="Patient" />
+			</elm:expression>
 		</def>
 	</expressions>
 	<conditions>
 		<condition>
-			<logic xsi:type="And">
-				<operand xsi:type="GreaterOrEqual">
-					<description>Patient age greater than or equal to 18</description>
-					<!-- NOTE: This comparison is made directly against the PatientAge, 
-						which is a PQ. This implies the engine is capable of handling PQ-equality, 
-						i.e. considering units when comparing PQ values. -->
-					<operand xsi:type="ExpressionRef" name="PatientAge" />
-					<operand xsi:type="PhysicalQuantityLiteral" value="18"
-						unit="a" />
-				</operand>
-				<operand xsi:type="IsEmpty">
-					<description>Patient has not been prescribed aspirin or other
-						antithrombotic</description>
-					<operand xsi:type="ExpressionRef" name="onAntiThrombotic" />
-				</operand>
-				<operand xsi:type="IsEmpty">
-					<description>Patient has not been proposed aspirin or other
-						antithrombotic prescription</description>
-					<operand xsi:type="ExpressionRef" name="hasAntiThromboticProposals" />
-				</operand>
-				<operand xsi:type="IsEmpty">
-					<description>Patient does not have a documented prior adverse event
-						with Aspirin</description>
-					<operand xsi:type="ExpressionRef" name="aspirinAdverseEvent" />
-				</operand>
-				<operand xsi:type="IsEmpty">
-					<description>Patient does not have an exclusion for Patient or
-						Other reasons</description>
-					<operand xsi:type="ExpressionRef"
-						name="antithromboticNotPrescribedForDocumentedReason" />
-				</operand>
-				<operand xsi:type="Or">
-					<operand xsi:type="IsNotEmpty">
-						<description>Patient has diagnosis of AMI</description>
-						<operand xsi:type="ExpressionRef" name="AMI_Diagnosis" />
-					</operand>
-					<operand xsi:type="IsNotEmpty">
-						<description>Patient has diagnosis of IVD</description>
-						<operand xsi:type="ExpressionRef" name="IVD_Diagnosis" />
-					</operand>
-					<operand xsi:type="IsNotEmpty">
-						<description>Patient has had CABG encounter</description>
-						<operand xsi:type="ExpressionRef" name="CABG_Encounters" />
-					</operand>
-					<operand xsi:type="IsNotEmpty">
-						<description>Patient has had CABG procedure</description>
-						<operand xsi:type="ExpressionRef" name="CABG_Procedures" />
-					</operand>
-					<operand xsi:type="IsNotEmpty">
-						<description>Patient has a proposed CABG procedure</description>
-						<operand xsi:type="ExpressionRef" name="CABG_ProcedureProposals" />
-					</operand>
-					<operand xsi:type="IsNotEmpty">
-						<description>Patient has had PCI encounter</description>
-						<operand xsi:type="ExpressionRef" name="PCI_Encounters" />
-					</operand>
-					<operand xsi:type="IsNotEmpty">
-						<description>Patient has had PCI procedure</description>
-						<operand xsi:type="ExpressionRef" name="PCI_Procedures" />
-					</operand>
-					<operand xsi:type="IsNotEmpty">
-						<description>Patient has a proposed PCI procedure</description>
-						<operand xsi:type="ExpressionRef" name="PCI_ProcedureProposals" />
-					</operand>
-				</operand>
+			<logic xsi:type="elm:And">
+				<elm:operand xsi:type="elm:And">
+					<elm:operand xsi:type="elm:And">
+						<elm:operand xsi:type="elm:And">
+							<elm:operand xsi:type="elm:And">
+								<elm:operand xsi:type="elm:GreaterOrEqual">
+									<elm:annotation xsi:type="a:Annotation"><a:s>Patient age greater than or equal to 18</a:s></elm:annotation>
+									<!-- NOTE: This comparison is made directly against the PatientAge, 
+										which is a PQ. This implies the engine is capable of handling PQ-equality, 
+										i.e. considering units when comparing PQ values. -->
+									<elm:operand xsi:type="elm:ExpressionRef" name="PatientAge" />
+									<elm:operand xsi:type="elm:Quantity" value="18" unit="years" />
+								</elm:operand>
+								<elm:operand xsi:type="elm:Not">
+									<elm:operand xsi:type="elm:Exists">
+										<elm:annotation xsi:type="a:Annotation"><a:s>Patient has not been prescribed aspirin or other antithrombotic</a:s></elm:annotation>
+										<elm:operand xsi:type="elm:ExpressionRef" name="onAntiThrombotic" />
+									</elm:operand>
+								</elm:operand>
+							</elm:operand>
+							<elm:operand xsi:type="elm:Not">
+								<elm:operand xsi:type="elm:Exists">
+									<elm:annotation xsi:type="a:Annotation"><a:s>Patient has not been proposed aspirin or other antithrombotic prescription</a:s></elm:annotation>
+									<elm:operand xsi:type="elm:ExpressionRef" name="hasAntiThromboticProposals" />
+								</elm:operand>
+							</elm:operand>
+						</elm:operand>
+						<elm:operand xsi:type="elm:Not">
+							<elm:operand xsi:type="elm:Exists">
+								<elm:annotation xsi:type="a:Annotation"><a:s>Patient does not have a documented prior adverse event with Aspirin</a:s></elm:annotation>
+								<elm:operand xsi:type="elm:ExpressionRef" name="aspirinAdverseEvent" />
+							</elm:operand>
+						</elm:operand>
+					</elm:operand>
+					<elm:operand xsi:type="elm:Not">
+						<elm:operand xsi:type="elm:Exists">
+							<elm:annotation xsi:type="a:Annotation"><a:s>Patient does not have an exclusion for Patient or Other reasons</a:s></elm:annotation>
+							<elm:operand xsi:type="elm:ExpressionRef" name="antithromboticNotPrescribedForDocumentedReason" />
+						</elm:operand>
+					</elm:operand>
+				</elm:operand>
+				<elm:operand xsi:type="elm:Or">
+					<elm:operand xsi:type="elm:Or">
+						<elm:operand xsi:type="elm:Or">
+							<elm:operand xsi:type="elm:Or">
+								<elm:operand xsi:type="elm:Or">
+									<elm:operand xsi:type="elm:Or">
+										<elm:operand xsi:type="elm:Or">
+											<elm:operand xsi:type="elm:Exists">
+												<elm:annotation xsi:type="a:Annotation"><a:s>Patient has diagnosis of AMI</a:s></elm:annotation>
+												<elm:operand xsi:type="elm:ExpressionRef" name="AMI_Diagnosis" />
+											</elm:operand>
+											<elm:operand xsi:type="elm:Exists">
+												<elm:annotation xsi:type="a:Annotation"><a:s>Patient has diagnosis of IVD</a:s></elm:annotation>
+												<elm:operand xsi:type="elm:ExpressionRef" name="IVD_Diagnosis" />
+											</elm:operand>
+										</elm:operand>
+										<elm:operand xsi:type="elm:Exists">
+											<elm:annotation xsi:type="a:Annotation"><a:s>Patient has had CABG encounter</a:s></elm:annotation>
+											<elm:operand xsi:type="elm:ExpressionRef" name="CABG_Encounters" />
+										</elm:operand>
+									</elm:operand>
+									<elm:operand xsi:type="elm:Exists">
+										<elm:annotation xsi:type="a:Annotation"><a:s>Patient has had CABG procedure</a:s></elm:annotation>
+										<elm:operand xsi:type="elm:ExpressionRef" name="CABG_Procedures" />
+									</elm:operand>
+								</elm:operand>
+								<elm:operand xsi:type="elm:Exists">
+									<elm:annotation xsi:type="a:Annotation"><a:s>Patient has a proposed CABG procedure</a:s></elm:annotation>
+									<elm:operand xsi:type="elm:ExpressionRef" name="CABG_ProcedureProposals" />
+								</elm:operand>
+							</elm:operand>
+							<elm:operand xsi:type="elm:Exists">
+								<elm:annotation xsi:type="a:Annotation"><a:s>Patient has had PCI encounter</a:s></elm:annotation>
+								<elm:operand xsi:type="elm:ExpressionRef" name="PCI_Encounters" />
+							</elm:operand>
+						</elm:operand>
+						<elm:operand xsi:type="elm:Exists">
+							<elm:annotation xsi:type="a:Annotation"><a:s>Patient has had PCI procedure</a:s></elm:annotation>
+							<elm:operand xsi:type="elm:ExpressionRef" name="PCI_Procedures" />
+						</elm:operand>
+					</elm:operand>
+					<elm:operand xsi:type="elm:Exists">
+						<elm:annotation xsi:type="a:Annotation"><a:s>Patient has a proposed PCI procedure</a:s></elm:annotation>
+						<elm:operand xsi:type="elm:ExpressionRef" name="PCI_ProcedureProposals" />
+					</elm:operand>
+				</elm:operand>
 			</logic>
 			<conditionRole value="ApplicableScenario" />
 		</condition>
@@ -519,52 +531,52 @@
 						<!-- NOTE: The message here is constructed based on the actual data 
 							present for the patient, so that the message is tailored to the relevant 
 							data. -->
-						<actionSentence xsi:type="ObjectExpression"
-							objectType="vmr:CommunicationProposal">
-							<property name="message">
-								<value xsi:type="ObjectExpression" objectType="dt:ED">
-									<property name="value">
-										<value xsi:type="Concat">
-											<operand xsi:type="StringLiteral" value="Patient was identified as having " />
-											<operand xsi:type="Coalesce">
-												<operand xsi:type="Concat">
-													<operand xsi:type="StringLiteral" value="AMI (" />
-													<operand xsi:type="Property" path="conditionCode.displayName">
-														<source xsi:type="Last" orderBy="diagnosticEventTime">
-															<source xsi:type="ExpressionRef" name="AMI_Diagnosis" />
-														</source>
-													</operand>
-													<operand xsi:type="StringLiteral" value=")" />
-												</operand>
-												<operand xsi:type="Concat">
-													<operand xsi:type="StringLiteral" value="ischemic vascular disease (" />
-													<operand xsi:type="Property" path="conditionCode.displayName">
-														<source xsi:type="Last" orderBy="diagnosticEventTime">
-															<source xsi:type="ExpressionRef" name="IVD_Diagnosis" />
-														</source>
-													</operand>
-													<operand xsi:type="StringLiteral" value=")" />
-												</operand>
-												<operand xsi:type="Concat">
-													<operand xsi:type="StringLiteral"
+						<actionSentence xsi:type="elm:Instance"
+							classType="vmr:CommunicationProposal">
+							<elm:element name="message">
+								<elm:value xsi:type="elm:Instance" classType="dt:ED">
+									<elm:element name="value">
+										<elm:value xsi:type="elm:Concatenate">
+											<elm:operand xsi:type="elm:Literal" valueType="t:String" value="Patient was identified as having " />
+											<elm:operand xsi:type="elm:Coalesce">
+												<elm:operand xsi:type="elm:Concatenate">
+													<elm:operand xsi:type="elm:Literal" valueType="t:String"  value="AMI (" />
+													<elm:operand xsi:type="elm:Property" path="conditionCode.displayName">
+														<elm:source xsi:type="elm:Last" orderBy="diagnosticEventTime">
+															<elm:source xsi:type="elm:ExpressionRef" name="AMI_Diagnosis" />
+														</elm:source>
+													</elm:operand>
+													<elm:operand xsi:type="elm:Literal" valueType="t:String"  value=")" />
+												</elm:operand>
+												<elm:operand xsi:type="elm:Concatenate">
+													<elm:operand xsi:type="elm:Literal" valueType="t:String"  value="ischemic vascular disease (" />
+													<elm:operand xsi:type="elm:Property" path="conditionCode.displayName">
+														<elm:source xsi:type="elm:Last" orderBy="diagnosticEventTime">
+															<elm:source xsi:type="elm:ExpressionRef" name="IVD_Diagnosis" />
+														</elm:source>
+													</elm:operand>
+													<elm:operand xsi:type="elm:Literal" valueType="t:String"  value=")" />
+												</elm:operand>
+												<elm:operand xsi:type="elm:Concatenate">
+													<elm:operand xsi:type="elm:Literal" valueType="t:String" 
 														value="AMI or ischemic vascular disease related procedure (" />
-													<operand xsi:type="Property" path="procedureCode.displayName">
-<!-- 														<source xsi:type="Last" orderBy="diagnosticEventTime"> -->
-															<source xsi:type="Last" orderBy="procedureTime">
-															<source xsi:type="Union">
-																<operand xsi:type="ExpressionRef" name="CABG_Procedures" />
-																<operand xsi:type="ExpressionRef" name="PCI_Procedures" />
-															</source>
-														</source>
-													</operand>
-													<operand xsi:type="StringLiteral" value=")" />
-												</operand>
-											</operand>
-											<operand xsi:type="StringLiteral" value="." />
-										</value>
-									</property>
-								</value>
-							</property>
+													<elm:operand xsi:type="elm:Property" path="procedureCode.displayName">
+<!-- 														<elm:source xsi:type="Last" orderBy="diagnosticEventTime"> -->
+															<elm:source xsi:type="elm:Last" orderBy="procedureTime">
+															<elm:source xsi:type="elm:Union">
+																<elm:operand xsi:type="elm:ExpressionRef" name="CABG_Procedures" />
+																<elm:operand xsi:type="elm:ExpressionRef" name="PCI_Procedures" />
+															</elm:source>
+														</elm:source>
+													</elm:operand>
+													<elm:operand xsi:type="elm:Literal" valueType="t:String"  value=")" />
+												</elm:operand>
+											</elm:operand>
+											<elm:operand xsi:type="elm:Literal" valueType="t:String"  value="." />
+										</elm:value>
+									</elm:element>
+								</elm:value>
+							</elm:element>
 						</actionSentence>
 
 					</simpleAction>
@@ -580,39 +592,39 @@
 				<subElements>
 					<simpleAction xsi:type="CreateAction">
 						<textEquivalent value="Prescribe aspirin or other antithrombotic" />
-						<actionSentence xsi:type="ObjectExpression"
-							objectType="vmr:SubstanceAdministrationProposal">
-							<description>Prescribe aspirin or other antithrombotic
-							</description>
-							<property name="substance.substanceCode">
+						<actionSentence xsi:type="elm:Instance"
+							classType="vmr:SubstanceAdministrationProposal">
+							<elm:annotation xsi:type="a:Annotation"><a:s>Prescribe aspirin or other antithrombotic
+							</a:s></elm:annotation>
+							<elm:element name="substance.substanceCode">
 								<!-- NOTE: The code specified here is the identifier for a value 
 									set. The intended semantics are that the target system would allow selection 
 									by the provider of a medication from this value set. Note also that contraindications 
 									would need to be resolved on selection of a specific medication, potentially 
 									with another call to a separate artifact. -->
-								<value xsi:type="CodeLiteral" code="2.16.840.1.113883.3.464.1003.196.12.1211"
-									codeSystem="National Committee for Quality Assurance"
-									displayName="Select a medication from this value set." />
-							</property>
+								<elm:value xsi:type="elm:Code" code="2.16.840.1.113883.3.464.1003.196.12.1211" display="Select a medication from this value set." >
+									<elm:system name="National Committee for Quality Assurance"/>
+								</elm:value>
+							</elm:element>
 						</actionSentence>
 					</simpleAction>
 					<simpleAction xsi:type="CreateAction">
 						<textEquivalent value="Update the patient's active medication list" />
-						<actionSentence xsi:type="ObjectExpression"
-							objectType="vmr:SubstanceAdministrationEvent">
-							<description>Document antithrombotic prescription in the
+						<actionSentence xsi:type="elm:Instance"
+							classType="vmr:SubstanceAdministrationEvent">
+							<elm:annotation xsi:type="a:Annotation"><a:s>Document antithrombotic prescription in the
 								patient's active medication list
-							</description>
-							<property name="substance.substanceCode">
+							</a:s></elm:annotation>
+							<elm:element name="substance.substanceCode">
 								<!-- NOTE: The code specified here is the identifier for a value 
 									set. The intended semantics are that the target system would allow selection 
 									by the provider of a medication from this value set. Note also that contraindications 
 									would need to be resolved on selection of a specific medication, potentially 
 									with another call to a separate artifact. -->
-								<value xsi:type="CodeLiteral" code="2.16.840.1.113883.3.464.1003.196.12.1211"
-									codeSystem="National Committee for Quality Assurance"
-									displayName="Select a medication from this value set." />
-							</property>
+								<elm:value xsi:type="elm:Code" code="2.16.840.1.113883.3.464.1003.196.12.1211" display="Select a medication from this value set." >
+									<elm:system name="National Committee for Quality Assurance"/>
+								</elm:value>
+							</elm:element>
 						</actionSentence>
 					</simpleAction>
 					<!-- Rob McClure - There is a QDM based mechanism for capturing this, 
@@ -622,11 +634,11 @@
 						<textEquivalent
 							value="Document reason for not prescribing aspirin or other antithrombotic" />
 						<documentationConcept>
-							<displayText value="Reason for not prescribing an antithrombotic" />
+							<prompt value="Reason for not prescribing an antithrombotic" />
 							<itemCodes>
-								<itemCode code="G8697" codeSystem="2.16.840.1.113883.6.12"
-									codeSystemName="CPT-4"
-									><dt:displayName value="Documentation of reason for not prescribing aspirin or other antithrombotic"/></itemCode>
+								<itemCode code="G8697" codeSystem="2.16.840.1.113883.6.12" codeSystemName="CPT-4">
+									<dt:displayName value="Documentation of reason for not prescribing aspirin or other antithrombotic"/>
+								</itemCode>
 							</itemCodes>
 							<responseDataType value="String" />
 							<responseCardinality value="Single" />

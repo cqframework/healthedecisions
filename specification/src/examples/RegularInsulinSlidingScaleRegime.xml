@@ -3,11 +3,13 @@
 <?schematron-schema href="../main/schematron/ordersets.sch"?>
 <knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
 	xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:dt="urn:hl7-org:cdsdt:r2"
+	xmlns:elm="urn:hl7-org:elm:r1" xmlns:t="urn:hl7-org:elm-types:r1"
 	xmlns:p1="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../main/schema/knowledgeartifact/knowledgedocument.xsd
-	urn:hl7-org:vmr:r2 ../main/schema/vmr/vmr.xsd
-
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd
+	urn:hl7-org:vmr:r2 ../schema/vmr/vmr.xsd
+	urn:hl7-org:elm:r1 ../schema/elm/clinicalexpression.xsd
+	urn:hl7-org:elm-types:r1 ../schema/elm/types.xsd
 	">
 
 	<!-- Regular Insulin Sliding Scale Regime This example describes a typical 
@@ -124,67 +126,80 @@
 		</publishers>
 	</metadata>
 	<externalData>
-
+		<codesystem name="RxNorm" id="2.16.840.1.113883.6.88"/>
+		<codesystem name="SNOMED-CT" id="2.16.840.1.113883.6.96"/>
 	</externalData>
 	<expressions>
+	
+		<!-- Here we define the "Four times daily before meals and at bedtime" schedule so we can reuse it throughout the order set -->
+		<def name="FourTimesDailySchedule">
+			<elm:expression xsi:type="elm:Instance" classType="vmr:Schedule">
+				<elm:element name="cycle">
+					<elm:value xsi:type="elm:Instance" classType="vmr:Cycle">
+						<elm:element name="cycleTiming">
+							<elm:value xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+								<elm:element name="repeatCode">
+									<elm:value xsi:type="elm:Instance" classType="dt:CD">
+										<elm:element name="code">
+											<elm:value xsi:type="elm:Literal" valueType="t:String" value="420660006"/>
+										</elm:element>
+										<elm:element name="codeSystem">
+											<elm:value xsi:type="elm:Literal" valueType="t:String" value="2.16.8410.1.113883.6.96"/>
+										</elm:element>
+										<elm:element name="codeSystemName">
+											<elm:value xsi:type="elm:Literal" valueType="t:String" value="SNOMED-CT"/>
+										</elm:element>
+										<elm:element name="displayName">
+											<elm:value xsi:type="elm:Literal" valueType="t:String" value="Four times daily before meals and at bedtime"/>
+										</elm:element>
+									</elm:value>
+								</elm:element>
+							</elm:value>
+						</elm:element>
+					</elm:value>
+				</elm:element>
+			</elm:expression>
+		</def>
 
 		<!-- Here we define a 'base' insulin order whose dosage we will redefine 
 			in multiple places in this order set. -->
 		<def name="BaseInsulinOrder">
-			<expression xsi:type="ObjectExpression" objectType="vmr:SubstanceAdministrationProposal">
-				<property name="substance.substanceCode"><!-- The code for this medication order -->
-					<value xsi:type="CodeLiteral" code="221109" codeSystem="2.16.840.1.113883.6.88"
-						codeSystemName="RxNorm" displayName="Insulin, Regular, Pork" />
-				</property>
+			<elm:expression xsi:type="elm:Instance" classType="vmr:SubstanceAdministrationProposal">
+				<elm:element name="substance.substanceCode"><!-- The code for this medication order -->
+					<elm:value xsi:type="elm:Code" code="221109" display="Insulin, Regular, Pork" ><elm:system name="RxNorm" /></elm:value>
+				</elm:element>
 				<!-- doseQuantity will be redefined for each actual orders as the value 
 					of this attribute varies depending on the blood glucose level -->
-				<property name="dose[1].deliveryRoute"><!-- Delivery Route -->
-					<value xsi:type="CodeLiteral" code="431784008" codeSystem="2.16.840.1.113883.6.96"
-						codeSystemName="SNOMED-CT"
-						displayName="Administration of substance via subcutaneous route" />
-				</property>
-				<property name="dose[1].frequency">
-					<value xsi:type="ComplexLiteral">
-						<value xsi:type="vmr:Schedule">
-							<vmr:cycle>
-								<vmr:cycleTiming xsi:type="vmr:CodedRecurringEvent">
-									<vmr:repeatCode code="420660006"
-										codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT">
-										<dt:displayName value="Four times daily before meals and at bedtime" />
-									</vmr:repeatCode>
-								</vmr:cycleTiming>
-							</vmr:cycle>
-						</value>
-					</value>
-				</property>
-			</expression>
+				<elm:element name="dose[1].deliveryRoute"><!-- Delivery Route -->
+					<elm:value xsi:type="elm:Code" code="431784008" display="Administration of substance via subcutaneous route" ><elm:system name="SNOMED-CT"/></elm:value>
+				</elm:element>
+				<elm:element name="dose[1].frequency">
+					<elm:value xsi:type="elm:ExpressionRef" name="FourTimesDailySchedule"/>
+				</elm:element>
+			</elm:expression>
 		</def>
 		<!-- Scenario 1 & 2 (current use cases): In case one wishes to enter a 
 			code for PRN Reason or free text it in -->
 		<def name="PRNReasonCodeAndText">
-			<expression xsi:type="ComplexLiteral">
-				<!-- Blood Glucose Measurement -->
-				<value xsi:type="dt:CD" code="104686004" codeSystem="2.16.840.1.113883.6.96"
-					codeSystemName="SNOMED-CT">
-					<dt:displayName value="Glucose measurement, blood, test strip" />
-				</value>
+			<!-- Blood Glucose Measurement -->
+			<elm:expression xsi:type="elm:Code" code="104686004" display="Glucose measurement, blood, test strip">
+				<elm:system name="SNOMED-CT"/>
 				<!-- redefine property observationValue.code or observationValue.text 
 					in each individual order depending upon the scenario chosen -->
-			</expression>
+			</elm:expression>
 		</def>
 		<!-- Scenario 3 (future use case): In case one wishes to model the PRN 
 			reason as an ObservationResult if PRNReason code is 'Other' and one does 
 			not wish to free text the PRN Reason -->
 		<def name="PRNReasonRelatedObservation">
-			<expression xsi:type="ObjectExpression" objectType="vmr:ObservationResult"><!-- Blood 
+			<elm:expression xsi:type="elm:Instance" classType="vmr:ObservationResult"><!-- Blood 
 					Glucose Measurement -->
-				<property name="observationFocus">
-					<value xsi:type="CodeLiteral" code="104686004" codeSystem="2.16.840.1.113883.6.96"
-						codeSystemName="SNOMED-CT" displayName="Glucose measurement, blood, test strip" />
-				</property>
+				<elm:element name="observationFocus">
+					<elm:value xsi:type="elm:Code" code="104686004" display="Glucose measurement, blood, test strip" ><elm:system name="SNOMED-CT" /></elm:value>
+				</elm:element>
 				<!-- redefine property observationValue.physicalQuantity in each individual 
 					order -->
-			</expression>
+			</elm:expression>
 		</def>
 	</expressions>
 	<actionGroup>
@@ -202,28 +217,14 @@
 				<subElements>
 					<simpleAction xsi:type="CreateAction">  <!-- Fingerstick blood glucose qac and qhs -->
 						<textEquivalent value="Fingerstick blood glucose qac and qhs" />
-						<actionSentence xsi:type="ObjectExpression"
-							objectType="vmr:ProcedureProposal">
-							<property name="procedureCode"><!-- The code for this procedure -->
-								<value xsi:type="CodeLiteral" code="104686004"
-									codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"
-									displayName="Glucose measurement, blood, test strip" />
-							</property>
-							<property name="frequency">
-								<value xsi:type="ComplexLiteral">
-									<value xsi:type="vmr:Schedule">
-										<vmr:cycle>
-											<vmr:cycleTiming xsi:type="vmr:CodedRecurringEvent">
-												<vmr:repeatCode code="420660006"
-													codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT">
-													<dt:displayName
-														value="Four times daily before meals and at bedtime" />
-												</vmr:repeatCode>
-											</vmr:cycleTiming>
-										</vmr:cycle>
-									</value>
-								</value>
-							</property>
+						<actionSentence xsi:type="elm:Instance"
+							classType="vmr:ProcedureProposal">
+							<elm:element name="procedureCode"><!-- The code for this procedure -->
+								<elm:value xsi:type="elm:Code" code="104686004" display="Glucose measurement, blood, test strip" ><elm:system name="SNOMED-CT"/></elm:value>
+							</elm:element>
+							<elm:element name="frequency">
+								<elm:value xsi:type="elm:ExpressionRef" name="FourTimesDailySchedule"/>
+							</elm:element>
 						</actionSentence>
 					</simpleAction>
 					<!-- Hypoglycemia protocol PRN fingerstick blood glucose &lt; 70 milligram/deciliter 
@@ -233,206 +234,170 @@
 							glucose 150-199 milligram/deciliter -->
 						<textEquivalent
 							value="Insulin Regular 2 unit subcutaneously qac and qhs PRN fingerstick blood glucose 150-199 milligram/deciliter" />
-						<actionSentence xsi:type="ObjectRedefine">
-							<source xsi:type="ExpressionRef" name="BaseInsulinOrder" />
-							<property name="dose[1].doseQuantity" xsi:type="PropertyExpression"><!-- Dosage: 2 units -->
-								<!-- Gap: Units should be coded values and not strings -->
-								<value xsi:type="PhysicalQuantityIntervalLiteral"
-									lowClosed="true" highClosed="true">
-									<low value="2" unit="Unit" />
-									<high value="2" unit="Unit" />
-								</value>
-							</property>
-							<property name="dose[1].frequency">
-								<value xsi:type="ComplexLiteral">
-									<value xsi:type="vmr:Schedule">
-										<vmr:cycle>
-											<vmr:cycleTiming xsi:type="vmr:CodedRecurringEvent">
-												<vmr:repeatCode code="420660006"
-													codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT">
-													<dt:displayName
-														value="Four times daily before meals and at bedtime" />
-												</vmr:repeatCode>
-											</vmr:cycleTiming>
-										</vmr:cycle>
-									</value>
-								</value>
-							</property>
-							<property name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
-									Use Case). To discuss as a group. -->
-								<value xsi:type="List">
-									<element xsi:type="ComplexLiteral">
-										<value xsi:type="dt:CD" code="987" codeSystem="222.2.2222.22.2222"
-											codeSystemName="Some Code System">
-											<dt:displayName value="Fingerstick blood glucose 150-199" />
-										</value>
-									</element>
-								</value>
-							</property>
+						<actionSentence xsi:type="elm:Query">
+							<elm:source alias="O">
+								<elm:expression xsi:type="elm:ExpressionRef" name="BaseInsulinOrder"/>
+							</elm:source>
+							<elm:return>
+								<elm:expression xsi:type="elm:Instance" classType="vmr:SubstanceAdministrationProposal">
+									<elm:element name="substance"><elm:value xsi:type="elm:Property" path="substance" scope="O"/></elm:element>
+									<elm:element name="dose"><elm:value xsi:type="elm:Property" path="dose" scope="O"/></elm:element>
+									<elm:element name="dose[1].doseQuantity"><!-- Dosage: 2 units -->
+										<!-- Gap: Units should be coded values and not strings -->
+										<elm:value xsi:type="elm:Interval" lowClosed="true" highClosed="true">
+											<elm:low xsi:type="elm:Quantity" value="2" unit="Unit" />
+											<elm:high xsi:type="elm:Quantity" value="2" unit="Unit" />
+										</elm:value>
+									</elm:element>
+									<elm:element name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
+											Use Case). To discuss as a group. -->
+										<elm:value xsi:type="elm:List">
+											<elm:element xsi:type="elm:Instance" classType="dt:CD">
+												<elm:element name="code"><elm:value xsi:type="elm:Literal" valueType="t:String" value="987"/></elm:element>
+												<elm:element name="codeSystem"><elm:value xsi:type="elm:Literal" valueType="t:String" value="222.2.2222.22.2222"/></elm:element>
+												<elm:element name="codeSystemName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Some Code System"/></elm:element>
+												<elm:element name="displayName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Fingerstick blood glucose 150-199"/></elm:element>
+											</elm:element>
+										</elm:value>
+									</elm:element>
+								</elm:expression>
+							</elm:return>
 						</actionSentence>
 					</simpleAction>
 					<simpleAction xsi:type="CreateAction">  <!-- Insulin Regular 4 unit subcutaneously qac and qhs PRN fingerstick blood 
 							glucose 200-249 milligram/deciliter -->
 						<textEquivalent
 							value="Insulin Regular 4 unit subcutaneously qac and qhs PRN fingerstick blood glucose 200-249 milligram/deciliter" />
-						<actionSentence xsi:type="ObjectRedefine">
-							<source xsi:type="ExpressionRef" name="BaseInsulinOrder" />
-							<property name="dose[1].doseQuantity" xsi:type="PropertyExpression"><!-- Dosage: 2 units -->
-								<value xsi:type="PhysicalQuantityIntervalLiteral"
-									lowClosed="true" highClosed="true">
-									<low value="4" unit="Unit" />
-									<high value="4" unit="Unit" />
-								</value>
-							</property>
-							<property name="dose[1].frequency">
-								<value xsi:type="ComplexLiteral">
-									<value xsi:type="vmr:Schedule">
-										<vmr:cycle>
-											<vmr:cycleTiming xsi:type="vmr:CodedRecurringEvent">
-												<vmr:repeatCode code="420660006"
-													codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT">
-													<dt:displayName
-														value="Four times daily before meals and at bedtime" />
-												</vmr:repeatCode>
-											</vmr:cycleTiming>
-										</vmr:cycle>
-									</value>
-								</value>
-							</property>
-							<property name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
-									Use Case). To discuss as a group. -->
-								<value xsi:type="List">
-									<element xsi:type="ComplexLiteral">
-										<value xsi:type="dt:CD" code="988" codeSystem="222.2.2222.22.2222"
-											codeSystemName="Some Code System">
-											<dt:displayName value="Fingerstick blood glucose 200-249" />
-										</value>
-									</element>
-								</value>
-							</property>
+						<actionSentence xsi:type="elm:Query">
+							<elm:source alias="O">
+								<elm:expression xsi:type="elm:ExpressionRef" name="BaseInsulinOrder"/>
+							</elm:source>
+							<elm:return>
+								<elm:expression xsi:type="elm:Instance" classType="vmr:SubstanceAdministrationProposal">
+									<elm:element name="substance"><elm:value xsi:type="elm:Property" path="substance" scope="O"/></elm:element>
+									<elm:element name="dose"><elm:value xsi:type="elm:Property" path="dose" scope="O"/></elm:element>
+									<elm:element name="dose[1].doseQuantity"><!-- Dosage: 2 units -->
+										<!-- Gap: Units should be coded values and not strings -->
+										<elm:value xsi:type="elm:Interval" lowClosed="true" highClosed="true">
+											<elm:low xsi:type="elm:Quantity" value="4" unit="Unit" />
+											<elm:high xsi:type="elm:Quantity" value="4" unit="Unit" />
+										</elm:value>
+									</elm:element>
+									<elm:element name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
+											Use Case). To discuss as a group. -->
+										<elm:value xsi:type="elm:List">
+											<elm:element xsi:type="elm:Instance" classType="dt:CD">
+												<elm:element name="code"><elm:value xsi:type="elm:Literal" valueType="t:String" value="988"/></elm:element>
+												<elm:element name="codeSystem"><elm:value xsi:type="elm:Literal" valueType="t:String" value="222.2.2222.22.2222"/></elm:element>
+												<elm:element name="codeSystemName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Some Code System"/></elm:element>
+												<elm:element name="displayName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Fingerstick blood glucose 200-249"/></elm:element>
+											</elm:element>
+										</elm:value>
+									</elm:element>
+								</elm:expression>
+							</elm:return>
 						</actionSentence>
 					</simpleAction>
 					<simpleAction xsi:type="CreateAction">  <!-- Insulin Regular 6 unit subcutaneously qac and qhs PRN fingerstick blood 
 							glucose 250-299 milligram/deciliter -->
 						<textEquivalent
 							value="Insulin Regular 6 unit subcutaneously qac and qhs PRN fingerstick blood glucose 250-299 milligram/deciliter" />
-						<actionSentence xsi:type="ObjectRedefine">
-							<source xsi:type="ExpressionRef" name="BaseInsulinOrder" />
-							<property name="dose[1].doseQuantity" xsi:type="PropertyExpression"><!-- Dosage: 2 units -->
-								<value xsi:type="PhysicalQuantityIntervalLiteral"
-									lowClosed="true" highClosed="true">
-									<low value="6" unit="Unit" />
-									<high value="6" unit="Unit" />
-								</value>
-							</property>
-							<property name="dose[1].frequency">
-								<value xsi:type="ComplexLiteral">
-									<value xsi:type="vmr:Schedule">
-										<vmr:cycle>
-											<vmr:cycleTiming xsi:type="vmr:CodedRecurringEvent">
-												<vmr:repeatCode code="420660006"
-													codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT">
-													<dt:displayName
-														value="Four times daily before meals and at bedtime" />
-												</vmr:repeatCode>
-											</vmr:cycleTiming>
-										</vmr:cycle>
-									</value>
-								</value>
-							</property>
-							<property name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
-									Use Case). To discuss as a group. -->
-								<value xsi:type="List">
-									<element xsi:type="ComplexLiteral">
-										<value xsi:type="dt:CD" code="980" codeSystem="222.2.2222.22.2222"
-											codeSystemName="Some Code System">
-											<dt:displayName value="Fingerstick blood glucose 250-299" />
-										</value>
-									</element>
-								</value>
-							</property>
+						<actionSentence xsi:type="elm:Query">
+							<elm:source alias="O">
+								<elm:expression xsi:type="elm:ExpressionRef" name="BaseInsulinOrder"/>
+							</elm:source>
+							<elm:return>
+								<elm:expression xsi:type="elm:Instance" classType="vmr:SubstanceAdministrationProposal">
+									<elm:element name="substance"><elm:value xsi:type="elm:Property" path="substance" scope="O"/></elm:element>
+									<elm:element name="dose"><elm:value xsi:type="elm:Property" path="dose" scope="O"/></elm:element>
+									<elm:element name="dose[1].doseQuantity"><!-- Dosage: 2 units -->
+										<!-- Gap: Units should be coded values and not strings -->
+										<elm:value xsi:type="elm:Interval" lowClosed="true" highClosed="true">
+											<elm:low xsi:type="elm:Quantity" value="6" unit="Unit" />
+											<elm:high xsi:type="elm:Quantity" value="6" unit="Unit" />
+										</elm:value>
+									</elm:element>
+									<elm:element name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
+											Use Case). To discuss as a group. -->
+										<elm:value xsi:type="elm:List">
+											<elm:element xsi:type="elm:Instance" classType="dt:CD">
+												<elm:element name="code"><elm:value xsi:type="elm:Literal" valueType="t:String" value="980"/></elm:element>
+												<elm:element name="codeSystem"><elm:value xsi:type="elm:Literal" valueType="t:String" value="222.2.2222.22.2222"/></elm:element>
+												<elm:element name="codeSystemName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Some Code System"/></elm:element>
+												<elm:element name="displayName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Fingerstick blood glucose 250-299"/></elm:element>
+											</elm:element>
+										</elm:value>
+									</elm:element>
+								</elm:expression>
+							</elm:return>
 						</actionSentence>
 					</simpleAction>
 					<simpleAction xsi:type="CreateAction">  <!-- Insulin Regular 8 unit subcutaneously qac and qhs PRN fingerstick blood 
 							glucose 300-349 milligram/deciliter -->
 						<textEquivalent
 							value="Insulin Regular 8 unit subcutaneously qac and qhs PRN fingerstick blood glucose 300-349 milligram/deciliter" />
-						<actionSentence xsi:type="ObjectRedefine">
-							<source xsi:type="ExpressionRef" name="BaseInsulinOrder" />
-							<property name="dose[1].doseQuantity" xsi:type="PropertyExpression"><!-- Dosage: 2 units -->
-								<value xsi:type="PhysicalQuantityIntervalLiteral"
-									lowClosed="true" highClosed="true">
-									<low value="8" unit="Unit" />
-									<high value="8" unit="Unit" />
-								</value>
-							</property>
-							<property name="dose[1].frequency">
-								<value xsi:type="ComplexLiteral">
-									<value xsi:type="vmr:Schedule">
-										<vmr:cycle>
-											<vmr:cycleTiming xsi:type="vmr:CodedRecurringEvent">
-												<vmr:repeatCode code="420660006"
-													codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT">
-													<dt:displayName
-														value="Four times daily before meals and at bedtime" />
-												</vmr:repeatCode>
-											</vmr:cycleTiming>
-										</vmr:cycle>
-									</value>
-								</value>
-							</property>
-							<property name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
-									Use Case). To discuss as a group. -->
-								<value xsi:type="List">
-									<element xsi:type="ComplexLiteral">
-										<value xsi:type="dt:CD" code="990" codeSystem="222.2.2222.22.2222"
-											codeSystemName="Some Code System">
-											<dt:displayName value="Fingerstick blood glucose 300-349" />
-										</value>
-									</element>
-								</value>
-							</property>
+						<actionSentence xsi:type="elm:Query">
+							<elm:source alias="O">
+								<elm:expression xsi:type="elm:ExpressionRef" name="BaseInsulinOrder"/>
+							</elm:source>
+							<elm:return>
+								<elm:expression xsi:type="elm:Instance" classType="vmr:SubstanceAdministrationProposal">
+									<elm:element name="substance"><elm:value xsi:type="elm:Property" path="substance" scope="O"/></elm:element>
+									<elm:element name="dose"><elm:value xsi:type="elm:Property" path="dose" scope="O"/></elm:element>
+									<elm:element name="dose[1].doseQuantity"><!-- Dosage: 2 units -->
+										<!-- Gap: Units should be coded values and not strings -->
+										<elm:value xsi:type="elm:Interval" lowClosed="true" highClosed="true">
+											<elm:low xsi:type="elm:Quantity" value="8" unit="Unit" />
+											<elm:high xsi:type="elm:Quantity" value="8" unit="Unit" />
+										</elm:value>
+									</elm:element>
+									<elm:element name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
+											Use Case). To discuss as a group. -->
+										<elm:value xsi:type="elm:List">
+											<elm:element xsi:type="elm:Instance" classType="dt:CD">
+												<elm:element name="code"><elm:value xsi:type="elm:Literal" valueType="t:String" value="990"/></elm:element>
+												<elm:element name="codeSystem"><elm:value xsi:type="elm:Literal" valueType="t:String" value="222.2.2222.22.2222"/></elm:element>
+												<elm:element name="codeSystemName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Some Code System"/></elm:element>
+												<elm:element name="displayName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Fingerstick blood glucose 300-349"/></elm:element>
+											</elm:element>
+										</elm:value>
+									</elm:element>
+								</elm:expression>
+							</elm:return>
 						</actionSentence>
 					</simpleAction>
 					<simpleAction xsi:type="CreateAction">  <!-- Insulin Regular 10 unit subcutaneously qac and qhs PRN fingerstick blood 
 							glucose 350-399 milligram/deciliter -->
 						<textEquivalent
 							value="Insulin Regular 10 unit subcutaneously qac and qhs PRN fingerstick blood glucose 350-399 milligram/deciliter" />
-						<actionSentence xsi:type="ObjectRedefine">
-							<source xsi:type="ExpressionRef" name="BaseInsulinOrder" />
-							<property name="dose[1].doseQuantity" xsi:type="PropertyExpression"><!-- Dosage: 2 units -->
-								<value xsi:type="PhysicalQuantityIntervalLiteral"
-									lowClosed="true" highClosed="true">
-									<low value="10" unit="Unit" />
-									<high value="10" unit="Unit" />
-								</value>
-							</property>
-							<property name="dose[1].frequency">
-								<value xsi:type="ComplexLiteral">
-									<value xsi:type="vmr:Schedule">
-										<vmr:cycle>
-											<vmr:cycleTiming xsi:type="vmr:CodedRecurringEvent">
-												<vmr:repeatCode code="420660006"
-													codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT">
-													<dt:displayName
-														value="Four times daily before meals and at bedtime" />
-												</vmr:repeatCode>
-											</vmr:cycleTiming>
-										</vmr:cycle>
-									</value>
-								</value>
-							</property>
-							<property name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
-									Use Case). To discuss as a group. -->
-								<value xsi:type="List">
-									<element xsi:type="ComplexLiteral">
-										<value xsi:type="dt:CD" code="991" codeSystem="222.2.2222.22.2222"
-											codeSystemName="Some Code System">
-											<dt:displayName value="Fingerstick blood glucose 350-399" />
-										</value>
-									</element>
-								</value>
-							</property>
+						<actionSentence xsi:type="elm:Query">
+							<elm:source alias="O">
+								<elm:expression xsi:type="elm:ExpressionRef" name="BaseInsulinOrder"/>
+							</elm:source>
+							<elm:return>
+								<elm:expression xsi:type="elm:Instance" classType="vmr:SubstanceAdministrationProposal">
+									<elm:element name="substance"><elm:value xsi:type="elm:Property" path="substance" scope="O"/></elm:element>
+									<elm:element name="dose"><elm:value xsi:type="elm:Property" path="dose" scope="O"/></elm:element>
+									<elm:element name="dose[1].doseQuantity"><!-- Dosage: 2 units -->
+										<!-- Gap: Units should be coded values and not strings -->
+										<elm:value xsi:type="elm:Interval" lowClosed="true" highClosed="true">
+											<elm:low xsi:type="elm:Quantity" value="10" unit="Unit" />
+											<elm:high xsi:type="elm:Quantity" value="10" unit="Unit" />
+										</elm:value>
+									</elm:element>
+									<elm:element name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
+											Use Case). To discuss as a group. -->
+										<elm:value xsi:type="elm:List">
+											<elm:element xsi:type="elm:Instance" classType="dt:CD">
+												<elm:element name="code"><elm:value xsi:type="elm:Literal" valueType="t:String" value="991"/></elm:element>
+												<elm:element name="codeSystem"><elm:value xsi:type="elm:Literal" valueType="t:String" value="222.2.2222.22.2222"/></elm:element>
+												<elm:element name="codeSystemName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Some Code System"/></elm:element>
+												<elm:element name="displayName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Fingerstick blood glucose 350-399"/></elm:element>
+											</elm:element>
+										</elm:value>
+									</elm:element>
+								</elm:expression>
+							</elm:return>
 						</actionSentence>
 					</simpleAction>
 					<actionGroup>
@@ -446,57 +411,50 @@
 									glucose &gt; 400 milligram/deciliter -->
 								<textEquivalent
 									value="Insulin Regular 12 unit subcutaneously qac and qhs PRN fingerstick blood glucose &gt; 400 milligram/deciliter" />
-								<actionSentence xsi:type="ObjectRedefine">
-									<source xsi:type="ExpressionRef" name="BaseInsulinOrder" />
-									<property name="dose[1].doseQuantity" xsi:type="PropertyExpression"><!-- Dosage: 2 units -->
-										<value xsi:type="PhysicalQuantityIntervalLiteral"
-											lowClosed="true" highClosed="true">
-											<low value="12" unit="Unit" />
-											<high value="12" unit="Unit" />
-										</value>
-									</property>
-									<property name="dose[1].frequency">
-										<value xsi:type="ComplexLiteral">
-											<value xsi:type="vmr:Schedule">
-												<vmr:cycle>
-													<vmr:cycleTiming xsi:type="vmr:CodedRecurringEvent">
-														<vmr:repeatCode code="420660006"
-															codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT">
-															<dt:displayName
-																value="Four times daily before meals and at bedtime" />
-														</vmr:repeatCode>
-													</vmr:cycleTiming>
-												</vmr:cycle>
-											</value>
-										</value>
-									</property>
-									<property name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
-											Use Case). To discuss as a group. -->
-										<value xsi:type="List">
-											<element xsi:type="ComplexLiteral">
-												<value xsi:type="dt:CD" code="991"
-													codeSystem="222.2.2222.22.2222" codeSystemName="Some Code System">
-													<dt:displayName
-														value="Fingerstick blood glucose greater than 400" />
-												</value>
-											</element>
-										</value>
-									</property>
+								<actionSentence xsi:type="elm:Query">
+									<elm:source alias="O">
+										<elm:expression xsi:type="elm:ExpressionRef" name="BaseInsulinOrder"/>
+									</elm:source>
+									<elm:return>
+										<elm:expression xsi:type="elm:Instance" classType="vmr:SubstanceAdministrationProposal">
+											<elm:element name="substance"><elm:value xsi:type="elm:Property" path="substance" scope="O"/></elm:element>
+											<elm:element name="dose"><elm:value xsi:type="elm:Property" path="dose" scope="O"/></elm:element>
+											<elm:element name="dose[1].doseQuantity"><!-- Dosage: 2 units -->
+												<!-- Gap: Units should be coded values and not strings -->
+												<elm:value xsi:type="elm:Interval" lowClosed="true" highClosed="true">
+													<elm:low xsi:type="elm:Quantity" value="12" unit="Unit" />
+													<elm:high xsi:type="elm:Quantity" value="12" unit="Unit" />
+												</elm:value>
+											</elm:element>
+											<elm:element name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
+													Use Case). To discuss as a group. -->
+												<elm:value xsi:type="elm:List">
+													<elm:element xsi:type="elm:Instance" classType="dt:CD">
+														<elm:element name="code"><elm:value xsi:type="elm:Literal" valueType="t:String" value="991"/></elm:element>
+														<elm:element name="codeSystem"><elm:value xsi:type="elm:Literal" valueType="t:String" value="222.2.2222.22.2222"/></elm:element>
+														<elm:element name="codeSystemName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Some Code System"/></elm:element>
+														<elm:element name="displayName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Fingerstick blood glucose greater than 400"/></elm:element>
+													</elm:element>
+												</elm:value>
+											</elm:element>
+										</elm:expression>
+									</elm:return>
 								</actionSentence>
 							</simpleAction>
 							<simpleAction xsi:type="CreateAction">
 								<textEquivalent
 									value="Call provider if fingerstick blood glucose &gt; 400 milligram/deciliter" />
-								<actionSentence xsi:type="ObjectExpression"
-									objectType="vmr:CommunicationProposal">
-									<property name="message">
-										<value xsi:type="ComplexLiteral">
-											<value xsi:type="dt:ED"
-											value="Call provider if fingerstick blood glucose &gt; 400 milligram/deciliter" />
-										</value>
-									</property>
+								<actionSentence xsi:type="elm:Instance"
+									classType="vmr:CommunicationProposal">
+									<elm:element name="message">
+										<elm:value xsi:type="elm:Instance" classType="dt:ED">
+											<elm:element name="value">
+												<elm:value xsi:type="elm:Literal" valueType="t:String" value="Call provider if finderstick blood glucose &gt; 400 milligram/deciliter"/>
+											</elm:element>
+										</elm:value>
+									</elm:element>
 								</actionSentence>
-								<!-- <message xsi:type="CodeLiteral" code="428426009" codeSystem="2.16.840.1.113883.6.96" 
+								<!-- <message xsi:type="elm:Code" code="428426009" codeSystem="2.16.840.1.113883.6.96" 
 									codeSystemName="SNOMED-CT" displayName="Notification of physician" /> -->
 							</simpleAction>
 						</subElements>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project>
+	<Folder FolderName="XML Files" ExtStr="xml;cml;math;rdf;smil;svg;wml">
+		<File FilePath="FDA_submit_stub.xml" HomeFolder="Yes"/>
+		<File FilePath="instance1.xml" HomeFolder="Yes"/>
+		<File FilePath="MedWatch3500_html_request.xml" HomeFolder="Yes"/>
+		<File FilePath="MedWatch3500_html_response.xml" HomeFolder="Yes"/>
+		<File FilePath="MedWatch3500_xml_request.xml" HomeFolder="Yes"/>
+		<File FilePath="MedWatch3500_xml_response.xml" HomeFolder="Yes"/>
+		<File FilePath="NHAMCS_2013_EDPR_20141205.xml" HomeFolder="Yes"/>
+	</Folder>
+	<Folder FolderName="XSL Files" ExtStr="xsl;xslt"/>
+	<Folder FolderName="XQuery Files" ExtStr="xq;xql;xquery"/>
+	<Folder FolderName="HTML Files" ExtStr="html;htm;xhtml;asp"/>
+	<Folder FolderName="DTD/Schemas" ExtStr="dtd;dcd;xdr;biz;xsd">
+		<File FilePath="DEX.xsd" HomeFolder="Yes"/>
+		<File FilePath="ISO11179-3.xsd" HomeFolder="Yes"/>
+		<File FilePath="ISO19763-10.xsd" HomeFolder="Yes"/>
+		<File FilePath="ISO19763-13_SDC_edit.xsd" HomeFolder="Yes"/>
+		<File FilePath="ISO19763-6.xsd" HomeFolder="Yes"/>
+		<File FilePath="SDCForm.xsd" HomeFolder="Yes"/>
+	</Folder>
+	<Folder FolderName="Entities" ExtStr="ent"/>
+</Project>

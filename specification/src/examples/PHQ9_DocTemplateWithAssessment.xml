@@ -3,9 +3,10 @@
 <?schematron-schema href="../main/schematron/documentationtemplates.sch"?>
 <knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
 	xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:dt="urn:hl7-org:cdsdt:r2"
+	xmlns:elm="urn:hl7-org:elm:r1" xmlns:t="urn:hl7-org:elm-types:r1"
 	xmlns:p1="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../main/schema/knowledgeartifact/knowledgedocument.xsd ">
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd urn:hl7-org:elm:r1 ../schema/elm/clinicalexpression.xsd urn:hl7-org:elm-types:r1 ../schema/elm/types.xsd">
 
 	<!-- PHQ-9 Depression Patient Questionnaire This example illustrates the 
 		use of the HeD schema for representing a patient questionnaire. The schema 
@@ -249,6 +250,10 @@
 			</contribution>
 		</contributions>
 	</metadata>
+	
+	<externalData>
+		<codesystem name="SNOMED-CT" id="2.16.840.1.113883.6.96"/>
+	</externalData>
 
 	<actionGroup>
 		<title value="Patient Health Questionnaire (PHQ-9)" />
@@ -273,7 +278,7 @@
 				</behaviors>
 				<documentationConcept>
 					<!-- The question or item shown to the patient -->
-					<displayText value="Little interest or pleasure in doing things" />
+					<prompt value="Little interest or pleasure in doing things" />
 					<itemCodes>
 						<itemCode code="44250-9" codeSystem="2.16.840.1.113883.6.1"
 							codeSystemName="LOINC" />
@@ -282,23 +287,23 @@
 					<!-- The patient must select a single value from one of the items in 
 						the list below -->
 					<responseCardinality value="Single" />
-					<responseRange xsi:type="ListConstraint"
+					<responseRange xsi:type="EnumerationConstraint"
 						strictSelection="true">
 						<constraintType value="List" />
 						<item>
-							<value xsi:type="IntegerLiteral" value="0" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="0" />
 							<displayText value="Not at all" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="1" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="1" />
 							<displayText value="Several days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="2" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="2" />
 							<displayText value="More than half the days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="3" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="3" />
 							<displayText value="Nearly every day" />
 						</item>
 					</responseRange>
@@ -311,30 +316,30 @@
 					<behavior xsi:type="RequiredBehavior" value="Must" />
 				</behaviors>
 				<documentationConcept>
-					<displayText value="Feeling down, depressed, or hopeless" />
+					<prompt value="Feeling down, depressed, or hopeless" />
 					<itemCodes>
 						<itemCode code="44255-8" codeSystem="2.16.840.1.113883.6.1"
 							codeSystemName="LOINC" />
 					</itemCodes>
 					<responseDataType value="Integer" />
 					<responseCardinality value="Single" />
-					<responseRange xsi:type="ListConstraint"
+					<responseRange xsi:type="EnumerationConstraint"
 						strictSelection="true">
 						<constraintType value="List" />
 						<item>
-							<value xsi:type="IntegerLiteral" value="0" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="0" />
 							<displayText value="Not at all" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="1" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="1" />
 							<displayText value="Several days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="2" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="2" />
 							<displayText value="More than half the days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="3" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="3" />
 							<displayText value="Nearly every day" />
 						</item>
 					</responseRange>
@@ -347,30 +352,30 @@
 					<behavior xsi:type="RequiredBehavior" value="Must" />
 				</behaviors>
 				<documentationConcept>
-					<displayText value="Trouble falling or staying asleep" />
+					<prompt value="Trouble falling or staying asleep" />
 					<itemCodes>
 						<itemCode code="44259-0" codeSystem="2.16.840.1.113883.6.1"
 							codeSystemName="LOINC" />
 					</itemCodes>
 					<responseDataType value="Integer" />
 					<responseCardinality value="Single" />
-					<responseRange xsi:type="ListConstraint"
+					<responseRange xsi:type="EnumerationConstraint"
 						strictSelection="true">
 						<constraintType value="List" />
 						<item>
-							<value xsi:type="IntegerLiteral" value="0" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="0" />
 							<displayText value="Not at all" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="1" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="1" />
 							<displayText value="Several days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="2" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="2" />
 							<displayText value="More than half the days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="3" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="3" />
 							<displayText value="Nearly every day" />
 						</item>
 					</responseRange>
@@ -383,30 +388,30 @@
 					<behavior xsi:type="RequiredBehavior" value="Must" />
 				</behaviors>
 				<documentationConcept>
-					<displayText value="Feeling tired or having little energy" />
+					<prompt value="Feeling tired or having little energy" />
 					<itemCodes>
 						<itemCode code="44254-1" codeSystem="2.16.840.1.113883.6.1"
 							codeSystemName="LOINC" />
 					</itemCodes>
 					<responseDataType value="Integer" />
 					<responseCardinality value="Single" />
-					<responseRange xsi:type="ListConstraint"
+					<responseRange xsi:type="EnumerationConstraint"
 						strictSelection="true">
 						<constraintType value="List" />
 						<item>
-							<value xsi:type="IntegerLiteral" value="0" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="0" />
 							<displayText value="Not at all" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="1" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="1" />
 							<displayText value="Several days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="2" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="2" />
 							<displayText value="More than half the days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="3" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="3" />
 							<displayText value="Nearly every day" />
 						</item>
 					</responseRange>
@@ -419,30 +424,30 @@
 					<behavior xsi:type="RequiredBehavior" value="Must" />
 				</behaviors>
 				<documentationConcept>
-					<displayText value="Poor appetite or overeating" />
+					<prompt value="Poor appetite or overeating" />
 					<itemCodes>
 						<itemCode code="44251-7" codeSystem="2.16.840.1.113883.6.1"
 							codeSystemName="LOINC" />
 					</itemCodes>
 					<responseDataType value="Integer" />
 					<responseCardinality value="Single" />
-					<responseRange xsi:type="ListConstraint"
+					<responseRange xsi:type="EnumerationConstraint"
 						strictSelection="true">
 						<constraintType value="List" />
 						<item>
-							<value xsi:type="IntegerLiteral" value="0" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="0" />
 							<displayText value="Not at all" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="1" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="1" />
 							<displayText value="Several days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="2" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="2" />
 							<displayText value="More than half the days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="3" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="3" />
 							<displayText value="Nearly every day" />
 						</item>
 					</responseRange>
@@ -455,7 +460,7 @@
 					<behavior xsi:type="RequiredBehavior" value="Must" />
 				</behaviors>
 				<documentationConcept>
-					<displayText
+					<prompt
 						value="Feeling bad about yourself - or that you are a failure or have let yourself or your family down" />
 					<itemCodes>
 						<itemCode code="44258-2" codeSystem="2.16.840.1.113883.6.1"
@@ -463,23 +468,23 @@
 					</itemCodes>
 					<responseDataType value="Integer" />
 					<responseCardinality value="Single" />
-					<responseRange xsi:type="ListConstraint"
+					<responseRange xsi:type="EnumerationConstraint"
 						strictSelection="true">
 						<constraintType value="List" />
 						<item>
-							<value xsi:type="IntegerLiteral" value="0" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="0" />
 							<displayText value="Not at all" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="1" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="1" />
 							<displayText value="Several days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="2" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="2" />
 							<displayText value="More than half the days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="3" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="3" />
 							<displayText value="Nearly every day" />
 						</item>
 					</responseRange>
@@ -492,7 +497,7 @@
 					<behavior xsi:type="RequiredBehavior" value="Must" />
 				</behaviors>
 				<documentationConcept>
-					<displayText
+					<prompt
 						value="Trouble concentrating on things, such as reading the newspaper or watching television" />
 					<itemCodes>
 						<itemCode code="44252-5" codeSystem="2.16.840.1.113883.6.1"
@@ -500,23 +505,23 @@
 					</itemCodes>
 					<responseDataType value="Integer" />
 					<responseCardinality value="Single" />
-					<responseRange xsi:type="ListConstraint"
+					<responseRange xsi:type="EnumerationConstraint"
 						strictSelection="true">
 						<constraintType value="List" />
 						<item>
-							<value xsi:type="IntegerLiteral" value="0" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="0" />
 							<displayText value="Not at all" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="1" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="1" />
 							<displayText value="Several days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="2" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="2" />
 							<displayText value="More than half the days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="3" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="3" />
 							<displayText value="Nearly every day" />
 						</item>
 					</responseRange>
@@ -529,7 +534,7 @@
 					<behavior xsi:type="RequiredBehavior" value="Must" />
 				</behaviors>
 				<documentationConcept>
-					<displayText
+					<prompt
 						value="Moving or speaking so slowly that other people could have noticed. Or the opposite - being so figety or restless that you have been moving around a lot more than usual" />
 					<itemCodes>
 						<itemCode code="44253-3" codeSystem="2.16.840.1.113883.6.1"
@@ -537,23 +542,23 @@
 					</itemCodes>
 					<responseDataType value="Integer" />
 					<responseCardinality value="Single" />
-					<responseRange xsi:type="ListConstraint"
+					<responseRange xsi:type="EnumerationConstraint"
 						strictSelection="true">
 						<constraintType value="List" />
 						<item>
-							<value xsi:type="IntegerLiteral" value="0" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="0" />
 							<displayText value="Not at all" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="1" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="1" />
 							<displayText value="Several days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="2" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="2" />
 							<displayText value="More than half the days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="3" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="3" />
 							<displayText value="Nearly every day" />
 						</item>
 					</responseRange>
@@ -566,7 +571,7 @@
 					<behavior xsi:type="RequiredBehavior" value="Must" />
 				</behaviors>
 				<documentationConcept>
-					<displayText
+					<prompt
 						value="Thoughts that you would be better off dead, or of hurting yourself" />
 					<itemCodes>
 						<itemCode code="44250-8" codeSystem="2.16.840.1.113883.6.1"
@@ -574,23 +579,23 @@
 					</itemCodes>
 					<responseDataType value="Integer" />
 					<responseCardinality value="Single" />
-					<responseRange xsi:type="ListConstraint"
+					<responseRange xsi:type="EnumerationConstraint"
 						strictSelection="true">
 						<constraintType value="List" />
 						<item>
-							<value xsi:type="IntegerLiteral" value="0" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="0" />
 							<displayText value="Not at all" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="1" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="1" />
 							<displayText value="Several days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="2" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="2" />
 							<displayText value="More than half the days" />
 						</item>
 						<item>
-							<value xsi:type="IntegerLiteral" value="3" />
+							<value xsi:type="elm:Literal" valueType="t:Integer" value="3" />
 							<displayText value="Nearly every day" />
 						</item>
 					</responseRange>
@@ -604,7 +609,7 @@
 					able to compute the score autonomously, i.e., without the patient typing 
 					in the score -->
 				<documentationConcept>
-					<displayText value="Total Score" />
+					<prompt value="Total Score" />
 					<description value="Add the score from each of the nine questions above" />
 					<!-- The score is computed by adding the numeric equivalent values of 
 						each of the responses. -->
@@ -617,43 +622,43 @@
 					<!-- The total score must range between 0 and 27 -->
 					<responseRange xsi:type="ExpressionConstraint">
 						<constraintType value="Minimum" />
-						<constraint xsi:type="IntegerLiteral" value="0" />
+						<constraint xsi:type="elm:Literal" valueType="t:Integer" value="0" />
 					</responseRange>
 					<responseRange xsi:type="ExpressionConstraint">
 						<constraintType value="Maximum" />
-						<constraint xsi:type="IntegerLiteral" value="27" />
+						<constraint xsi:type="elm:Literal" valueType="t:Integer" value="27" />
 					</responseRange>
 				</documentationConcept>
-				<initialValue xsi:type="Sum">
-					<source xsi:type="List">
-						<element xsi:type="Property" path="LittleInterest">
-							<source xsi:type="ParameterRef" name="Responses" />
-						</element>
-						<element xsi:type="Property" path="FeelingDown">
-							<source xsi:type="ParameterRef" name="Responses" />
-						</element>
-						<element xsi:type="Property" path="TroubleSleeping">
-							<source xsi:type="ParameterRef" name="Responses" />
-						</element>
-						<element xsi:type="Property" path="FeelingTired">
-							<source xsi:type="ParameterRef" name="Responses" />
-						</element>
-						<element xsi:type="Property" path="BadAppetite">
-							<source xsi:type="ParameterRef" name="Responses" />
-						</element>
-						<element xsi:type="Property" path="FeelingBadAboutSelf">
-							<source xsi:type="ParameterRef" name="Responses" />
-						</element>
-						<element xsi:type="Property" path="TroubleConcentrating">
-							<source xsi:type="ParameterRef" name="Responses" />
-						</element>
-						<element xsi:type="Property" path="MovingSpeaking">
-							<source xsi:type="ParameterRef" name="Responses" />
-						</element>
-						<element xsi:type="Property" path="ThoughtsOfHurting">
-							<source xsi:type="ParameterRef" name="Responses" />
-						</element>
-					</source>
+				<initialValue xsi:type="elm:Sum">
+					<elm:source xsi:type="elm:List">
+						<elm:element xsi:type="elm:Property" path="LittleInterest">
+							<elm:source xsi:type="elm:ParameterRef" name="Responses" />
+						</elm:element>
+						<elm:element xsi:type="elm:Property" path="FeelingDown">
+							<elm:source xsi:type="elm:ParameterRef" name="Responses" />
+						</elm:element>
+						<elm:element xsi:type="elm:Property" path="TroubleSleeping">
+							<elm:source xsi:type="elm:ParameterRef" name="Responses" />
+						</elm:element>
+						<elm:element xsi:type="elm:Property" path="FeelingTired">
+							<elm:source xsi:type="elm:ParameterRef" name="Responses" />
+						</elm:element>
+						<elm:element xsi:type="elm:Property" path="BadAppetite">
+							<elm:source xsi:type="elm:ParameterRef" name="Responses" />
+						</elm:element>
+						<elm:element xsi:type="elm:Property" path="FeelingBadAboutSelf">
+							<elm:source xsi:type="elm:ParameterRef" name="Responses" />
+						</elm:element>
+						<elm:element xsi:type="elm:Property" path="TroubleConcentrating">
+							<elm:source xsi:type="elm:ParameterRef" name="Responses" />
+						</elm:element>
+						<elm:element xsi:type="elm:Property" path="MovingSpeaking">
+							<elm:source xsi:type="elm:ParameterRef" name="Responses" />
+						</elm:element>
+						<elm:element xsi:type="elm:Property" path="ThoughtsOfHurting">
+							<elm:source xsi:type="elm:ParameterRef" name="Responses" />
+						</elm:element>
+					</elm:source>
 				</initialValue>
 				<responseBinding property="PHQ9Score" />
 			</simpleAction>
@@ -664,11 +669,11 @@
 					<condition>
 						<!-- Assessment is made only if the PHQ 9 score is greater than or 
 							equal to 20 -->
-						<logic xsi:type="GreaterOrEqual">
-							<operand xsi:type="Property" path="PHQ9Score">
-								<source xsi:type="ParameterRef" name="Responses" />
-							</operand>
-							<operand xsi:type="IntegerLiteral" value="20" />
+						<logic xsi:type="elm:GreaterOrEqual">
+							<elm:operand xsi:type="elm:Property" path="PHQ9Score">
+								<elm:source xsi:type="elm:ParameterRef" name="Responses" />
+							</elm:operand>
+							<elm:operand xsi:type="elm:Literal" valueType="t:Integer" value="20" />
 						</logic>
 						<conditionRole value="ApplicableScenario" />
 					</condition>
@@ -676,20 +681,19 @@
 				<textEquivalent
 					value="Assess Severe Depression due to PHQ9 Score greater than 20" />
 				<!-- The assessment is recorded as a VMR Observation Event -->
-				<actionSentence xsi:type="ObjectExpression"
-					objectType="vmr:ObservationResult">
+				<actionSentence xsi:type="elm:Instance"
+					classType="vmr:ObservationResult">
 					<!-- Could specify a template property here -->
-					<property name="observationFocus">
-						<value xsi:type="CodeLiteral" code="405049007" codeSystem="2.16.840.1.113883.6.96"
-							displayName="Level of depression" />
-					</property>
-					<property name="observationValue">
-						<value xsi:type="ObjectExpression" objectType="vmr:Value">
-							<property name="value">
-								<value xsi:type="StringLiteral" value="Severe depression" />
-							</property>
-						</value>
-					</property>
+					<elm:element name="observationFocus">
+						<elm:value xsi:type="elm:Code" code="405049007" display="Level of depression" ><elm:system name="SNOMED-CT"/></elm:value>
+					</elm:element>
+					<elm:element name="observationValue">
+						<elm:value xsi:type="elm:Instance" classType="vmr:Value">
+							<elm:element name="value">
+								<elm:value xsi:type="elm:Literal" valueType="t:String" value="Severe depression" />
+							</elm:element>
+						</elm:value>
+					</elm:element>
 				</actionSentence>
 			</simpleAction>
 
@@ -698,7 +702,7 @@
 					<behavior xsi:type="RequiredBehavior" value="Must" />
 				</behaviors>
 				<documentationConcept>
-					<displayText
+					<prompt
 						value="If you checked off any problems, how difficult have these problems made it for you to do your work, take care of things at home, or get along with other people" />
 					<itemCodes>
 						<itemCode code="44256-6" codeSystem="2.16.840.1.113883.6.1"
@@ -706,20 +710,20 @@
 					</itemCodes>
 					<responseDataType value="String" />
 					<responseCardinality value="Single" />
-					<responseRange xsi:type="ListConstraint"
+					<responseRange xsi:type="EnumerationConstraint"
 						strictSelection="true">
 						<constraintType value="List" />
 						<item>
-							<value xsi:type="StringLiteral" value="Not difficult at all" />
+							<value xsi:type="elm:Literal" valueType="t:String" value="Not difficult at all" />
 						</item>
 						<item>
-							<value xsi:type="StringLiteral" value="Somewhat difficult" />
+							<value xsi:type="elm:Literal" valueType="t:String" value="Somewhat difficult" />
 						</item>
 						<item>
-							<value xsi:type="StringLiteral" value="Very difficult" />
+							<value xsi:type="elm:Literal" valueType="t:String" value="Very difficult" />
 						</item>
 						<item>
-							<value xsi:type="StringLiteral" value="Extremely difficult" />
+							<value xsi:type="elm:Literal" valueType="t:String" value="Extremely difficult" />
 						</item>
 					</responseRange>
 				</documentationConcept>

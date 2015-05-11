@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project>
+	<Folder FolderName="XML Files" ExtStr="xml;cml;math;rdf;smil;svg;wml">
+		<Folder FolderName="Examples">
+			<File FilePath="C:\Users\Bryn\Documents\Src\SS\KAS\specification\src\examples\ACC-pilot-example.xml" HomeFolder="Yes"/>
+			<File FilePath="C:\Users\Bryn\Documents\Src\SS\KAS\specification\src\examples\ChlamydiaScreening_CDS.xml" HomeFolder="Yes"/>
+			<File FilePath="C:\Users\Bryn\Documents\Src\SS\KAS\specification\src\examples\ChlamydiaScreeningHeD.xml" HomeFolder="Yes"/>
+			<File FilePath="C:\Users\Bryn\Documents\Src\SS\KAS\specification\src\examples\CorticoSteroidInhalerReminder.xml" HomeFolder="Yes"/>
+			<File FilePath="C:\Users\Bryn\Documents\Src\SS\KAS\specification\src\examples\DopamineComplexIVOrder.xml" HomeFolder="Yes"/>
+			<File FilePath="C:\Users\Bryn\Documents\Src\SS\KAS\specification\src\examples\FLACC_DocTemplate.xml" HomeFolder="Yes"/>
+			<File FilePath="C:\Users\Bryn\Documents\Src\SS\KAS\specification\src\examples\HeartFailureAdmissionToMedSurgOrderSet.xml" HomeFolder="Yes"/>
+			<File FilePath="C:\Users\Bryn\Documents\Src\SS\KAS\specification\src\examples\newMentor_HeD_NQF0068_ECArule_example.xml" HomeFolder="Yes"/>
+			<File FilePath="C:\Users\Bryn\Documents\Src\SS\KAS\specification\src\examples\NHACMS_2013_EDPR_20141205_HeDr_1_3.xml" HomeFolder="Yes"/>
+			<File FilePath="C:\Users\Bryn\Documents\Src\SS\KAS\specification\src\examples\NQF0024A_NQF0421.xml" HomeFolder="Yes"/>
+			<File FilePath="C:\Users\Bryn\Documents\Src\SS\KAS\specification\src\examples\PHQ9_DocTemplate.xml" HomeFolder="Yes"/>
+			<File FilePath="C:\Users\Bryn\Documents\Src\SS\KAS\specification\src\examples\PHQ9_DocTemplateWithAssessment.xml" HomeFolder="Yes"/>
+			<File FilePath="C:\Users\Bryn\Documents\Src\SS\KAS\specification\src\examples\RegularInsulinSlidingScaleRegime.xml" HomeFolder="Yes"/>
+			<File FilePath="C:\Users\Bryn\Documents\Src\SS\KAS\specification\src\examples\RespiratoryOrder.xml" HomeFolder="Yes"/>
+			<File FilePath="C:\Users\Bryn\Documents\Src\SS\KAS\specification\src\examples\SDCPertussisClinical-eReportingCriteria.xml" HomeFolder="Yes"/>
+			<File FilePath="C:\Users\Bryn\Documents\Src\SS\KAS\specification\src\examples\UTI_DocTemplate.xml" HomeFolder="Yes"/>
+		</Folder>
+	</Folder>
+	<Folder FolderName="XSL Files" ExtStr="xsl;xslt"/>
+	<Folder FolderName="XQuery Files" ExtStr="xq;xql;xquery"/>
+	<Folder FolderName="HTML Files" ExtStr="html;htm;xhtml;asp"/>
+	<Folder FolderName="DTD/Schemas" ExtStr="dtd;dcd;xdr;biz;xsd">
+		<Folder FolderName="cdsinput">
+			<File FilePath="cdsinput\cdsInput.xsd" HomeFolder="Yes"/>
+			<File FilePath="cdsinput\cdsInputSpecification.xsd" HomeFolder="Yes"/>
+		</Folder>
+		<Folder FolderName="cdsoutput">
+			<File FilePath="cdsoutput\cdsOutput.xsd" HomeFolder="Yes"/>
+			<File FilePath="cdsoutput\cdsOutputSpecification.xsd" HomeFolder="Yes"/>
+		</Folder>
+		<Folder FolderName="common">
+			<File FilePath="common\datatypes.xsd" HomeFolder="Yes"/>
+			<File FilePath="common\xhtml1-strict.xsd" HomeFolder="Yes"/>
+			<File FilePath="common\xml.xsd" HomeFolder="Yes"/>
+		</Folder>
+		<Folder FolderName="elm">
+			<File FilePath="elm\clinicalexpression.xsd" HomeFolder="Yes"/>
+			<File FilePath="elm\cqlannotations.xsd" HomeFolder="Yes"/>
+			<File FilePath="elm\expression.xsd" HomeFolder="Yes"/>
+			<File FilePath="elm\library.xsd" HomeFolder="Yes"/>
+			<File FilePath="elm\modelinfo.xsd" HomeFolder="Yes"/>
+		</Folder>
+		<Folder FolderName="kaoutput">
+			<File FilePath="kaoutput\actiongroupresponse.xsd" HomeFolder="Yes"/>
+			<File FilePath="kaoutput\cdsexecutionmessage.xsd" HomeFolder="Yes"/>
+		</Folder>
+		<Folder FolderName="knowledgeartifact">
+			<Folder FolderName="enum">
+				<File FilePath="knowledgeartifact\enum\artifactlifecycleeventtype.xsd" HomeFolder="Yes"/>
+				<File FilePath="knowledgeartifact\enum\artifactstatustype.xsd" HomeFolder="Yes"/>
+				<File FilePath="knowledgeartifact\enum\artifacttype.xsd" HomeFolder="Yes"/>
+				<File FilePath="knowledgeartifact\enum\behaviortype.xsd" HomeFolder="Yes"/>
+				<File FilePath="knowledgeartifact\enum\cardinalitytype.xsd" HomeFolder="Yes"/>
+				<File FilePath="knowledgeartifact\enum\conditionroletype.xsd" HomeFolder="Yes"/>
+				<File FilePath="knowledgeartifact\enum\contributortype.xsd" HomeFolder="Yes"/>
+				<File FilePath="knowledgeartifact\enum\coveragetype.xsd" HomeFolder="Yes"/>
+				<File FilePath="knowledgeartifact\enum\dataeventtype.xsd" HomeFolder="Yes"/>
+				<File FilePath="knowledgeartifact\enum\rangeconstrainttype.xsd" HomeFolder="Yes"/>
+				<File FilePath="knowledgeartifact\enum\resourcerelationshiptype.xsd" HomeFolder="Yes"/>
+				<File FilePath="knowledgeartifact\enum\valuetype.xsd" HomeFolder="Yes"/>
+			</Folder>
+			<File FilePath="knowledgeartifact\action.xsd" HomeFolder="Yes"/>
+			<File FilePath="knowledgeartifact\actor.xsd" HomeFolder="Yes"/>
+			<File FilePath="knowledgeartifact\base.xsd" HomeFolder="Yes"/>
+			<File FilePath="knowledgeartifact\behavior.xsd" HomeFolder="Yes"/>
+			<File FilePath="knowledgeartifact\catalogitem.xsd" HomeFolder="Yes"/>
+			<File FilePath="knowledgeartifact\condition.xsd" HomeFolder="Yes"/>
+			<File FilePath="knowledgeartifact\knowledgedocument.xsd" HomeFolder="Yes"/>
+			<File FilePath="knowledgeartifact\metadata.xsd" HomeFolder="Yes"/>
+			<File FilePath="knowledgeartifact\trigger.xsd" HomeFolder="Yes"/>
+		</Folder>
+		<Folder FolderName="vmr">
+			<File FilePath="vmr\vmr.xsd" HomeFolder="Yes"/>
+		</Folder>
+	</Folder>
+	<Folder FolderName="Entities" ExtStr="ent"/>
+</Project>

@@ -8,7 +8,8 @@
 	xmlns:vmr="urn:hl7-org:v3:QUICK:R1" xmlns:dt="urn:hl7-org:cdsdt:r2"
 	xmlns:p1="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd ">
+	xmlns:elm="urn:hl7-org:elm:r1"
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd urn:hl7-org:elm:r1 ../schema/elm/clinicalexpression.xsd">
 	<metadata>
 		<identifiers>
 			<identifier root="3b0a626f-4c55-4649-8f71-1f51d70f51ad" />
@@ -39,14 +40,16 @@
 			<!-- This expression links to a proposal (an imaging order being written) 
 				for one of the ACC-defined triggering exams -->
 			<!-- Chris to create expression -->
-			<expression xsi:type="ExpressionRef" name="CADImagingOrder"
-				libraryName="ImagingForCAD" />
+			<def name="CADImagingOrderTrigger">
+				<elm:expression xsi:type="elm:ExpressionRef" name="CADImagingOrder"
+					libraryName="ImagingForCAD" />
+			</def>
 		</trigger>
 	</triggers>
 	<conditions>
 		<condition>
 			<!-- Chris to create expression - line 722 of ACC xml file -->
-			<logic xsi:type="ExpressionRef" name="IsOrderForTriggeringIndication"
+			<logic xsi:type="elm:ExpressionRef" name="IsOrderForTriggeringIndication"
 				libraryName="ImagingForCAD" />
 			<conditionRole value="ApplicableScenario" />
 		</condition>
@@ -67,7 +70,7 @@
 				<conditions>
 					<!-- Chris to create expression. Line 901. -->
 					<condition>
-						<logic xsi:type="ExpressionRef" name="IndicationIsRepeatCalciumScoringTest"
+						<logic xsi:type="elm:ExpressionRef" name="IndicationIsRepeatCalciumScoringTest"
 							libraryName="ImagingForCAD" />
 						<conditionRole value="ApplicableScenario" />
 					</condition>
@@ -104,16 +107,16 @@
 								<!-- Answers/Answer -->
 								<item>
 									<!-- value is Answer/@id -->
-									<value xsi:type="StringLiteral" value="A1" />
+									<value xsi:type="elm:Literal" valueType="xsi:string" value="A1" />
 									<!-- Answers/Text -->
 									<displayText value="Less than 2 years ago" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="A2" />
+									<value xsi:type="elm:Literal" valueType="xsi:string" value="A2" />
 									<displayText value="2 to 5 years ago" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="A3" />
+									<value xsi:type="elm:Literal" valueType="xsi:string" value="A3" />
 									<displayText value="More than 5 years ago" />
 								</item>
 							</responseRange>
@@ -137,7 +140,7 @@
 							<!-- Logic on line 956 -->
 							<!--  The expression is Responses.Q1 = "A1" -->
 							<condition>
-								<logic xsi:type="ExpressionRef" name="CA01ACC_14_1_Q1"
+								<logic xsi:type="elm:ExpressionRef" name="CA01ACC_14_1_Q1"
 									libraryName="ImagingForCAD" />
 								<conditionRole value="ApplicableScenario" />
 							</condition>
@@ -155,7 +158,7 @@
 								<!--
 									This expression, Advice_2, would construct a tuple of QUICK's CommunicationRequest type
 								 -->
-								<actionSentence xsi:type="ExpressionRef" name="Advice_2" libraryName="ImagingForCAD"/>
+								<actionSentence xsi:type="elm:ExpressionRef" name="Advice_2" libraryName="ImagingForCAD"/>
 							</simpleAction>
 							<!-- Advice/Status element - design is TBD -->
 						</subElements>

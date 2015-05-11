@@ -67,6 +67,78 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\..\specification\src\examples\ACC-pilot-example.xml">
+      <Link>Artifacts\ACC-pilot-example.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\ChlamydiaScreeningHeD.xml">
+      <Link>Artifacts\ChlamydiaScreeningHeD.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\ChlamydiaScreening_CDS.xml">
+      <Link>Artifacts\ChlamydiaScreening_CDS.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\CorticoSteroidInhalerReminder.xml">
+      <Link>Artifacts\CorticoSteroidInhalerReminder.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\DopamineComplexIVOrder.xml">
+      <Link>Artifacts\DopamineComplexIVOrder.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\DopamineComplexIVOrderWithComplexLiteral.xml">
+      <Link>Artifacts\DopamineComplexIVOrderWithComplexLiteral.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\FLACC_DocTemplate.xml">
+      <Link>Artifacts\FLACC_DocTemplate.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\HeartFailureAdmissionToMedSurgOrderSet.xml">
+      <Link>Artifacts\HeartFailureAdmissionToMedSurgOrderSet.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\newMentor_HeD_NQF0068_ECArule_example.xml">
+      <Link>Artifacts\newMentor_HeD_NQF0068_ECArule_example.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\NHACMS_2013_EDPR_20141205_HeDr_1_3.xml">
+      <Link>Artifacts\NHACMS_2013_EDPR_20141205_HeDr_1_3.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\NQF0024A_NQF0421.xml">
+      <Link>Artifacts\NQF0024A_NQF0421.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\PHQ9_DocTemplate.xml">
+      <Link>Artifacts\PHQ9_DocTemplate.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\PHQ9_DocTemplateWithAssessment.xml">
+      <Link>Artifacts\PHQ9_DocTemplateWithAssessment.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\RegularInsulinSlidingScaleRegime.xml">
+      <Link>Artifacts\RegularInsulinSlidingScaleRegime.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\RespiratoryOrder.xml">
+      <Link>Artifacts\RespiratoryOrder.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\RespiratoryOrderWithComplexLiteral.xml">
+      <Link>Artifacts\RespiratoryOrderWithComplexLiteral.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\SDCPertussisClinical-eReportingCriteria.xml">
+      <Link>Artifacts\SDCPertussisClinical-eReportingCriteria.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\UTI_DocTemplate.xml">
+      <Link>Artifacts\UTI_DocTemplate.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\..\..\specification\src\schema\common\datatypes.xsd">
       <Link>Schema\common\datatypes.xsd</Link>
       <SubType>Designer</SubType>
@@ -212,6 +284,10 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\..\..\specification\src\examples\HeartFailureAdmissionToMedSurgOrderSet.pdf">
+      <Link>Artifacts\HeartFailureAdmissionToMedSurgOrderSet.pdf</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="App.config" />
     <None Include="UtilitySettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -243,70 +319,6 @@
       <Project>{ad62a3ae-b9be-4360-8aa2-ef633337bf1e}</Project>
       <Name>vMR.Model</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Artifacts\ChlamydiaScreeningCDS_ELM.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Artifacts\ChlamydiaScreeningHeD.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\ChlamydiaScreening_CDS.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\CorticoSteroidInhalerReminder.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\DopamineComplexIVOrder.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\DopamineComplexIVOrderWithComplexLiteral.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\FLACC_DocTemplate.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\HeartFailureAdmissionToMedSurgOrderSet.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\newMentor_HeD_NQF0068_ECArule_example.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\PHQ9_DocTemplate.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\PHQ9_DocTemplateWithAssessment.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\RegularInsulinSlidingScaleRegime.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\RespiratoryOrder.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\RespiratoryOrderWithComplexLiteral.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\SDCPertussisClinical-eReportingCriteria.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\TestDifference.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\TestECAArtifact.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Artifacts\TestExpressions.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\UTI_DocTemplate.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\weightexpressions.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:elm="urn:hl7-org:elm:r1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd urn:hl7-org:elm:r1 ../schema/elm/library.xsd">
+  <metadata>
+    <identifiers>
+      <identifier  root="18f2a4bf-9cc5-499a-a08a-222e05db811e" />
+    </identifiers>
+    <artifactType value="Rule"/>
+    <schemaIdentifier  root="urn:hl7-org:knowledgeartifact:r1" />
+    <dataModels>
+      <modelReference>
+        <description value="QUICK R1"/>
+        <referencedModel value="urn:hl7-org:v3:QUICK:R1"/>
+      </modelReference>
+    </dataModels>
+    <libraries>
+      <libraryReference mediaType="application/elm+xml" name="ChlamydiaScreeningCDS" path="ChlamydiaScreening_CDS.xml"/>
+    </libraries>
+    <title value="Chlamydia Screening for Women"/>
+    <description value="Percentage of women 16-24 years of age who were identified as sexually active and who had at least one test for chlamydia during the measurement period."/>
+    <documentation></documentation>
+    <relatedResources>
+      <relatedResource>
+        <relationship value="AdaptedFrom"/>
+        <resources>
+          <resource xsi:type="KnowledgeResource"/>
+        </resources>
+      </relatedResource>
+    </relatedResources>
+    <supportingEvidence>
+      <evidence/>
+    </supportingEvidence>
+    <applicability>
+      <coverage>
+        <focus value="PatientGender"/><value code="F" codeSystem="2.16.840.1.113883.1.11.1"
+        	codeSystemName="Administrative Gender (HL7 V3)">
+	<dt:displayName value="Female" />
+</value></coverage>
+      
+    <coverage>
+      	<focus value="PatientAgeGroup" /><description value="Age range 16 to 24 inclusive" />
+      	<value code="D055815" codeSystem="2.16.840.1.113883.6.177"
+      		codeSystemName="MeSH">
+	<dt:displayName value="Young Adult" /><!--N.B.: MeSH AgeGroupObservationValue value set specified as required for use in CDS KA Specification R1.2 does not include appropriate age range, but "Young Adult" is closest, described in MeSH as age 19-24 years. -->
+      	</value>
+    </coverage></applicability>
+    <keyTerms>
+      <term code="" codeSystem="" codeSystemName="" codeSystemVersion="" valueSet="" valueSetVersion=""/>
+    </keyTerms>
+    <categories>
+      <category code="" codeSystem="" codeSystemName="" codeSystemVersion="" valueSet="" valueSetVersion=""/>
+    </categories>
+    <language code="" codeSystem="" codeSystemName="" codeSystemVersion="" valueSet="" valueSetVersion=""/>
+    <status value="Draft"/>
+    <eventHistory>
+      <artifactLifeCycleEvent>
+        <eventType value="Created"/>
+        <eventDateTime value="20140924"/>
+      </artifactLifeCycleEvent>
+    </eventHistory>
+    <contributions>
+      <contribution>
+        <contributor xsi:type="Organization">
+        	<name value="Meliorix, Inc" /></contributor>
+        <role value="Author"/>
+      </contribution>
+    </contributions>
+    <publishers>
+      <publisher xsi:type="Organization">
+      	<name value="TBD" /></publisher>
+    </publishers>
+    <usageTerms>
+      <rightsDeclaration>
+        <assertedRights value=""/>
+        <rightsHolder xsi:type="Organization">
+        	<name value="TBD" /></rightsHolder>
+      </rightsDeclaration>
+    </usageTerms>
+  </metadata>
+  <conditions>
+    <condition>
+      <logic xsi:type="elm:ExpressionRef" libraryName="ChlamydiaScreeningCDS" name="InAtRiskAgePopulation"></logic>
+      <conditionRole value="ApplicableScenario"/>
+    </condition>
+  </conditions>
+  <actionGroup>
+    <actionId extension="" identifierName="" root=""/>
+    <supportingEvidence>
+      <evidence/>
+    </supportingEvidence>
+    <supportingResources>
+      <resource xsi:type="KnowledgeResource"/>
+    </supportingResources>
+    <subElements>
+      <simpleAction xsi:type="CreateAction">
+      	<actionSentence xsi:type="elm:ExpressionRef"
+      		name="AtRiskByAgeMessage" libraryName="ChlamydiaScreeningCDS">
+      	</actionSentence></simpleAction>
+      <simpleAction xsi:type="CreateAction">
+      	<textEquivalent value="order chlamydia screening test"/>
+      	<actionSentence xsi:type="elm:ExpressionRef" name="ChlamydiaScreeningTestProposal"
+      		libraryName="ChlamydiaScreeningCDS">
+      	</actionSentence></simpleAction>
+    </subElements>
+  </actionGroup>
+</knowledgeDocument>

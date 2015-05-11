@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
 	xmlns:vmr="org.opencds.vmr.v1_0.schema.vmr"
-	xmlns:dt="urn:hl7-org:v3/cdsdt" xmlns:p1="http://www.w3.org/1999/xhtml"
+	xmlns:dt="urn:hl7-org:v3/cdsdt" 
+	xmlns:elm="urn:hl7-org:elm:r1"
+	xmlns:t="urn:hl7-org:elm-types:r1"
+	xmlns:a="urn:hl7-org:cql-annotations:r1"
+	xmlns:p1="http://www.w3.org/1999/xhtml"
 	xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../main/schema/knowledgeartifact/knowledgedocument.xsd ">
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd urn:hl7-org:elm:r1 ../schema/elm/clinicalexpression.xsd urn:hl7-org:elm-types:r1 ../schema/elm/types.xsd urn:hl7-org:cql-annotations:r1 ../schema/elm/cqlannotations.xsd">
 	<!--
 	NQF-0024A - Weight Assessment and Counseling for Children and Adolescents
 	NQF-0421 - Adult Weight Screening and Follow-up: BMI
@@ -51,76 +55,76 @@
 		<!-- TODO: RelatedResources, Supported Evidence, Applicability, and KeyTerms -->
 	</metadata>
 	<externalData>
+		<codesystem name="???" id="???"/>
 		<def name="Patient">
-			<expression xsi:type="ClinicalRequest" cardinality="Single"
-				dataType="vmr:Patient" isInitial="true" />
+			<elm:expression xsi:type="elm:SingletonFrom">
+				<elm:operand xsi:type="elm:Retrieve" dataType="vmr:Patient"/>
+			</elm:expression>
 		</def>
 		<def name="HeightAndWeightMeasurements">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple" dataType="vmr:ObservationResult" codeProperty="observationFocus" dateProperty="observationEventTime">
-				<codes xsi:type="List">
-					<element xsi:type="CodeLiteral" code="???" codeSystem="???" codeSystemName="???" displayName="Height Measurement"/>
-					<element xsi:type="CodeLiteral" code="???" codeSystem="???" codeSystemName="???" displayName="Weight Measurement"/>
-				</codes>
-				<dateRange xsi:type="Interval">
-					<begin xsi:type="DateAdd">
-						<date xsi:type="Today" />
-						<granularity xsi:type="Literal" valueType="DateGranularity" value="Month" />
-						<numberOfPeriods xsi:type="IntegerLiteral" value="-12" />
-					</begin>
-					<end xsi:type="Today" />
-				</dateRange>
-			</expression>
+			<elm:expression xsi:type="elm:Retrieve" dataType="vmr:ObservationResult" codeProperty="observationFocus" dateProperty="observationEventTime">
+				<elm:codes xsi:type="elm:List">
+					<elm:element xsi:type="elm:Code" code="???" display="Height Measurement"><elm:system name="???" /></elm:element>
+					<elm:element xsi:type="elm:Code" code="???" display="Weight Measurement"><elm:system name="???"/></elm:element>
+				</elm:codes>
+				<elm:dateRange xsi:type="elm:Interval">
+					<elm:low xsi:type="elm:Add">
+						<elm:operand xsi:type="elm:Today" />
+						<elm:operand xsi:type="elm:Quantity" value="-12" unit="months"/>
+					</elm:low>
+					<elm:high xsi:type="elm:Today" />
+				</elm:dateRange>
+			</elm:expression>
 		</def>
 	</externalData>
 	<expressions>
 		<def name="PatientAge">
-			<expression xsi:type="Property" path="demographics.age">
-				<source xsi:type="ExpressionRef" name="Patient" />
-			</expression>
+			<elm:expression xsi:type="elm:Property" path="demographics.age">
+				<elm:source xsi:type="elm:ExpressionRef" name="Patient" />
+			</elm:expression>
 		</def>
 		<def name="MostRecentHeightMeasurementDate">
-			<expression xsi:type="Property" path="observationEventTime">
-				<source xsi:type="Last" orderBy="observationEventTime">
-					<source xsi:type="Filter">
-						<source xsi:type="ExpressionRef" name="HeightAndWeightMeasurements"/>
-						<condition xsi:type="Equal">
-							<operand xsi:type="Property" path="observationFocus"/>
-							<operand xsi:type="CodeLiteral" code="???" codeSystem="???" codeSystemName="???" displayName="Height Measurement"/>
-						</condition>
-					</source>
-				</source>
-			</expression>
+			<elm:expression xsi:type="elm:Property" path="observationEventTime">
+				<elm:source xsi:type="elm:Last" orderBy="observationEventTime">
+					<elm:source xsi:type="elm:Filter">
+						<elm:source xsi:type="elm:ExpressionRef" name="HeightAndWeightMeasurements"/>
+						<elm:condition xsi:type="elm:Equal">
+							<elm:operand xsi:type="elm:Property" path="observationFocus"/>
+							<elm:operand xsi:type="elm:Code" code="???" display="Height Measurement"><elm:system name="???" /></elm:operand>
+						</elm:condition>
+					</elm:source>
+				</elm:source>
+			</elm:expression>
 		</def>
 		<def name="MostRecentWeightMeasurementDate">
-			<expression xsi:type="Property" path="observationEventTime">
-				<source xsi:type="Last" orderBy="observationEventTime">
-					<source xsi:type="Filter">
-						<source xsi:type="ExpressionRef" name="HeightAndWeightMeasurements"/>
-						<condition xsi:type="Equal">
-							<operand xsi:type="Property" path="observationFocus"/>
-							<operand xsi:type="CodeLiteral" code="???" codeSystem="???" codeSystemName="???" displayName="Weight Measurement"/>
-						</condition>
-					</source>
-				</source>
-			</expression>
+			<elm:expression xsi:type="elm:Property" path="observationEventTime">
+				<elm:source xsi:type="elm:Last" orderBy="observationEventTime">
+					<elm:source xsi:type="elm:Filter">
+						<elm:source xsi:type="elm:ExpressionRef" name="HeightAndWeightMeasurements"/>
+						<elm:condition xsi:type="elm:Equal">
+							<elm:operand xsi:type="elm:Property" path="observationFocus"/>
+							<elm:operand xsi:type="elm:Code" code="???" display="Weight Measurement"><elm:system name="???" /></elm:operand>
+						</elm:condition>
+					</elm:source>
+				</elm:source>
+			</elm:expression>
 		</def>
 	</expressions>
 	<conditions>
 		<condition>
-			<logic xsi:type="And">
-				<operand xsi:type="GreaterOrEqual">
-					<description>Patient age greater than or equal to 2</description>
-					<operand xsi:type="ExpressionRef" name="PatientAge"/>
-					<operand xsi:type="IntegerLiteral" value="2" />
-				</operand>
-				<operand xsi:type="Equal">
-					<operand xsi:type="DateDiff">
-						<startDate xsi:type="ExpressionRef" name="MostRecentHeightMeasurementDate"/>
-						<endDate xsi:type="ExpressionRef" name="MostRecentWeightMeasurementDate"/>
-						<granularity xsi:type="Literal" valueType="DateGranularity" value="Day" />
-					</operand>
-					<operand xsi:type="IntegerLiteral" value="0"/>
-				</operand>
+			<logic xsi:type="elm:And">
+				<elm:operand xsi:type="elm:GreaterOrEqual">
+					<elm:annotation xsi:type="a:Annotation"><a:s>Patient age greater than or equal to 2</a:s></elm:annotation>
+					<elm:operand xsi:type="elm:ExpressionRef" name="PatientAge"/>
+					<elm:operand xsi:type="elm:Literal" valueType="t:Integer" value="2" />
+				</elm:operand>
+				<elm:operand xsi:type="elm:Equal">
+					<elm:operand xsi:type="elm:DifferenceBetween" precision="Day">
+						<elm:operand xsi:type="elm:ExpressionRef" name="MostRecentHeightMeasurementDate"/>
+						<elm:operand xsi:type="elm:ExpressionRef" name="MostRecentWeightMeasurementDate"/>
+					</elm:operand>
+					<elm:operand xsi:type="elm:Literal" valueType="t:Integer" value="0"/>
+				</elm:operand>
 			</logic>
 			<conditionRole value="ApplicableScenario"/>
 		</condition>

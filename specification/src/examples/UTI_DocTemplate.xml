@@ -3,10 +3,14 @@
 <?schematron-schema href="../main/schematron/documentationtemplates.sch"?>
 <knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
 	xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:dt="urn:hl7-org:cdsdt:r2"
+	xmlns:elm="urn:hl7-org:elm:r1" xmlns:t="urn:hl7-org:elm-types:r1" xmlns:a="urn:hl7-org:cql-annotations:r1"
 	xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../main/schema/knowledgeartifact/knowledgedocument.xsd
-		urn:hl7-org:vmr:r2  ../main/schema/vmr/vmr.xsd">
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd
+		urn:hl7-org:vmr:r2  ../schema/vmr/vmr.xsd
+		urn:hl7-org:elm:r1 ../schema/elm/clinicalexpression.xsd
+		urn:hl7-org:elm-types:r1 ../schema/elm/types.xsd
+		urn:hl7-org:cql-annotations:r1 ../schema/elm/cqlannotations.xsd">
 	<!-- 
 	UTI Documentation Template
 	
@@ -91,29 +95,29 @@
 				<subElements>
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Visit Type" />
+							<prompt value="Visit Type" />
 							<responseDataType value="String"/>
 							<responseCardinality value="Single"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="Initial Evaluation" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Initial Evaluation" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Follow-Up" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Follow-Up" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Follow-Up - From Hospitalization" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Follow-Up - From Hospitalization" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Follow-Up - Previous Urgent Care" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Follow-Up - Previous Urgent Care" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Follow-Up - From ER" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Follow-Up - From ER" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Worsening Symptoms" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Worsening Symptoms" />
 									<codes>
 										<code code="230993007" codeSystemName="SNOMED-CT"
 											codeSystem="2.16.840.1.113883.6.96" />
@@ -131,7 +135,7 @@
 				<subElements>
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Symptoms" />
+							<prompt value="Symptoms" />
 							<itemCodes>
 								<!-- GAP -->
 								<itemCode code="EM:HPI:Associated Signs and Symptoms"
@@ -140,53 +144,53 @@
 							</itemCodes>
 							<responseDataType value="String"/>
 							<responseCardinality value="Multiple"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="Dysuria" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Dysuria" />
 									<codes>
 										<code code="49650001" codeSystemName="SNOMED-CT"
 											codeSystem="2.16.840.1.113883.6.96" />
 									</codes>
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Urinary Frequency" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Urinary Frequency" />
 									<codes>
 										<code code="300471006" codeSystemName="SNOMED-CT"
 											codeSystem="2.16.840.1.113883.6.96" />
 									</codes>
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Urinary Urgency" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Urinary Urgency" />
 									<codes>
 										<code code="75088002" codeSystemName="SNOMED-CT"
 											codeSystem="2.16.840.1.113883.6.96" />
 									</codes>
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Hematuria" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Hematuria" />
 									<codes>
 										<code code="34436003" codeSystemName="SNOMED-CT"
 											codeSystem="2.16.840.1.113883.6.96" />
 									</codes>
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Flank Pain" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Flank Pain" />
 									<codes>
 										<code code="247355005" codeSystemName="SNOMED-CT"
 											codeSystem="2.16.840.1.113883.6.96" />
 									</codes>
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Vaginal Discharge" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Vaginal Discharge" />
 									<codes>
 										<code code="271939006" codeSystemName="SNOMED-CT"
 											codeSystem="2.16.840.1.113883.6.96" />
 									</codes>
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Urethral Discharge" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Urethral Discharge" />
 									<codes>
 										<code code="9957009" codeSystemName="SNOMED-CT"
 											codeSystem="2.16.840.1.113883.6.96" />
@@ -197,104 +201,104 @@
 					</simpleAction>
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Pain Location" />
+							<prompt value="Pain Location" />
 							<itemCodes>
 								<itemCode code="Location" codeSystem="EMCode" />
 							</itemCodes>
 							<responseDataType value="String"/>
 							<responseCardinality value="Multiple"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="Suprapubic Area" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Suprapubic Area" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Right Flank" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Right Flank" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Left Flank" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Left Flank" />
 								</item>
 							</responseRange>
 						</documentationConcept>
 					</simpleAction>
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Radiation" />
+							<prompt value="Radiation" />
 							<itemCodes>
 								<itemCode code="Location" codeSystem="EMCode" />
 							</itemCodes>
 							<responseDataType value="String"/>
 							<responseCardinality value="Multiple"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="Penis" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Penis" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Perineum" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Perineum" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Scrotum" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Scrotum" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Right Flank" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Right Flank" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Left Flank" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Left Flank" />
 								</item>
 							</responseRange>
 						</documentationConcept>
 					</simpleAction>
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Pain Quality" />
+							<prompt value="Pain Quality" />
 							<itemCodes>
 								<itemCode code="Quality" codeSystem="EMCode" />
 							</itemCodes>
 							<responseDataType value="String"/>
 							<responseCardinality value="Multiple"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="Sharp" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Sharp" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Dull" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Dull" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Aching" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Aching" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Burning" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Burning" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Stinging" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Stinging" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Cramping" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Cramping" />
 								</item>
 							</responseRange>
 						</documentationConcept>
 					</simpleAction>
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Onset Mode" />
+							<prompt value="Onset Mode" />
 							<itemCodes>
 								<itemCode code="Timing" codeSystem="EMCode" />
 							</itemCodes>
 							<responseDataType value="String"/>
 							<responseCardinality value="Single"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="Gradual" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Gradual" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Sudden" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Sudden" />
 								</item>
 							</responseRange>
 						</documentationConcept>
@@ -308,7 +312,7 @@
 						<subElements>
 							<simpleAction xsi:type="CollectInformationAction">
 								<documentationConcept>
-									<displayText value="Quantity" />
+									<prompt value="Quantity" />
 									<itemCodes>
 										<itemCode code="Duration" codeSystem="EMCode" />
 									</itemCodes>
@@ -318,20 +322,20 @@
 							</simpleAction>
 							<simpleAction xsi:type="CollectInformationAction">
 								<documentationConcept>
-									<displayText value="Units" />
+									<prompt value="Units" />
 									<responseDataType value="String"/>
 									<responseCardinality value="Single"/>
-									<responseRange xsi:type="ListConstraint"
+									<responseRange xsi:type="EnumerationConstraint"
 										strictSelection="false">
 										<constraintType value="List"/>
 										<item>
-											<value xsi:type="StringLiteral" value="Hour(s) Ago" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="Hour(s) Ago" />
 										</item>
 										<item>
-											<value xsi:type="StringLiteral" value="Day(s) Ago" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="Day(s) Ago" />
 										</item>
 										<item>
-											<value xsi:type="StringLiteral" value="Week(s) Ago" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="Week(s) Ago" />
 										</item>
 									</responseRange>
 								</documentationConcept>
@@ -341,29 +345,29 @@
 
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Timing" />
+							<prompt value="Timing" />
 							<itemCodes>
 								<itemCode code="Timing" codeSystem="EMCode" />
 							</itemCodes>
 							<responseDataType value="String"/>
 							<responseCardinality value="Multiple"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="Constant" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Constant" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Frequent" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Frequent" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Intermittent" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Intermittent" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Daytime" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Daytime" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Nocturnal" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Nocturnal" />
 								</item>
 							</responseRange>
 						</documentationConcept>
@@ -377,7 +381,7 @@
 						<subElements>
 							<simpleAction xsi:type="CollectInformationAction">
 								<documentationConcept>
-									<displayText value="Quantity" />
+									<prompt value="Quantity" />
 									<itemCodes>
 										<itemCode code="Timing" codeSystem="EMCode" />
 									</itemCodes>
@@ -386,32 +390,32 @@
 							</simpleAction>
 							<simpleAction xsi:type="CollectInformationAction">
 								<documentationConcept>
-									<displayText value="Units" />
+									<prompt value="Units" />
 									<responseDataType value="String"/>
 									<responseCardinality value="Single"/>
-									<responseRange xsi:type="ListConstraint"
+									<responseRange xsi:type="EnumerationConstraint"
 										strictSelection="false">
 										<constraintType value="List"/>
 										<item>
-											<value xsi:type="StringLiteral" value="x Hour" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="x Hour" />
 										</item>
 										<item>
-											<value xsi:type="StringLiteral" value="x Day" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="x Day" />
 										</item>
 										<item>
-											<value xsi:type="StringLiteral" value="x Week" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="x Week" />
 										</item>
 										<item>
-											<value xsi:type="StringLiteral" value="x Month" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="x Month" />
 										</item>
 										<item>
-											<value xsi:type="StringLiteral" value="Daily" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="Daily" />
 										</item>
 										<item>
-											<value xsi:type="StringLiteral" value="Weekly" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="Weekly" />
 										</item>
 										<item>
-											<value xsi:type="StringLiteral" value="Monthly" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="Monthly" />
 										</item>
 									</responseRange>
 								</documentationConcept>
@@ -427,7 +431,7 @@
 						<subElements>
 							<simpleAction xsi:type="CollectInformationAction">
 								<documentationConcept>
-									<displayText value="Quantity" />
+									<prompt value="Quantity" />
 									<itemCodes>
 										<itemCode code="Duration" codeSystem="EMCode" />
 									</itemCodes>
@@ -437,23 +441,23 @@
 							</simpleAction>
 							<simpleAction xsi:type="CollectInformationAction">
 								<documentationConcept>
-									<displayText value="Units" />
+									<prompt value="Units" />
 									<responseDataType value="String"/>
 									<responseCardinality value="Single"/>
-									<responseRange xsi:type="ListConstraint"
+									<responseRange xsi:type="EnumerationConstraint"
 										strictSelection="false">
 										<constraintType value="List"/>
 										<item>
-											<value xsi:type="StringLiteral" value="Minute(s)" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="Minute(s)" />
 										</item>
 										<item>
-											<value xsi:type="StringLiteral" value="Hour(s)" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="Hour(s)" />
 										</item>
 										<item>
-											<value xsi:type="StringLiteral" value="Day(s)" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="Day(s)" />
 										</item>
 										<item>
-											<value xsi:type="StringLiteral" value="Week(s)" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="Week(s)" />
 										</item>
 									</responseRange>
 								</documentationConcept>
@@ -463,83 +467,83 @@
 	
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Severity" />
+							<prompt value="Severity" />
 							<itemCodes>
 								<itemCode code="Severity" codeSystem="EMCode" />
 							</itemCodes>
 							<responseDataType value="String"/>
 							<responseCardinality value="Single"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="Mild" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Mild" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Moderate" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Moderate" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Severe" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Severe" />
 								</item>
 							</responseRange>
 						</documentationConcept>
 					</simpleAction>
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Progression" />
+							<prompt value="Progression" />
 							<itemCodes>
 								<itemCode code="Severity" codeSystem="EMCode" />
 							</itemCodes>
 							<responseDataType value="String"/>
 							<responseCardinality value="Single"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="Worsening" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Worsening" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Unchanged" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Unchanged" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Improving" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Improving" />
 								</item>
 							</responseRange>
 						</documentationConcept>
 					</simpleAction>
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Exacerbating Factors" />
+							<prompt value="Exacerbating Factors" />
 							<itemCodes>
 								<itemCode code="Modifying Factors" codeSystem="EMCode" />
 							</itemCodes>
 							<responseDataType value="String"/>
 							<responseCardinality value="Multiple"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="Sexual Intercourse" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Sexual Intercourse" />
 								</item>
 							</responseRange>
 						</documentationConcept>
 					</simpleAction>
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Relieving Factors" />
+							<prompt value="Relieving Factors" />
 							<itemCodes>
 								<itemCode code="Modifying Factors" codeSystem="EMCode" />
 							</itemCodes>
 							<responseDataType value="String"/>
 							<responseCardinality value="Multiple"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="Sitz Baths" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Sitz Baths" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Cranberry Juice" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Cranberry Juice" />
 								</item>
 							</responseRange>
 						</documentationConcept>
@@ -551,33 +555,33 @@
 				<subElements>
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Current Treatment" />
+							<prompt value="Current Treatment" />
 							<description value="Current Treatment for UTI" />
 							<itemCodes>
 								<itemCode code="Modifying Factors" codeSystem="EMCode" />
 							</itemCodes>
 							<responseDataType value="String"/>
 							<responseCardinality value="Multiple"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="TMP-SMX" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="TMP-SMX" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Nitrofurantoin" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Nitrofurantoin" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Cephalexin" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Cephalexin" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Ciprofloxacin" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Ciprofloxacin" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Levofloxacin" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Levofloxacin" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Doxycycline" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Doxycycline" />
 								</item>
 							</responseRange>
 						</documentationConcept>
@@ -595,7 +599,7 @@
 						<subElements>
 							<simpleAction xsi:type="CollectInformationAction">
 								<documentationConcept>
-									<displayText value="Quantity" />
+									<prompt value="Quantity" />
 									<itemCodes>
 										<itemCode code="Duration" codeSystem="EMCode" />
 									</itemCodes>
@@ -605,20 +609,20 @@
 							</simpleAction>
 							<simpleAction xsi:type="CollectInformationAction">
 								<documentationConcept>
-									<displayText value="Units" />
+									<prompt value="Units" />
 									<responseDataType value="String"/>
 									<responseCardinality value="Single"/>
-									<responseRange xsi:type="ListConstraint"
+									<responseRange xsi:type="EnumerationConstraint"
 										strictSelection="false">
 										<constraintType value="List"/>
 										<item>
-											<value xsi:type="StringLiteral" value="Week(s) Ago" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="Week(s) Ago" />
 										</item>
 										<item>
-											<value xsi:type="StringLiteral" value="Month(s) Ago" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="Month(s) Ago" />
 										</item>
 										<item>
-											<value xsi:type="StringLiteral" value="Years(s) Ago" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="Years(s) Ago" />
 										</item>
 									</responseRange>
 								</documentationConcept>
@@ -634,24 +638,24 @@
 						<subElements>
 							<simpleAction xsi:type="CollectInformationAction">
 								<documentationConcept>
-									<displayText value="Quantity" />
+									<prompt value="Quantity" />
 									<responseDataType value="String"/>
 									<responseCardinality value="Single"/>
 								</documentationConcept>
 							</simpleAction>
 							<simpleAction xsi:type="CollectInformationAction">
 								<documentationConcept>
-									<displayText value="Units" />
+									<prompt value="Units" />
 									<responseDataType value="String"/>
 									<responseCardinality value="Single"/>
-									<responseRange xsi:type="ListConstraint"
+									<responseRange xsi:type="EnumerationConstraint"
 										strictSelection="false">
 										<constraintType value="List"/>
 										<item>
-											<value xsi:type="StringLiteral" value="UTIs Past 6 Months" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="UTIs Past 6 Months" />
 										</item>
 										<item>
-											<value xsi:type="StringLiteral" value="UTIs Past 1 Year" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="UTIs Past 1 Year" />
 										</item>
 									</responseRange>
 								</documentationConcept>
@@ -661,52 +665,52 @@
 
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Pertinent Medical History" />
+							<prompt value="Pertinent Medical History" />
 							<itemCodes>
 								<itemCode code="392521001" codeSystem="2.16.840.1.113883.6.96" />
 							</itemCodes>
 							<responseDataType value="String"/>
 							<responseCardinality value="Multiple"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="Diabetes" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Diabetes" />
 									<codes>
 										<code code="73211009" codeSystemName="SNOMED-CT"
 											codeSystem="2.16.840.1.113883.6.96" />
 									</codes>
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Impaired Immunity" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Impaired Immunity" />
 									<codes>
 										<code code="131145007" codeSystemName="SNOMED-CT"
 											codeSystem="2.16.840.1.113883.6.96" />
 									</codes>
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Chronic Kidney Disease" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Chronic Kidney Disease" />
 									<codes>
 										<code code="236425005" codeSystemName="SNOMED-CT"
 											codeSystem="2.16.840.1.113883.6.96" />
 									</codes>
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Urolithiasis" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Urolithiasis" />
 									<codes>
 										<code code="95566004" codeSystemName="SNOMED-CT"
 											codeSystem="2.16.840.1.113883.6.96" />
 									</codes>
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Interstitial Cystitis" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Interstitial Cystitis" />
 									<codes>
 										<code code="197834003" codeSystemName="SNOMED-CT"
 											codeSystem="2.16.840.1.113883.6.96" />
 									</codes>
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="BPH" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="BPH" />
 									<codes>
 										<code code="266569009" codeSystemName="SNOMED-CT"
 											codeSystem="2.16.840.1.113883.6.96" />
@@ -717,20 +721,20 @@
 					</simpleAction>
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Risk Factors" />
+							<prompt value="Risk Factors" />
 							<responseDataType value="String"/>
 							<responseCardinality value="Multiple"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="Sexual Intercourse" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Sexual Intercourse" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="New Sex Partner" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="New Sex Partner" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Estrogen Deficiency" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Estrogen Deficiency" />
 								</item>
 							</responseRange>
 						</documentationConcept>
@@ -742,29 +746,29 @@
 				<subElements>
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Previous Evaluation Setting" />
+							<prompt value="Previous Evaluation Setting" />
 							<itemCodes>
 								<itemCode code="Modifying Factors" codeSystem="EMCode" />
 							</itemCodes>
 							<responseDataType value="String"/>
 							<responseCardinality value="Single"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="This Clinic" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="This Clinic" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Urgent Care" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Urgent Care" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Emergency Room" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Emergency Room" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Evaluated by Me" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Evaluated by Me" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Colleague" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Colleague" />
 								</item>
 							</responseRange>
 						</documentationConcept>
@@ -778,7 +782,7 @@
 						<subElements>
 							<simpleAction xsi:type="CollectInformationAction">
 								<documentationConcept>
-									<displayText value="Quantity" />
+									<prompt value="Quantity" />
 									<itemCodes>
 										<itemCode code="Duration" codeSystem="EMCode" />
 									</itemCodes>
@@ -788,23 +792,23 @@
 							</simpleAction>
 							<simpleAction xsi:type="CollectInformationAction">
 								<documentationConcept>
-									<displayText value="Units" />
+									<prompt value="Units" />
 									<responseDataType value="String"/>
 									<responseCardinality value="Single"/>
-									<responseRange xsi:type="ListConstraint"
+									<responseRange xsi:type="EnumerationConstraint"
 										strictSelection="false">
 										<constraintType value="List"/>
 										<item>
-											<value xsi:type="StringLiteral" value="Day(s) Ago" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="Day(s) Ago" />
 										</item>
 										<item>
-											<value xsi:type="StringLiteral" value="Week(s) Ago" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="Week(s) Ago" />
 										</item>
 										<item>
-											<value xsi:type="StringLiteral" value="Month(s) Ago" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="Month(s) Ago" />
 										</item>
 										<item>
-											<value xsi:type="StringLiteral" value="Years(s) Ago" />
+											<value xsi:type="elm:Literal" valueType="t:String" value="Years(s) Ago" />
 										</item>
 									</responseRange>
 								</documentationConcept>
@@ -814,29 +818,29 @@
 
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Presentation" />
+							<prompt value="Presentation" />
 							<responseDataType value="String"/>
 							<responseCardinality value="Multiple"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="Dysuria" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Dysuria" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Urinary Frequency" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Urinary Frequency" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Urinary Urgency" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Urinary Urgency" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Hematuria" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Hematuria" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Back Pain" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Back Pain" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Fever" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Fever" />
 								</item>
 							</responseRange>
 						</documentationConcept>
@@ -848,24 +852,24 @@
 				<subElements>
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Past Evaluation" />
+							<prompt value="Past Evaluation" />
 							<description value="Past Evaluation for UTI" />
 							<responseDataType value="String"/>
 							<responseCardinality value="Multiple"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="Urinalysis" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Urinalysis" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Urine Culture" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Urine Culture" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="STD Testing" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="STD Testing" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Pregnancy Test" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Pregnancy Test" />
 								</item>
 							</responseRange>
 						</documentationConcept>
@@ -877,30 +881,30 @@
 				<subElements>
 					<simpleAction xsi:type="CollectInformationAction">
 						<documentationConcept>
-							<displayText value="Past Treatment" />
+							<prompt value="Past Treatment" />
 							<description value="Past Treatment for UTI" />
 							<responseDataType value="String"/>
 							<responseCardinality value="Multiple"/>
-							<responseRange xsi:type="ListConstraint"
+							<responseRange xsi:type="EnumerationConstraint"
 								strictSelection="false">
 								<constraintType value="List"/>
 								<item>
-									<value xsi:type="StringLiteral" value="TMP-SMX" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="TMP-SMX" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Nitrofurantoin" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Nitrofurantoin" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Cephalexin" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Cephalexin" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Ciprofloxacin" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Ciprofloxacin" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Levofloxacin" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Levofloxacin" />
 								</item>
 								<item>
-									<value xsi:type="StringLiteral" value="Doxycycline" />
+									<value xsi:type="elm:Literal" valueType="t:String" value="Doxycycline" />
 								</item>
 							</responseRange>
 						</documentationConcept>

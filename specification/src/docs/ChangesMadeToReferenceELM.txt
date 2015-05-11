@@ -1,0 +1,50 @@
+action.xsd
+----------
+CreateAction.actionSentence - changed type from Expression to elm:Expression
+UpdateAction.actionSentence - changed type from Expression to elm:Expression
+RemoveAction.actionSentence - changed type from Expression to elm:Expression
+FireEventAction - Removed pending further definition
+CollectInformationAction.initialValue - changed type from Expression to elm:Expression
+
+actor.xsd
+---------
+Actor.actor - changed type from Expression to Party
+
+catalogitem.xsd
+---------------
+ExpressionConstraint.constraint - changed type from Expression to elm:Expression
+LookupConstraint.items - changed type from Expression to elm:Expression
+ValueSetConstraint.valueSet - changed type from ValueSet to elm:ValueSetRef
+EnumerationItem.value - changed type from Expression to elm:Expression
+
+clinicalexpression.xsd
+----------------------
+Removed this schema (replaced by clinicalexpression.xsd from ELM)
+
+condition.xsd
+-------------
+Condition.logic - changed type from Expression to elm:Expression
+
+expression.xsd
+--------------
+Removed this schema (replaced by expression.xsd from ELM)
+
+knowledgedocument.xsd
+---------------------
+KnowledgeDocument.externalData.codesystem - added elm:CodeSystemDef
+KnowledgeDocument.externalData.valueset - added elm:ValueSetDef
+KnowledgeDocument.externalData.parameter - changed type from ParameterDef to elm:ParameterDef
+KnowledgeDocument.externalData.def - changed type from ExpressionDef to elm:ExpressionDef
+KnowledgeDocument.expressions.def - changed type ExpressionDef to elm:ExpressionDef
+KnowledgeDocument.externalData.trigger - added Trigger
+KnowledgeDocument.triggers - removed (moved to the externalData section to consolidate with other external data)
+
+literalexpression.xsd
+---------------------
+Removed, not represented in ELM
+
+trigger.xsd
+-----------
+Trigger.expression - removed (replaced by a new def element)
+Trigger.def - added elm:ExpressionDef
+

@@ -5,6 +5,7 @@
 <!--  Illustrates how SDC sections, questions, guards, fill-ins translate to HeD forms -->
 <knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
 	xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:dt="urn:hl7-org:cdsdt:r2"
+	xmlns:elm="urn:hl7-org:elm:r1" xmlns:t="urn:hl7-org:elm-types:r1"
 	xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd
@@ -27,15 +28,18 @@
 		<status value="Draft" />
 	</metadata>
 	<externalData>
+		<codesystem name="SNOMED Clinical Terms" id="2.16.840.1.113883.6.96"/>
 		<def name="Patient">
-			<expression xsi:type="ClinicalRequest" cardinality="Single" dataType="vmr:EvaluatedPerson"/>
+			<elm:expression xsi:type="elm:SingletonFrom">
+				<elm:operand xsi:type="elm:Retrieve" dataType="vmr:EvaluatedPerson"/>
+			</elm:expression>
 		</def>
 	</externalData>
 	<expressions>
 		<def name="PatientDoB">
-			<expression xsi:type="Property" path="dateOfBirth">
-				<source xsi:type="ExpressionRef"  name="Patient"/>
-			</expression>
+			<elm:expression xsi:type="elm:Property" path="dateOfBirth">
+				<elm:source xsi:type="elm:ExpressionRef"  name="Patient"/>
+			</elm:expression>
 		</def>
 	</expressions>
 	<actionGroup>
@@ -112,7 +116,7 @@
 							<responseDataType value="Timestamp"/>
 							<responseCardinality value="Single" />
 						</documentationConcept>
-						<initialValue xsi:type="ExpressionRef" name="PatientDoB"/>
+						<initialValue xsi:type="elm:ExpressionRef" name="PatientDoB"/>
 					</simpleAction>
 				</subElements>
 			</actionGroup>
@@ -142,41 +146,41 @@
 								<item>
 									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_1"/>
 									<number><label>26</label></number>
-									<value xsi:type="StringLiteral" value="26"/>
+									<value xsi:type="elm:Literal" valueType="t:String" value="26"/>
 									<displayText><label>X-ray</label></displayText>
 								</item>
 
 								<item>
 									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_2"/>
 									<number><label>27</label></number>
-									<value xsi:type="StringLiteral" value="27"/>
+									<value xsi:type="elm:Literal" valueType="t:String" value="27"/>
 									<displayText><label>Intravenous contrast</label></displayText>
 								</item>
 
 								<item>
 									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_3"/>
 									<number><label>28</label></number>
-									<value xsi:type="StringLiteral" value="28"/>
+									<value xsi:type="elm:Literal" valueType="t:String" value="28"/>
 									<displayText><label>CT scan</label></displayText>
 								</item>
 
 								<item>
 									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_4"/>
 									<number><label>29</label></number>
-									<value xsi:type="StringLiteral" value="29"/>
+									<value xsi:type="elm:Literal" valueType="t:String" value="29"/>
 									<displayText><label>MRI</label></displayText>
 								</item>
 
 								<item>
 									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_5"/>
 									<number><label>30</label></number>
-									<value xsi:type="StringLiteral" value="30"/>
+									<value xsi:type="elm:Literal" valueType="t:String" value="30"/>
 									<displayText><label>Ultrasound</label></displayText>
 								</item>
 								<item>
 									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_6"/>
 									<number><label>31</label></number>
-									<value xsi:type="StringLiteral" value="31"/>
+									<value xsi:type="elm:Literal" valueType="t:String" value="31"/>
 									<displayText><label>Other imaging</label></displayText>
 								</item>
 							</responseRange>
@@ -193,11 +197,11 @@
 							<!--  equivalent to the guard. If response to previous question
 							includes 28 (for CT scan), then show this question  -->
 							<condition>
-								<logic xsi:type="In">
-									<operand xsi:type="StringLiteral" value="28"/>
-									<operand xsi:type="Property" path="ImagingType">
-										<source xsi:type="ParameterRef" name="Responses"/>
-									</operand>
+								<logic xsi:type="elm:In">
+									<elm:operand xsi:type="elm:Literal" valueType="t:String" value="28"/>
+									<elm:operand xsi:type="elm:Property" path="ImagingType">
+										<elm:source xsi:type="elm:ParameterRef" name="Responses"/>
+									</elm:operand>
 								</logic>
 								<conditionRole value="ApplicableScenario"/>
 							</condition>
@@ -214,20 +218,17 @@
 								<constraintType value="List"/>
 								<item>
 									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_3/guarded_question_1/list_item_1"/>
-									<value xsi:type="CodeLiteral" code="419394006" codeSystem="2.16.840.1.113883.6.96"
-										codeSystemName="SNOMED Clinical Terms"/>
+									<value xsi:type="elm:Code" code="419394006"><elm:system name="SNOMED Clinical Terms"/></value>
 									<displayText><label>Abdomen/Pelvis</label></displayText>
 								</item>
 								<item>
 									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_3/guarded_question_1/list_item_2"/>
-									<value xsi:type="CodeLiteral" code="169069000" codeSystem="2.16.840.1.113883.6.96"
-										codeSystemName="SNOMED Clinical Terms"/>
+									<value xsi:type="elm:Code" code="169069000"><elm:system name="SNOMED Clinical Terms"/></value>
 									<displayText><label>Chest</label></displayText>
 								</item>
 								<item>
 									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_3/guarded_question_1/list_item_3"/>
-									<value xsi:type="CodeLiteral" code="303653007" codeSystem="2.16.840.1.113883.6.96"
-										codeSystemName="SNOMED Clinical Terms"/>
+									<value xsi:type="elm:Code" code="303653007"><elm:system name="SNOMED Clinical Terms"/></value>
 									<displayText><label>Head</label></displayText>
 								</item>
 								<item fillIn="true">
@@ -246,11 +247,11 @@
 							<!--  equivalent to the guard. If response to previous question
 							includes 30(for ultrasound), then show this question  -->
 							<condition>
-								<logic xsi:type="In">
-									<operand xsi:type="StringLiteral" value="30"/>
-									<operand xsi:type="Property" path="ImagingType">
-										<source xsi:type="ParameterRef" name="Responses"/>
-									</operand>
+								<logic xsi:type="elm:In">
+									<elm:operand xsi:type="elm:Literal" valueType="t:String" value="30"/>
+									<elm:operand xsi:type="elm:Property" path="ImagingType">
+										<elm:source xsi:type="elm:ParameterRef" name="Responses"/>
+									</elm:operand>
 								</logic>
 								<conditionRole value="ApplicableScenario"/>
 							</condition>
@@ -267,12 +268,12 @@
 								<constraintType value="List"/>
 								<item>
 									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_5/guarded_question_1/list_item_1"/>
-									<value xsi:type="StringLiteral" value="Performed by emergency physician"/>
+									<value xsi:type="elm:Literal" valueType="t:String" value="Performed by emergency physician"/>
 									<displayText><label>Performed by emergency physician</label></displayText>
 								</item>
 								<item>
 									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_5/guarded_question_1/list_item_2"/>
-									<value xsi:type="StringLiteral" value="Other"/>
+									<value xsi:type="elm:Literal" valueType="t:String" value="Other"/>
 									<displayText><label>Other</label></displayText>
 								</item>
 							</responseRange>
