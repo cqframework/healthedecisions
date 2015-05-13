@@ -19,11 +19,21 @@
 	<!-- Namespace level model type resolver for all HeD data types. -->
 	<entry key="urn:hl7-org:cdsdt:r2" value="HeD.Model.HeDModelTypeResolver"/>
 	<!-- Specific type overrides for primitive types in the HeD namespace -->
+	<entry key="urn:hl7-org:cdsdt:r2:CD" value="HeD.Engine.Verification.CodeTypeResolver"/>
 	<entry key="urn:hl7-org:cdsdt:r2:BL" value="HeD.Engine.Verification.BooleanTypeResolver"/>
 	<entry key="urn:hl7-org:cdsdt:r2:INT" value="HeD.Engine.Verification.IntegerTypeResolver"/>
 	<entry key="urn:hl7-org:cdsdt:r2:REAL" value="HeD.Engine.Verification.RealTypeResolver"/>
 	<entry key="urn:hl7-org:cdsdt:r2:ST" value="HeD.Engine.Verification.StringTypeResolver"/>
 	<entry key="urn:hl7-org:cdsdt:r2:TS" value="HeD.Engine.Verification.TimestampTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:Boolean" value="HeD.Engine.Verification.BooleanTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:Integer" value="HeD.Engine.Verification.IntegerTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:Decimal" value="HeD.Engine.Verification.RealTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:String" value="HeD.Engine.Verification.StringTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:DateTime" value="HeD.Engine.Verification.TimestampTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:Time" value="HeD.Engine.Verification.TimeTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:Quantity" value="HeD.Engine.Verification.PhysicalQuantityTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:Code" value="HeD.Engine.Verification.CodeTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:Concept" value="HeD.Engine.Verification.ConceptTypeResolver"/>
 	<entry key="Boolean" value="HeD.Engine.Verification.BooleanTypeResolver"/>
 	<entry key="Code" value="HeD.Engine.Verification.CodeTypeResolver"/>
 	<entry key="CodedOrdinal" value="HeD.Engine.Verification.CodedOrdinalTypeResolver"/>

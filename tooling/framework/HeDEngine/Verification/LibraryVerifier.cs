@@ -18,7 +18,7 @@ namespace HeD.Engine.Verification
 		public IEnumerable<VerificationException> Verify(Library library)
 		{
 			// Parameters must be validated without access to parameter definitions, or expression definitions
-			var initialContext = new VerificationContext(library.Models, library.Libraries, null, null, null, null);
+			var initialContext = new VerificationContext(library.Models, library.Libraries, null, null, null, null, null);
 
 			// Resolve parameter types and verify default expressions
 			foreach (var parameter in library.Parameters)
@@ -39,7 +39,7 @@ namespace HeD.Engine.Verification
 				}
 			}
 
-			var context = new VerificationContext(library.Models, library.Libraries, library.Parameters, library.Expressions, library.ValueSets, initialContext.Messages);
+			var context = new VerificationContext(library.Models, library.Libraries, library.Parameters, library.Expressions, library.CodeSystems, library.ValueSets, initialContext.Messages);
 
 			// Verify expressions
 			foreach (var expression in library.Expressions)

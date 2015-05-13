@@ -29,6 +29,10 @@ namespace HeD.Engine.Model
 
 		public IEnumerable<ParameterDef> Parameters { get; set; }
 
+		public IEnumerable<CodeSystemDef> CodeSystems { get; set; }
+
+		public IEnumerable<ValueSetDef> ValueSets { get; set; }
+
 		public IEnumerable<ExpressionDef> Expressions { get; set; }
 
 		public IEnumerable<ASTNode> Conditions { get; set; }

@@ -85,7 +85,7 @@ namespace SQL.Translation
 			{
 				return new Model.BinaryExpression(new Model.ValueExpression(1), "iEqual", new Model.ValueExpression(Boolean.Parse(node.GetAttribute<string>("value")) ? 1 : 0));
 			}
-			else if (DataTypes.Equal(node.ResultType, DataTypes.Timestamp))
+			else if (DataTypes.Equal(node.ResultType, DataTypes.DateTime))
 			{
 				// TODO: Convert to format expected by T-SQL
 				return new Model.CallExpression("convert", new Model.Expression[] { new Model.IdentifierExpression("datetime"), new Model.ValueExpression(node.GetAttribute<string>("value")) }); 
@@ -104,7 +104,7 @@ namespace SQL.Translation
 					result.Token = Model.TokenType.Integer;
 					result.Value = Int32.Parse(node.GetAttribute<string>("value"));
 				}
-				else if (DataTypes.Equal(node.ResultType, DataTypes.Real))
+				else if (DataTypes.Equal(node.ResultType, DataTypes.Decimal))
 				{
 					result.Token = Model.TokenType.Decimal;
 					result.Value = Decimal.Parse(node.GetAttribute<string>("value"));
@@ -135,7 +135,7 @@ namespace SQL.Translation
 
 	//	public object Translate(TranslationContext context, ASTNode node)
 	//	{
-	//		if (DataTypes.Equal(node.ResultType, DataTypes.TimestampInterval))
+	//		if (DataTypes.Equal(node.ResultType, DataTypes.DateTimeInterval))
 	//		{
 	//			var result = new SQLModel.DateRange();
 

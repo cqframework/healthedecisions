@@ -110,23 +110,26 @@ namespace HeD.Engine.Verification
 		public void Verify(VerificationContext context, ASTNode node)
 		{
 			// objectType
-            var objectTypeName = node.GetAttribute<string>("objectType");
+            var objectTypeName = node.GetAttribute<string>("classType");
             if (objectTypeName != null)
             {
-			    var objectType = context.ResolveType(node.GetAttribute<string>("objectType")) as ObjectType;
+			    var objectType = context.ResolveType(node.GetAttribute<string>("classType")) as ObjectType;
 
 			    // foreach property
 			    foreach (var child in ((Node)node).Children)
 			    {
-				    // Verify the property exists
-				    var childPropertyType = context.ResolveProperty(objectType, child.GetAttribute<string>("name"));
+					if (child.Name == "element") 
+					{
+						// Verify the property exists
+						var childPropertyType = context.ResolveProperty(objectType, child.GetAttribute<string>("name"));
 
-				    // Verify the value
-				    var value = (ASTNode)child.Children[0];
-				    Verifier.Verify(context, value);
+						// Verify the value
+						var value = (ASTNode)child.Children[0];
+						Verifier.Verify(context, value);
 
-				    // Verify the value type is appropriate for the property type
-				    context.VerifyType(value.ResultType, childPropertyType);
+						// Verify the value type is appropriate for the property type
+						context.VerifyType(value.ResultType, childPropertyType);
+					}
 			    }
 
 			    node.ResultType = objectType;
@@ -137,11 +140,14 @@ namespace HeD.Engine.Verification
 
                 foreach (var child in ((Node)node).Children)
                 {
-                    var value = (ASTNode)child.Children[0];
-                    Verifier.Verify(context, value);
+					if (child.Name == "element")
+					{
+						var value = (ASTNode)child.Children[0];
+						Verifier.Verify(context, value);
 
-                    var property = new PropertyDef(child.GetAttribute<string>("name"), value.ResultType);
-                    propertyList.Add(property);
+						var property = new PropertyDef(child.GetAttribute<string>("name"), value.ResultType);
+						propertyList.Add(property);
+					}
                 }
 
                 var objectType = new ObjectType(Guid.NewGuid().ToString(), propertyList);
@@ -447,6 +453,24 @@ namespace HeD.Engine.Verification
 		public void Verify(VerificationContext context, ASTNode node)
 		{
 			Verifier.Verify(context, node.Children[0]);
+
+			node.ResultType = DataTypes.Boolean;
+		}
+
+		#endregion
+	}
+
+	// IsTrue
+	// IsFalse
+	public class IsTrueOrFalseVerifier : INodeVerifier
+	{
+		#region INodeVerifier Members
+
+		public void Verify(VerificationContext context, ASTNode node)
+		{
+			Verifier.Verify(context, node.Children[0]);
+
+			context.VerifyType(node.Children[0].ResultType, DataTypes.Boolean);
 
 			node.ResultType = DataTypes.Boolean;
 		}
@@ -1320,6 +1344,23 @@ namespace HeD.Engine.Verification
 		public void Verify(VerificationContext context, ASTNode node)
 		{
 			node.ResultType = DataTypes.Code;
+
+			// TODO: Validate code system reference
+		}
+
+		#endregion
+	}
+
+	// ConceptLiteral
+	public class ConceptLiteralVerifier : INodeVerifier
+	{
+		#region INodeVerifier Members
+
+		public void Verify(VerificationContext context, ASTNode node)
+		{
+			node.ResultType = DataTypes.Concept;
+
+			// TODO: Validate contained codes
 		}
 
 		#endregion
@@ -1501,7 +1542,7 @@ namespace HeD.Engine.Verification
 
 		public void Verify(VerificationContext context, ASTNode node)
 		{
-			node.ResultType = DataTypes.Real;
+			node.ResultType = DataTypes.Decimal;
 		}
 
 		#endregion
@@ -1523,7 +1564,7 @@ namespace HeD.Engine.Verification
             context.VerifyType(numeratorType, DataTypes.Quantity);
             context.VerifyType(denominatorType, DataTypes.Quantity);
 
-            node.ResultType = DataTypes.Ratio;
+            node.ResultType = DataTypes.ResolveType(typeof(RTO));
         }
     }
 
@@ -1614,7 +1655,7 @@ namespace HeD.Engine.Verification
 			if (!String.IsNullOrEmpty(idProperty))
 			{
 				var idPropertyType = context.ResolveProperty(dataType, idProperty);
-				if (!(DataTypes.Equivalent(idPropertyType, DataTypes.Identifier) || DataTypes.Equal(idPropertyType, DataTypes.String)))
+				if (!(DataTypes.Equivalent(idPropertyType, DataTypes.ResolveType(typeof(II))) || DataTypes.Equal(idPropertyType, DataTypes.String)))
 				{
 					throw new InvalidOperationException("Id property must be either an Identifier or a String.");
 				}
@@ -1677,7 +1718,7 @@ namespace HeD.Engine.Verification
 			if (!String.IsNullOrEmpty(dateProperty))
 			{
 				var datePropertyType = context.ResolveProperty(dataType, dateProperty);
-				context.VerifyType(datePropertyType, DataTypes.Timestamp);
+				context.VerifyType(datePropertyType, DataTypes.DateTime);
 			}
 
 			// codes - If present, must evaluate to a value of type List<Code>
@@ -1693,7 +1734,7 @@ namespace HeD.Engine.Verification
 			if (dateRange != null)
 			{
 				Verifier.Verify(context, dateRange);
-				context.VerifyType(dateRange.ResultType, DataTypes.TimestampInterval);
+				context.VerifyType(dateRange.ResultType, DataTypes.DateTimeInterval);
 			}
 		}
 	}

@@ -31,6 +31,7 @@ namespace HeD.Engine.Reading
 			var result = new Artifact();
 
 			var ns = artifact.Root.GetDefaultNamespace();
+			var elmns = XNamespace.Get("urn:hl7-org:elm:r1");
 
 			var metaData = artifact.Root.Element(ns + "metadata");
 
@@ -67,13 +68,22 @@ namespace HeD.Engine.Reading
 
 			if (externalData != null)
 			{
+				// Pull Codesystems
+				result.CodeSystems = ReadCodeSystems(ns, externalData.Elements(ns + "codesystem")).ToList();
+				
+				// Pull valuesets
+				result.ValueSets = ReadValueSets(ns, externalData.Elements(ns + "valueset")).ToList();
+
 				// Pull parameters
-				result.Parameters = ReadParameters(ns, externalData.Elements(ns + "parameter")).ToList();
+				result.Parameters = ReadParameters(ns, elmns, externalData.Elements(ns + "parameter")).ToList();
 
 				// Pull external defs
-				var externalDefs = ReadExpressionDefs(ns, externalData.Elements(ns + "def"));
+				var externalDefs = ReadExpressionDefs(ns, elmns, externalData.Elements(ns + "def"));
 
-                result.Expressions = externalDefs.ToList();
+				// Pull triggers
+				var triggers = ReadTriggers(ns, elmns, externalData.Elements(ns + "trigger"));
+
+                result.Expressions = externalDefs.Concat(triggers).ToList();
 			}
 			else
 			{
@@ -85,7 +95,7 @@ namespace HeD.Engine.Reading
             var expressionsElement = artifact.Root.Element(ns + "expressions");
             if (expressionsElement != null)
             {
-			    var expressions = ReadExpressionDefs(ns, expressionsElement.Elements(ns + "def"));
+			    var expressions = ReadExpressionDefs(ns, elmns, expressionsElement.Elements(ns + "def"));
 
                 result.Expressions = result.Expressions.Concat(expressions).ToList();
             }
@@ -94,7 +104,7 @@ namespace HeD.Engine.Reading
 			var conditionsElement = artifact.Root.Element(ns + "conditions");
 			if (conditionsElement != null)
 			{
-				result.Conditions = ReadConditions(ns, conditionsElement.Elements(ns + "condition")).ToList();
+				result.Conditions = ReadConditions(ns, elmns, conditionsElement.Elements(ns + "condition")).ToList();
 			}
 			else
 			{
@@ -106,17 +116,6 @@ namespace HeD.Engine.Reading
 			if (actionGroupElement != null)
 			{
 				result.ActionGroup = NodeReader.ReadNode(actionGroupElement);
-			}
-
-			// Pull triggers
-			var triggersElement = artifact.Root.Element(ns + "triggers");
-			if (triggersElement != null)
-			{
-				result.Triggers = ReadTriggers(ns, triggersElement.Elements(ns + "trigger")).ToList();
-			}
-			else
-			{
-				result.Triggers = new List<Node>();
 			}
 
 			return result;
@@ -165,33 +164,65 @@ namespace HeD.Engine.Reading
 						};
 		}
 
-		private static IEnumerable<ParameterDef> ReadParameters(XNamespace ns, IEnumerable<XElement> parameters)
+		private static IEnumerable<HeD.Engine.Model.CodeSystemDef> ReadCodeSystems(XNamespace ns, IEnumerable<XElement> codesystems)
+		{
+			return
+				from codesystem in codesystems
+					let idAttribute = codesystem.Attribute("id")
+					let versionAttribute = codesystem.Attribute("version")
+					select
+						new HeD.Engine.Model.CodeSystemDef
+						{
+							Name = codesystem.Attribute("name").Value,
+							Id = idAttribute == null ? null : idAttribute.Value,
+							Version = versionAttribute == null ? null : versionAttribute.Value
+						};
+		}
+
+        private static IEnumerable<HeD.Engine.Model.ValueSetDef> ReadValueSets(XNamespace ns, IEnumerable<XElement> valuesets)
+        {
+            return
+                from valueset in valuesets
+                    let idAttribute = valueset.Attribute("id")
+                    let versionAttribute = valueset.Attribute("version")
+                    select 
+                        new HeD.Engine.Model.ValueSetDef 
+                        { 
+                            Name = valueset.Attribute("name").Value, 
+                            Id = idAttribute == null ? null : idAttribute.Value, 
+                            Version = versionAttribute == null ? null : versionAttribute.Value
+				            // TODO: Valueset CodeSystems
+                        };
+        }
+
+		private static IEnumerable<ParameterDef> ReadParameters(XNamespace ns, XNamespace elmns, IEnumerable<XElement> parameters)
 		{
 			return
 				from parameter in parameters
-					let defaultNode = parameter.Element(ns + "expression")
+					let defaultNode = parameter.Element(elmns + "expression")
 					select new ParameterDef { Name = parameter.Attribute("name").Value, TypeName = parameter.ExpandName(parameter.Attribute("parameterType").Value), Default = defaultNode != null ? NodeReader.ReadASTNode(defaultNode) : null };
 		}
 
-		private static IEnumerable<ExpressionDef> ReadExpressionDefs(XNamespace ns, IEnumerable<XElement> expressionDefs)
+		private static IEnumerable<ExpressionDef> ReadExpressionDefs(XNamespace ns, XNamespace elmns, IEnumerable<XElement> expressionDefs)
 		{
 			return
 				from expressionDef in expressionDefs
-					select new ExpressionDef { Name = expressionDef.Attribute("name").Value, Expression = NodeReader.ReadASTNode(expressionDef.Element(ns + "expression")) };
+					select new ExpressionDef { Name = expressionDef.Attribute("name").Value, Expression = NodeReader.ReadASTNode(expressionDef.Element(elmns + "expression")) };
 		}
 
-		private static IEnumerable<ASTNode> ReadConditions(XNamespace ns, IEnumerable<XElement> conditions)
+		private static IEnumerable<ASTNode> ReadConditions(XNamespace ns, XNamespace elmns, IEnumerable<XElement> conditions)
 		{
 			return
 				from condition in conditions
 					select NodeReader.ReadASTNode(condition.Element(ns + "logic"));
 		}
 
-		private static IEnumerable<Node> ReadTriggers(XNamespace ns, IEnumerable<XElement> triggers)
+		private static IEnumerable<ExpressionDef> ReadTriggers(XNamespace ns, XNamespace elmns, IEnumerable<XElement> triggers)
 		{
 			return
 				from trigger in triggers
-					select NodeReader.ReadNode(trigger);
+					let triggerDef = trigger.Element(ns + "def")
+					select new ExpressionDef { Name = triggerDef.Attribute("name").Value, Expression = NodeReader.ReadASTNode(triggerDef.Element(elmns + "expression")) };
 		}
 	}
 }

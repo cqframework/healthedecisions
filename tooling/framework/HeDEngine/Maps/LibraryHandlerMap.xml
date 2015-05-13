@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <map xmlns="urn:hl7-org:knowledgeartifact:r1:engine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1:engine HandlerMap.xsd" handlerType="LibraryReader">
-	<entry key="application/elm+xml" value="ELM.Model.ELMLibraryReader, ELM.Model"/>
+	<entry key="application/elm+xml" value="ELM.Model.ELMLibraryReader, HeDEngine"/>
 </map>

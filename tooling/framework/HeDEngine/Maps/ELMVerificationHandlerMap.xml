@@ -2,11 +2,12 @@
 <map xmlns="urn:hl7-org:knowledgeartifact:r1:engine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1:engine HandlerMap.xsd" handlerType="Verification">
 	<!-- Base Expression Types -->
 	<entry key="urn:hl7-org:elm:r1:ExpressionRef" value="HeD.Engine.Verification.ExpressionRefVerifier, HeDEngine"/>
-	<entry key="urn:hl7-org:elm:r1:FunctionRef" value="ELM.Model.Verification.FunctionRefVerifier, ELM.Model"/>
+	<entry key="urn:hl7-org:elm:r1:FunctionRef" value="ELM.Model.Verification.FunctionRefVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:ParameterRef" value="HeD.Engine.Verification.ParameterRefVerifier, HeDEngine"/>
-	<entry key="urn:hl7-org:elm:r1:IdentifierRef" value="ELM.Model.Verification.IdentifierRefVerifier, ELM.Model"/>
+	<entry key="urn:hl7-org:elm:r1:IdentifierRef" value="ELM.Model.Verification.IdentifierRefVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Literal" value="HeD.Engine.Verification.LiteralVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Tuple" value="HeD.Engine.Verification.ObjectExpressionVerifier, HeDEngine"/>
+	<entry key="urn:hl7-org:elm:r1:Instance" value="HeD.Engine.Verification.ObjectExpressionVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Interval" value="HeD.Engine.Verification.IntervalVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:List" value="HeD.Engine.Verification.ListVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:And" value="HeD.Engine.Verification.NaryLogicalNodeVerifier, HeDEngine"/>
@@ -17,6 +18,8 @@
 	<entry key="urn:hl7-org:elm:r1:Case" value="HeD.Engine.Verification.CaseVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Null" value="HeD.Engine.Verification.NullVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:IsNull" value="HeD.Engine.Verification.IsNullVerifier, HeDEngine"/>
+	<entry key="urn:hl7-org:elm:r1:IsTrue" value="HeD.Engine.Verification.IsTrueOrFalseVerifier, HeDEngine"/>
+	<entry key="urn:hl7-org:elm:r1:IsFalse" value="HeD.Engine.Verification.IsTrueOrFalseVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:IfNull" value="HeD.Engine.Verification.IfNullVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Coalesce" value="HeD.Engine.Verification.CoalesceVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Is" value="HeD.Engine.Verification.IsVerifier, HeDEngine"/>
@@ -47,27 +50,26 @@
 	<entry key="urn:hl7-org:elm:r1:Predecessor" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:MinValue" value="HeD.Engine.Verification.BoundaryValueVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:MaxValue" value="HeD.Engine.Verification.BoundaryValueVerifier, HeDEngine"/>
-	<entry key="urn:hl7-org:elm:r1:Concat" value="HeD.Engine.Verification.ConcatVerifier, HeDEngine"/>
+	<entry key="urn:hl7-org:elm:r1:Concatenate" value="HeD.Engine.Verification.ConcatVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Combine" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Split" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Length" value="HeD.Engine.Verification.LengthVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Upper" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Lower" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Indexer" value="HeD.Engine.Verification.IndexerVerifier, HeDEngine"/>
-	<entry key="urn:hl7-org:elm:r1:Pos" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
+	<entry key="urn:hl7-org:elm:r1:PositionOf" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Substring" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
-	<!-- TODO: Date Functions -->
-	<!--entry key="urn:hl7-org:elm:r1:DateAdd" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
-	<entry key="urn:hl7-org:elm:r1:DateDiff" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
-	<entry key="urn:hl7-org:elm:r1:DatePart" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/-->
 	<entry key="urn:hl7-org:elm:r1:DurationBetween" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
+	<entry key="urn:hl7-org:elm:r1:DifferenceBetween" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:DateFrom" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:TimeFrom" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:TimezoneFrom" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:DateTimeComponentFrom" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Today" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Now" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
+	<entry key="urn:hl7-org:elm:r1:TimeOfDay" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:DateTime" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
+	<entry key="urn:hl7-org:elm:r1:Time" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:SameAs" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:SameOrBefore" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:SameOrAfter" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
@@ -96,7 +98,7 @@
 	<entry key="urn:hl7-org:elm:r1:Collapse" value="HeD.Engine.Verification.CollapseVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Expand" value="HeD.Engine.Verification.ExpandVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Exists" value="HeD.Engine.Verification.IsNotEmptyVerifier, HeDEngine"/>
-	<entry key="urn:hl7-org:elm:r1:Times" value="ELM.Model.Verification.TimesVerifier, ELM.Model"/>
+	<entry key="urn:hl7-org:elm:r1:Times" value="ELM.Model.Verification.TimesVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:First" value="HeD.Engine.Verification.FirstVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Last" value="HeD.Engine.Verification.LastVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Filter" value="HeD.Engine.Verification.FilterVerifier, HeDEngine"/>
@@ -121,14 +123,18 @@
 	<entry key="urn:hl7-org:elm:r1:AllTrue" value="HeD.Engine.Verification.LogicalAggregateVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:AnyTrue" value="HeD.Engine.Verification.LogicalAggregateVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:Property" value="HeD.Engine.Verification.PropertyVerifier, HeDEngine"/>
-	<entry key="urn:hl7-org:elm:r1:Query" value="ELM.Model.Verification.QueryVerifier, ELM.Model"/>
-	<entry key="urn:hl7-org:elm:r1:AliasRef" value="ELM.Model.Verification.AliasRefVerifier, ELM.Model"/>
-	<entry key="urn:hl7-org:elm:r1:QueryDefineRef" value="ELM.Model.Verification.QueryDefineRefVerifier, ELM.Model"/>
+	<entry key="urn:hl7-org:elm:r1:Query" value="ELM.Model.Verification.QueryVerifier, HeDEngine"/>
+	<entry key="urn:hl7-org:elm:r1:AliasRef" value="ELM.Model.Verification.AliasRefVerifier, HeDEngine"/>
+	<entry key="urn:hl7-org:elm:r1:QueryDefineRef" value="ELM.Model.Verification.QueryDefineRefVerifier, HeDEngine"/>
 	<!-- Clinical Expression Types -->
 	<entry key="urn:hl7-org:elm:r1:Retrieve" value="HeD.Engine.Verification.ClinicalRequestVerifier, HeDEngine"/>
-	<entry key="urn:hl7-org:elm:r1:ValueSetRef" value="ELM.Model.Verification.ValueSetRefVerifier, ELM.Model"/>
+	<entry key="urn:hl7-org:elm:r1:Code" value="HeD.Engine.Verification.CodeLiteralVerifier, HeDEngine"/>
+	<entry key="urn:hl7-org:elm:r1:Concept" value="HeD.Engine.Verification.ConceptLiteralVerifier, HeDEngine"/>
+	<entry key="urn:hl7-org:elm:r1:CodeSystemRefRef" value="ELM.Model.Verification.CodeSystemRefVerifier, HeDEngine"/>
+	<entry key="urn:hl7-org:elm:r1:InCodeSystem" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
+	<entry key="urn:hl7-org:elm:r1:ValueSetRef" value="ELM.Model.Verification.ValueSetRefVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:InValueSet" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
-	<entry key="urn:hl7-org:elm:r1:Quantity" value="ELM.Model.Verification.QuantityVerifier, ELM.Model"/>
+	<entry key="urn:hl7-org:elm:r1:Quantity" value="ELM.Model.Verification.QuantityVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:CalculateAge" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 	<entry key="urn:hl7-org:elm:r1:CalculateAgeAt" value="HeD.Engine.Verification.OperatorNodeVerifier, HeDEngine"/>
 </map>

@@ -24,6 +24,7 @@ namespace HeD.Engine.Verification
 			IEnumerable<LibraryRef> libraries,
 			IEnumerable<ParameterDef> parameters,
 			IEnumerable<ExpressionDef> expressions,
+			IEnumerable<CodeSystemDef> codesystems,
             IEnumerable<ValueSetDef> valuesets,
             IEnumerable<VerificationException> messages
 		)
@@ -46,6 +47,11 @@ namespace HeD.Engine.Verification
 			if (expressions != null)
 			{
 				AddExpressions(expressions);
+			}
+
+			if (codesystems != null)
+			{
+				AddCodeSystems(codesystems);
 			}
 
             if (valuesets != null)
@@ -280,6 +286,57 @@ namespace HeD.Engine.Verification
 				throw new InvalidOperationException(String.Format("Could not resolve symbol name {0}.", symbolName));
 			}
 			return symbol;
+		}
+
+		// Codesystems
+		private Dictionary<string, CodeSystemDef> _codesystems = new Dictionary<string, CodeSystemDef>(StringComparer.InvariantCultureIgnoreCase);
+
+		public void AddCodeSystemDef(CodeSystemDef codesystem)
+		{
+			if (codesystem == null)
+			{
+				throw new ArgumentNullException("codesystem");
+			}
+
+			if (_codesystems.ContainsKey(codesystem.Name))
+			{
+				throw new InvalidOperationException(String.Format("A codesystem named {0} is already defined in this scope.", codesystem.Name));
+			}
+
+			_codesystems.Add(codesystem.Name, codesystem);
+		}
+
+		public CodeSystemDef ResolveCodeSystemRef(string libraryName, string codesystemName)
+		{
+            if (!string.IsNullOrEmpty(libraryName))
+            {
+                var library = ResolveLibrary(libraryName);
+                var result = library.CodeSystems.FirstOrDefault(e => String.Compare(e.Name, codesystemName, true) == 0);
+                if (result == null)
+                {
+                    throw new InvalidOperationException(String.Format("Could not resolve codesystem reference {0} in library {1}.", codesystemName, libraryName));
+                }
+
+                return result;
+            }
+            else
+            {
+                CodeSystemDef result;
+                if (!_codesystems.TryGetValue(codesystemName, out result))
+                {  
+                    throw new InvalidOperationException(String.Format("Could not resolve codesystem name {0}.", codesystemName));
+                }
+
+                return result;
+            }
+		}
+
+		private void AddCodeSystems(IEnumerable<CodeSystemDef> codesystems)
+		{
+			foreach (var codesystem in codesystems)
+			{
+				_codesystems.Add(codesystem.Name, codesystem);
+			}
 		}
 
         // Valuesets

@@ -87,10 +87,6 @@
       <Link>Artifacts\DopamineComplexIVOrder.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\specification\src\examples\DopamineComplexIVOrderWithComplexLiteral.xml">
-      <Link>Artifacts\DopamineComplexIVOrderWithComplexLiteral.xml</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\..\..\specification\src\examples\FLACC_DocTemplate.xml">
       <Link>Artifacts\FLACC_DocTemplate.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -125,10 +121,6 @@
     </Content>
     <Content Include="..\..\..\specification\src\examples\RespiratoryOrder.xml">
       <Link>Artifacts\RespiratoryOrder.xml</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\..\specification\src\examples\RespiratoryOrderWithComplexLiteral.xml">
-      <Link>Artifacts\RespiratoryOrderWithComplexLiteral.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\specification\src\examples\SDCPertussisClinical-eReportingCriteria.xml">
@@ -286,6 +278,11 @@
     </Content>
     <Content Include="..\..\..\specification\src\examples\HeartFailureAdmissionToMedSurgOrderSet.pdf">
       <Link>Artifacts\HeartFailureAdmissionToMedSurgOrderSet.pdf</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\elm\types.xsd">
+      <Link>Schema\elm\types.xsd</Link>
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="App.config" />

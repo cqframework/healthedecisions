@@ -18,7 +18,7 @@ namespace HeD.Engine.Verification
 		public IEnumerable<VerificationException> Verify(Artifact artifact)
 		{
 			// Parameters must be validated without access to parameter definitions, or expression definitions
-			var initialContext = new VerificationContext(artifact.Models, artifact.Libraries, null, null, null, null);
+			var initialContext = new VerificationContext(artifact.Models, artifact.Libraries, null, null, null, null, null);
 
 			// Resolve parameter types and verify default expressions
 			foreach (var parameter in artifact.Parameters)
@@ -39,7 +39,7 @@ namespace HeD.Engine.Verification
 				}
 			}
 
-			var context = new VerificationContext(artifact.Models, artifact.Libraries, artifact.Parameters, artifact.Expressions, null, initialContext.Messages);
+			var context = new VerificationContext(artifact.Models, artifact.Libraries, artifact.Parameters, artifact.Expressions, artifact.CodeSystems, artifact.ValueSets, initialContext.Messages);
 
 			// Verify expressions
 			foreach (var expression in artifact.Expressions)
@@ -63,9 +63,12 @@ namespace HeD.Engine.Verification
 			}
 
 			// Verify trigger expressions
-			foreach (var trigger in artifact.Triggers)
+			if (artifact.Triggers != null)
 			{
-				VerifyExpressionNodes(context, trigger);
+				foreach (var trigger in artifact.Triggers)
+				{
+					VerifyExpressionNodes(context, trigger);
+				}
 			}
 
 			// Verify action conditions

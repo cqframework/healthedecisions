@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 
 using HeD.Engine.Model;
+using HeD.Model;
 
 namespace HeD.Engine.Verification
 {
@@ -49,13 +50,25 @@ namespace HeD.Engine.Verification
 		#endregion
 	}
 
+	public class ConceptTypeResolver : ITypeResolver
+	{
+		#region ITypeResolver Members
+
+		public DataType Resolve(string typeName)
+		{
+			return DataTypes.Concept;
+		}
+
+		#endregion
+	}
+
 	public class CodedOrdinalTypeResolver : ITypeResolver
 	{
 		#region ITypeResolver Members
 
 		public DataType Resolve(string typeName)
 		{
-			return DataTypes.CodedOrdinal;
+			return DataTypes.ResolveType(typeof(CO));
 		}
 
 		#endregion
@@ -67,7 +80,7 @@ namespace HeD.Engine.Verification
 
 		public DataType Resolve(string typeName)
 		{
-            return DataTypes.EntityName;
+            return DataTypes.ResolveType(typeof(EN));
 		}
 
 		#endregion
@@ -79,7 +92,7 @@ namespace HeD.Engine.Verification
 
 		public DataType Resolve(string typeName)
 		{
-			return DataTypes.Identifier;
+			return DataTypes.ResolveType(typeof(II));
 		}
 
 		#endregion
@@ -115,7 +128,7 @@ namespace HeD.Engine.Verification
 
 		public DataType Resolve(string typeName)
 		{
-			return DataTypes.Period;
+			return DataTypes.ResolveType(typeof(PIVL_TS));
 		}
 
 		#endregion
@@ -127,7 +140,7 @@ namespace HeD.Engine.Verification
 
 		public DataType Resolve(string typeName)
 		{
-			return DataTypes.PhysicalQuantity;
+			return DataTypes.Quantity;
 		}
 
 		#endregion
@@ -139,7 +152,7 @@ namespace HeD.Engine.Verification
 
 		public DataType Resolve(string typeName)
 		{
-			return DataTypes.PhysicalQuantityInterval;
+			return DataTypes.QuantityInterval;
 		}
 
 		#endregion
@@ -163,7 +176,7 @@ namespace HeD.Engine.Verification
 
 		public DataType Resolve(string typeName)
 		{
-			return DataTypes.Ratio;
+			return DataTypes.ResolveType(typeof(RTO));
 		}
 
 		#endregion
@@ -175,7 +188,7 @@ namespace HeD.Engine.Verification
 
 		public DataType Resolve(string typeName)
 		{
-			return DataTypes.Real;
+			return DataTypes.Decimal;
 		}
 
 		#endregion
@@ -187,7 +200,7 @@ namespace HeD.Engine.Verification
 
 		public DataType Resolve(string typeName)
 		{
-			return DataTypes.RealInterval;
+			return DataTypes.DecimalInterval;
 		}
 
 		#endregion
@@ -199,7 +212,7 @@ namespace HeD.Engine.Verification
 
 		public DataType Resolve(string typeName)
 		{
-			return DataTypes.SimpleCode;
+			return DataTypes.String;
 		}
 
 		#endregion
@@ -223,7 +236,19 @@ namespace HeD.Engine.Verification
 
 		public DataType Resolve(string typeName)
 		{
-			return DataTypes.Timestamp;
+			return DataTypes.DateTime;
+		}
+
+		#endregion
+	}
+
+	public class TimeTypeResolver : ITypeResolver
+	{
+		#region ITypeResolver Members
+
+		public DataType Resolve(string typeName)
+		{
+			return DataTypes.Time;
 		}
 
 		#endregion
@@ -235,7 +260,7 @@ namespace HeD.Engine.Verification
 
 		public DataType Resolve(string typeName)
 		{
-			return DataTypes.TimestampInterval;
+			return DataTypes.DateTimeInterval;
 		}
 
 		#endregion
@@ -247,7 +272,7 @@ namespace HeD.Engine.Verification
 
 		public DataType Resolve(string typeName)
 		{
-			return DataTypes.URL;
+			return DataTypes.String;
 		}
 
 		#endregion

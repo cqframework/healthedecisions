@@ -12,7 +12,10 @@
 	xmlns:xml="http://www.w3.org/XML/1998/namespace"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd
-	 urn:hl7-org:vmr:r2 ../schema/vmr/vmr.xsd urn:hl7-org:elm:r1 ../schema/elm/clinicalexpression.xsd urn:hl7-org:elm-types:r1 ../schema/elm/types.xsd urn:hl7-org:cql-annotations:r1 ../schema/elm/cqlannotations.xsd">
+	 urn:hl7-org:vmr:r2 ../schema/vmr/vmr.xsd 
+	urn:hl7-org:elm:r1 ../schema/elm/clinicalexpression.xsd 
+	urn:hl7-org:elm-types:r1 ../schema/elm/types.xsd 
+	urn:hl7-org:cql-annotations:r1 ../schema/elm/cqlannotations.xsd">
 
 	<!-- Dopamine Complex IV Order This example describes a complex IV order. 
 		This example was chosen to illustrate a modular order set that could be used 

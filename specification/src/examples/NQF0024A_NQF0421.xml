@@ -58,11 +58,11 @@
 		<codesystem name="???" id="???"/>
 		<def name="Patient">
 			<elm:expression xsi:type="elm:SingletonFrom">
-				<elm:operand xsi:type="elm:Retrieve" dataType="vmr:Patient"/>
+				<elm:operand xsi:type="elm:Retrieve" dataType="vmr:EvaluatedPerson"/>
 			</elm:expression>
 		</def>
 		<def name="HeightAndWeightMeasurements">
-			<elm:expression xsi:type="elm:Retrieve" dataType="vmr:ObservationResult" codeProperty="observationFocus" dateProperty="observationEventTime">
+			<elm:expression xsi:type="elm:Retrieve" dataType="vmr:ObservationResult" codeProperty="observationFocus" dateProperty="observationEventTime.low">
 				<elm:codes xsi:type="elm:List">
 					<elm:element xsi:type="elm:Code" code="???" display="Height Measurement"><elm:system name="???" /></elm:element>
 					<elm:element xsi:type="elm:Code" code="???" display="Weight Measurement"><elm:system name="???"/></elm:element>
@@ -79,12 +79,12 @@
 	</externalData>
 	<expressions>
 		<def name="PatientAge">
-			<elm:expression xsi:type="elm:Property" path="demographics.age">
+			<elm:expression xsi:type="elm:Property" path="age">
 				<elm:source xsi:type="elm:ExpressionRef" name="Patient" />
 			</elm:expression>
 		</def>
 		<def name="MostRecentHeightMeasurementDate">
-			<elm:expression xsi:type="elm:Property" path="observationEventTime">
+			<elm:expression xsi:type="elm:Property" path="observationEventTime.low">
 				<elm:source xsi:type="elm:Last" orderBy="observationEventTime">
 					<elm:source xsi:type="elm:Filter">
 						<elm:source xsi:type="elm:ExpressionRef" name="HeightAndWeightMeasurements"/>
@@ -97,7 +97,7 @@
 			</elm:expression>
 		</def>
 		<def name="MostRecentWeightMeasurementDate">
-			<elm:expression xsi:type="elm:Property" path="observationEventTime">
+			<elm:expression xsi:type="elm:Property" path="observationEventTime.low">
 				<elm:source xsi:type="elm:Last" orderBy="observationEventTime">
 					<elm:source xsi:type="elm:Filter">
 						<elm:source xsi:type="elm:ExpressionRef" name="HeightAndWeightMeasurements"/>
@@ -116,7 +116,7 @@
 				<elm:operand xsi:type="elm:GreaterOrEqual">
 					<elm:annotation xsi:type="a:Annotation"><a:s>Patient age greater than or equal to 2</a:s></elm:annotation>
 					<elm:operand xsi:type="elm:ExpressionRef" name="PatientAge"/>
-					<elm:operand xsi:type="elm:Literal" valueType="t:Integer" value="2" />
+					<elm:operand xsi:type="elm:Quantity" value="2" unit="years"/>
 				</elm:operand>
 				<elm:operand xsi:type="elm:Equal">
 					<elm:operand xsi:type="elm:DifferenceBetween" precision="Day">

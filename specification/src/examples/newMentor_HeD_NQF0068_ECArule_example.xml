@@ -286,7 +286,8 @@
 
 		<def name="Patient">
 			<elm:expression xsi:type="elm:SingletonFrom">
-				<elm:operand xsi:type="elm:Retrieve" dataType="vmr:EvaluatedPerson"/>
+				<elm:operand xsi:type="elm:Retrieve" 
+					dataType="vmr:EvaluatedPerson"/>
 			</elm:expression>
 		</def>
 		<def name="antithromboticNotPrescribedForDocumentedReason">
@@ -331,7 +332,7 @@
 				dateProperty="proposedAdministrationTimeInterval.begin">
 				<elm:annotation xsi:type="a:Annotation"><a:s>Patient has a proposal to prescribe antithrombotic
 					today or later.</a:s></elm:annotation>
-				<elm:codes xsi:type="elm:ValueSetRef" name="Asprin and other Anti-Thrombotics"/>
+				<elm:codes xsi:type="elm:ValueSetRef" name="Aspirin and other Anti-Thrombotics"/>
 				<elm:dateRange xsi:type="elm:Interval">
 					<elm:low xsi:type="elm:Today" />
 				</elm:dateRange>
@@ -534,47 +535,43 @@
 						<actionSentence xsi:type="elm:Instance"
 							classType="vmr:CommunicationProposal">
 							<elm:element name="message">
-								<elm:value xsi:type="elm:Instance" classType="dt:ED">
-									<elm:element name="value">
-										<elm:value xsi:type="elm:Concatenate">
-											<elm:operand xsi:type="elm:Literal" valueType="t:String" value="Patient was identified as having " />
-											<elm:operand xsi:type="elm:Coalesce">
-												<elm:operand xsi:type="elm:Concatenate">
-													<elm:operand xsi:type="elm:Literal" valueType="t:String"  value="AMI (" />
-													<elm:operand xsi:type="elm:Property" path="conditionCode.displayName">
-														<elm:source xsi:type="elm:Last" orderBy="diagnosticEventTime">
-															<elm:source xsi:type="elm:ExpressionRef" name="AMI_Diagnosis" />
-														</elm:source>
-													</elm:operand>
-													<elm:operand xsi:type="elm:Literal" valueType="t:String"  value=")" />
-												</elm:operand>
-												<elm:operand xsi:type="elm:Concatenate">
-													<elm:operand xsi:type="elm:Literal" valueType="t:String"  value="ischemic vascular disease (" />
-													<elm:operand xsi:type="elm:Property" path="conditionCode.displayName">
-														<elm:source xsi:type="elm:Last" orderBy="diagnosticEventTime">
-															<elm:source xsi:type="elm:ExpressionRef" name="IVD_Diagnosis" />
-														</elm:source>
-													</elm:operand>
-													<elm:operand xsi:type="elm:Literal" valueType="t:String"  value=")" />
-												</elm:operand>
-												<elm:operand xsi:type="elm:Concatenate">
-													<elm:operand xsi:type="elm:Literal" valueType="t:String" 
-														value="AMI or ischemic vascular disease related procedure (" />
-													<elm:operand xsi:type="elm:Property" path="procedureCode.displayName">
-<!-- 														<elm:source xsi:type="Last" orderBy="diagnosticEventTime"> -->
-															<elm:source xsi:type="elm:Last" orderBy="procedureTime">
-															<elm:source xsi:type="elm:Union">
-																<elm:operand xsi:type="elm:ExpressionRef" name="CABG_Procedures" />
-																<elm:operand xsi:type="elm:ExpressionRef" name="PCI_Procedures" />
-															</elm:source>
-														</elm:source>
-													</elm:operand>
-													<elm:operand xsi:type="elm:Literal" valueType="t:String"  value=")" />
-												</elm:operand>
+								<elm:value xsi:type="elm:Concatenate">
+									<elm:operand xsi:type="elm:Literal" valueType="t:String" value="Patient was identified as having " />
+									<elm:operand xsi:type="elm:Coalesce">
+										<elm:operand xsi:type="elm:Concatenate">
+											<elm:operand xsi:type="elm:Literal" valueType="t:String"  value="AMI (" />
+											<elm:operand xsi:type="elm:Property" path="conditionCode.display">
+												<elm:source xsi:type="elm:Last" orderBy="diagnosticEventTime">
+													<elm:source xsi:type="elm:ExpressionRef" name="AMI_Diagnosis" />
+												</elm:source>
 											</elm:operand>
-											<elm:operand xsi:type="elm:Literal" valueType="t:String"  value="." />
-										</elm:value>
-									</elm:element>
+											<elm:operand xsi:type="elm:Literal" valueType="t:String"  value=")" />
+										</elm:operand>
+										<elm:operand xsi:type="elm:Concatenate">
+											<elm:operand xsi:type="elm:Literal" valueType="t:String"  value="ischemic vascular disease (" />
+											<elm:operand xsi:type="elm:Property" path="conditionCode.display">
+												<elm:source xsi:type="elm:Last" orderBy="diagnosticEventTime">
+													<elm:source xsi:type="elm:ExpressionRef" name="IVD_Diagnosis" />
+												</elm:source>
+											</elm:operand>
+											<elm:operand xsi:type="elm:Literal" valueType="t:String"  value=")" />
+										</elm:operand>
+										<elm:operand xsi:type="elm:Concatenate">
+											<elm:operand xsi:type="elm:Literal" valueType="t:String" 
+												value="AMI or ischemic vascular disease related procedure (" />
+											<elm:operand xsi:type="elm:Property" path="procedureCode.display">
+<!-- 														<elm:source xsi:type="Last" orderBy="diagnosticEventTime"> -->
+													<elm:source xsi:type="elm:Last" orderBy="procedureTime">
+													<elm:source xsi:type="elm:Union">
+														<elm:operand xsi:type="elm:ExpressionRef" name="CABG_Procedures" />
+														<elm:operand xsi:type="elm:ExpressionRef" name="PCI_Procedures" />
+													</elm:source>
+												</elm:source>
+											</elm:operand>
+											<elm:operand xsi:type="elm:Literal" valueType="t:String"  value=")" />
+										</elm:operand>
+									</elm:operand>
+									<elm:operand xsi:type="elm:Literal" valueType="t:String"  value="." />
 								</elm:value>
 							</elm:element>
 						</actionSentence>

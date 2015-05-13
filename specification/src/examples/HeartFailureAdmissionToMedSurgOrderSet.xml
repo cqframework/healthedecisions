@@ -136,6 +136,7 @@
 		<codesystem name="RxNorm" id="2.16.840.1.113883.6.88"/>
 		<codesystem name="FDA Routes of Administration" id="2.16.840.1.113883.3.26.1.1.1"/>
 		<codesystem name="LOINC" id="2.16.840.1.113883.6.1"/>
+		<codesystem name="Frequencies" id="???"/>
 		<def name="Patient">
 			<elm:expression xsi:type="elm:SingletonFrom">
 				<elm:operand xsi:type="elm:Retrieve" dataType="vmr:EvaluatedPerson" />
@@ -218,11 +219,7 @@
 						<actionSentence xsi:type="elm:Instance"
 							classType="vmr:CommunicationProposal">
 							<elm:element name="message">
-								<elm:value xsi:type="elm:Instance" classType="dt:ED">
-									<elm:element name="value">
-										<elm:value xsi:type="elm:Literal" valueType="t:String" value="ADHERE Risk Model"/>
-									</elm:element>
-								</elm:value>
+								<elm:value xsi:type="elm:Literal" valueType="t:String" value="ADHERE Risk Model"/>
 							</elm:element>
 						</actionSentence>
 					</simpleAction>
@@ -241,11 +238,7 @@
 						<actionSentence xsi:type="elm:Instance"
 							classType="vmr:CommunicationProposal">
 							<elm:element name="message">
-								<elm:value xsi:type="elm:Instance" classType="dt:ED">
-									<elm:element name="value">
-										<elm:value xsi:type="elm:Literal" valueType="t:String" value="Heart Failure Survival Score"/>
-									</elm:element>
-								</elm:value>
+								<elm:value xsi:type="elm:Literal" valueType="t:String" value="Heart Failure Survival Score"/>
 							</elm:element>
 						</actionSentence>
 					</simpleAction>
@@ -373,7 +366,7 @@
 										<logic xsi:type="elm:And">
 											<elm:operand xsi:type="elm:GreaterOrEqual">
 												<elm:operand xsi:type="elm:ExpressionRef" name="PatientAgeInYears" />
-												<elm:operand xsi:type="elm:Literal" valueType="t:Decimal" value="18" />
+												<elm:operand xsi:type="elm:Literal" valueType="t:Integer" value="18" />
 											</elm:operand>
 											<elm:operand xsi:type="elm:Not">
 												<elm:operand xsi:type="elm:Exists">
@@ -389,11 +382,7 @@
 								<actionSentence xsi:type="elm:Instance"
 									classType="vmr:CommunicationProposal">
 									<elm:element name="message">
-										<elm:value xsi:type="elm:Instance" classType="dt:ED">
-											<elm:element name="value">
 												<elm:value xsi:type="elm:Literal" valueType="t:String" value="If the patient is over 18 years old and not allergic to an ACE inhibitor and not receiving an ACE inhibitor and LVEF is less than 40%, then consider prescribing an ACE inhibitor."/>
-											</elm:element>
-										</elm:value>
 									</elm:element>
 								</actionSentence>
 							</simpleAction>
@@ -477,20 +466,17 @@
 														<elm:element name="frequency">
 															<elm:value xsi:type="elm:Instance" classType="vmr:Schedule">
 																<elm:element name="cycle">
-																	<elm:value xsi:type="elm:Instance" classType="vmr:Cycle">
-																		<elm:element name="cycleTiming">
-																			<elm:value xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
-																				<elm:element name="repeatCode">
-																					<elm:value xsi:type="elm:Instance" classType="dt:CD">
-																						<elm:element name="code">
-																							<elm:value xsi:type="elm:Literal" valueType="t:String" value="??"/>
+																	<elm:value xsi:type="elm:List">
+																		<elm:element xsi:type="elm:Instance" classType="vmr:Cycle">
+																			<elm:element name="cycleTiming">
+																				<elm:value xsi:type="elm:List">
+																					<elm:element xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+																						<elm:element name="repeatCode">
+																							<elm:value xsi:type="elm:Code" code="??" display="3 times per day"><elm:system name="Frequencies"/></elm:value>
 																						</elm:element>
-																						<elm:element name="displayName">
-																							<elm:value xsi:type="elm:Literal" valueType="t:String" value="3 times per day"/>
-																						</elm:element>
-																					</elm:value>
-																				</elm:element>
-																			</elm:value>
+																					</elm:element>
+																				</elm:value>
+																			</elm:element>
 																		</elm:element>
 																	</elm:value>
 																</elm:element>
@@ -536,20 +522,17 @@
 														<elm:element name="frequency">
 															<elm:value xsi:type="elm:Instance" classType="vmr:Schedule">
 																<elm:element name="cycle">
-																	<elm:value xsi:type="elm:Instance" classType="vmr:Cycle">
-																		<elm:element name="cycleTiming">
-																			<elm:value xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
-																				<elm:element name="repeatCode">
-																					<elm:value xsi:type="elm:Instance" classType="dt:CD">
-																						<elm:element name="code">
-																							<elm:value xsi:type="elm:Literal" valueType="t:String" value="??"/>
+																	<elm:value xsi:type="elm:List">
+																		<elm:element xsi:type="elm:Instance" classType="vmr:Cycle">
+																			<elm:element name="cycleTiming">
+																				<elm:value xsi:type="elm:List">
+																					<elm:element xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+																						<elm:element name="repeatCode">
+																							<elm:value xsi:type="elm:Code" code="??" display="3 times per day"><elm:system name="Frequencies"/></elm:value>
 																						</elm:element>
-																						<elm:element name="displayName">
-																							<elm:value xsi:type="elm:Literal" valueType="t:String" value="3 times per day"/>
-																						</elm:element>
-																					</elm:value>
-																				</elm:element>
-																			</elm:value>
+																					</elm:element>
+																				</elm:value>
+																			</elm:element>
 																		</elm:element>
 																	</elm:value>
 																</elm:element>
@@ -582,20 +565,17 @@
 														<elm:element name="frequency">
 															<elm:value xsi:type="elm:Instance" classType="vmr:Schedule">
 																<elm:element name="cycle">
-																	<elm:value xsi:type="elm:Instance" classType="vmr:Cycle">
-																		<elm:element name="cycleTiming">
-																			<elm:value xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
-																				<elm:element name="repeatCode">
-																					<elm:value xsi:type="elm:Instance" classType="dt:CD">
-																						<elm:element name="code">
-																							<elm:value xsi:type="elm:Literal" valueType="t:String" value="??"/>
+																	<elm:value xsi:type="elm:List">
+																		<elm:element xsi:type="elm:Instance" classType="vmr:Cycle">
+																			<elm:element name="cycleTiming">
+																				<elm:value xsi:type="elm:List">
+																					<elm:element xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+																						<elm:element name="repeatCode">
+																							<elm:value xsi:type="elm:Code" code="??" display="3 times per day"><elm:system name="Frequencies"/></elm:value>
 																						</elm:element>
-																						<elm:element name="displayName">
-																							<elm:value xsi:type="elm:Literal" valueType="t:String" value="3 times per day"/>
-																						</elm:element>
-																					</elm:value>
-																				</elm:element>
-																			</elm:value>
+																					</elm:element>
+																				</elm:value>
+																			</elm:element>
 																		</elm:element>
 																	</elm:value>
 																</elm:element>
@@ -635,20 +615,17 @@
 												<elm:element name="frequency">
 													<elm:value xsi:type="elm:Instance" classType="vmr:Schedule">
 														<elm:element name="cycle">
-															<elm:value xsi:type="elm:Instance" classType="vmr:Cycle">
-																<elm:element name="cycleTiming">
-																	<elm:value xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
-																		<elm:element name="repeatCode">
-																			<elm:value xsi:type="elm:Instance" classType="dt:CD">
-																				<elm:element name="code">
-																					<elm:value xsi:type="elm:Literal" valueType="t:String" value="??"/>
+															<elm:value xsi:type="elm:List">
+																<elm:element xsi:type="elm:Instance" classType="vmr:Cycle">
+																	<elm:element name="cycleTiming">
+																		<elm:value xsi:type="elm:List">
+																			<elm:element xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+																				<elm:element name="repeatCode">
+																					<elm:value xsi:type="elm:Code" code="??" display="3 times per day"><elm:system name="Frequencies"/></elm:value>
 																				</elm:element>
-																				<elm:element name="displayName">
-																					<elm:value xsi:type="elm:Literal" valueType="t:String" value="3 times per day"/>
-																				</elm:element>
-																			</elm:value>
-																		</elm:element>
-																	</elm:value>
+																			</elm:element>
+																		</elm:value>
+																	</elm:element>
 																</elm:element>
 															</elm:value>
 														</elm:element>
@@ -747,20 +724,17 @@
 												<elm:element name="frequency">
 													<elm:value xsi:type="elm:Instance" classType="vmr:Schedule">
 														<elm:element name="cycle">
-															<elm:value xsi:type="elm:Instance" classType="vmr:Cycle">
-																<elm:element name="cycleTiming">
-																	<elm:value xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
-																		<elm:element name="repeatCode">
-																			<elm:value xsi:type="elm:Instance" classType="dt:CD">
-																				<elm:element name="code">
-																					<elm:value xsi:type="elm:Literal" valueType="t:String" value="??"/>
+															<elm:value xsi:type="elm:List">
+																<elm:element xsi:type="elm:Instance" classType="vmr:Cycle">
+																	<elm:element name="cycleTiming">
+																		<elm:value xsi:type="elm:List">
+																			<elm:element xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+																				<elm:element name="repeatCode">
+																					<elm:value xsi:type="elm:Code" code="??" display="2 times per day"><elm:system name="Frequencies"/></elm:value>
 																				</elm:element>
-																				<elm:element name="displayName">
-																					<elm:value xsi:type="elm:Literal" valueType="t:String" value="2 times per day"/>
-																				</elm:element>
-																			</elm:value>
-																		</elm:element>
-																	</elm:value>
+																			</elm:element>
+																		</elm:value>
+																	</elm:element>
 																</elm:element>
 															</elm:value>
 														</elm:element>
@@ -815,20 +789,17 @@
 														<elm:element name="frequency">
 															<elm:value xsi:type="elm:Instance" classType="vmr:Schedule">
 																<elm:element name="cycle">
-																	<elm:value xsi:type="elm:Instance" classType="vmr:Cycle">
-																		<elm:element name="cycleTiming">
-																			<elm:value xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
-																				<elm:element name="repeatCode">
-																					<elm:value xsi:type="elm:Instance" classType="dt:CD">
-																						<elm:element name="code">
-																							<elm:value xsi:type="elm:Literal" valueType="t:String" value="??"/>
+																	<elm:value xsi:type="elm:List">
+																		<elm:element xsi:type="elm:Instance" classType="vmr:Cycle">
+																			<elm:element name="cycleTiming">
+																				<elm:value xsi:type="elm:List">
+																					<elm:element xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+																						<elm:element name="repeatCode">
+																							<elm:value xsi:type="elm:Code" code="??" display="1 time per day"><elm:system name="Frequencies"/></elm:value>
 																						</elm:element>
-																						<elm:element name="displayName">
-																							<elm:value xsi:type="elm:Literal" valueType="t:String" value="1 time per day"/>
-																						</elm:element>
-																					</elm:value>
-																				</elm:element>
-																			</elm:value>
+																					</elm:element>
+																				</elm:value>
+																			</elm:element>
 																		</elm:element>
 																	</elm:value>
 																</elm:element>
@@ -868,20 +839,17 @@
 														<elm:element name="frequency">
 															<elm:value xsi:type="elm:Instance" classType="vmr:Schedule">
 																<elm:element name="cycle">
-																	<elm:value xsi:type="elm:Instance" classType="vmr:Cycle">
-																		<elm:element name="cycleTiming">
-																			<elm:value xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
-																				<elm:element name="repeatCode">
-																					<elm:value xsi:type="elm:Instance" classType="dt:CD">
-																						<elm:element name="code">
-																							<elm:value xsi:type="elm:Literal" valueType="t:String" value="??"/>
+																	<elm:value xsi:type="elm:List">
+																		<elm:element xsi:type="elm:Instance" classType="vmr:Cycle">
+																			<elm:element name="cycleTiming">
+																				<elm:value xsi:type="elm:List">
+																					<elm:element xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+																						<elm:element name="repeatCode">
+																							<elm:value xsi:type="elm:Code" code="??" display="1 time per day"><elm:system name="Frequencies"/></elm:value>
 																						</elm:element>
-																						<elm:element name="displayName">
-																							<elm:value xsi:type="elm:Literal" valueType="t:String" value="1 time per day"/>
-																						</elm:element>
-																					</elm:value>
-																				</elm:element>
-																			</elm:value>
+																					</elm:element>
+																				</elm:value>
+																			</elm:element>
 																		</elm:element>
 																	</elm:value>
 																</elm:element>
@@ -923,20 +891,17 @@
 												<elm:element name="frequency">
 													<elm:value xsi:type="elm:Instance" classType="vmr:Schedule">
 														<elm:element name="cycle">
-															<elm:value xsi:type="elm:Instance" classType="vmr:Cycle">
-																<elm:element name="cycleTiming">
-																	<elm:value xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
-																		<elm:element name="repeatCode">
-																			<elm:value xsi:type="elm:Instance" classType="dt:CD">
-																				<elm:element name="code">
-																					<elm:value xsi:type="elm:Literal" valueType="t:String" value="??"/>
+															<elm:value xsi:type="elm:List">
+																<elm:element xsi:type="elm:Instance" classType="vmr:Cycle">
+																	<elm:element name="cycleTiming">
+																		<elm:value xsi:type="elm:List">
+																			<elm:element xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+																				<elm:element name="repeatCode">
+																					<elm:value xsi:type="elm:Code" code="??" display="1 time per day"><elm:system name="Frequencies"/></elm:value>
 																				</elm:element>
-																				<elm:element name="displayName">
-																					<elm:value xsi:type="elm:Literal" valueType="t:String" value="1 time per day"/>
-																				</elm:element>
-																			</elm:value>
-																		</elm:element>
-																	</elm:value>
+																			</elm:element>
+																		</elm:value>
+																	</elm:element>
 																</elm:element>
 															</elm:value>
 														</elm:element>

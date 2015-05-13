@@ -128,6 +128,7 @@
 	<externalData>
 		<codesystem name="RxNorm" id="2.16.840.1.113883.6.88"/>
 		<codesystem name="SNOMED-CT" id="2.16.840.1.113883.6.96"/>
+		<codesystem name="Fingerstick Blood Glucose Levels" id="???"/>
 	</externalData>
 	<expressions>
 	
@@ -135,26 +136,19 @@
 		<def name="FourTimesDailySchedule">
 			<elm:expression xsi:type="elm:Instance" classType="vmr:Schedule">
 				<elm:element name="cycle">
-					<elm:value xsi:type="elm:Instance" classType="vmr:Cycle">
-						<elm:element name="cycleTiming">
-							<elm:value xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
-								<elm:element name="repeatCode">
-									<elm:value xsi:type="elm:Instance" classType="dt:CD">
-										<elm:element name="code">
-											<elm:value xsi:type="elm:Literal" valueType="t:String" value="420660006"/>
+					<elm:value xsi:type="elm:List">
+						<elm:element xsi:type="elm:Instance" classType="vmr:Cycle">
+							<elm:element name="cycleTiming">
+								<elm:value xsi:type="elm:List">
+									<elm:element xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+										<elm:element name="repeatCode">
+											<elm:value xsi:type="elm:Code" code="420660006" display="Four times daily before meals and at bedtime">
+												<elm:system name="SNOMED-CT"/>
+											</elm:value>
 										</elm:element>
-										<elm:element name="codeSystem">
-											<elm:value xsi:type="elm:Literal" valueType="t:String" value="2.16.8410.1.113883.6.96"/>
-										</elm:element>
-										<elm:element name="codeSystemName">
-											<elm:value xsi:type="elm:Literal" valueType="t:String" value="SNOMED-CT"/>
-										</elm:element>
-										<elm:element name="displayName">
-											<elm:value xsi:type="elm:Literal" valueType="t:String" value="Four times daily before meals and at bedtime"/>
-										</elm:element>
-									</elm:value>
-								</elm:element>
-							</elm:value>
+									</elm:element>
+								</elm:value>
+							</elm:element>
 						</elm:element>
 					</elm:value>
 				</elm:element>
@@ -252,12 +246,7 @@
 									<elm:element name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
 											Use Case). To discuss as a group. -->
 										<elm:value xsi:type="elm:List">
-											<elm:element xsi:type="elm:Instance" classType="dt:CD">
-												<elm:element name="code"><elm:value xsi:type="elm:Literal" valueType="t:String" value="987"/></elm:element>
-												<elm:element name="codeSystem"><elm:value xsi:type="elm:Literal" valueType="t:String" value="222.2.2222.22.2222"/></elm:element>
-												<elm:element name="codeSystemName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Some Code System"/></elm:element>
-												<elm:element name="displayName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Fingerstick blood glucose 150-199"/></elm:element>
-											</elm:element>
+											<elm:element xsi:type="elm:Code" code="987" display="Fingerstick blood glucose 150-199"><elm:system name="Fingerstick Blood Glucose Levels"/></elm:element>
 										</elm:value>
 									</elm:element>
 								</elm:expression>
@@ -286,12 +275,7 @@
 									<elm:element name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
 											Use Case). To discuss as a group. -->
 										<elm:value xsi:type="elm:List">
-											<elm:element xsi:type="elm:Instance" classType="dt:CD">
-												<elm:element name="code"><elm:value xsi:type="elm:Literal" valueType="t:String" value="988"/></elm:element>
-												<elm:element name="codeSystem"><elm:value xsi:type="elm:Literal" valueType="t:String" value="222.2.2222.22.2222"/></elm:element>
-												<elm:element name="codeSystemName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Some Code System"/></elm:element>
-												<elm:element name="displayName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Fingerstick blood glucose 200-249"/></elm:element>
-											</elm:element>
+											<elm:element xsi:type="elm:Code" code="988" display="Fingerstick blood glucose 200-249"><elm:system name="Fingerstick Blood Glucose Levels"/></elm:element>
 										</elm:value>
 									</elm:element>
 								</elm:expression>
@@ -320,12 +304,7 @@
 									<elm:element name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
 											Use Case). To discuss as a group. -->
 										<elm:value xsi:type="elm:List">
-											<elm:element xsi:type="elm:Instance" classType="dt:CD">
-												<elm:element name="code"><elm:value xsi:type="elm:Literal" valueType="t:String" value="980"/></elm:element>
-												<elm:element name="codeSystem"><elm:value xsi:type="elm:Literal" valueType="t:String" value="222.2.2222.22.2222"/></elm:element>
-												<elm:element name="codeSystemName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Some Code System"/></elm:element>
-												<elm:element name="displayName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Fingerstick blood glucose 250-299"/></elm:element>
-											</elm:element>
+											<elm:element xsi:type="elm:Code" code="980" display="Fingerstick blood glucose 250-299"><elm:system name="Fingerstick Blood Glucose Levels"/></elm:element>
 										</elm:value>
 									</elm:element>
 								</elm:expression>
@@ -354,12 +333,7 @@
 									<elm:element name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
 											Use Case). To discuss as a group. -->
 										<elm:value xsi:type="elm:List">
-											<elm:element xsi:type="elm:Instance" classType="dt:CD">
-												<elm:element name="code"><elm:value xsi:type="elm:Literal" valueType="t:String" value="990"/></elm:element>
-												<elm:element name="codeSystem"><elm:value xsi:type="elm:Literal" valueType="t:String" value="222.2.2222.22.2222"/></elm:element>
-												<elm:element name="codeSystemName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Some Code System"/></elm:element>
-												<elm:element name="displayName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Fingerstick blood glucose 300-349"/></elm:element>
-											</elm:element>
+											<elm:element xsi:type="elm:Code" code="990" display="Fingerstick blood glucose 300-349"><elm:system name="Fingerstick Blood Glucose Levels"/></elm:element>
 										</elm:value>
 									</elm:element>
 								</elm:expression>
@@ -388,12 +362,7 @@
 									<elm:element name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
 											Use Case). To discuss as a group. -->
 										<elm:value xsi:type="elm:List">
-											<elm:element xsi:type="elm:Instance" classType="dt:CD">
-												<elm:element name="code"><elm:value xsi:type="elm:Literal" valueType="t:String" value="991"/></elm:element>
-												<elm:element name="codeSystem"><elm:value xsi:type="elm:Literal" valueType="t:String" value="222.2.2222.22.2222"/></elm:element>
-												<elm:element name="codeSystemName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Some Code System"/></elm:element>
-												<elm:element name="displayName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Fingerstick blood glucose 350-399"/></elm:element>
-											</elm:element>
+											<elm:element xsi:type="elm:Code" code="991" display="Fingerstick blood glucose 350-399"><elm:system name="Fingerstick Blood Glucose Levels"/></elm:element>
 										</elm:value>
 									</elm:element>
 								</elm:expression>
@@ -429,12 +398,7 @@
 											<elm:element name="prnReason"> <!-- PRN Reason as class attribute using vMR extension: Code and Text (General 
 													Use Case). To discuss as a group. -->
 												<elm:value xsi:type="elm:List">
-													<elm:element xsi:type="elm:Instance" classType="dt:CD">
-														<elm:element name="code"><elm:value xsi:type="elm:Literal" valueType="t:String" value="991"/></elm:element>
-														<elm:element name="codeSystem"><elm:value xsi:type="elm:Literal" valueType="t:String" value="222.2.2222.22.2222"/></elm:element>
-														<elm:element name="codeSystemName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Some Code System"/></elm:element>
-														<elm:element name="displayName"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Fingerstick blood glucose greater than 400"/></elm:element>
-													</elm:element>
+													<elm:element xsi:type="elm:Code" code="992" display="Fingerstick blood glucose greater than 400"><elm:system name="Fingerstick Blood Glucose Levels"/></elm:element>
 												</elm:value>
 											</elm:element>
 										</elm:expression>
@@ -447,11 +411,7 @@
 								<actionSentence xsi:type="elm:Instance"
 									classType="vmr:CommunicationProposal">
 									<elm:element name="message">
-										<elm:value xsi:type="elm:Instance" classType="dt:ED">
-											<elm:element name="value">
-												<elm:value xsi:type="elm:Literal" valueType="t:String" value="Call provider if finderstick blood glucose &gt; 400 milligram/deciliter"/>
-											</elm:element>
-										</elm:value>
+										<elm:value xsi:type="elm:Literal" valueType="t:String" value="Call provider if fingerstick blood glucose &gt; 400 milligram/deciliter"/>
 									</elm:element>
 								</actionSentence>
 								<!-- <message xsi:type="elm:Code" code="428426009" codeSystem="2.16.840.1.113883.6.96" 

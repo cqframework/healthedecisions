@@ -37,7 +37,7 @@
 	</externalData>
 	<expressions>
 		<def name="PatientDoB">
-			<elm:expression xsi:type="elm:Property" path="dateOfBirth">
+			<elm:expression xsi:type="elm:Property" path="birthTime">
 				<elm:source xsi:type="elm:ExpressionRef"  name="Patient"/>
 			</elm:expression>
 		</def>
@@ -199,7 +199,7 @@
 							<condition>
 								<logic xsi:type="elm:In">
 									<elm:operand xsi:type="elm:Literal" valueType="t:String" value="28"/>
-									<elm:operand xsi:type="elm:Property" path="ImagingType">
+									<elm:operand xsi:type="elm:Property" path="ImagingTestType">
 										<elm:source xsi:type="elm:ParameterRef" name="Responses"/>
 									</elm:operand>
 								</logic>
@@ -249,7 +249,7 @@
 							<condition>
 								<logic xsi:type="elm:In">
 									<elm:operand xsi:type="elm:Literal" valueType="t:String" value="30"/>
-									<elm:operand xsi:type="elm:Property" path="ImagingType">
+									<elm:operand xsi:type="elm:Property" path="ImagingTestType">
 										<elm:source xsi:type="elm:ParameterRef" name="Responses"/>
 									</elm:operand>
 								</logic>

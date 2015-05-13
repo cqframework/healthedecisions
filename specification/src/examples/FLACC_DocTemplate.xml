@@ -128,15 +128,12 @@
 				<elm:operand xsi:type="elm:GreaterOrEqual">
 					<elm:annotation xsi:type="a:Annotation"><a:s>Patient is more than 2 months old</a:s></elm:annotation>
 					<elm:operand xsi:type="elm:ExpressionRef" name="PatientAgeInMonths"></elm:operand>
-					<!-- NOTE: A physical quantity with units of months is used here. The 
-						intended semantics are that the implementation engine will perform any conversions 
-						required to perform the comparison. -->
-					<elm:operand xsi:type="elm:Literal" valueType="t:Decimal" value="2" />
+					<elm:operand xsi:type="elm:Literal" valueType="t:Integer" value="2" />
 				</elm:operand>
 				<elm:operand xsi:type="elm:LessOrEqual">
 					<elm:annotation xsi:type="a:Annotation"><a:s>Patient is less than 7 years old (or 84 months)</a:s></elm:annotation>
 					<elm:operand xsi:type="elm:ExpressionRef" name="PatientAgeInMonths"></elm:operand>
-					<elm:operand xsi:type="elm:Literal" valueType="t:Decimal" value="84" />
+					<elm:operand xsi:type="elm:Literal" valueType="t:Integer" value="84" />
 				</elm:operand>
 			</logic>
 			<conditionRole value="ApplicableScenario" />

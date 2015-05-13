@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using HeD.Engine.Reading;
@@ -63,8 +62,16 @@ namespace ELM.Model
 				result.Libraries = new List<HeD.Engine.Model.LibraryRef>();
 			}
 
-            // TODO: Codesystems
-            result.CodeSystems = new List<HeD.Engine.Model.CodeSystemDef>();
+            // Pull Codesystems
+			var codesystemsElement = libraryDocument.Root.Element(ns + "codeSystems");
+			if (codesystemsElement != null)
+			{
+				result.CodeSystems = ReadCodeSystems(ns, codesystemsElement.Elements(ns + "def")).ToList();
+			}
+			else
+			{
+				result.CodeSystems = new List<HeD.Engine.Model.CodeSystemDef>();
+			}
 
 			// Pull Valuesets
             var valuesetsElement = libraryDocument.Root.Element(ns + "valueSets");
@@ -150,9 +157,23 @@ namespace ELM.Model
 					select new HeD.Engine.Model.ParameterDef { Name = parameter.Attribute("name").Value, TypeName = parameter.ExpandName(parameter.Attribute("parameterType").Value), Default = defaultNode != null ? NodeReader.ReadASTNode(defaultNode) : null };
 		}
 
+		private static IEnumerable<HeD.Engine.Model.CodeSystemDef> ReadCodeSystems(XNamespace ns, IEnumerable<XElement> codesystems)
+		{
+			return
+				from codesystem in codesystems
+					let idAttribute = codesystem.Attribute("id")
+					let versionAttribute = codesystem.Attribute("version")
+					select
+						new HeD.Engine.Model.CodeSystemDef
+						{
+							Name = codesystem.Attribute("name").Value,
+							Id = idAttribute == null ? null : idAttribute.Value,
+							Version = versionAttribute == null ? null : versionAttribute.Value
+						};
+		}
+
         private static IEnumerable<HeD.Engine.Model.ValueSetDef> ReadValueSets(XNamespace ns, IEnumerable<XElement> valuesets)
         {
-            // TODO: Valueset CodeSystems
             return
                 from valueset in valuesets
                     let idAttribute = valueset.Attribute("id")
@@ -161,8 +182,9 @@ namespace ELM.Model
                         new HeD.Engine.Model.ValueSetDef 
                         { 
                             Name = valueset.Attribute("name").Value, 
-                            Id = idAttribute == null ? null : valueset.Attribute("id").Value, 
-                            Version = versionAttribute == null ? null : valueset.Attribute("version").Value 
+                            Id = idAttribute == null ? null : idAttribute.Value, 
+                            Version = versionAttribute == null ? null : versionAttribute.Value
+				            // TODO: Valueset CodeSystems
                         };
         }
 

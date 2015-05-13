@@ -193,6 +193,9 @@
 		<codesystem name="Observation Interpretation" id="2.16.840.1.113883.5.83"/>
 		<codesystem name="Act Relationship Type" id="2.16.840.1.113883.5.1002"/>
 		<codesystem name="Participation Type" id="2.16.840.1.113883.5.90"/>
+		<codesystem name="Address Use" id="???"/>
+		<codesystem name="Telecom Use" id="???"/>
+		<codesystem name="Telecom Capabilities" id="??"/>
 
 		<valueset name="Pertussis Problems (1)" id="2.16.840.1.114222.4.11.7005" version="1"/>
 		<valueset name="Pertussis Problems (2)" id="2.16.840.1.114222.4.11.7004" version="1"/>
@@ -303,7 +306,7 @@
 										<elm:annotation xsi:type="a:Annotation"><a:s>Get the county part of the address</a:s></elm:annotation>
 										<elm:source xsi:type="elm:Property" path="part" />
 										<elm:condition xsi:type="elm:Equal">
-											<elm:operand xsi:type="elm:Property" path="type" />
+											<elm:operand xsi:type="elm:Property" path="type.code" />
 											<elm:operand xsi:type="elm:Literal" valueType="t:String" value="CNT" />
 										</elm:condition>
 									</elm:source>
@@ -314,8 +317,8 @@
 						<elm:operand xsi:type="elm:Contains">
 							<elm:annotation xsi:type="a:Annotation"><a:s>Is the address identified as primary home address
 							</a:s></elm:annotation>
-							<elm:operand xsi:type="elm:Property" path="use" />
-							<elm:operand xsi:type="elm:Literal" valueType="t:String" value="HP" />
+							<elm:operand xsi:type="elm:Property" path="use"/>
+							<elm:operand xsi:type="elm:Code" code="HP" ><elm:system name="Address Use"/></elm:operand>
 						</elm:operand>
 					</elm:condition>
 				</elm:operand>
@@ -658,13 +661,13 @@
 										<elm:condition xsi:type="elm:Contains">
 											<elm:annotation xsi:type="a:Annotation"><a:s>Physical address</a:s></elm:annotation>
 											<elm:operand xsi:type="elm:Property" path="use" />
-											<elm:operand xsi:type="elm:Literal" valueType="t:String" value="PHYS" />
+											<elm:operand xsi:type="elm:Code" code="PHYS" ><elm:system name="Address Use"/></elm:operand>
 										</elm:condition>
 									</elm:source>
 								</elm:source>
 							</elm:source>
 							<elm:condition xsi:type="elm:Equal">
-								<elm:operand xsi:type="elm:Property" path="type" />
+								<elm:operand xsi:type="elm:Property" path="type.code" />
 								<elm:operand xsi:type="elm:Literal" valueType="t:String" value="CNT" />
 							</elm:condition>
 						</elm:source>
@@ -706,7 +709,9 @@
 					<elm:value xsi:type="elm:List">
 						<elm:element xsi:type="elm:Instance" classType="vmr:Organization">
 							<elm:element name="name">
-								<elm:value xsi:type="elm:Literal" valueType="t:String" value="County of San Diego Health and Human Services Agency"/>
+								<elm:value xsi:type="elm:List">
+									<elm:element xsi:type="elm:Literal" valueType="t:String" value="County of San Diego Health and Human Services Agency"/>
+								</elm:value>
 							</elm:element>
 						</elm:element>
 					</elm:value>
@@ -763,11 +768,7 @@
 				<actionSentence xsi:type="elm:Instance"
 					classType="vmr:CommunicationProposal">
 					<elm:element name="message">
-						<elm:value xsi:type="elm:Instance" classType="dt:ED">
-							<elm:element name="value">
-								<elm:value xsi:type="elm:Literal" valueType="t:String" value="This patient has or is suspected of having pertussis. Patients diagnosed with or suspected of having pertussis must be reported to County of San Diego Health and Human Services Agency within one working day of identification or suspicion"/>
-							</elm:element>
-						</elm:value>
+						<elm:value xsi:type="elm:Literal" valueType="t:String" value="This patient has or is suspected of having pertussis. Patients diagnosed with or suspected of having pertussis must be reported to County of San Diego Health and Human Services Agency within one working day of identification or suspicion"/>
 					</elm:element>
 				</actionSentence>
 			</simpleAction>
@@ -805,37 +806,41 @@
 										<elm:value xsi:type="elm:List">
 											<elm:element xsi:type="elm:Instance" classType="vmr:Organization">
 												<elm:element name="name">
-													<elm:value xsi:type="elm:Literal" valueType="t:String" value="County of San Diego Health and Human Services Agency"/>
+													<elm:value xsi:type="elm:List">
+														<elm:element xsi:type="elm:Literal" valueType="t:String" value="County of San Diego Health and Human Services Agency"/>
+													</elm:value>
 												</elm:element>
 												<elm:element name="address">
-													<elm:value xsi:type="elm:Instance" classType="dt:AD">
-														<elm:element name="part">
-															<elm:value xsi:type="elm:List">
-																<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
-																	<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="SAL"/></elm:element>
-																	<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="3851 Rosecrans Street"/></elm:element>
-																</elm:element>
-																<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
-																	<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="ADL"/></elm:element>
-																	<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Mailstop P577"/></elm:element>
-																</elm:element>
-																<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
-																	<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="CTY"/></elm:element>
-																	<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="San Diego"/></elm:element>
-																</elm:element>
-																<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
-																	<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="ZIP"/></elm:element>
-																	<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="92110"/></elm:element>
-																</elm:element>
-																<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
-																	<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="STA"/></elm:element>
-																	<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="CA"/></elm:element>
-																</elm:element>
-																<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
-																	<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="CNT"/></elm:element>
-																	<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="USA"/></elm:element>
-																</elm:element>
-															</elm:value>
+													<elm:value xsi:type="elm:List">
+														<elm:element xsi:type="elm:Instance" classType="dt:AD">
+															<elm:element name="part">
+																<elm:value xsi:type="elm:List">
+																	<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
+																		<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="SAL"/></elm:element>
+																		<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="3851 Rosecrans Street"/></elm:element>
+																	</elm:element>
+																	<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
+																		<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="ADL"/></elm:element>
+																		<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Mailstop P577"/></elm:element>
+																	</elm:element>
+																	<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
+																		<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="CTY"/></elm:element>
+																		<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="San Diego"/></elm:element>
+																	</elm:element>
+																	<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
+																		<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="ZIP"/></elm:element>
+																		<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="92110"/></elm:element>
+																	</elm:element>
+																	<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
+																		<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="STA"/></elm:element>
+																		<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="CA"/></elm:element>
+																	</elm:element>
+																	<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
+																		<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="CNT"/></elm:element>
+																		<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="USA"/></elm:element>
+																	</elm:element>
+																</elm:value>
+															</elm:element>
 														</elm:element>
 													</elm:value>
 												</elm:element>
@@ -863,13 +868,21 @@
 										<elm:value xsi:type="elm:List">
 											<elm:element xsi:type="elm:Instance" classType="vmr:Organization">
 												<elm:element name="name">
-													<elm:value xsi:type="elm:Literal" valueType="t:String" value="County of San Diego Health and Human Services Agency"/>
+													<elm:value xsi:type="elm:List">
+														<elm:element xsi:type="elm:Literal" valueType="t:String" value="County of San Diego Health and Human Services Agency"/>
+													</elm:value>
 												</elm:element>
 												<elm:element name="telecom">
-													<elm:value xsi:type="elm:Instance" classType="dt:TEL">
-														<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="tel:619-692-8499"/></elm:element>
-														<elm:element name="use"><elm:value xsi:type="elm:Literal" valueType="t:String" value="WP"/></elm:element>
-														<elm:element name="capabilities"><elm:value xsi:type="elm:Literal" valueType="t:String" value="voice"/></elm:element>
+													<elm:value xsi:type="elm:List">
+														<elm:element xsi:type="elm:Instance" classType="dt:TEL">
+															<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="tel:619-692-8499"/></elm:element>
+															<elm:element name="use">
+																<elm:value xsi:type="elm:List"><elm:element xsi:type="elm:Code" code="WP"><elm:system name="Telecom Use"/></elm:element></elm:value>
+															</elm:element>
+															<elm:element name="capabilities">
+																<elm:value xsi:type="elm:List"><elm:element xsi:type="elm:Code" code="voice"><elm:system name="Telecom Capabilities"/></elm:element></elm:value>
+															</elm:element>
+														</elm:element>
 													</elm:value>
 												</elm:element>
 											</elm:element>
@@ -896,13 +909,21 @@
 										<elm:value xsi:type="elm:List">
 											<elm:element xsi:type="elm:Instance" classType="vmr:Organization">
 												<elm:element name="name">
-													<elm:value xsi:type="elm:Literal" valueType="t:String" value="County of San Diego Health and Human Services Agency"/>
+													<elm:value xsi:type="elm:List">
+														<elm:element xsi:type="elm:Literal" valueType="t:String" value="County of San Diego Health and Human Services Agency"/>
+													</elm:value>
 												</elm:element>
 												<elm:element name="telecom">
-													<elm:value xsi:type="elm:Instance" classType="dt:TEL">
-														<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="tel:858-715-6458"/></elm:element>
-														<elm:element name="use"><elm:value xsi:type="elm:Literal" valueType="t:String" value="WP"/></elm:element>
-														<elm:element name="capabilities"><elm:value xsi:type="elm:Literal" valueType="t:String" value="fax"/></elm:element>
+													<elm:value xsi:type="elm:List">
+														<elm:element xsi:type="elm:Instance" classType="dt:TEL">
+															<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="tel:858-715-6458"/></elm:element>
+															<elm:element name="use">
+																<elm:value xsi:type="elm:List"><elm:element xsi:type="elm:Code" code="WP"><elm:system name="Telecom Use"/></elm:element></elm:value>
+															</elm:element>
+															<elm:element name="capabilities">
+																<elm:value xsi:type="elm:List"><elm:element xsi:type="elm:Code" code="fax"><elm:system name="Telecom Capabilities"/></elm:element></elm:value>
+															</elm:element>
+														</elm:element>
 													</elm:value>
 												</elm:element>
 											</elm:element>
@@ -929,13 +950,21 @@
 										<elm:value xsi:type="elm:List">
 											<elm:element xsi:type="elm:Instance" classType="vmr:Organization">
 												<elm:element name="name">
-													<elm:value xsi:type="elm:Literal" valueType="t:String" value="County of San Diego Health and Human Services Agency"/>
+													<elm:value xsi:type="elm:List">
+														<elm:element xsi:type="elm:Literal" valueType="t:String" value="County of San Diego Health and Human Services Agency"/>
+													</elm:value>
 												</elm:element>
 												<elm:element name="telecom">
-													<elm:value xsi:type="elm:Instance" classType="dt:TEL">
-														<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="http://www.sdcounty.ca.gov/hhsa/programs/phs/community_epidemiology/disease_reporting_requirements_for_health_care_providers.html"/></elm:element>
-														<elm:element name="use"><elm:value xsi:type="elm:Literal" valueType="t:String" value="WP"/></elm:element>
-														<elm:element name="capabilities"><elm:value xsi:type="elm:Literal" valueType="t:String" value="data"/></elm:element>
+													<elm:value xsi:type="elm:List">
+														<elm:element xsi:type="elm:Instance" classType="dt:TEL">
+															<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="http://www.sdcounty.ca.gov/hhsa/programs/phs/community_epidemiology/disease_reporting_requirements_for_health_care_providers.html"/></elm:element>
+															<elm:element name="use">
+																<elm:value xsi:type="elm:List"><elm:element xsi:type="elm:Code" code="WP"><elm:system name="Telecom Use"/></elm:element></elm:value>
+															</elm:element>
+															<elm:element name="capabilities">
+																<elm:value xsi:type="elm:List"><elm:element xsi:type="elm:Code" code="data"><elm:system name="Telecom Capabilities"/></elm:element></elm:value>
+															</elm:element>
+														</elm:element>
 													</elm:value>
 												</elm:element>
 											</elm:element>

@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 using CQL.ELM.Model;
 using HeD.Engine.Model;
@@ -134,8 +133,26 @@ namespace ELM.Model.Verification
                 var returnClause = ((Node)node).Children.Where(c => c.Name == "return").FirstOrDefault();
                 if (returnClause != null)
                 {
-                    throw new NotImplementedException("Return clause is not implemented.");
+					var returnElement = returnClause.Children.Where(c => c.Name == "expression").FirstOrDefault() as ASTNode;
+					if (returnElement == null)
+					{
+						throw new InvalidOperationException("Could not resolve return expression for return clause.");
+					}
+
+					Verifier.Verify(context, returnElement);
+					if (sourceSymbolListType != null)
+					{
+						node.ResultType = new ListType(returnElement.ResultType);
+					}
+					else
+					{
+						node.ResultType = returnElement.ResultType;
+					}
                 }
+				else
+				{
+					node.ResultType = sourceSymbol.DataType;
+				}
 
                 // verify the sort clause
                 var sortClause = ((Node)node).Children.Where(c => c.Name == "sort").FirstOrDefault();
@@ -143,8 +160,6 @@ namespace ELM.Model.Verification
                 {
                     throw new NotImplementedException("Sort clause is not implemented.");
                 }
-
-                node.ResultType = sourceSymbol.DataType;
             }
             finally
             {
@@ -169,6 +184,15 @@ namespace ELM.Model.Verification
         }
     }
 
+	public class CodeSystemRefVerifier : INodeVerifier
+	{
+		public void Verify(VerificationContext context, ASTNode node)
+		{
+			var codesystemDef = context.ResolveCodeSystemRef(node.GetAttribute<String>("libraryName"), node.GetAttribute<String>("name"));
+			node.ResultType = DataTypes.CodeList;
+		}
+	}
+
     public class ValueSetRefVerifier : INodeVerifier
     {
         public void Verify(VerificationContext context, ASTNode node)
@@ -182,7 +206,7 @@ namespace ELM.Model.Verification
     {
         public void Verify(VerificationContext context, ASTNode node)
         {
-            throw new NotImplementedException();
+			node.ResultType = DataTypes.Quantity;
         }
     }
 }
