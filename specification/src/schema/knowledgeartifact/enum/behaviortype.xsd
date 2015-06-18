@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1"
-	xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1"
-	elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>
 			This file defines the BehaviorType enumeration.
@@ -153,7 +151,6 @@
 			</xs:enumeration>
 		</xs:restriction>
 	</xs:simpleType>
-
 	<xs:simpleType name="CardinalityBehaviorType">
 		<xs:annotation>
 			<xs:documentation>Defines behavior for an action or a group for how
@@ -183,5 +180,4 @@
 			</xs:enumeration>
 		</xs:restriction>
 	</xs:simpleType>
-
 </xs:schema>
