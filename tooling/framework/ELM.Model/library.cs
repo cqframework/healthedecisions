@@ -31,6 +31,8 @@ namespace CQL.ELM.Model {
         
         private List<ParameterDef> parametersField;
         
+        private List<CodeSystemDef> codeSystemsField;
+        
         private List<ValueSetDef> valueSetsField;
         
         private List<ExpressionDef> statementsField;
@@ -38,6 +40,7 @@ namespace CQL.ELM.Model {
         public Library() {
             this.statementsField = new List<ExpressionDef>();
             this.valueSetsField = new List<ValueSetDef>();
+            this.codeSystemsField = new List<CodeSystemDef>();
             this.parametersField = new List<ParameterDef>();
             this.includesField = new List<IncludeDef>();
             this.usingsField = new List<UsingDef>();
@@ -100,6 +103,17 @@ namespace CQL.ELM.Model {
         
         [System.Xml.Serialization.XmlArrayAttribute(Order=5)]
         [System.Xml.Serialization.XmlArrayItemAttribute("def", IsNullable=false)]
+        public List<CodeSystemDef> codeSystems {
+            get {
+                return this.codeSystemsField;
+            }
+            set {
+                this.codeSystemsField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlArrayAttribute(Order=6)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("def", IsNullable=false)]
         public List<ValueSetDef> valueSets {
             get {
                 return this.valueSetsField;
@@ -109,7 +123,7 @@ namespace CQL.ELM.Model {
             }
         }
         
-        [System.Xml.Serialization.XmlArrayAttribute(Order=6)]
+        [System.Xml.Serialization.XmlArrayAttribute(Order=7)]
         [System.Xml.Serialization.XmlArrayItemAttribute("def", IsNullable=false)]
         public List<ExpressionDef> statements {
             get {
@@ -169,7 +183,7 @@ namespace CQL.ELM.Model {
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
-    public partial class TupleElement {
+    public partial class InstanceElement {
         
         private Expression valueField;
         
@@ -198,7 +212,11 @@ namespace CQL.ELM.Model {
     
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Quantity))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(InValueSet))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(InCodeSystem))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Concept))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Code))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ValueSetRef))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(CodeSystemRef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Retrieve))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(QueryDefineRef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(AliasRef))]
@@ -219,19 +237,19 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Sum))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Count))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Current))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Distinct))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForEach))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Sort))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(IndexOf))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Last))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(First))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Filter))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Time))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(DateTime))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Now))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Today))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TimeOfDay))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Substring))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Pos))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Indexer))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PositionOf))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Split))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Combine))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(MaxValue))]
@@ -242,14 +260,16 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(If))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(List))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Interval))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Instance))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Tuple))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Literal))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(IdentifierRef))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OperandRef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ParameterRef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ExpressionRef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FunctionRef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(NaryExpression))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Concat))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Concatenate))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Coalesce))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TernaryExpression))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BinaryExpression))]
@@ -272,12 +292,16 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ProperIncludes))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(IncludedIn))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Includes))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ProperIn))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(In))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ProperContains))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Contains))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SameOrAfter))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SameOrBefore))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SameAs))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DifferenceBetween))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(DurationBetween))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Indexer))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Power))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Log))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Modulo))]
@@ -291,14 +315,15 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Greater))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Less))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(NotEqual))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Matches))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Equal))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IfNull))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Xor))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Or))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(And))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(UnaryExpression))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CalculateAge))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SingletonFrom))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Distinct))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Expand))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Exists))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Collapse))]
@@ -323,6 +348,8 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Convert))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(As))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Is))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IsFalse))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IsTrue))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(IsNull))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Not))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
@@ -336,7 +363,9 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(IncludeDef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(UsingDef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ValueSetDef))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(CodeSystemDef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ParameterDef))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OperandDef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ExpressionDef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FunctionDef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SortClause))]
@@ -360,7 +389,11 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Expression))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Quantity))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(InValueSet))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(InCodeSystem))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Concept))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Code))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ValueSetRef))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(CodeSystemRef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Retrieve))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(QueryDefineRef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(AliasRef))]
@@ -381,19 +414,19 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Sum))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Count))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Current))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Distinct))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ForEach))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Sort))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(IndexOf))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Last))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(First))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Filter))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Time))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(DateTime))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Now))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Today))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TimeOfDay))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Substring))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Pos))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Indexer))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(PositionOf))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Split))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Combine))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(MaxValue))]
@@ -404,14 +437,16 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(If))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(List))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Interval))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Instance))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Tuple))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Literal))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(IdentifierRef))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(OperandRef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ParameterRef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ExpressionRef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FunctionRef))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(NaryExpression))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Concat))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Concatenate))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Coalesce))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TernaryExpression))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BinaryExpression))]
@@ -434,12 +469,16 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ProperIncludes))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(IncludedIn))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Includes))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ProperIn))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(In))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ProperContains))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Contains))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SameOrAfter))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SameOrBefore))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SameAs))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DifferenceBetween))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(DurationBetween))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Indexer))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Power))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Log))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Modulo))]
@@ -453,14 +492,15 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Greater))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Less))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(NotEqual))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Matches))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Equal))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IfNull))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Xor))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Or))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(And))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(UnaryExpression))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CalculateAge))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SingletonFrom))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Distinct))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Expand))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Exists))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Collapse))]
@@ -485,6 +525,8 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Convert))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(As))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Is))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IsFalse))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IsTrue))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(IsNull))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Not))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
@@ -633,13 +675,30 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
     public partial class ValueSetDef : Element {
         
+        private List<CodeSystemRef> codeSystemField;
+        
         private string nameField;
         
         private string idField;
         
         private string versionField;
         
-        private string codeSystemVersionsField;
+        private AccessModifier accessLevelField;
+        
+        public ValueSetDef() {
+            this.codeSystemField = new List<CodeSystemRef>();
+            this.accessLevelField = AccessModifier.Public;
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute("codeSystem", Order=0)]
+        public List<CodeSystemRef> codeSystem {
+            get {
+                return this.codeSystemField;
+            }
+            set {
+                this.codeSystemField = value;
+            }
+        }
         
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public string name {
@@ -672,12 +731,116 @@ namespace CQL.ELM.Model {
         }
         
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string codeSystemVersions {
+        [System.ComponentModel.DefaultValueAttribute(AccessModifier.Public)]
+        public AccessModifier accessLevel {
             get {
-                return this.codeSystemVersionsField;
+                return this.accessLevelField;
             }
             set {
-                this.codeSystemVersionsField = value;
+                this.accessLevelField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class CodeSystemRef : Expression {
+        
+        private string nameField;
+        
+        private string libraryNameField;
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string libraryName {
+            get {
+                return this.libraryNameField;
+            }
+            set {
+                this.libraryNameField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public enum AccessModifier {
+        
+        /// <remarks/>
+        Public,
+        
+        /// <remarks/>
+        Private,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class CodeSystemDef : Element {
+        
+        private string nameField;
+        
+        private string idField;
+        
+        private string versionField;
+        
+        private AccessModifier accessLevelField;
+        
+        public CodeSystemDef() {
+            this.accessLevelField = AccessModifier.Public;
+        }
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string version {
+            get {
+                return this.versionField;
+            }
+            set {
+                this.versionField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(AccessModifier.Public)]
+        public AccessModifier accessLevel {
+            get {
+                return this.accessLevelField;
+            }
+            set {
+                this.accessLevelField = value;
             }
         }
     }
@@ -695,6 +858,12 @@ namespace CQL.ELM.Model {
         private string nameField;
         
         private System.Xml.XmlQualifiedName parameterTypeField;
+        
+        private AccessModifier accessLevelField;
+        
+        public ParameterDef() {
+            this.accessLevelField = AccessModifier.Public;
+        }
         
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public Expression @default {
@@ -733,6 +902,17 @@ namespace CQL.ELM.Model {
             }
             set {
                 this.parameterTypeField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(AccessModifier.Public)]
+        public AccessModifier accessLevel {
+            get {
+                return this.accessLevelField;
+            }
+            set {
+                this.accessLevelField = value;
             }
         }
     }
@@ -859,6 +1039,49 @@ namespace CQL.ELM.Model {
         }
     }
     
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class OperandDef : Element {
+        
+        private TypeSpecifier operandTypeSpecifierField;
+        
+        private string nameField;
+        
+        private System.Xml.XmlQualifiedName operandTypeField;
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public TypeSpecifier operandTypeSpecifier {
+            get {
+                return this.operandTypeSpecifierField;
+            }
+            set {
+                this.operandTypeSpecifierField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public System.Xml.XmlQualifiedName operandType {
+            get {
+                return this.operandTypeField;
+            }
+            set {
+                this.operandTypeField = value;
+            }
+        }
+    }
+    
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(FunctionDef))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
     [System.SerializableAttribute()]
@@ -871,6 +1094,12 @@ namespace CQL.ELM.Model {
         private string nameField;
         
         private string contextField;
+        
+        private AccessModifier accessLevelField;
+        
+        public ExpressionDef() {
+            this.accessLevelField = AccessModifier.Public;
+        }
         
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public Expression expression {
@@ -901,6 +1130,17 @@ namespace CQL.ELM.Model {
                 this.contextField = value;
             }
         }
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(AccessModifier.Public)]
+        public AccessModifier accessLevel {
+            get {
+                return this.accessLevelField;
+            }
+            set {
+                this.accessLevelField = value;
+            }
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
@@ -909,19 +1149,19 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
     public partial class FunctionDef : ExpressionDef {
         
-        private List<ParameterDef> parameterField;
+        private List<OperandDef> operandField;
         
         public FunctionDef() {
-            this.parameterField = new List<ParameterDef>();
+            this.operandField = new List<OperandDef>();
         }
         
-        [System.Xml.Serialization.XmlElementAttribute("parameter", Order=0)]
-        public List<ParameterDef> parameter {
+        [System.Xml.Serialization.XmlElementAttribute("operand", Order=0)]
+        public List<OperandDef> operand {
             get {
-                return this.parameterField;
+                return this.operandField;
             }
             set {
-                this.parameterField = value;
+                this.operandField = value;
             }
         }
     }
@@ -1318,6 +1558,123 @@ namespace CQL.ELM.Model {
             }
             set {
                 this.libraryNameField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class InCodeSystem : Expression {
+        
+        private Expression codeField;
+        
+        private CodeSystemRef codesystemField;
+        
+        public InCodeSystem() {
+            this.codesystemField = new CodeSystemRef();
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public Expression code {
+            get {
+                return this.codeField;
+            }
+            set {
+                this.codeField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public CodeSystemRef codesystem {
+            get {
+                return this.codesystemField;
+            }
+            set {
+                this.codesystemField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class Concept : Expression {
+        
+        private List<Code> codeField;
+        
+        private string displayField;
+        
+        public Concept() {
+            this.codeField = new List<Code>();
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute("code", Order=0)]
+        public List<Code> code {
+            get {
+                return this.codeField;
+            }
+            set {
+                this.codeField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string display {
+            get {
+                return this.displayField;
+            }
+            set {
+                this.displayField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class Code : Expression {
+        
+        private CodeSystemRef systemField;
+        
+        private string codeField;
+        
+        private string displayField;
+        
+        public Code() {
+            this.systemField = new CodeSystemRef();
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public CodeSystemRef system {
+            get {
+                return this.systemField;
+            }
+            set {
+                this.systemField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string code {
+            get {
+                return this.codeField;
+            }
+            set {
+                this.codeField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string display {
+            get {
+                return this.displayField;
+            }
+            set {
+                this.displayField = value;
             }
         }
     }
@@ -1775,25 +2132,6 @@ namespace CQL.ELM.Model {
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
-    public partial class Distinct : Expression {
-        
-        private Expression sourceField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression source {
-            get {
-                return this.sourceField;
-            }
-            set {
-                this.sourceField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
     public partial class ForEach : Expression {
         
         private Expression sourceField;
@@ -2008,6 +2346,73 @@ namespace CQL.ELM.Model {
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class Time : Expression {
+        
+        private Expression hourField;
+        
+        private Expression minuteField;
+        
+        private Expression secondField;
+        
+        private Expression millisecondField;
+        
+        private Expression timezoneOffsetField;
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public Expression hour {
+            get {
+                return this.hourField;
+            }
+            set {
+                this.hourField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public Expression minute {
+            get {
+                return this.minuteField;
+            }
+            set {
+                this.minuteField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public Expression second {
+            get {
+                return this.secondField;
+            }
+            set {
+                this.secondField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public Expression millisecond {
+            get {
+                return this.millisecondField;
+            }
+            set {
+                this.millisecondField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public Expression timezoneOffset {
+            get {
+                return this.timezoneOffsetField;
+            }
+            set {
+                this.timezoneOffsetField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
     public partial class DateTime : Expression {
         
         private Expression yearField;
@@ -2125,6 +2530,13 @@ namespace CQL.ELM.Model {
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class TimeOfDay : Expression {
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
     public partial class Substring : Expression {
         
         private object stringToSubField;
@@ -2168,7 +2580,7 @@ namespace CQL.ELM.Model {
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
-    public partial class Pos : Expression {
+    public partial class PositionOf : Expression {
         
         private Expression patternField;
         
@@ -2191,37 +2603,6 @@ namespace CQL.ELM.Model {
             }
             set {
                 this.stringField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
-    public partial class Indexer : Expression {
-        
-        private Expression operandField;
-        
-        private Expression indexField;
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public Expression operand {
-            get {
-                return this.operandField;
-            }
-            set {
-                this.operandField = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public Expression index {
-            get {
-                return this.indexField;
-            }
-            set {
-                this.indexField = value;
             }
         }
     }
@@ -2509,7 +2890,11 @@ namespace CQL.ELM.Model {
         
         private Expression lowField;
         
+        private Expression lowClosedExpressionField;
+        
         private Expression highField;
+        
+        private Expression highClosedExpressionField;
         
         private bool lowClosedField;
         
@@ -2531,12 +2916,32 @@ namespace CQL.ELM.Model {
         }
         
         [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public Expression lowClosedExpression {
+            get {
+                return this.lowClosedExpressionField;
+            }
+            set {
+                this.lowClosedExpressionField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
         public Expression high {
             get {
                 return this.highField;
             }
             set {
                 this.highField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public Expression highClosedExpression {
+            get {
+                return this.highClosedExpressionField;
+            }
+            set {
+                this.highClosedExpressionField = value;
             }
         }
         
@@ -2567,11 +2972,44 @@ namespace CQL.ELM.Model {
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class Instance : Expression {
+        
+        private List<InstanceElement> elementField;
+        
+        private System.Xml.XmlQualifiedName classTypeField;
+        
+        public Instance() {
+            this.elementField = new List<InstanceElement>();
+        }
+        
+        [System.Xml.Serialization.XmlElementAttribute("element", Order=0)]
+        public List<InstanceElement> element {
+            get {
+                return this.elementField;
+            }
+            set {
+                this.elementField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public System.Xml.XmlQualifiedName classType {
+            get {
+                return this.classTypeField;
+            }
+            set {
+                this.classTypeField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
     public partial class Tuple : Expression {
         
         private List<TupleElement> elementField;
-        
-        private System.Xml.XmlQualifiedName tupleTypeField;
         
         public Tuple() {
             this.elementField = new List<TupleElement>();
@@ -2586,14 +3024,35 @@ namespace CQL.ELM.Model {
                 this.elementField = value;
             }
         }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class TupleElement {
         
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public System.Xml.XmlQualifiedName tupleType {
+        private Expression valueField;
+        
+        private string nameField;
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public Expression value {
             get {
-                return this.tupleTypeField;
+                return this.valueField;
             }
             set {
-                this.tupleTypeField = value;
+                this.valueField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
             }
         }
     }
@@ -2656,6 +3115,25 @@ namespace CQL.ELM.Model {
             }
             set {
                 this.libraryNameField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class OperandRef : Expression {
+        
+        private string nameField;
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
             }
         }
     }
@@ -2746,7 +3224,7 @@ namespace CQL.ELM.Model {
         }
     }
     
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Concat))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Concatenate))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Coalesce))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
     [System.SerializableAttribute()]
@@ -2775,7 +3253,7 @@ namespace CQL.ELM.Model {
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
-    public partial class Concat : NaryExpression {
+    public partial class Concatenate : NaryExpression {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
@@ -2827,12 +3305,16 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ProperIncludes))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(IncludedIn))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Includes))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ProperIn))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(In))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ProperContains))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Contains))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SameOrAfter))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SameOrBefore))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SameAs))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DifferenceBetween))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(DurationBetween))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Indexer))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Power))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Log))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Modulo))]
@@ -2846,8 +3328,8 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Greater))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Less))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(NotEqual))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Matches))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Equal))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IfNull))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Xor))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Or))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(And))]
@@ -3401,7 +3883,69 @@ namespace CQL.ELM.Model {
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class ProperIn : BinaryExpression {
+        
+        private DateTimePrecision precisionField;
+        
+        private bool precisionFieldSpecified;
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public DateTimePrecision precision {
+            get {
+                return this.precisionField;
+            }
+            set {
+                this.precisionField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool precisionSpecified {
+            get {
+                return this.precisionFieldSpecified;
+            }
+            set {
+                this.precisionFieldSpecified = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
     public partial class In : BinaryExpression {
+        
+        private DateTimePrecision precisionField;
+        
+        private bool precisionFieldSpecified;
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public DateTimePrecision precision {
+            get {
+                return this.precisionField;
+            }
+            set {
+                this.precisionField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool precisionSpecified {
+            get {
+                return this.precisionFieldSpecified;
+            }
+            set {
+                this.precisionFieldSpecified = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class ProperContains : BinaryExpression {
         
         private DateTimePrecision precisionField;
         
@@ -3556,6 +4100,37 @@ namespace CQL.ELM.Model {
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class DifferenceBetween : BinaryExpression {
+        
+        private DateTimePrecision precisionField;
+        
+        private bool precisionFieldSpecified;
+        
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public DateTimePrecision precision {
+            get {
+                return this.precisionField;
+            }
+            set {
+                this.precisionField = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool precisionSpecified {
+            get {
+                return this.precisionFieldSpecified;
+            }
+            set {
+                this.precisionFieldSpecified = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
     public partial class DurationBetween : BinaryExpression {
         
         private DateTimePrecision precisionField;
@@ -3581,6 +4156,13 @@ namespace CQL.ELM.Model {
                 this.precisionFieldSpecified = value;
             }
         }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class Indexer : BinaryExpression {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
@@ -3678,14 +4260,14 @@ namespace CQL.ELM.Model {
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
-    public partial class Equal : BinaryExpression {
+    public partial class Matches : BinaryExpression {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
-    public partial class IfNull : BinaryExpression {
+    public partial class Equal : BinaryExpression {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
@@ -3711,6 +4293,7 @@ namespace CQL.ELM.Model {
     
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CalculateAge))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SingletonFrom))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Distinct))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Expand))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Exists))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Collapse))]
@@ -3735,6 +4318,8 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Convert))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(As))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Is))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IsFalse))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(IsTrue))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(IsNull))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Not))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
@@ -3792,6 +4377,13 @@ namespace CQL.ELM.Model {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
     public partial class SingletonFrom : UnaryExpression {
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class Distinct : UnaryExpression {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
@@ -3971,7 +4563,19 @@ namespace CQL.ELM.Model {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
     public partial class Convert : UnaryExpression {
         
+        private TypeSpecifier toTypeSpecifierField;
+        
         private System.Xml.XmlQualifiedName toTypeField;
+        
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public TypeSpecifier toTypeSpecifier {
+            get {
+                return this.toTypeSpecifierField;
+            }
+            set {
+                this.toTypeSpecifierField = value;
+            }
+        }
         
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public System.Xml.XmlQualifiedName toType {
@@ -4061,6 +4665,20 @@ namespace CQL.ELM.Model {
                 this.isTypeField = value;
             }
         }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class IsFalse : UnaryExpression {
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:hl7-org:elm:r1")]
+    public partial class IsTrue : UnaryExpression {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Xsd2Code", "3.4.0.38968")]

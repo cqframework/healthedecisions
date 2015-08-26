@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+******************************************************************************
+RFD Submit Form  (ITI-35) containing an HTML Form request 
+
+FORM NAME:  FDA_submit_stub.xml
+PURPOSE:    Submitting Information using RFD based Submit Transaction.
+
+REVISIONS: 
+Ver        Date         Author           	   Description
+1.0        12/01/2014   Varsha Parekh        Added RFD wrapper and schema validation
+						      Richard Moldwin		form_data needs to be populated with the user filled in data        
+1.1        12/11/2014   WS/SJ/VP/RM          schemaLocation changed, form_design_identifier changed
+******************************************************************************/
+-->
+
+
+<SubmitFormRequest 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="../Schemas/RFD.xsd"
+   xmlns="urn:ihe:iti:rfd:2007" 
+   xmlns:sdc="http://nlm.nih.gov/sdc/form">
+   
+   <!-- This will contain the user filled in data that form Filler should submit -->
+   <sdc:form_data form_design_identifier="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0">
+      
+   </sdc:form_data>
+</SubmitFormRequest>
+
+

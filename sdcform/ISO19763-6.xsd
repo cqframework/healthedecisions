@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.iso.org/19763/6/2013" xmlns="http://www.iso.org/19763/6/2013"
+    xmlns:ISO11179-3="http://www.iso.org/11179/3/2013">
+    <xs:annotation>
+        <xs:documentation>Version 1.0</xs:documentation>
+        <xs:documentation>This is a partial schema, developed in collaboration with ISO 19763 project editors
+            for use with ISO19763-13. It will be developed further over time and
+            is intended to be submitted for standardization as a technical report, as an enabling technology</xs:documentation>
+    </xs:annotation>
+
+    <xs:import namespace="http://www.iso.org/11179/3/2013" schemaLocation="ISO11179-3.xsd"/>
+
+    <xs:complexType name="Registry_Summary" abstract="true">
+        <xs:all>
+            <xs:element name="registry_organization" type="ISO11179-3:Organization"/>
+            <xs:element name="reference_standard_identifier" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="SLA_for_registry" type="ISO11179-3:Reference_Document" minOccurs="0"
+                maxOccurs="1"/>
+            <xs:element name="purpose_for_registry" type="ISO11179-3:Reference_Document"
+                minOccurs="0" maxOccurs="1"/>
+            <xs:element name="manual_for_registry" type="ISO11179-3:Reference_Document"
+                minOccurs="0" maxOccurs="1"/>
+            <xs:element name="specification_for_interface" type="Interface" minOccurs="0"
+                maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="Interface">
+        <xs:all>
+            <xs:element name="identifer" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="description" type="ISO11179-3:Text" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="URL" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="version" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+
+</xs:schema>

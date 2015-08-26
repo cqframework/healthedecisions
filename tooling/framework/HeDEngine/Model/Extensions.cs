@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace HeD.Engine.Model
 {
@@ -75,6 +76,14 @@ namespace HeD.Engine.Model
 			}
 
 			return qualifiedName;
+		}
+	}
+
+	public static class XAttributeExtensions
+	{
+		public static string GetValue(this XAttribute attribute)
+		{
+			return attribute != null ? attribute.Value : null;
 		}
 	}
 }

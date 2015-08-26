@@ -8,15 +8,32 @@
 	<entry key="http://www.w3.org/2001/XMLSchema-instance:double" value="HeD.Engine.Verification.RealTypeResolver"/>
 	<entry key="http://www.w3.org/2001/XMLSchema-instance:decimal" value="HeD.Engine.Verification.RealTypeResolver"/>
 	<entry key="http://www.w3.org/2001/XMLSchema-instance:dateTime" value="HeD.Engine.Verification.TimestampTypeResolver"/>
+	<entry key="http://www.w3.org/2001/XMLSchema:boolean" value="HeD.Engine.Verification.BooleanTypeResolver"/>
+	<entry key="http://www.w3.org/2001/XMLSchema:int" value="HeD.Engine.Verification.IntegerTypeResolver"/>
+	<entry key="http://www.w3.org/2001/XMLSchema:string" value="HeD.Engine.Verification.StringTypeResolver"/>
+	<entry key="http://www.w3.org/2001/XMLSchema:float" value="HeD.Engine.Verification.RealTypeResolver"/>
+	<entry key="http://www.w3.org/2001/XMLSchema:double" value="HeD.Engine.Verification.RealTypeResolver"/>
+	<entry key="http://www.w3.org/2001/XMLSchema:decimal" value="HeD.Engine.Verification.RealTypeResolver"/>
+	<entry key="http://www.w3.org/2001/XMLSchema:dateTime" value="HeD.Engine.Verification.TimestampTypeResolver"/>
 	<!--entry key="http://www.w3.org/2001/XMLSchema-instance:anyURI" value="HeD.Engine.Verification.UrlTypeResolver"/-->
 	<!-- Namespace level model type resolver for all HeD data types. -->
 	<entry key="urn:hl7-org:cdsdt:r2" value="HeD.Model.HeDModelTypeResolver"/>
 	<!-- Specific type overrides for primitive types in the HeD namespace -->
+	<entry key="urn:hl7-org:cdsdt:r2:CD" value="HeD.Engine.Verification.CodeTypeResolver"/>
 	<entry key="urn:hl7-org:cdsdt:r2:BL" value="HeD.Engine.Verification.BooleanTypeResolver"/>
 	<entry key="urn:hl7-org:cdsdt:r2:INT" value="HeD.Engine.Verification.IntegerTypeResolver"/>
 	<entry key="urn:hl7-org:cdsdt:r2:REAL" value="HeD.Engine.Verification.RealTypeResolver"/>
 	<entry key="urn:hl7-org:cdsdt:r2:ST" value="HeD.Engine.Verification.StringTypeResolver"/>
 	<entry key="urn:hl7-org:cdsdt:r2:TS" value="HeD.Engine.Verification.TimestampTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:Boolean" value="HeD.Engine.Verification.BooleanTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:Integer" value="HeD.Engine.Verification.IntegerTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:Decimal" value="HeD.Engine.Verification.RealTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:String" value="HeD.Engine.Verification.StringTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:DateTime" value="HeD.Engine.Verification.TimestampTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:Time" value="HeD.Engine.Verification.TimeTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:Quantity" value="HeD.Engine.Verification.PhysicalQuantityTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:Code" value="HeD.Engine.Verification.CodeTypeResolver"/>
+	<entry key="urn:hl7-org:elm-types:r1:Concept" value="HeD.Engine.Verification.ConceptTypeResolver"/>
 	<entry key="Boolean" value="HeD.Engine.Verification.BooleanTypeResolver"/>
 	<entry key="Code" value="HeD.Engine.Verification.CodeTypeResolver"/>
 	<entry key="CodedOrdinal" value="HeD.Engine.Verification.CodedOrdinalTypeResolver"/>
@@ -36,7 +53,9 @@
 	<entry key="TimestampInterval" value="HeD.Engine.Verification.TimestampIntervalTypeResolver"/>
 	<entry key="URL" value="HeD.Engine.Verification.URLTypeResolver"/>
 	<!-- Namespace-level model type resolver for the vMR -->
+	<!-- TODO: Should be in the vMR.Model Assembly Maps -->
 	<entry key="org.opencds.vmr.v1_0.schema.vmr" value="vMR.Model.vMRModelTypeResolver,vMR.Model"/>
 	<entry key="urn:hl7-org:vmr:r2" value="vMR.Model.vMRModelTypeResolver,vMR.Model"/>
-
+	<!-- TODO: Should be in the FHIR.Model Assembly Maps -->
+	<entry key="http://hl7.org/fhir" value="FHIR.Model.FHIRModelTypeResolver,FHIR.Model"/>
 </map>

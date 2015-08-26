@@ -67,6 +67,224 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\..\specification\src\examples\ACC-pilot-example.xml">
+      <Link>Artifacts\ACC-pilot-example.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\ChlamydiaScreeningHeD.xml">
+      <Link>Artifacts\ChlamydiaScreeningHeD.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\ChlamydiaScreening_CDS.xml">
+      <Link>Artifacts\ChlamydiaScreening_CDS.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\CorticoSteroidInhalerReminder.xml">
+      <Link>Artifacts\CorticoSteroidInhalerReminder.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\DopamineComplexIVOrder.xml">
+      <Link>Artifacts\DopamineComplexIVOrder.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\FLACC_DocTemplate.xml">
+      <Link>Artifacts\FLACC_DocTemplate.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\HeartFailureAdmissionToMedSurgOrderSet.xml">
+      <Link>Artifacts\HeartFailureAdmissionToMedSurgOrderSet.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\newMentor_HeD_NQF0068_ECArule_example.xml">
+      <Link>Artifacts\newMentor_HeD_NQF0068_ECArule_example.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\NHACMS_2013_EDPR_20141205_HeDr_1_3.xml">
+      <Link>Artifacts\NHACMS_2013_EDPR_20141205_HeDr_1_3.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\NQF0024A_NQF0421.xml">
+      <Link>Artifacts\NQF0024A_NQF0421.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\PHQ9_DocTemplate.xml">
+      <Link>Artifacts\PHQ9_DocTemplate.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\PHQ9_DocTemplateWithAssessment.xml">
+      <Link>Artifacts\PHQ9_DocTemplateWithAssessment.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\RegularInsulinSlidingScaleRegime.xml">
+      <Link>Artifacts\RegularInsulinSlidingScaleRegime.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\RespiratoryOrder.xml">
+      <Link>Artifacts\RespiratoryOrder.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\SDCPertussisClinical-eReportingCriteria.xml">
+      <Link>Artifacts\SDCPertussisClinical-eReportingCriteria.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\UTI_DocTemplate.xml">
+      <Link>Artifacts\UTI_DocTemplate.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\common\datatypes.xsd">
+      <Link>Schema\common\datatypes.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\common\xhtml1-strict.xsd">
+      <Link>Schema\common\xhtml1-strict.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\common\xml.xsd">
+      <Link>Schema\common\xml.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\elm\clinicalexpression.xsd">
+      <Link>Schema\elm\clinicalexpression.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\elm\cqlannotations.xsd">
+      <Link>Schema\elm\cqlannotations.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\elm\expression.xsd">
+      <Link>Schema\elm\expression.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\elm\library.xsd">
+      <Link>Schema\elm\library.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\action.xsd">
+      <Link>Schema\knowledgeartifact\action.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\actor.xsd">
+      <Link>Schema\knowledgeartifact\actor.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\base.xsd">
+      <Link>Schema\knowledgeartifact\base.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\behavior.xsd">
+      <Link>Schema\knowledgeartifact\behavior.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\catalogitem.xsd">
+      <Link>Schema\knowledgeartifact\catalogitem.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\condition.xsd">
+      <Link>Schema\knowledgeartifact\condition.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\artifactlifecycleeventtype.xsd">
+      <Link>Schema\knowledgeartifact\enum\artifactlifecycleeventtype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\artifactstatustype.xsd">
+      <Link>Schema\knowledgeartifact\enum\artifactstatustype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\artifacttype.xsd">
+      <Link>Schema\knowledgeartifact\enum\artifacttype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\behaviortype.xsd">
+      <Link>Schema\knowledgeartifact\enum\behaviortype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\cardinalitytype.xsd">
+      <Link>Schema\knowledgeartifact\enum\cardinalitytype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\conditionroletype.xsd">
+      <Link>Schema\knowledgeartifact\enum\conditionroletype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\contributortype.xsd">
+      <Link>Schema\knowledgeartifact\enum\contributortype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\coveragetype.xsd">
+      <Link>Schema\knowledgeartifact\enum\coveragetype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\dataeventtype.xsd">
+      <Link>Schema\knowledgeartifact\enum\dataeventtype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\rangeconstrainttype.xsd">
+      <Link>Schema\knowledgeartifact\enum\rangeconstrainttype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\resourcerelationshiptype.xsd">
+      <Link>Schema\knowledgeartifact\enum\resourcerelationshiptype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\enum\valuetype.xsd">
+      <Link>Schema\knowledgeartifact\enum\valuetype.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\knowledgedocument.xsd">
+      <Link>Schema\knowledgeartifact\knowledgedocument.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\metadata.xsd">
+      <Link>Schema\knowledgeartifact\metadata.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\knowledgeartifact\trigger.xsd">
+      <Link>Schema\knowledgeartifact\trigger.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\vmr\vmr.xsd">
+      <Link>Schema\vmr\vmr.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\examples\HeartFailureAdmissionToMedSurgOrderSet.pdf">
+      <Link>Artifacts\HeartFailureAdmissionToMedSurgOrderSet.pdf</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\specification\src\schema\elm\types.xsd">
+      <Link>Schema\elm\types.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="App.config" />
     <None Include="UtilitySettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -78,62 +296,26 @@
       <Project>{3ab79fc6-0681-4a66-9ac8-cb3854100709}</Project>
       <Name>CREF.Translation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ELM.Model\ELM.Model.csproj">
+      <Project>{17ace00e-1393-4c7a-b84c-80dff9cbb83d}</Project>
+      <Name>ELM.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FHIR.Model\FHIR.Model.csproj">
+      <Project>{291b40b3-f299-4d4b-b237-2dd072ae04d4}</Project>
+      <Name>FHIR.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HeDEngine\HeDEngine.csproj">
       <Project>{de75f0a0-3755-4d35-886b-c0b53c95980a}</Project>
       <Name>HeDEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SQL.Translation\SQL.Translation.csproj">
+      <Project>{a77c7139-9f45-46af-ac25-b58029210061}</Project>
+      <Name>SQL.Translation</Name>
     </ProjectReference>
     <ProjectReference Include="..\vMR.Model\vMR.Model.csproj">
       <Project>{ad62a3ae-b9be-4360-8aa2-ef633337bf1e}</Project>
       <Name>vMR.Model</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Artifacts\CorticoSteroidInhalerReminder.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\DopamineComplexIVOrder.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\DopamineComplexIVOrderWithComplexLiteral.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\FLACC_DocTemplate.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\HeartFailureAdmissionToMedSurgOrderSet.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\newMentor_HeD_NQF0068_ECArule_example.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\PHQ9_DocTemplate.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\PHQ9_DocTemplateWithAssessment.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\RegularInsulinSlidingScaleRegime.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\RespiratoryOrder.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\RespiratoryOrderWithComplexLiteral.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\SDCPertussisClinical-eReportingCriteria.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\TestECAArtifact.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Artifacts\TestExpressions.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artifacts\UTI_DocTemplate.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -152,6 +334,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

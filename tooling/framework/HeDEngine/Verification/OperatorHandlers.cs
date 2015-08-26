@@ -20,9 +20,9 @@ namespace HeD.Engine.Verification
 		public IEnumerable<Signature> RegisterSignatures()
 		{
 			yield return new Signature(new DataType[] { DataTypes.Integer, DataTypes.Integer });
-			yield return new Signature(new DataType[] { DataTypes.Real, DataTypes.Real });
+			yield return new Signature(new DataType[] { DataTypes.Decimal, DataTypes.Decimal });
 			yield return new Signature(new DataType[] { DataTypes.String, DataTypes.String });
-			yield return new Signature(new DataType[] { DataTypes.Timestamp, DataTypes.Timestamp });
+			yield return new Signature(new DataType[] { DataTypes.DateTime, DataTypes.DateTime });
 		}
 
 		#endregion

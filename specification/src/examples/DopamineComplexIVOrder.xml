@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?schematron-schema href="../main/schematron/knowledgeartifact.sch"?>
 <?schematron-schema href="../main/schematron/ordersets.sch"?>
-<knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
-	xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:dt="urn:hl7-org:cdsdt:r2"
-	xmlns:p1="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace"
+<knowledgeDocument 
+	xmlns="urn:hl7-org:knowledgeartifact:r1"
+	xmlns:vmr="urn:hl7-org:vmr:r2" 
+	xmlns:dt="urn:hl7-org:cdsdt:r2" 
+	xmlns:elm="urn:hl7-org:elm:r1" 
+	xmlns:t="urn:hl7-org:elm-types:r1"
+	xmlns:a="urn:hl7-org:cql-annotations:r1"
+	xmlns:p1="http://www.w3.org/1999/xhtml" 
+	xmlns:xml="http://www.w3.org/XML/1998/namespace"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../main/schema/knowledgeartifact/knowledgedocument.xsd
-	 urn:hl7-org:vmr:r2 ../main/schema/vmr/vmr.xsd">
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd
+	 urn:hl7-org:vmr:r2 ../schema/vmr/vmr.xsd 
+	urn:hl7-org:elm:r1 ../schema/elm/clinicalexpression.xsd 
+	urn:hl7-org:elm-types:r1 ../schema/elm/types.xsd 
+	urn:hl7-org:cql-annotations:r1 ../schema/elm/cqlannotations.xsd">
 
 	<!-- Dopamine Complex IV Order This example describes a complex IV order. 
 		This example was chosen to illustrate a modular order set that could be used 
@@ -94,6 +103,12 @@
 			</publisher>
 		</publishers>
 	</metadata>
+	<externalData>
+		<codesystem name="RxNorm" id="2.16.840.1.113883.6.88"/>
+		<codesystem name="SNOMED-CT" id="2.16.840.1.113883.6.96"/>
+		<codesystem name="???" id="???"/>
+		<codesystem name="ConstituentType" id="???"/>
+	</externalData>
 	<actionGroup>
 		<subElements>
 			<actionGroup> <!-- DOPamine IV Set Order -->
@@ -105,9 +120,9 @@
 						to the IV Set as a whole. -->
 					<simpleAction xsi:type="CreateAction">
 						<textEquivalent value="DOPamine drip 800mg/500mL D5W" />
-						<actionSentence xsi:type="ObjectExpression"
-							objectType="vmr:CompositeSubstanceProposal">
-							<description>
+						<actionSentence xsi:type="elm:Instance"
+							classType="vmr:CompositeSubstanceProposal">
+							<elm:annotation xsi:type="a:Annotation"><a:s>
 								DOPamine drip 800mg/500mL D5W
 								Starting Dose: 2 mcg/kg/min, 
 								Titrate Increment: 0.5 mcg/kg/min every 5 minutes, 
@@ -119,175 +134,153 @@
 								Comments: Ordered as: DOPamine drip 800mg/500mL D5W,
 								Diluent: D5W Titratable Base 500 mL, IV, 
 								Additive: DOPamine (for infusion) 800 mg
-							</description>
-							<property name="substance.substanceCode"> <!-- The IV Set code -->
-								<value xsi:type="CodeLiteral" code="1160755"
-									codeSystem="2.16.840.1.113883.6.88" codeSystemName="RxNorm"
-									displayName="Dopamine Injectable Product" />
-							</property>
+							</a:s></elm:annotation>
+							<elm:element name="substance.substanceCode"> <!-- The IV Set code -->
+								<elm:value xsi:type="elm:Code" code="1160755" display="Dopamine Injectable Product" ><elm:system name="RxNorm"/></elm:value>
+							</elm:element>
 							<!-- Now we add the attributes for the complex IV -->
 							<!-- GAP WITH WORKAROUND: Unfortunately, there is no good way to model 
 								the concentration well using RTO. What we need is a ratio of physical quantities. 
 								For now, we place this in a non-interoperable string field. -->
 							<!-- <property name="substance.strength.numerator.originalText"> <value 
 								xsi:type="StringLiteral" value="800mg"/> </property> -->
-							<property name="substance.strength.numerator">
-								<value xsi:type="ComplexLiteral">
-									<value xsi:type="dt:PQ" value="800" unit="mg" />
-								</value>
-							</property>
+							<elm:element name="substance.strength.numerator">
+								<elm:value xsi:type="elm:Quantity" value="800" unit="mg"/>
+							</elm:element>
 							<!-- <property name="substance.strength.denominator.originalText"> 
 								<value xsi:type="StringLiteral" value="500ml"/> </property> -->
-							<property name="substance.strength.denominator">
-								<value xsi:type="ComplexLiteral">
-									<value xsi:type="dt:PQ" value="500" unit="ml" />
-								</value>
-							</property>
-							<property name="relatedClinicalStatement">
-								<value xsi:type="List">
+							<elm:element name="substance.strength.denominator">
+								<elm:value xsi:type="elm:Quantity" value="500" unit="ml"/>
+							</elm:element>
+							<elm:element name="relatedClinicalStatement">
+								<elm:value xsi:type="elm:List">
 									<!-- Starting Dose: 2 mcg/kg/min -->
-									<element xsi:type="ObjectExpression" objectType="vmr:RelatedClinicalStatement">
-										<property name="targetRole">
-											<value xsi:type="CodeLiteral" code="???" codeSystem="???"
-												codeSystemName="???" displayName="extendClassWithAttribute" />
-										</property>
-										<property name="clinicalStatement">
-											<value xsi:type="ObjectExpression" objectType="vmr:ObservationResult">
-												<property name="observationFocus">
-													<value xsi:type="CodeLiteral" code="???" codeSystem="???"
-														codeSystemName="???" displayName="Starting Dose" />
-												</property>
+									<elm:element xsi:type="elm:Instance" classType="vmr:RelatedClinicalStatement">
+										<elm:element name="targetRole">
+											<elm:value xsi:type="elm:Code" code="???" display="extendClassWithAttribute" ><elm:system name="???"/></elm:value>
+										</elm:element>
+										<elm:element name="clinicalStatement">
+											<elm:value xsi:type="elm:Instance" classType="vmr:ObservationResult">
+												<elm:element name="observationFocus">
+													<elm:value xsi:type="elm:Code" code="???" display="Starting Dose" ><elm:system name="???"/></elm:value>
+												</elm:element>
 												<!-- Probably should be modeled differently as a ratio of physican 
 													quantities? -->
-												<property name="observationValue">
-													<value xsi:type="ObjectExpression" objectType="vmr:Value">
-														<property name="value">
-															<value xsi:type="PhysicalQuantityLiteral" value="2"
-																unit="mcg/kg/min" />
-														</property>
-													</value>
-												</property>
-											</value>
-										</property>
-									</element>
+												<elm:element name="observationValue">
+													<elm:value xsi:type="elm:Instance" classType="vmr:Value">
+														<elm:element name="value">
+															<elm:value xsi:type="elm:Quantity" value="2" unit="mcg/kg/min"/>
+														</elm:element>
+													</elm:value>
+												</elm:element>
+											</elm:value>
+										</elm:element>
+									</elm:element>
 									<!-- Titrate Increment: 0.5 mcg/kg/min -->
-									<element xsi:type="ObjectExpression" objectType="vmr:RelatedClinicalStatement">
-										<property name="targetRole">
-											<value xsi:type="CodeLiteral" code="???" codeSystem="???"
-												codeSystemName="???" displayName="extendClassWithAttribute" />
-										</property>
-										<property name="clinicalStatement">
-											<value xsi:type="ObjectExpression" objectType="vmr:ObservationResult">
-												<property name="observationFocus">
-													<value xsi:type="CodeLiteral" code="???" codeSystem="???"
-														codeSystemName="???" displayName="Titrate Increment" />
-												</property>
+									<elm:element xsi:type="elm:Instance" classType="vmr:RelatedClinicalStatement">
+										<elm:element name="targetRole">
+											<elm:value xsi:type="elm:Code" code="???" display="extendClassWithAttribute" ><elm:system name="???"/></elm:value>
+										</elm:element>
+										<elm:element name="clinicalStatement">
+											<elm:value xsi:type="elm:Instance" classType="vmr:ObservationResult">
+												<elm:element name="observationFocus">
+													<elm:value xsi:type="elm:Code" code="???" display="Titrate Increment" ><elm:system name="???"/></elm:value>
+												</elm:element>
 												<!-- Probably should be modeled differently as a ratio of physican 
 													quantities? -->
-												<property name="observationValue">
-													<value xsi:type="ObjectExpression" objectType="vmr:Value">
-														<property name="value">
-															<value xsi:type="PhysicalQuantityLiteral" value="0.5"
-																unit="mcg/kg/min" />
-														</property>
-													</value>
-												</property>
-											</value>
-										</property>
-									</element>
+												<elm:element name="observationValue">
+													<elm:value xsi:type="elm:Instance" classType="vmr:Value">
+														<elm:element name="value">
+															<elm:value xsi:type="elm:Quantity" value="0.5" unit="mcg/kg/min"/>
+														</elm:element>
+													</elm:value>
+												</elm:element>
+											</elm:value>
+										</elm:element>
+									</elm:element>
 									<!-- Titrate Frequency: q5min -->
-									<element xsi:type="ObjectExpression" objectType="vmr:RelatedClinicalStatement">
-										<property name="targetRole">
-											<value xsi:type="CodeLiteral" code="???" codeSystem="???"
-												codeSystemName="???" displayName="extendClassWithAttribute" />
-										</property>
-										<property name="clinicalStatement">
-											<value xsi:type="ObjectExpression" objectType="vmr:ObservationResult">
-												<property name="observationFocus">
-													<value xsi:type="CodeLiteral" code="???" codeSystem="???"
-														codeSystemName="???" displayName="Titrate Frequency" />
-												</property>
-												<property name="observationValue">
-													<value xsi:type="ObjectExpression" objectType="vmr:Value">
-														<property name="value">
-															<value xsi:type="CodeLiteral" code="???" codeSystem="???"
-																codeSystemName="???" displayName="q5min" />
-														</property>
-													</value>
-												</property>
-											</value>
-										</property>
-									</element>
+									<elm:element xsi:type="elm:Instance" classType="vmr:RelatedClinicalStatement">
+										<elm:element name="targetRole">
+											<elm:value xsi:type="elm:Code" code="???" display="extendClassWithAttribute" ><elm:system name="???"/></elm:value>
+										</elm:element>
+										<elm:element name="clinicalStatement">
+											<elm:value xsi:type="elm:Instance" classType="vmr:ObservationResult">
+												<elm:element name="observationFocus">
+													<elm:value xsi:type="elm:Code" code="???" display="Titrate Frequency" ><elm:system name="???"/></elm:value>
+												</elm:element>
+												<elm:element name="observationValue">
+													<elm:value xsi:type="elm:Instance" classType="vmr:Value">
+														<elm:element name="value">
+															<elm:value xsi:type="elm:Code" code="???" display="q5min" ><elm:system name="???"/></elm:value>
+														</elm:element>
+													</elm:value>
+												</elm:element>
+											</elm:value>
+										</elm:element>
+									</elm:element>
 
-								</value>
-							</property>
+								</elm:value>
+							</elm:element>
 							<!-- Dose Restriction: "maximum dose of 20mcg/kg/min, titrate" -->
-							<property name="dose[1].doseRestriction.maxDoseForInterval">
-								<value xsi:type="PhysicalQuantityLiteral" value="20" unit="mcg/kg" />
-							</property>
-							<property name="dose[1].doseRestriction.timeInterval">
-								<value xsi:type="PhysicalQuantityLiteral" value="1" unit="min" />
-							</property>
+							<elm:element name="dose[1].doseRestriction.maxDoseForInterval">
+								<elm:value xsi:type="elm:Quantity" value="20" unit="mcg/kg" />
+							</elm:element>
+							<elm:element name="dose[1].doseRestriction.timeInterval">
+								<elm:value xsi:type="elm:Quantity" value="1" unit="min" />
+							</elm:element>
 							<!-- Start Time Offset: Now -->
-							<property name="proposedAdministrationTimeInterval"> <!-- IVL_TS -->
-								<value xsi:type="Interval">
-									<begin xsi:type="Now" />
-									<!-- NOTE: This should be empty to indicate an open-ended interval, 
-										but the schema does not allow this. This will be rectified in the comment 
-										reconciliation phase. -->
-									<end xsi:type="Now" />
-								</value>
-							</property>
+							<elm:element name="proposedAdministrationTimeInterval"> <!-- IVL_TS -->
+								<elm:value xsi:type="elm:Interval">
+									<elm:low xsi:type="elm:Now" />
+								</elm:value>
+							</elm:element>
 
-							<property name="constituent">
+							<elm:element name="constituent">
 								<!-- Specify the drug diluent for this Complex IV -->
-								<value xsi:type="List">
-									<element xsi:type="ObjectExpression" objectType="vmr:Constituent">
-										<property name="constituentType">
-											<value xsi:type="CodeLiteral" code="Diluent" codeSystem="ConstituentType"/>
-										</property>
-										<property name="substance.substanceCode">
-											<value xsi:type="CodeLiteral" code="400420008"
-												codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"
-												displayName="Dextrose 5g/100mL (5%) injection solution 500mL vial" />
-										</property>
-									</element>
-									<element xsi:type="ObjectExpression" objectType="vmr:Constituent">
-										<property name="constituentType">
-											<value xsi:type="CodeLiteral" code="Additive" codeSystem="ConstituentType"/>
-										</property>
-										<property name="substance.substanceCode">
-											<value xsi:type="CodeLiteral" code="400420008"
-												codeSystem="2.16.840.1.113883.6.88" codeSystemName="RxNorm"
-												displayName="Dopamine Injectable Product"/>
-										</property>
-									</element>
-								</value>
-							</property>
+								<elm:value xsi:type="elm:List">
+									<elm:element xsi:type="elm:Instance" classType="vmr:Constituent">
+										<elm:element name="constituentType">
+											<elm:value xsi:type="elm:Code" code="Diluent"><elm:system name="ConstituentType"/></elm:value>
+										</elm:element>
+										<elm:element name="substance.substanceCode">
+											<elm:value xsi:type="elm:Code" code="400420008" display="Dextrose 5g/100mL (5%) injection solution 500mL vial" ><elm:system name="SNOMED-CT"/></elm:value>
+										</elm:element>
+									</elm:element>
+									<elm:element xsi:type="elm:Instance" classType="vmr:Constituent">
+										<elm:element name="constituentType">
+											<elm:value xsi:type="elm:Code" code="Additive"><elm:system name="ConstituentType"/></elm:value>
+										</elm:element>
+										<elm:element name="substance.substanceCode">
+											<elm:value xsi:type="elm:Code" code="400420008" display="Dopamine Injectable Product"><elm:system name="RxNorm"/></elm:value>
+										</elm:element>
+									</elm:element>
+								</elm:value>
+							</elm:element>
 
-							<property name="urgency">
-								<value xsi:type="CodeLiteral" code="???" codeSystem="???"
-									codeSystemName="???" displayName="Routine" />
-							</property>
+							<elm:element name="urgency">
+								<elm:value xsi:type="elm:Code" code="???" display="Routine" ><elm:system name="???"/></elm:value>
+							</elm:element>
 
-							<property name="comment">
-								<value xsi:type="List">
-									<element xsi:type="ComplexLiteral">
-										<value xsi:type="vmr:Documentation">
-											<vmr:type code="???" codeSystem="???"
-												codeSystemName="???" ><dt:displayName value="Nursing Instructions"/></vmr:type>
-											<vmr:content value="Keep MAP Greater Than: 60" />
-										</value>
-									</element>
-									<element xsi:type="ComplexLiteral">
-										<value xsi:type="vmr:Documentation">
-											<vmr:type code="???" codeSystem="???"
-												codeSystemName="???" ><dt:displayName value="Nursing Instructions"/></vmr:type>
-											<vmr:content value="Hold if HR Greater than: 120"/>
-										</value>
-									</element>
-								</value>
-							</property>
+							<elm:element name="comment">
+								<elm:value xsi:type="elm:List">
+									<elm:element xsi:type="elm:Instance" classType="vmr:Documentation">
+										<elm:element name="type">
+											<elm:value xsi:type="elm:Code" code="???" display="Nursing Instructions"><elm:system name="???"/></elm:value>
+										</elm:element>
+										<elm:element name="content">
+											<elm:value xsi:type="elm:Literal" valueType="t:String" value="Keep MAP Greater Than: 60"/>
+										</elm:element>
+									</elm:element>
+									<elm:element xsi:type="elm:Instance" classType="vmr:Documentation">
+										<elm:element name="type">
+											<elm:value xsi:type="elm:Code" code="???" display="Nursing Instructions"><elm:system name="???"/></elm:value>
+										</elm:element>
+										<elm:element name="content">
+											<elm:value xsi:type="elm:Literal" valueType="t:String" value="Hold if HR Greater than: 120"/>
+										</elm:element>
+									</elm:element>
+								</elm:value>
+							</elm:element>
 
 						</actionSentence>
 					</simpleAction>

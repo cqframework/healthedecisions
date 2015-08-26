@@ -1,0 +1,834 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://nlm.nih.gov/sdc/form" xmlns="http://nlm.nih.gov/sdc/form"
+    xmlns:mfi13="http://www.iso.org/19763/13/2013" xmlns:mfi10="http://www.iso.org/19763/10/2013"
+    xmlns:mfi6="http://www.iso.org/19763/6/2013" xmlns:mdr3="http://www.iso.org/11179/3/2013"
+    xmlns:dex="urn:ihe:qrph:dex:2013">
+
+    <xs:annotation>
+        <xs:documentation> Version 2 12-06-2013 DWarzel </xs:documentation>
+        <xs:documentation> Added import of DEX.xsd and namespace for DEX mapping specification based
+            on requirements to support pre-population using the IHE DEX profile </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 3 12-12-2013 DWarzel </xs:documentation>
+        <xs:documentation> Added mapping_degree to DEX_Mapping</xs:documentation>
+        <xs:documentation> repositioned mapping_degree between the Quesiton and the mapped item to
+            clarify the expression </xs:documentation>
+        <xs:documentation> Added identifier and contacts for each mapping specification
+        </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 4 12-16-2013 DWarzel </xs:documentation>
+        <xs:documentation> Added compliance_rule</xs:documentation>
+        <xs:documentation> Removed DEX mapping from Question. Agreement was reached that it be in
+            the mapping_package</xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 5 12-23-2013 DWarzel </xs:documentation>
+        <xs:documentation> Added section_element_concept_association</xs:documentation>
+        <xs:documentation> changed mapping_degree to association_type. this is consistend wtih MFI
+            13 naming, and seems less ambiguous</xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 6 01-06-2014 DWarzel </xs:documentation>
+        <xs:documentation> Added Administrative_Pacakge element to contain compliance_rule,
+            submission_rule, form_language, originating_registry_summary, contact,
+            registration</xs:documentation>
+        <xs:documentation> Added a Contacts element to hold all the contacts </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 7 01-07-2014 DWarzel</xs:documentation>
+        <xs:documentation> Small group meeting 1/7/2014</xs:documentation>
+        <xs:documentation> Changed Stylesheet to minOccurs = 1</xs:documentation>
+        <xs:documentation> MFI-13 Section-Concept mapping was removed from mapping
+            package</xs:documentation>
+        <xs:documentation> Remove Value Set Mapping section. We need to support and interim solution
+            to allow Value Meanings to be mapped to list items. Suggested this be included in the
+            data element-question mapping. no decision at this point.</xs:documentation>
+        <xs:documentation> Remove base_question. This supported a Quesiton outside a Section. It was
+            agreed by small group that this was not best practice. </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 7b 01-14-2014 DWarzel</xs:documentation>
+        <xs:documentation> Small group meeting 1/14/2014</xs:documentation>
+        <xs:documentation> added list_item_identifier</xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 8 01-16-2014 DWarzel</xs:documentation>
+        <xs:documentation> Call with KenPool, Hector, Vijay, Denise, Shreya
+            1/16/2014</xs:documentation>
+        <xs:documentation> DEX_Mapping element removed, dex_mapping_specification added to the
+            Question_Element_Data_Element_Associaton</xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 9 01-17-2014 DWarzel</xs:documentation>
+        <xs:documentation> Call with SDC WG, 1/17/2014</xs:documentation>
+        <xs:documentation> Changed the Form URI, Section, Question and List_Item identifier to
+            mandatory minOccurs="1"</xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 10 01-21-2014 DWarzel</xs:documentation>
+        <xs:documentation> email with SDC WG, 1/20/2014</xs:documentation>
+        <xs:documentation> Changed identifier names from "uri", or just "identifier" to element name
+            + _identifier, e.g. form_design_identifier, section_identifier, question_identifier </xs:documentation>
+        <xs:documentation> Make data element-question association mapping "sequence" instead of all
+            so the type of association is not accidentally misunderstood</xs:documentation>
+        <xs:documentation> while the definition of the skos terms "broader" are defined in the
+            standard as MDR association to Question ("broader" means MDR item is boader than the
+            question, the order dataElement-associationType-question may help people to not make a
+            mistake. </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 11 01-26-2014 DWarzel</xs:documentation>
+        <xs:documentation> changed "guard" to unbounded </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 11.1 03-10-2014 DWarzel</xs:documentation>
+        <xs:documentation> changed based on all-hands IG review 03-06-2014
+            DWarzel</xs:documentation>
+        <xs:documentation> added data_element_scoped_identifier attribute to Question_Element </xs:documentation>
+        <xs:documentation> AHRQ/NCI testing: Changed Form_Design from xs:all to xs:sequence Changed
+            Registered_Item definition from xs:all to xs:sequence Changed
+            Form_Language/mfi13:Form_Language definition from xs:all to xs:sequence Changed
+            Designation definition from xs:all to xs:sequence Changed Individual/mdr3:Individual
+            definition from xs:all to xs:sequence Changed Organizationl definition from xs:all to
+            xs:sequence Changed FHIR_Address definition from xs:all to xs:sequence
+        </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 11.2 03-11-2014 DWarzel</xs:documentation>
+        <xs:documentation> fix error, rule_id_and_version changed to rule_identifier to be
+            consistent with IG</xs:documentation>
+        <xs:documentation> added individual to stewardship </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 12 03-14-2014 DWarzel</xs:documentation>
+        <xs:documentation> Change Default to Default_Type per testing with code generator by AHRQ
+        </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 13 03-15-2014 DWarzel</xs:documentation>
+        <xs:documentation> Added value_meaning_terminology_concept_code per discussion/open issues with NLM</xs:documentation>
+        <xs:documentation> Added value_meaning_terminology_concept_code_name</xs:documentation>
+        <xs:documentation> Added
+            value_meaning_terminology_concept_code_system_name</xs:documentation>
+        <xs:documentation> Added
+            value_meaning_terminology_concept_code_system_identifier</xs:documentation>
+        <xs:documentation> Added value_meaning_terminology_concept_code_version</xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 14 06-24-2014 DWarzel</xs:documentation>
+        <xs:documentation> Changed Administered_Item elements to optional except Stewardship Record</xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 15 07-05-2014 DWarzel</xs:documentation>
+        <xs:documentation> Add supplemental_data per ONC SDC IG Ballot comment </xs:documentation>
+    </xs:annotation>
+    <xs:annotation>
+        <xs:documentation> Version 16 07-19-2014 DWarzel </xs:documentation>
+        <xs:documentation> W3C Datatype reference for the Data_Type complexType: http://www.xml.dvint.com/docs/SchemaDataTypesQR-2.pdf </xs:documentation>
+    </xs:annotation>
+
+    <xs:import namespace="http://www.iso.org/19763/13/2013"
+        schemaLocation="ISO19763-13_SDC_edit.xsd"/>
+    <xs:import namespace="http://www.iso.org/19763/10/2013" schemaLocation="ISO19763-10.xsd"/>
+    <xs:import namespace="http://www.iso.org/19763/6/2013" schemaLocation="ISO19763-6.xsd"/>
+    <xs:import namespace="http://www.iso.org/11179/3/2013" schemaLocation="ISO11179-3.xsd"/>
+    <xs:import namespace="urn:ihe:qrph:dex:2013" schemaLocation="DEX.xsd"/>
+
+    <xs:element name="form_package">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="mapping_package" type="Mapping_Package" minOccurs="1"
+                    maxOccurs="1"/>
+                <xs:element name="administrative_package" type="Administrative_Package"
+                    minOccurs="1" maxOccurs="1"/>
+                <xs:element name="stylesheet" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="form_design" type="Form_Design" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="supplemental_data" type="xs:anyType" minOccurs="0" maxOccurs="1"/>
+            </xs:all>
+            <xs:attribute name="form_package_identifier" type="xs:string"/>
+            <xs:attribute name="form_design_identifier" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="Administrative_Package">
+        <xs:sequence>
+            <xs:element name="submission_rule" type="Submission_Rule" minOccurs="1"
+                maxOccurs="unbounded"/>
+            <xs:element name="compliance_rule" type="mfi13:Compliance_Rule" minOccurs="1"
+                maxOccurs="unbounded"/>
+            <xs:element name="originating_registry_summary" type="Originating_Registry_Summary"
+                minOccurs="1" maxOccurs="1"/>
+            <xs:element name="form_language" type="Form_Language" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="contacts" type="Contacts" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="registration" type="Administered_Item" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Contacts">
+        <xs:sequence>
+            <xs:element name="contact" type="Contact" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Originating_Registry_Summary">
+        <xs:complexContent>
+            <xs:extension base="mfi6:Registry_Summary">
+                <xs:annotation>
+                    <xs:documentation>registry summary is metadata which refers to an individual
+                        registry system or an aggregate of registry systems </xs:documentation>
+                </xs:annotation>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Mapping_Package">
+        <xs:annotation>
+            <xs:documentation> Mapping_Package is a metaclass that extends ISO/IEC 19763 to allow
+                mapping between instances of Form_Design_Elements to external value set references
+                that are not ISO/IEC 11179 MDR data elements. It also extends the mdr_mapping in
+                include an optional mapping to EHR instance data through CCDA for use in
+                pre-population.</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element name="mdr_mapping" type="MDR_Mapping" minOccurs="0" maxOccurs="1"/>
+        </xs:all>
+        <xs:attribute name="mapping_package_identifier" type="xs:string"/>
+        <xs:attribute name="form_design_identifier" type="xs:string"/>
+    </xs:complexType>
+
+
+    <xs:complexType name="MDR_Mapping">
+        <xs:annotation>
+            <xs:documentation>MDR_Mapping is an enumeration of values for describing the type of
+                association between items mapped between a compliant metadata registry and a
+                Form_Design_Element. </xs:documentation>
+            <xs:documentation>01-16-2014 The Dex mapping specification was added here so that the
+                specification can be captured along with the data element identifier it is
+                associated with. There is an assumption that the mapping specification is maintained
+                by the MDR operator, who has proivided the dex mapping as part of the data element
+                metadat.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="question_element_data_element_association" minOccurs="0"
+                maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="mfi13:Question_Element_Data_Element_Association">
+                            <xs:sequence>
+                                <xs:element name="dex_mapping_specification"
+                                    type="dex:MappingSpecificationType" minOccurs="0" maxOccurs="1"/>
+                                <xs:element name="contact" type="Contact" minOccurs="0"
+                                    maxOccurs="unbounded"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="mdr_mapping_identifier" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:attributeGroup name="Acceptability">
+        <xs:attribute name="acceptability" type="mdr3:acceptability"/>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="Units_Schema">
+        <xs:attribute name="schema_name"/>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="element_order">
+        <xs:annotation>
+            <xs:documentation>an explicit order of the item in the form </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="element_order" type="mdr3:String"/>
+    </xs:attributeGroup>
+
+    <xs:simpleType name="Initial_State">
+        <xs:annotation>
+            <xs:documentation>the initial behavior of the element</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="enabled">
+                <xs:annotation>
+                    <xs:appinfo>This state means that the element should be available for
+                        use</xs:appinfo>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="disabled">
+                <xs:annotation>
+                    <xs:appinfo>This state means that the element should be unavailable for
+                        use</xs:appinfo>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Administered_Item">
+        <xs:annotation>
+            <xs:documentation>Administered_Item (8.1.2.2) are a subclass of Registered_Item.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Registered_Item">
+                <xs:sequence>
+                    <xs:element name="stewardship_record" type="Stewardship_Record" minOccurs="1"
+                        maxOccurs="unbounded"/>
+                    <xs:element name="creation_date" type="mdr3:Datetime" minOccurs="1"/>
+                    <xs:element name="last_change_date" type="mdr3:Datetime" minOccurs="0"
+                        maxOccurs="1"/>
+                    <xs:element name="change_description" type="mdr3:Text" minOccurs="0"
+                        maxOccurs="1"/>
+                    <xs:element name="explanatory_comment" type="mdr3:Text" minOccurs="0"
+                        maxOccurs="1"/>
+                    <xs:element name="origin" type="mdr3:Text" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+
+    <xs:complexType name="Individial"/>
+
+    <xs:complexType name="Form_Design" mixed="false">
+        <xs:sequence>
+            <xs:element name="designation" type="Designation" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element name="classifier" type="mdr3:Concept" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="media" type="Media_Element" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="security_and_privacy" type="Security_and_Privacy" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xs:element name="header" type="Section_Element" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="section" type="Section_Element" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="footer" type="Section_Element" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="form_design_identifier" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Section_Element">
+        <xs:complexContent>
+            <xs:extension base="mfi13:Form_Design_Element">
+                <xs:sequence>
+                    <xs:element name="section_title" type="mfi13:Prompt" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="section_number" type="mfi13:Number" minOccurs="0"
+                        maxOccurs="1"/>
+                    <xs:element name="ordered" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="section_instruction" type="mfi13:Text_Element" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:element name="additional_instruction" type="Text_Element" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:element name="contained_section" type="Section_Element" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:element name="section_order" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="media" type="Media_Element" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:element name="question" type="Question_Element" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:element name="additional_text" type="Text_Element" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:element name="next_relevant_element" type="Next_Relevant_Element"
+                        minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="section_identifier" type="mdr3:Identifier" minOccurs="1"
+                        maxOccurs="1"/>
+                </xs:sequence>
+                <xs:attribute name="initial_state" type="Initial_State"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Question_Element">
+        <xs:complexContent>
+            <xs:extension base="mfi13:Form_Design_Element">
+                <xs:sequence>
+                    <xs:element name="question_prompt" type="mfi13:Prompt" minOccurs="0"
+                        maxOccurs="1"/>
+                    <xs:element name="question_number" type="mfi13:Number" minOccurs="0"
+                        maxOccurs="1"/>
+                    <xs:element name="question_instruction" type="mfi13:Text_Element" minOccurs="0"
+                        maxOccurs="1"/>
+                    <xs:element name="additional_instruction" type="Text_Element" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:choice>
+                        <xs:element name="text_field" type="Text_Field" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="list_field" type="List_Field" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="lookup_field" type="Lookup_Field" minOccurs="0"
+                            maxOccurs="1"/>
+                    </xs:choice>
+                    <xs:element name="text_after_question" type="Text_Element" minOccurs="0"
+                        maxOccurs="1"/>
+                    <xs:element name="question_order" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="question_identifier" type="mdr3:Identifier" minOccurs="1"
+                        maxOccurs="1"/>
+                </xs:sequence>
+                <xs:attribute name="initial_state" type="Initial_State"/>
+                <xs:attribute name="data_element_scoped_identifier" type="mdr3:Identifier"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Response" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="mfi13:Response">
+                <xs:sequence>
+                    <xs:element name="default_element" type="Default_Type" minOccurs="0"
+                        maxOccurs="1"/>
+                    <xs:element name="datatype" type="Data_Type" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="List_Item">
+        <xs:complexContent>
+            <xs:extension base="mfi13:List_Item">
+                <xs:sequence>
+                    <xs:element name="item_prompt_xhtml" type="xs:anyType" minOccurs="0"
+                        maxOccurs="1"/>
+                    <xs:element name="media_element" type="Media_Element" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                    <xs:element name="guard" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="value" type="mfi13:Guard_State_Type"/>
+                                <xs:choice>
+                                    <xs:element name="guarded_element_identifier"
+                                        type="mdr3:Identifier" minOccurs="0" maxOccurs="1"/>
+                                    <xs:element name="guarded_element" type="Guarded_Element"
+                                        minOccurs="0" maxOccurs="unbounded"/>
+                                </xs:choice>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="value_meaning_terminology_code" type="mdr3:String"
+                        minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="value_meaning_terminology_code_name" type="mdr3:String"
+                        minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="value_meaning_terminology_code_system_name" type="mdr3:String"
+                        minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="value_meaning_terminology_code_system_identifier"
+                        type="mdr3:String" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="value_meaning_terminology_code_system_version"
+                        type="mdr3:String" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="list_item_order" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="list_item_identifier" type="xs:string" minOccurs="1"
+                        maxOccurs="1"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Text_Field">
+        <xs:complexContent>
+            <xs:extension base="Response"> </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="List_Field">
+        <xs:complexContent>
+            <xs:extension base="Response">
+                <xs:sequence>
+                    <xs:element name="ordered" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="fill_in" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="list_item" type="List_Item" minOccurs="2"
+                        maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Lookup_Field">
+        <xs:annotation>
+            <xs:documentation>Lookup_Field is a metaclass each instance of which represents a field
+                which – like a List_Field – has a valid list of answers from a defined domain, but
+                where the members of the domain vary with time and between implementations: e.g. a
+                view providing a valid set of active customer IDs for a sales order system; a
+                terminology approved for tagging an experimental result; a web service; open issue
+                lookup in bug tracking software.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="Response">
+                <xs:sequence>
+                    <xs:element name="end_point" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Presentation_Element" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="mfi13:Presentation_Element">
+                <xs:sequence>
+                    <xs:element name="presenation_order" type="xs:string" minOccurs="0"
+                        maxOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Text_Element">
+        <xs:complexContent>
+            <xs:extension base="mfi13:Text_Element">
+                <xs:attribute name="type" type="Text_Type"/>
+                <xs:attribute name="initial_state" type="Initial_State"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="Next_Relevant_Element">
+        <xs:restriction base="mdr3:Identifier"/>
+    </xs:simpleType>
+
+    <xs:complexType name="Guarded_Element">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="section" type="Section_Element" minOccurs="0"
+                    maxOccurs="unbounded"/>
+                <xs:element name="question" type="Question_Element" minOccurs="0"
+                    maxOccurs="unbounded"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Default_Type">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="list_item_identifier" type="mdr3:Identifier" minOccurs="0"
+                    maxOccurs="1"/>
+                <xs:element name="default">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="default_prompt" type="Text_Element" minOccurs="0"
+                                maxOccurs="1"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:choice>
+            <xs:element name="read_only" type="xs:boolean" minOccurs="1" maxOccurs="1"
+                default="false"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Audio">
+        <xs:annotation>
+            <xs:documentation> SDC list of valid audio types </xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element name="uri" type="xs:anyURI"/>
+        </xs:all>
+        <xs:attribute name="type"/>
+    </xs:complexType>
+
+    <xs:complexType name="Image">
+        <xs:annotation>
+            <xs:documentation>SDC list of valid image types e.g.GIF, JPEG </xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element name="type" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="uri" type="xs:anyURI"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="Video">
+        <xs:annotation>
+            <xs:documentation>SDC list of valid video types</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element name="uri" type="xs:anyURI"/>
+        </xs:all>
+        <xs:attribute name="type"/>
+    </xs:complexType>
+
+    <xs:complexType name="Media_Element">
+        <xs:complexContent>
+            <xs:extension base="mfi13:Media_Element">
+                <xs:choice>
+                    <xs:element name="audio" type="Audio" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="image" type="Image" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="video" type="Video" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:choice>
+                <xs:attribute name="initial_state" type="Initial_State" default="enabled"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="Text_Type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="tooltip"/>
+            <xs:enumeration value="help"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Form_Language">
+        <xs:complexContent>
+            <xs:extension base="mfi13:Form_Language">
+                <xs:sequence>
+                    <xs:element name="textual_language" type="Language_Code" minOccurs="0"
+                        maxOccurs="1"> </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="Language_Code">
+        <xs:annotation>
+            <xs:documentation> Based on ISO-639-2 Language Codes </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="eng"/>
+            <xs:enumeration value="esp"/>
+            <xs:enumeration value="fra"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Conformance_Rule">
+        <xs:sequence>
+            <xs:element name="description" type="mdr3:Text" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="submit_to_organization" type="Organization" minOccurs="0"
+                maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Contact">
+        <xs:annotation>
+            <xs:documentation>Contact is a class each instance of which models a contact (3.2.23),
+                which specifies a role (3.2.121) and/or an individual (3.2.65) within an
+                organization (3.2.90) or an organization part (3.2.93) to whom information item(s),
+                material object(s) and/or person(s) can be sent to or from. Registrar (8.1.2.4) is a
+                subclass of Contact.</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element name="individual" type="Individual" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="organization" type="Organization" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="role" type="mdr3:Role" minOccurs="0" maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="Data_Type">
+        <xs:annotation>
+            <xs:documentation>SDC based datatypes on W3C</xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="string">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="reg_ex" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="pattern" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="minimum_characters" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="maximum_characters" type="xs:string" minOccurs="0"
+                            maxOccurs="1"/>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="integer">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="minimum_value" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="maximum_value" minOccurs="0" maxOccurs="1"/>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="decimal">
+                <xs:annotation>
+                    <xs:documentation>check w3c for additional decimal attributes
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="minimum_value" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="maximum_value" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="fractionDigits" minOccurs="0" maxOccurs="1"/>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="string_date">
+                <xs:annotation>
+                    <xs:documentation>does sdc need a list of valid pattern types
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="pattern" minOccurs="0" maxOccurs="1"/>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="international_dateTime">
+                <xs:annotation>
+                    <xs:documentation> investigate date daatypes for accurate recordign of time for
+                        treatment administration </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="pattern"/>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="string_time">
+                <xs:annotation>
+                    <xs:documentation>possibly HH:MM:SS:ms am/pm 12/24"</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="pattern" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="timezone" minOccurs="0" maxOccurs="1"/>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="duration">
+                <xs:annotation>
+                    <xs:documentation>investiage standard for duration, possibly w3c: "PnYn MnDTnH
+                        nMn S" investage HL7 datatypes </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="file">
+                <xs:annotation>
+                    <xs:documentation>need a valid list of mime types check wikipedia
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="mime_Type" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="max_Size" minOccurs="0" maxOccurs="1"/>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="Designation">
+        <xs:sequence>
+            <xs:element name="context" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="sign" type="Sign" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="language" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="namespace" type="mdr3:Identifier" minOccurs="0" maxOccurs="unbounded"
+                ><!--namespace identifier--></xs:element>
+            <xs:element name="convention" type="mdr3:Identifier" minOccurs="0" maxOccurs="unbounded"
+                ><!--naming convention identifier--></xs:element>
+            <xs:element name="definition" type="mdr3:Definition" minOccurs="0" maxOccurs="unbounded"
+            />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Individual">
+        <xs:complexContent>
+            <xs:extension base="mdr3:Individual">
+                <xs:sequence>
+                    <xs:element name="fhir_mail_address" type="FHIR_Address" minOccurs="0"
+                        maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Organization">
+        <xs:sequence>
+            <xs:element name="name" type="mdr3:Sign" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element name="email_address" type="mdr3:String" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="phone_number" type="mdr3:Phone_Number" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="uri" type="mdr3:String" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="fhir_mail_address" type="FHIR_Address" minOccurs="0"
+                maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Sign" mixed="true">
+        <xs:all/>
+        <xs:attributeGroup ref="Acceptability"/>
+    </xs:complexType>
+
+    <xs:complexType name="Stewardship_Record">
+        <xs:all>
+            <xs:element name="individual" type="Individial" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="organization" type="Organization" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="contact" type="Contact" minOccurs="0" maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="FHIR_Address">
+        <xs:sequence>
+            <xs:element name="use" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="text" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="line" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="city" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="state" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="zip" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="country" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Registered_Item">
+        <xs:sequence>
+            <xs:element name="state" type="mdr3:State" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="submission_record" type="Submission_Record" minOccurs="0"
+                maxOccurs="1"/>
+            <xs:element name="document_reference" type="mdr3:Reference_Document" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xs:element name="organization" type="Organization" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="registration_status_date" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Resource">
+        <xs:annotation>
+            <xs:documentation>This element describes REST or other type of service contained in the
+                document</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element name="url" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="method" type="mdr3:Text" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="format" type="mdr3:String" minOccurs="0" maxOccurs="1"/>
+        </xs:all>
+        <xs:attribute name="name"/>
+    </xs:complexType>
+
+    <xs:simpleType name="Security_and_Privacy">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <xs:complexType name="Submission_Record">
+        <xs:all>
+            <xs:element name="organization" type="Organization" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="contact" type="Contact" minOccurs="1" maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+
+
+    <xs:complexType name="Submission_Rule">
+        <xs:annotation>
+            <xs:documentation>information about where to submit a completed form</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="destination" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="endpoint" type="xs:anyURI" minOccurs="0"
+                            maxOccurs="unbounded"/>
+                        <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="organization" type="Organization" minOccurs="0"
+                            maxOccurs="1"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="rule_identifier"/>
+        <xs:attribute name="form_identifier"/>
+    </xs:complexType>
+
+
+    <xs:complexType name="Rule">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="timing" type="Timing"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:simpleType name="Timing">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="after"/>
+            <xs:enumeration value="before"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

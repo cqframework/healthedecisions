@@ -1,5 +1,12 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns="urn:hl7-org:knowledgeartifact:r1" 
+	xmlns:dt="urn:hl7-org:cdsdt:r2" 
+	xmlns:sch="http://purl.oclc.org/dsdl/schematron" 
+	xmlns:xhtml="http://www.w3.org/1999/xhtml" 
+	targetNamespace="urn:hl7-org:knowledgeartifact:r1" 
+	elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>
 			This file defines the meta data components used within a knowledge artifact.

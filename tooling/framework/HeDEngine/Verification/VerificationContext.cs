@@ -21,14 +21,22 @@ namespace HeD.Engine.Verification
 		public VerificationContext
 		(
 			IEnumerable<ModelRef> models,
+			IEnumerable<LibraryRef> libraries,
 			IEnumerable<ParameterDef> parameters,
 			IEnumerable<ExpressionDef> expressions,
+			IEnumerable<CodeSystemDef> codesystems,
+            IEnumerable<ValueSetDef> valuesets,
             IEnumerable<VerificationException> messages
 		)
 		{
 			if (models != null)
 			{
 				AddModels(models);
+			}
+
+			if (libraries != null)
+			{
+				AddLibraries(libraries);
 			}
 
 			if (parameters != null)
@@ -40,6 +48,16 @@ namespace HeD.Engine.Verification
 			{
 				AddExpressions(expressions);
 			}
+
+			if (codesystems != null)
+			{
+				AddCodeSystems(codesystems);
+			}
+
+            if (valuesets != null)
+            {
+                AddValueSets(valuesets);
+            }
 
             if (messages != null)
             {
@@ -69,7 +87,7 @@ namespace HeD.Engine.Verification
         }
 
 		// Models
-		private Dictionary<string, ModelRef> _models = new Dictionary<string, ModelRef>();
+		private Dictionary<string, ModelRef> _models = new Dictionary<string, ModelRef>(StringComparer.InvariantCultureIgnoreCase);
 
 		public DataType ResolveType(string typeName)
 		{
@@ -100,7 +118,7 @@ namespace HeD.Engine.Verification
             if (leftIndex >= 1)
             {
                 var rightIndex = pn.IndexOf(']', leftIndex);
-                if (rightIndex > leftIndex && pn.Substring(leftIndex + 1, rightIndex - leftIndex - 1).IsDigit())
+                if (rightIndex > leftIndex) // && pn.Substring(leftIndex + 1, rightIndex - leftIndex - 1).IsDigit())
                 {
                     pn = pn.Substring(0, leftIndex);
                     return true;
@@ -127,6 +145,8 @@ namespace HeD.Engine.Verification
 
 		public DataType ResolveProperty(DataType dataType, string path)
 		{
+            // TODO: Need to handle this scenario: contained[medication.reference].Medication.code.coding[1]
+            // The use of Split here incorrectly splits on the path within the indexer
 			var propertyNames = path.Split('.');
 			DataType currentType = dataType;
 			foreach (var propertyName in propertyNames)
@@ -136,7 +156,7 @@ namespace HeD.Engine.Verification
 				var currentIntervalType = currentType as IntervalType;
 				if (currentIntervalType != null)
 				{
-					var propertyDef = currentIntervalType.Properties.FirstOrDefault(p => p.Name == pn);
+					var propertyDef = currentIntervalType.Properties.FirstOrDefault(p => String.Compare(p.Name, pn, true) == 0);
 					if (propertyDef == null)
 					{
 						throw new InvalidOperationException(String.Format("Could not resolve property name '{0}' on interval type '{1}'.", pn, currentIntervalType.Name));
@@ -160,7 +180,7 @@ namespace HeD.Engine.Verification
                     PropertyDef propertyDef = null;
                     while (currentObjectType != null)
                     {
-					    propertyDef = currentObjectType.Properties.FirstOrDefault(p => p.Name == pn);
+					    propertyDef = currentObjectType.Properties.FirstOrDefault(p => String.Compare(p.Name, pn, true) == 0);
                         if (propertyDef != null)
                         {
                             break;
@@ -194,7 +214,7 @@ namespace HeD.Engine.Verification
 		/// <returns>The operator matching the given name and signature if one exists, otherwise an exception is thrown.</returns>
 		public Operator ResolveCall(string operatorName, Signature signature)
 		{
-			return OperatorMap.ResolveCall(operatorName, signature);
+			return OperatorMap.Core.ResolveCall(operatorName, signature);
 		}
 
 		public void VerifyType(DataType actualType, DataType expectedType)
@@ -223,6 +243,28 @@ namespace HeD.Engine.Verification
 			}
 		}
 
+		// Libraries
+		private Dictionary<string, LibraryRef> _libraries = new Dictionary<string, LibraryRef>(StringComparer.InvariantCultureIgnoreCase);
+
+		private void AddLibraries(IEnumerable<LibraryRef> libraries)
+		{
+			foreach (var library in libraries)
+			{
+				_libraries.Add(library.Name, library);
+			}
+		}
+
+		public Library ResolveLibrary(string libraryName)
+		{
+			LibraryRef libraryRef;
+			if (_libraries.TryGetValue(libraryName, out libraryRef))
+			{
+				return LibraryFactory.ResolveLibrary(libraryRef, this);
+			}
+
+			throw new InvalidOperationException(String.Format("Could not resolve library name %s.", libraryName));
+		}
+
 		// Symbols
 		private Stack<Symbol> _symbols = new Stack<Symbol>();
 
@@ -238,7 +280,7 @@ namespace HeD.Engine.Verification
 
 		public Symbol ResolveSymbol(string symbolName)
 		{
-			var symbol = _symbols.FirstOrDefault(s => s.Name == symbolName);
+			var symbol = _symbols.FirstOrDefault(s => String.Compare(s.Name, symbolName, true) == 0);
 			if (symbol == null)
 			{
 				throw new InvalidOperationException(String.Format("Could not resolve symbol name {0}.", symbolName));
@@ -246,8 +288,110 @@ namespace HeD.Engine.Verification
 			return symbol;
 		}
 
+		// Codesystems
+		private Dictionary<string, CodeSystemDef> _codesystems = new Dictionary<string, CodeSystemDef>(StringComparer.InvariantCultureIgnoreCase);
+
+		public void AddCodeSystemDef(CodeSystemDef codesystem)
+		{
+			if (codesystem == null)
+			{
+				throw new ArgumentNullException("codesystem");
+			}
+
+			if (_codesystems.ContainsKey(codesystem.Name))
+			{
+				throw new InvalidOperationException(String.Format("A codesystem named {0} is already defined in this scope.", codesystem.Name));
+			}
+
+			_codesystems.Add(codesystem.Name, codesystem);
+		}
+
+		public CodeSystemDef ResolveCodeSystemRef(string libraryName, string codesystemName)
+		{
+            if (!string.IsNullOrEmpty(libraryName))
+            {
+                var library = ResolveLibrary(libraryName);
+                var result = library.CodeSystems.FirstOrDefault(e => String.Compare(e.Name, codesystemName, true) == 0);
+                if (result == null)
+                {
+                    throw new InvalidOperationException(String.Format("Could not resolve codesystem reference {0} in library {1}.", codesystemName, libraryName));
+                }
+
+                return result;
+            }
+            else
+            {
+                CodeSystemDef result;
+                if (!_codesystems.TryGetValue(codesystemName, out result))
+                {  
+                    throw new InvalidOperationException(String.Format("Could not resolve codesystem name {0}.", codesystemName));
+                }
+
+                return result;
+            }
+		}
+
+		private void AddCodeSystems(IEnumerable<CodeSystemDef> codesystems)
+		{
+			foreach (var codesystem in codesystems)
+			{
+				_codesystems.Add(codesystem.Name, codesystem);
+			}
+		}
+
+        // Valuesets
+        private Dictionary<string, ValueSetDef> _valuesets = new Dictionary<string, ValueSetDef>(StringComparer.InvariantCultureIgnoreCase);
+
+        public void AddValueSetDef(ValueSetDef valueset)
+        {
+            if (valueset == null)
+            {
+                throw new ArgumentNullException("valueset");
+            }
+
+            if (_valuesets.ContainsKey(valueset.Name))
+            {
+                throw new InvalidOperationException(String.Format("A valueset named {0} is already defined in this scope.", valueset.Name));
+            }
+
+            _valuesets.Add(valueset.Name, valueset);
+        }
+
+        public ValueSetDef ResolveValueSetRef(string libraryName, string valuesetName)
+        {
+            if (!string.IsNullOrEmpty(libraryName))
+            {
+                var library = ResolveLibrary(libraryName);
+                var result = library.ValueSets.FirstOrDefault(e => String.Compare(e.Name, valuesetName, true) == 0);
+                if (result == null)
+                {
+                    throw new InvalidOperationException(String.Format("Could not resolve valueset reference {0} in library {1}.", valuesetName, libraryName));
+                }
+
+                return result;
+            }
+            else
+            {
+                ValueSetDef result;
+                if (!_valuesets.TryGetValue(valuesetName, out result))
+                {  
+                    throw new InvalidOperationException(String.Format("Could not resolve valueset name {0}.", valuesetName));
+                }
+
+                return result;
+            }
+        }
+
+		private void AddValueSets(IEnumerable<ValueSetDef> valuesets)
+		{
+			foreach (var valueset in valuesets)
+			{
+				_valuesets.Add(valueset.Name, valueset);
+			}
+		}
+
 		// Parameters
-		private Dictionary<string, ParameterDef> _parameters = new Dictionary<string, ParameterDef>();
+		private Dictionary<string, ParameterDef> _parameters = new Dictionary<string, ParameterDef>(StringComparer.InvariantCultureIgnoreCase);
 
         public void AddParameterDef(ParameterDef parameter)
         {
@@ -264,15 +408,29 @@ namespace HeD.Engine.Verification
             _parameters.Add(parameter.Name, parameter);
         }
 
-		public ParameterDef ResolveParameterRef(string parameterName)
+		public ParameterDef ResolveParameterRef(string libraryName, string parameterName)
 		{
-            ParameterDef result;
-            if (!_parameters.TryGetValue(parameterName, out result))
-            {
-                throw new InvalidOperationException(String.Format("Could not resolve parameter name {0}.", parameterName));
-            }
+			if (!string.IsNullOrEmpty(libraryName))
+			{
+				var library = ResolveLibrary(libraryName);
+				var result = library.Parameters.FirstOrDefault(e => String.Compare(e.Name, parameterName, true) == 0);
+				if (result == null)
+				{
+					throw new InvalidOperationException(String.Format("Could not resolve parameter reference {0} in library {1}.", parameterName, libraryName));
+				}
 
-            return result;
+				return result;
+			}
+			else
+			{
+				ParameterDef result;
+				if (!_parameters.TryGetValue(parameterName, out result))
+				{
+					throw new InvalidOperationException(String.Format("Could not resolve parameter name {0}.", parameterName));
+				}
+
+				return result;
+			}
 		}
 
 		private void AddParameters(IEnumerable<ParameterDef> parameters)
@@ -284,7 +442,7 @@ namespace HeD.Engine.Verification
 		}
 
 		// Expressions
-		private Dictionary<string, ExpressionDef> _expressions = new Dictionary<string, ExpressionDef>();
+		private Dictionary<string, ExpressionDef> _expressions = new Dictionary<string, ExpressionDef>(StringComparer.InvariantCultureIgnoreCase);
 
 		private ExpressionDefStack _expressionDefStack = new ExpressionDefStack();
 
@@ -313,33 +471,47 @@ namespace HeD.Engine.Verification
 			}
 		}
 
-		public ExpressionDef ResolveExpressionRef(string expressionName)
+		public ExpressionDef ResolveExpressionRef(string libraryName, string expressionName)
 		{
 			if (string.IsNullOrEmpty(expressionName))
 			{
 				throw new ArgumentNullException("expressionName");
 			}
 
-			ExpressionDef expressionDef;
-			if (!_expressions.TryGetValue(expressionName, out expressionDef))
+			if (!string.IsNullOrEmpty(libraryName))
 			{
-				throw new InvalidOperationException(String.Format("Could not resolve expression reference {0}.", expressionName));
-			}
+				var library = ResolveLibrary(libraryName);
+				var expressionDef = library.Expressions.FirstOrDefault(e => String.Compare(e.Name, expressionName, true) == 0);
+				if (expressionDef == null)
+				{
+					throw new InvalidOperationException(String.Format("Could not resolve expression reference {0} in library {1}.", expressionName, libraryName));
+				}
 
-			if (expressionDef.Expression.ResultType == null)
+				return expressionDef;
+			}
+			else
 			{
-				_expressionDefStack.Push(expressionDef);
-				try
+				ExpressionDef expressionDef;
+				if (!_expressions.TryGetValue(expressionName, out expressionDef))
 				{
-					Verifier.Verify(this, expressionDef.Expression);
+					throw new InvalidOperationException(String.Format("Could not resolve expression reference {0}.", expressionName));
 				}
-				finally
-				{
-					_expressionDefStack.Pop();
-				}
-			}
 
-			return expressionDef;
+				if (expressionDef.Expression.ResultType == null)
+				{
+					_expressionDefStack.Push(expressionDef);
+					try
+					{
+						Verifier.Verify(this, expressionDef.Expression);
+					}
+					finally
+					{
+						_expressionDefStack.Pop();
+					}
+				}
+
+				return expressionDef;
+			}
 		}
 
 		private void AddExpressions(IEnumerable<ExpressionDef> expressions)

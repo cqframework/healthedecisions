@@ -32,7 +32,7 @@ namespace FHIR.Model
                     new Operator("InValueSet", new Signature(new[] { DataTypes.ResolveType(typeof(CodeableConcept)), DataTypes.CodeList }), DataTypes.Boolean),
 
                     //new Operator("CalculateAge", new Signature(new[] { DataTypes.ResolveType(typeof(dateTime)) }), DataTypes.Integer),
-                    //new Operator("CalculateAgeAt", new Signature(new[] { DataTypes.ResolveType(typeof(dateTime)), DataTypes.Timestamp }), DataTypes.Integer),
+                    //new Operator("CalculateAgeAt", new Signature(new[] { DataTypes.ResolveType(typeof(dateTime)), DataTypes.DateTime }), DataTypes.Integer),
                 };
         }
     }

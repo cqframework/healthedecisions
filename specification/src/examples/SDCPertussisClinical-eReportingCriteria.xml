@@ -3,10 +3,14 @@
 <?schematron-schema href="../main/schematron/ecarules.sch"?>
 <knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
 	xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:dt="urn:hl7-org:cdsdt:r2"
+	xmlns:elm="urn:hl7-org:elm:r1" xmlns:t="urn:hl7-org:elm-types:r1" xmlns:a="urn:hl7-org:cql-annotations:r1"
 	xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../main/schema/knowledgeartifact/knowledgedocument.xsd
-		urn:hl7-org:vmr:r2  ../main/schema/vmr/vmr.xsd">
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd
+	urn:hl7-org:vmr:r2  ../schema/vmr/vmr.xsd
+	urn:hl7-org:elm:r1 ../schema/elm/clinicalexpression.xsd
+	urn:hl7-org:elm-types:r1 ../schema/elm/types.xsd
+	urn:hl7-org:cql-annotations:r1 ../schema/elm/cqlannotations.xsd">
 	<!-- Created as part of the HeD Pilot for the CDC by Aziz Boxwala on 4/1/2013 -->
 	<!-- updated on 4/11/2013 -->
 	<!-- updated on 4/16/2013 -->
@@ -183,255 +187,265 @@
 			</rightsDeclaration>
 		</usageTerms>
 	</metadata>
+
 	<externalData>
+		<codesystem name="SNOMED-CT" id="2.16.840.1.113883.6.96"/>
+		<codesystem name="Observation Interpretation" id="2.16.840.1.113883.5.83"/>
+		<codesystem name="Act Relationship Type" id="2.16.840.1.113883.5.1002"/>
+		<codesystem name="Participation Type" id="2.16.840.1.113883.5.90"/>
+		<codesystem name="Address Use" id="???"/>
+		<codesystem name="Telecom Use" id="???"/>
+		<codesystem name="Telecom Capabilities" id="??"/>
+
+		<valueset name="Pertussis Problems (1)" id="2.16.840.1.114222.4.11.7005" version="1"/>
+		<valueset name="Pertussis Problems (2)" id="2.16.840.1.114222.4.11.7004" version="1"/>
+		<valueset name="Pertussis Culture Test Results" id="2.16.840.1.114222.4.11.7035" version="1"/>
+		<valueset name="Pertussis Test Results" id="2.16.840.1.114222.4.11.7034" version="1" />
+		<valueset name="General Culture Test Results" id="2.16.840.1.114222.4.11.TBD" version="1"/>
+		<valueset name="Positive Results" id="TBD-PositiveResultsValueSet" version="1"/>
+		<valueset name="Pertussis Results" id="2.16.840.1.114222.4.11.7014" version="1"/>
+
 		<def name="Patient">
-			<expression xsi:type="ClinicalRequest" cardinality="Single"
-				dataType="vmr:EvaluatedPerson" isInitial="true">
-				<description>Get patient data object</description>
-			</expression>
-		</def>
-		<def name="PertussisProblems">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
-				dataType="vmr:Problem" isInitial="true" useValueSets="true"
-				dateProperty="diagnosticEventTime.begin" codeProperty="conditionCode"
-				triggerType="DataElementAdded">
-				<description>Pertussis problem - addition of this data element is a
-					trigger for the rule
-				</description>
-				<codes xsi:type="ValueSet" id="2.16.840.1.114222.4.11.7005"
-					version="1" />
-			</expression>
+			<elm:expression xsi:type="elm:SingletonFrom">
+				<elm:operand xsi:type="elm:Retrieve" dataType="vmr:EvaluatedPerson" >
+					<elm:annotation xsi:type="a:Annotation"><a:s>Get patient data object</a:s></elm:annotation>
+				</elm:operand>
+			</elm:expression>
 		</def>
 
-		<def name="PertussisProblemsWithDeathVS">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
-				dataType="vmr:Problem" isInitial="true" useValueSets="true"
-				dateProperty="diagnosticEventTime.begin" codeProperty="conditionCode"
-				triggerType="DataElementAdded">
-				<description>Pertussis problem - addition of this data element is a
-					trigger for the rule.
-					This problem code maps to a different value
-					set than the previous one.
-				</description>
-				<codes xsi:type="ValueSet" id="2.16.840.1.114222.4.11.7004"
-					version="1" />
-			</expression>
+		<trigger xsi:type="DataEventTrigger" triggerType="DataElementAdded">
+			<def name="PertussisProblems">
+				<elm:expression xsi:type="elm:Retrieve" dataType="vmr:Problem"
+					dateProperty="diagnosticEventTime.begin" codeProperty="conditionCode">
+					<elm:annotation xsi:type="a:Annotation"><a:s>Pertussis problem - addition of this data element is a
+						trigger for the rule
+					</a:s></elm:annotation>
+					<elm:codes xsi:type="elm:ValueSetRef" name="Pertussis Problems (1)"/>
+				</elm:expression>
+			</def>
+		</trigger>
 
-		</def>
+		<trigger xsi:type="DataEventTrigger" triggerType="DataElementAdded">
+			<def name="PertussisProblemsWithDeathVS">
+				<elm:expression xsi:type="elm:Retrieve" dataType="vmr:Problem" 
+					dateProperty="diagnosticEventTime.begin" codeProperty="conditionCode">
+					<elm:annotation xsi:type="a:Annotation"><a:s>Pertussis problem - addition of this data element is a
+						trigger for the rule.
+						This problem code maps to a different value
+						set than the previous one.
+					</a:s></elm:annotation>
+					<elm:codes xsi:type="elm:ValueSetRef" name="Pertussis Problems (2)"/>
+				</elm:expression>
+			</def>
+		</trigger>
 
-		<def name="BPertussisCultureTests">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
-				dataType="vmr:ObservationResult" isInitial="true" useValueSets="true"
-				dateProperty="observationEventTime.begin" codeProperty="observationFocus"
-				triggerType="DataElementAdded">
-				<description>Result of Bordetella pertussis culture from a clinical
-					specimen
-					- addition of this data element is a trigger for the rule
-				</description>
-				<codes xsi:type="ValueSet" id="2.16.840.1.114222.4.11.7035"
-					version="1" />
-			</expression>
-		</def>
+		<trigger xsi:type="DataEventTrigger" triggerType="DataElementAdded">
+			<def name="BPertussisCultureTests">
+				<elm:expression xsi:type="elm:Retrieve" dataType="vmr:ObservationResult" 
+					dateProperty="observationEventTime.begin" codeProperty="observationFocus">
+					<elm:annotation xsi:type="a:Annotation"><a:s>Result of Bordetella pertussis culture from a clinical
+						specimen
+						- addition of this data element is a trigger for the rule
+					</a:s></elm:annotation>
+					<elm:codes xsi:type="elm:ValueSetRef" name="Pertussis Culture Test Results"  />
+				</elm:expression>
+			</def>
+		</trigger>
 
-		<def name="BPertussisTestResults">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
-				dataType="vmr:ObservationResult" isInitial="true" useValueSets="true"
-				dateProperty="observationEventTime.begin" codeProperty="observationFocus"
-				triggerType="DataElementAdded">
-				<description>Results from any test specific for pertussis
-					- Pertussis
-					problem - addition of this data element is a trigger for
-					the rule
-				</description>
-				<codes xsi:type="ValueSet" id="2.16.840.1.114222.4.11.7034"
-					version="1" />
-			</expression>
-		</def>
+		<trigger xsi:type="DataEventTrigger" triggerType="DataElementAdded">
+			<def name="BPertussisTestResults">
+				<elm:expression xsi:type="elm:Retrieve" dataType="vmr:ObservationResult" 
+					dateProperty="observationEventTime.begin" codeProperty="observationFocus">
+					<elm:annotation xsi:type="a:Annotation"><a:s>Results from any test specific for pertussis
+						- Pertussis
+						problem - addition of this data element is a trigger for
+						the rule
+					</a:s></elm:annotation>
+					<elm:codes xsi:type="elm:ValueSetRef" name="Pertussis Test Results"/>
+				</elm:expression>
+			</def>
+		</trigger>
 
-		<def name="GeneralCultureTests">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
-				dataType="vmr:ObservationResult" isInitial="true" useValueSets="true"
-				dateProperty="observationEventTime.begin" codeProperty="observationFocus"
-				triggerType="DataElementAdded">
-				<description>Culture test that is not specific to an organism -
-					addition of this data element is a trigger for the rule
-				</description>
-				<codes xsi:type="ValueSet" id="2.16.840.1.114222.4.11.TBD"
-					version="1" />
-			</expression>
-		</def>
+		<trigger xsi:type="DataEventTrigger" triggerType="DataElementAdded">
+			<def name="GeneralCultureTests">
+				<elm:expression xsi:type="elm:Retrieve" dataType="vmr:ObservationResult" 
+					dateProperty="observationEventTime.begin" codeProperty="observationFocus">
+					<elm:annotation xsi:type="a:Annotation"><a:s>Culture test that is not specific to an organism -
+						addition of this data element is a trigger for the rule
+					</a:s></elm:annotation>
+					<elm:codes xsi:type="elm:ValueSetRef" name="General Culture Test Results" />
+				</elm:expression>
+			</def>
+		</trigger>
 
 	</externalData>
-
-
+	
 	<expressions>
 
 		<def name="PatientLivesInSDCounty">
-			<expression xsi:type="IsNotEmpty">
-				<description>Returns true if there are any primary home addresses in
+			<elm:expression xsi:type="elm:Exists">
+				<elm:annotation xsi:type="a:Annotation"><a:s>Returns true if there are any primary home addresses in
 					San Diego county
-				</description>
-				<operand xsi:type="Filter">
-					<description>From the set of addresses for the patient, get all
+				</a:s></elm:annotation>
+				<elm:operand xsi:type="elm:Filter">
+					<elm:annotation xsi:type="a:Annotation"><a:s>From the set of addresses for the patient, get all
 						that are
 						marked as primary home and for which the county is San
 						Diego
-					</description>
-					<source xsi:type="Property" path="address">
-						<description>All the patient addresses</description>
-						<source xsi:type="ExpressionRef" name="Patient" />
-					</source>
-					<condition xsi:type="And">
-						<operand xsi:type="Equal">
-							<description>Is San Diego the county</description>
-							<operand xsi:type="Property" path="value">
-								<source xsi:type="First">
-									<source xsi:type="Filter">
-										<description>Get the county part of the address</description>
-										<source xsi:type="Property" path="part" />
-										<condition xsi:type="Equal">
-											<operand xsi:type="Property" path="type" />
-											<operand xsi:type="StringLiteral" value="CNT" />
-										</condition>
-									</source>
-								</source>
-							</operand>
-							<operand xsi:type="StringLiteral" value="San Diego" />
-						</operand>
-						<operand xsi:type="Contains">
-							<description>Is the address identified as primary home address
-							</description>
-							<operand xsi:type="Property" path="use" />
-							<operand xsi:type="StringLiteral" value="HP" />
-						</operand>
-					</condition>
-				</operand>
-			</expression>
+					</a:s></elm:annotation>
+					<elm:source xsi:type="elm:Property" path="address">
+						<elm:annotation xsi:type="a:Annotation"><a:s>All the patient addresses</a:s></elm:annotation>
+						<elm:source xsi:type="elm:ExpressionRef" name="Patient" />
+					</elm:source>
+					<elm:condition xsi:type="elm:And">
+						<elm:operand xsi:type="elm:Equal">
+							<elm:annotation xsi:type="a:Annotation"><a:s>Is San Diego the county</a:s></elm:annotation>
+							<elm:operand xsi:type="elm:Property" path="value">
+								<elm:source xsi:type="elm:First">
+									<elm:source xsi:type="elm:Filter">
+										<elm:annotation xsi:type="a:Annotation"><a:s>Get the county part of the address</a:s></elm:annotation>
+										<elm:source xsi:type="elm:Property" path="part" />
+										<elm:condition xsi:type="elm:Equal">
+											<elm:operand xsi:type="elm:Property" path="type.code" />
+											<elm:operand xsi:type="elm:Literal" valueType="t:String" value="CNT" />
+										</elm:condition>
+									</elm:source>
+								</elm:source>
+							</elm:operand>
+							<elm:operand xsi:type="elm:Literal" valueType="t:String" value="San Diego" />
+						</elm:operand>
+						<elm:operand xsi:type="elm:Contains">
+							<elm:annotation xsi:type="a:Annotation"><a:s>Is the address identified as primary home address
+							</a:s></elm:annotation>
+							<elm:operand xsi:type="elm:Property" path="use"/>
+							<elm:operand xsi:type="elm:Code" code="HP" ><elm:system name="Address Use"/></elm:operand>
+						</elm:operand>
+					</elm:condition>
+				</elm:operand>
+			</elm:expression>
 		</def>
 
-
 		<def name="ActivePertussisProblems">
-			<expression xsi:type="Filter">
-				<description>Problem status is not resolved or not inactive. In
+			<elm:expression xsi:type="elm:Filter">
+				<elm:annotation xsi:type="a:Annotation"><a:s>Problem status is not resolved or not inactive. In
 					other words, the problem is active or status
 					is not specified
-				</description>
-				<source xsi:type="ExpressionRef" name="PertussisProblems" />
-				<condition xsi:type="Not">
-					<operand xsi:type="In">
-						<operand xsi:type="Property" path="conditionStatus" />
-						<operand xsi:type="List">
-							<element xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.96"
-								code="73425007" displayName="Inactive" />
-							<element xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.96"
-								code="413322009" displayName="Resolved" />
-						</operand>
-					</operand>
-				</condition>
-			</expression>
+				</a:s></elm:annotation>
+				<elm:source xsi:type="elm:ExpressionRef" name="PertussisProblems" />
+				<elm:condition xsi:type="elm:Not">
+					<elm:operand xsi:type="elm:In">
+						<elm:operand xsi:type="elm:Property" path="conditionStatus" />
+						<elm:operand xsi:type="elm:List">
+							<elm:element xsi:type="elm:Code" code="73425007" display="Inactive" ><elm:system name="SNOMED-CT"/></elm:element>
+							<elm:element xsi:type="elm:Code" code="413322009" display="Resolved" ><elm:system name="SNOMED-CT"/></elm:element>
+						</elm:operand>
+					</elm:operand>
+				</elm:condition>
+			</elm:expression>
 		</def>
 
 		<def name="HasActivePertussisProblems">
-			<expression xsi:type="IsNotEmpty">
-				<operand xsi:type="ExpressionRef" name="ActivePertussisProblems" />
-			</expression>
+			<elm:expression xsi:type="elm:Exists">
+				<elm:operand xsi:type="elm:ExpressionRef" name="ActivePertussisProblems" />
+			</elm:expression>
 		</def>
 
 		<def name="PertussisProblemsAsCauseOfDeath">
-			<expression xsi:type="Filter">
-				<description>Select those problems that have been marked as cause of
+			<elm:expression xsi:type="elm:Filter">
+				<elm:annotation xsi:type="a:Annotation"><a:s>Select those problems that have been marked as cause of
 					death
-				</description>
-				<source xsi:type="ExpressionRef" name="PertussisProblemsWithDeathVS" />
-				<condition xsi:type="Equal">
-					<operand xsi:type="Property" path="wasCauseOfDeath" />
-					<operand xsi:type="BooleanLiteral" value="true" />
-				</condition>
-			</expression>
+				</a:s></elm:annotation>
+				<elm:source xsi:type="elm:ExpressionRef" name="PertussisProblemsWithDeathVS" />
+				<elm:condition xsi:type="elm:Equal">
+					<elm:operand xsi:type="elm:Property" path="wasCauseOfDeath" />
+					<elm:operand xsi:type="elm:Literal" valueType="t:Boolean" value="true" />
+				</elm:condition>
+			</elm:expression>
 		</def>
 
 		<def name="DeathWasCausedByPertussis">
-			<expression xsi:type="IsNotEmpty">
-				<operand xsi:type="ExpressionRef" name="PertussisProblemsAsCauseOfDeath" />
-			</expression>
+			<elm:expression xsi:type="elm:Exists">
+				<elm:operand xsi:type="elm:ExpressionRef" name="PertussisProblemsAsCauseOfDeath" />
+			</elm:expression>
 		</def>
 
 		<!-- TODO: Check status field for preliminary results -->
 		<!-- VMR does not appear to have a field for result status -->
 		<def name="PertussisCultureResultsPositive">
-			<expression xsi:type="Filter">
-				<source xsi:type="ExpressionRef" name="BPertussisCultureTests" />
-				<condition xsi:type="Or">
-					<description>Either the result interpretation is positive or the
-						result value is from the
-						specified value sets. In the latter case,
-						the result value may indicate
-						positive (because the test is
-						specific for B Pertussis) or the result value may be the name of
-						the
-						organism.
-					</description>
-					<operand xsi:type="In">
-						<description>The interpretation is positive</description>
-						<operand xsi:type="CodeLiteral" code="POS"
-							codeSystem=" 2.16.840.1.113883.5.83" displayName="Positive" />
-						<operand xsi:type="Property" path="interpretation" />
-					</operand>
-					<operand xsi:type="InValueSet" id="TBD-PositiveResultsValueSet"
-						version="1">
-						<description>The result is marked as positive</description>
-						<operand xsi:type="As" asType="dt:CD">
-							<operand xsi:type="Property" path="observationValue" />
-						</operand>
-					</operand>
-					<operand xsi:type="InValueSet" id="2.16.840.1.114222.4.11.7014"
-						version="1">
-						<description>The result contains the organism that was identified
+			<elm:expression xsi:type="elm:Filter">
+				<elm:source xsi:type="elm:ExpressionRef" name="BPertussisCultureTests" />
+				<elm:condition xsi:type="elm:Or">
+					<elm:operand xsi:type="elm:Or">
+						<elm:annotation xsi:type="a:Annotation"><a:s>Either the result interpretation is positive or the
+							result value is from the
+							specified value sets. In the latter case,
+							the result value may indicate
+							positive (because the test is
+							specific for B Pertussis) or the result value may be the name of
+							the
+							organism.
+						</a:s></elm:annotation>
+						<elm:operand xsi:type="elm:In">
+							<elm:annotation xsi:type="a:Annotation"><a:s>The interpretation is positive</a:s></elm:annotation>
+							<elm:operand xsi:type="elm:Code" code="POS" display="Positive" ><elm:system name="Observation Interpretation"/></elm:operand>
+							<elm:operand xsi:type="elm:Property" path="interpretation" />
+						</elm:operand>
+						<elm:operand xsi:type="elm:InValueSet">
+							<elm:annotation xsi:type="a:Annotation"><a:s>The result is marked as positive</a:s></elm:annotation>
+							<elm:code xsi:type="elm:As" asType="dt:CD">
+								<elm:operand xsi:type="elm:Property" path="observationValue" />
+							</elm:code>
+							<elm:valueset name="Positive Results"/>
+						</elm:operand>
+					</elm:operand>
+					<elm:operand xsi:type="elm:InValueSet" >
+						<elm:annotation xsi:type="a:Annotation"><a:s>The result contains the organism that was identified
 							- B Pertussis
-						</description>
-						<operand xsi:type="As" asType="dt:CD">
-							<operand xsi:type="Property" path="observationValue" />
-						</operand>
-					</operand>
-				</condition>
-			</expression>
+						</a:s></elm:annotation>
+						<elm:code xsi:type="elm:As" asType="dt:CD">
+							<elm:operand xsi:type="elm:Property" path="observationValue" />
+						</elm:code>
+						<elm:valueset name="Pertussis Results"/>
+					</elm:operand>
+				</elm:condition>
+			</elm:expression>
 		</def>
 
 		<def name="HasPertussisCultureResultsPositive">
-			<expression xsi:type="IsNotEmpty">
-				<operand xsi:type="ExpressionRef" name="PertussisCultureResultsPositive" />
-			</expression>
+			<elm:expression xsi:type="elm:Exists">
+				<elm:operand xsi:type="elm:ExpressionRef" name="PertussisCultureResultsPositive" />
+			</elm:expression>
 		</def>
 
 		<def name="GeneralCultureResultsPositiveForPertussis">
-			<expression xsi:type="Filter">
-				<description>Select those results that have B Pertussis as the
+			<elm:expression xsi:type="elm:Filter">
+				<elm:annotation xsi:type="a:Annotation"><a:s>Select those results that have B Pertussis as the
 					result value. Since this is a general culture
 					test, we do not test
 					for "positive" results or interpretation.
-				</description>
-				<source xsi:type="ExpressionRef" name="GeneralCultureTests" />
-				<condition xsi:type="InValueSet" id="2.16.840.1.114222.4.11.7014"
-					version="1">
+				</a:s></elm:annotation>
+				<elm:source xsi:type="elm:ExpressionRef" name="GeneralCultureTests" />
+				<elm:condition xsi:type="elm:InValueSet">
 					<!-- Review: Is this the correct value set -->
-					<operand xsi:type="As" asType="dt:CD">
-						<operand xsi:type="Property" path="observationValue" />
-					</operand>
-				</condition>
-			</expression>
+					<elm:code xsi:type="elm:As" asType="dt:CD">
+						<elm:operand xsi:type="elm:Property" path="observationValue" />
+					</elm:code>
+					<elm:valueset name="Pertussis Results"/>
+				</elm:condition>
+			</elm:expression>
 		</def>
 
 		<def name="HasGeneralCultureResultsPositiveForPertussis">
-			<expression xsi:type="IsNotEmpty">
-				<operand xsi:type="ExpressionRef"
+			<elm:expression xsi:type="elm:Exists">
+				<elm:operand xsi:type="elm:ExpressionRef"
 					name="GeneralCultureResultsPositiveForPertussis" />
-			</expression>
+			</elm:expression>
 		</def>
 
 		<def name="HasBPertussisTestResults">
-			<expression xsi:type="IsNotEmpty">
-				<operand xsi:type="ExpressionRef" name="BPertussisTestResults" />
-			</expression>
+			<elm:expression xsi:type="elm:Exists">
+				<elm:operand xsi:type="elm:ExpressionRef" name="BPertussisTestResults" />
+			</elm:expression>
 		</def>
 
 		<def name="ReportingTopic">
@@ -439,8 +453,8 @@
 				but since relatedClinicalStatement is only defined on the leaf classes (not 
 				the base ClinicalStatement class), it makes the subsequent use of this expression 
 				much more difficult. This should be modified on the vMR to resolve. -->
-			<expression xsi:type="As" asType="vmr:Problem">
-				<description>ReportingTopic in essence maps to the data element that
+			<elm:expression xsi:type="elm:As" asType="vmr:Problem">
+				<elm:annotation xsi:type="a:Annotation"><a:s>ReportingTopic in essence maps to the data element that
 					triggered the rule. It does
 					so by looking at which of the data
 					elements have a value associated
@@ -449,58 +463,58 @@
 					the communication action as the topic that is to be
 					reported to the
 					health agency.
-				</description>
-				<operand xsi:type="Case">
-					<description>Select the item that has a non-empty value.
-					</description>
-					<caseItem>
-						<when xsi:type="ExpressionRef" name="HasActivePertussisProblems" />
+				</a:s></elm:annotation>
+				<elm:operand xsi:type="elm:Case">
+					<elm:annotation xsi:type="a:Annotation"><a:s>Select the item that has a non-empty value.
+					</a:s></elm:annotation>
+					<elm:caseItem>
+						<elm:when xsi:type="elm:ExpressionRef" name="HasActivePertussisProblems" />
 						<!-- filter to the most recent problem -->
-						<then xsi:type="As" asType="vmr:ClinicalStatement">
-							<operand xsi:type="Last" orderBy="conditionEffectiveTime.begin">
-								<source xsi:type="ExpressionRef" name="ActivePertussisProblems" />
-							</operand>
-						</then>
-					</caseItem>
-					<caseItem>
-						<when xsi:type="ExpressionRef" name="DeathWasCausedByPertussis" />
+						<elm:then xsi:type="elm:As" asType="vmr:ClinicalStatement">
+							<elm:operand xsi:type="elm:Last" orderBy="conditionEffectiveTime.begin">
+								<elm:source xsi:type="elm:ExpressionRef" name="ActivePertussisProblems" />
+							</elm:operand>
+						</elm:then>
+					</elm:caseItem>
+					<elm:caseItem>
+						<elm:when xsi:type="elm:ExpressionRef" name="DeathWasCausedByPertussis" />
 						<!-- filter it to the most recent problem - the PertussisProblemsAsCauseOfDeath 
 							expressions maps to a collection -->
-						<then xsi:type="Last" orderBy="conditionEffectiveTime.begin">
-							<source xsi:type="ExpressionRef" name="PertussisProblemsAsCauseOfDeath" />
-						</then>
-					</caseItem>
-					<caseItem>
-						<when xsi:type="ExpressionRef" name="HasPertussisCultureResultsPositive" />
+						<elm:then xsi:type="elm:Last" orderBy="conditionEffectiveTime.begin">
+							<elm:source xsi:type="elm:ExpressionRef" name="PertussisProblemsAsCauseOfDeath" />
+						</elm:then>
+					</elm:caseItem>
+					<elm:caseItem>
+						<elm:when xsi:type="elm:ExpressionRef" name="HasPertussisCultureResultsPositive" />
 						<!-- filter it to the most recent result - the PertussisCultureResultsPositive 
 							expression maps to a collection -->
-						<then xsi:type="Last" orderBy="observationEventTime.low">
-							<source xsi:type="ExpressionRef" name="PertussisCultureResultsPositive" />
-						</then>
-					</caseItem>
-					<caseItem>
-						<when xsi:type="ExpressionRef" name="HasGeneralCultureResultsPositiveForPertussis" />
+						<elm:then xsi:type="elm:Last" orderBy="observationEventTime.low">
+							<elm:source xsi:type="elm:ExpressionRef" name="PertussisCultureResultsPositive" />
+						</elm:then>
+					</elm:caseItem>
+					<elm:caseItem>
+						<elm:when xsi:type="elm:ExpressionRef" name="HasGeneralCultureResultsPositiveForPertussis" />
 						<!-- filter it to the most recent result - the GeneralCultureResultsPositiveForPertussis 
 							expressions maps to a collection -->
-						<then xsi:type="Last" orderBy="observationEventTime.begin">
-							<source xsi:type="ExpressionRef"
+						<elm:then xsi:type="elm:Last" orderBy="observationEventTime.begin">
+							<elm:source xsi:type="elm:ExpressionRef"
 								name="GeneralCultureResultsPositiveForPertussis" />
-						</then>
-					</caseItem>
-					<caseItem>
-						<when xsi:type="ExpressionRef" name="HasBPertussisTestResults" />
+						</elm:then>
+					</elm:caseItem>
+					<elm:caseItem>
+						<elm:when xsi:type="elm:ExpressionRef" name="HasBPertussisTestResults" />
 						<!-- filter it to the most recent result - the BPertussisTestResults 
 							expressions maps to a collection -->
-						<then xsi:type="Last" orderBy="observationEventTime.begin">
-							<source xsi:type="ExpressionRef" name="BPertussisTestResults" />
-						</then>
-					</caseItem>
-					<else xsi:type="Null" valueType="vmr:ClinicalStatement">
-						<description>Return null object, if none of the above are true
-						</description>
-					</else>
-				</operand>
-			</expression>
+						<elm:then xsi:type="elm:Last" orderBy="observationEventTime.begin">
+							<elm:source xsi:type="elm:ExpressionRef" name="BPertussisTestResults" />
+						</elm:then>
+					</elm:caseItem>
+					<elm:else xsi:type="elm:Null" valueType="vmr:ClinicalStatement">
+						<elm:annotation xsi:type="a:Annotation"><a:s>Return null object, if none of the above are true
+						</a:s></elm:annotation>
+					</elm:else>
+				</elm:operand>
+			</elm:expression>
 		</def>
 
 
@@ -512,226 +526,200 @@
 		<!-- ReportingTopic.relatedClinicalStatement[trs="COMP"].encounterEvent, 
 			where encounter event is not null -->
 		<def name="ProblemEncounter">
-			<expression xsi:type="Conditional">
-				<description>Get encounter related to problem. Using the First
+			<elm:expression xsi:type="elm:If">
+				<elm:annotation xsi:type="a:Annotation"><a:s>Get encounter related to problem. Using the First
 					expression to
 					convert a collection to a single object. The Filter
 					should return a single
 					object
-				</description>
-				<condition xsi:type="Or">
-					<description>Applies only if the reporting topic was a problem
-					</description>
-					<operand xsi:type="ExpressionRef" name="HasActivePertussisProblems" />
-					<operand xsi:type="ExpressionRef" name="DeathWasCausedByPertussis" />
-				</condition>
-				<!-- <then xsi:type="Property" path="encounterEvent"> <source xsi:type="First"> -->
-				<then xsi:type="As" asType="vmr:EncounterEvent">
-					<description>Filter should return a collection with only one
+				</a:s></elm:annotation>
+				<elm:condition xsi:type="elm:Or">
+					<elm:annotation xsi:type="a:Annotation"><a:s>Applies only if the reporting topic was a problem
+					</a:s></elm:annotation>
+					<elm:operand xsi:type="elm:ExpressionRef" name="HasActivePertussisProblems" />
+					<elm:operand xsi:type="elm:ExpressionRef" name="DeathWasCausedByPertussis" />
+				</elm:condition>
+				<!-- <elm:then xsi:type="elm:Property" path="encounterEvent"> <elm:source xsi:type="elm:First"> -->
+				<elm:then xsi:type="elm:As" asType="vmr:EncounterEvent">
+					<elm:annotation xsi:type="a:Annotation"><a:s>Filter should return a collection with only one
 						encounter; use First to transform the
 						collection into a single
 						object
-					</description>
-					<operand xsi:type="First">
-						<source xsi:type="Filter">
-							<source xsi:type="Property" path="relatedClinicalStatement">
-								<source xsi:type="ExpressionRef" name="ReportingTopic" />
-							</source>
-							<condition xsi:type="Equal">
-								<operand xsi:type="Property" path="targetRole" />
-								<operand xsi:type="CodeLiteral" code="COMP" displayName="has component"
-									codeSystem="2.16.840.1.113883.5.1002" />
-							</condition>
-						</source>
-					</operand>
-					<!-- </source> -->
-				</then>
-				<else xsi:type="Null" valueType="vmr:EncounterEvent" />
-			</expression>
+					</a:s></elm:annotation>
+					<elm:operand xsi:type="elm:First">
+						<elm:source xsi:type="elm:Filter">
+							<elm:source xsi:type="elm:Property" path="relatedClinicalStatement">
+								<elm:source xsi:type="elm:ExpressionRef" name="ReportingTopic" />
+							</elm:source>
+							<elm:condition xsi:type="elm:Equal">
+								<elm:operand xsi:type="elm:Property" path="targetRole" />
+								<elm:operand xsi:type="elm:Code" code="COMP" display="has component" ><elm:system name="Act Relationship Type"/></elm:operand>
+							</elm:condition>
+						</elm:source>
+					</elm:operand>
+					<!-- </elm:source> -->
+				</elm:then>
+				<elm:else xsi:type="elm:Null" valueType="vmr:EncounterEvent" />
+			</elm:expression>
 		</def>
 
 		<def name="OrderForTest">
-			<expression xsi:type="Conditional">
-				<condition xsi:type="Or">
-					<description>Applies only if the reporting topic was a test result
-					</description>
-					<operand xsi:type="ExpressionRef" name="HasPertussisCultureResultsPositive" />
-					<operand xsi:type="ExpressionRef"
-						name="HasGeneralCultureResultsPositiveForPertussis" />
-					<operand xsi:type="ExpressionRef" name="HasBPertussisTestResults" />
-				</condition>
-				<then xsi:type="As" asType="vmr:LaboratoryOrder">
-					<operand xsi:type="First">
-						<description>convert from collection to object</description>
-						<source xsi:type="Filter">
-							<description>find related order</description>
-							<source xsi:type="Property" path="relatedClinicalStatement">
-								<source xsi:type="ExpressionRef" name="ReportingTopic" />
-							</source>
-							<condition xsi:type="Equal">
-								<operand xsi:type="Property" path="targetRole" />
-								<operand xsi:type="CodeLiteral" code="FLFS" displayName="fulfills"
-									codeSystem="2.16.840.1.113883.5.1002" />
-							</condition>
-						</source>
-					</operand>
-				</then>
-				<else xsi:type="Null" valueType="vmr:LaboratoryOrder" />
-			</expression>
+			<elm:expression xsi:type="elm:If">
+				<elm:condition xsi:type="elm:Or">
+					<elm:annotation xsi:type="a:Annotation"><a:s>Applies only if the reporting topic was a test result
+					</a:s></elm:annotation>
+					<elm:operand xsi:type="elm:Or">
+						<elm:operand xsi:type="elm:ExpressionRef" name="HasPertussisCultureResultsPositive" />
+						<elm:operand xsi:type="elm:ExpressionRef"
+							name="HasGeneralCultureResultsPositiveForPertussis" />
+					</elm:operand>
+					<elm:operand xsi:type="elm:ExpressionRef" name="HasBPertussisTestResults" />
+				</elm:condition>
+				<elm:then xsi:type="elm:As" asType="vmr:LaboratoryOrder">
+					<elm:operand xsi:type="elm:First">
+						<elm:annotation xsi:type="a:Annotation"><a:s>convert from collection to object</a:s></elm:annotation>
+						<elm:source xsi:type="elm:Filter">
+							<elm:annotation xsi:type="a:Annotation"><a:s>find related order</a:s></elm:annotation>
+							<elm:source xsi:type="elm:Property" path="relatedClinicalStatement">
+								<elm:source xsi:type="elm:ExpressionRef" name="ReportingTopic" />
+							</elm:source>
+							<elm:condition xsi:type="elm:Equal">
+								<elm:operand xsi:type="elm:Property" path="targetRole" />
+								<elm:operand xsi:type="elm:Code" code="FLFS" display="fulfills"><elm:system name="Act Relationship Type"/></elm:operand>
+							</elm:condition>
+						</elm:source>
+					</elm:operand>
+				</elm:then>
+				<elm:else xsi:type="elm:Null" valueType="vmr:LaboratoryOrder" />
+			</elm:expression>
 		</def>
 
 		<def name="TestOrderEncounter">
-			<expression xsi:type="As" asType="vmr:EncounterEvent">
-				<description>Get encounter related to test order. Using the First
+			<elm:expression xsi:type="elm:As" asType="vmr:EncounterEvent">
+				<elm:annotation xsi:type="a:Annotation"><a:s>Get encounter related to test order. Using the First
 					expression to
 					convert a collection to a single object. The Filter
 					should return a
 					collection with a single object
-				</description>
-				<operand xsi:type="First">
-					<source xsi:type="Filter">
-						<source xsi:type="Property" path="relatedClinicalStatement">
-							<source xsi:type="ExpressionRef" name="OrderForTest" />
-						</source>
-						<condition xsi:type="Equal">
-							<operand xsi:type="Property" path="targetRole" />
-							<operand xsi:type="CodeLiteral" code="COMP" displayName="has component"
-								codeSystem="2.16.840.1.113883.5.1002" />
-						</condition>
-					</source>
-				</operand>
-			</expression>
+				</a:s></elm:annotation>
+				<elm:operand xsi:type="elm:First">
+					<elm:source xsi:type="elm:Filter">
+						<elm:source xsi:type="elm:Property" path="relatedClinicalStatement">
+							<elm:source xsi:type="elm:ExpressionRef" name="OrderForTest" />
+						</elm:source>
+						<elm:condition xsi:type="elm:Equal">
+							<elm:operand xsi:type="elm:Property" path="targetRole" />
+							<elm:operand xsi:type="elm:Code" code="COMP" display="has component" ><elm:system name="Act Relationship Type"/></elm:operand>
+						</elm:condition>
+					</elm:source>
+				</elm:operand>
+			</elm:expression>
 		</def>
 
 		<def name="RelatedEncounter">
-			<expression xsi:type="IfNull">
-				<operand xsi:type="ExpressionRef" name="ProblemEncounter" />
-				<operand xsi:type="ExpressionRef" name="TestOrderEncounter" />
-			</expression>
+			<elm:expression xsi:type="elm:Coalesce">
+				<elm:operand xsi:type="elm:ExpressionRef" name="ProblemEncounter" />
+				<elm:operand xsi:type="elm:ExpressionRef" name="TestOrderEncounter" />
+			</elm:expression>
 		</def>
 
 		<def name="RelatedEncounterLocation">
-			<expression xsi:type="As" asType="vmr:Facility">
-				<description>Get the facility for the related encounter
-				</description>
-				<operand xsi:type="Last">
-					<source xsi:type="Filter">
-						<description>Get the facilities from all the encounters, by
+			<elm:expression xsi:type="elm:As" asType="vmr:Facility">
+				<elm:annotation xsi:type="a:Annotation"><a:s>Get the facility for the related encounter
+				</a:s></elm:annotation>
+				<elm:operand xsi:type="elm:Last">
+					<elm:source xsi:type="elm:Filter">
+						<elm:annotation xsi:type="a:Annotation"><a:s>Get the facilities from all the encounters, by
 							selecting those relatedEntities that have a target role of
 							location
-						</description>
-						<source xsi:type="Property" path="relatedEntity">
-							<source xsi:type="ExpressionRef" name="RelatedEncounter" />
-						</source>
-						<condition xsi:type="Equal">
-							<operand xsi:type="Property" path="targetRole" />
-							<operand xsi:type="CodeLiteral" code="LOC"
-								codeSystem="2.16.840.1.113883.5.90" codeSystemName="HL7 ParticipationType" />
-						</condition>
-					</source>
-				</operand>
-			</expression>
+						</a:s></elm:annotation>
+						<elm:source xsi:type="elm:Property" path="relatedEntity">
+							<elm:source xsi:type="elm:ExpressionRef" name="RelatedEncounter" />
+						</elm:source>
+						<elm:condition xsi:type="elm:Equal">
+							<elm:operand xsi:type="elm:Property" path="targetRole" />
+							<elm:operand xsi:type="elm:Code" code="LOC" display="Location"><elm:system name="Participation Type"/></elm:operand>
+						</elm:condition>
+					</elm:source>
+				</elm:operand>
+			</elm:expression>
 		</def>
 
 		<def name="RelatedEncounterWasInSDCounty">
-			<expression xsi:type="Equal">
-				<description>Is San Diego the county</description>
-				<operand xsi:type="Property" path="value">
-					<source xsi:type="First">
-						<source xsi:type="Filter">
-							<description>Get the county part of the address</description>
-							<source xsi:type="Property" path="part">
-								<source xsi:type="First">
-									<source xsi:type="Filter">
-										<source xsi:type="Property" path="address">
-											<source xsi:type="ExpressionRef" name="RelatedEncounterLocation" />
-										</source>
-										<condition xsi:type="Contains">
-											<description>Physical address</description>
-											<operand xsi:type="Property" path="use" />
-											<operand xsi:type="StringLiteral" value="PHYS" />
-										</condition>
-									</source>
-								</source>
-							</source>
-							<condition xsi:type="Equal">
-								<operand xsi:type="Property" path="type" />
-								<operand xsi:type="StringLiteral" value="CNT" />
-							</condition>
-						</source>
-					</source>
-				</operand>
-				<operand xsi:type="StringLiteral" value="San Diego" />
-			</expression>
+			<elm:expression xsi:type="elm:Equal">
+				<elm:annotation xsi:type="a:Annotation"><a:s>Is San Diego the county</a:s></elm:annotation>
+				<elm:operand xsi:type="elm:Property" path="value">
+					<elm:source xsi:type="elm:First">
+						<elm:source xsi:type="elm:Filter">
+							<elm:annotation xsi:type="a:Annotation"><a:s>Get the county part of the address</a:s></elm:annotation>
+							<elm:source xsi:type="elm:Property" path="part">
+								<elm:source xsi:type="elm:First">
+									<elm:source xsi:type="elm:Filter">
+										<elm:source xsi:type="elm:Property" path="address">
+											<elm:source xsi:type="elm:ExpressionRef" name="RelatedEncounterLocation" />
+										</elm:source>
+										<elm:condition xsi:type="elm:Contains">
+											<elm:annotation xsi:type="a:Annotation"><a:s>Physical address</a:s></elm:annotation>
+											<elm:operand xsi:type="elm:Property" path="use" />
+											<elm:operand xsi:type="elm:Code" code="PHYS" ><elm:system name="Address Use"/></elm:operand>
+										</elm:condition>
+									</elm:source>
+								</elm:source>
+							</elm:source>
+							<elm:condition xsi:type="elm:Equal">
+								<elm:operand xsi:type="elm:Property" path="type.code" />
+								<elm:operand xsi:type="elm:Literal" valueType="t:String" value="CNT" />
+							</elm:condition>
+						</elm:source>
+					</elm:source>
+				</elm:operand>
+				<elm:operand xsi:type="elm:Literal" valueType="t:String" value="San Diego" />
+			</elm:expression>
 		</def>
 
 		<def name="CommunicateTopicToRecipient">
 			<!-- Creates a reusable communication action. This is used with each of 
 				the different communication methods -->
-			<expression xsi:type="ObjectExpression" objectType="vmr:CommunicationProposal">
-				<description>This expression is the action object to notify the
+			<elm:expression xsi:type="elm:Instance" classType="vmr:CommunicationProposal">
+				<elm:annotation xsi:type="a:Annotation"><a:s>This expression is the action object to notify the
 					health agency. The base action
 					is defined here. Within the actions
 					section, the expression is
 					redefined to include
 					the communication
 					method.
-				</description>
-				<property name="reason">
-					<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.96"
-						code="170516003" displayName="Notification of disease" />
-				</property>
-				<!-- <property name="topic"> <value xsi:type="ExpressionRef" name="ReportingTopic" 
-					/> </property> -->
-				<property name="proposedCommunicationTime">
-					<value xsi:type="Interval">
-						<description>The disease notification must occur within one day
-						</description>
-						<begin xsi:type="Today" />
-						<end xsi:type="DateAdd">
-							<date xsi:type="Today" />
-							<granularity xsi:type="Literal" valueType="DateGranularity"
-								value="Day" />
-							<numberOfPeriods xsi:type="IntegerLiteral" value="1" />
-						</end>
-					</value>
-				</property>
-				<property name="recipient">
-					<value xsi:type="List">
-						<element xsi:type="ComplexLiteral">
-							<value xsi:type="vmr:Organization">
-								<vmr:name value="County of San Diego Health and Human Services Agency" />
-							</value>
-						</element>
-					</value>
-				</property>
-			</expression>
+				</a:s></elm:annotation>
+				<elm:element name="reason">
+					<elm:value xsi:type="elm:Code" code="170516003" display="Notification of disease" ><elm:system name="SNOMED-CT"/></elm:value>
+				</elm:element>
+				<!-- <elm:element name="topic"> <value xsi:type="elm:ExpressionRef" name="ReportingTopic" 
+					/> </elm:element> -->
+				<elm:element name="proposedCommunicationTime">
+					<elm:value xsi:type="elm:Interval">
+						<elm:annotation xsi:type="a:Annotation"><a:s>The disease notification must occur within one day
+						</a:s></elm:annotation>
+						<elm:low xsi:type="elm:Today" />
+						<elm:high xsi:type="elm:Add">
+							<elm:operand xsi:type="elm:Today" />
+							<elm:operand xsi:type="elm:Quantity" value="1" unit="day"/>
+						</elm:high>
+					</elm:value>
+				</elm:element>
+				<elm:element name="recipient">
+					<elm:value xsi:type="elm:List">
+						<elm:element xsi:type="elm:Instance" classType="vmr:Organization">
+							<elm:element name="name">
+								<elm:value xsi:type="elm:List">
+									<elm:element xsi:type="elm:Literal" valueType="t:String" value="County of San Diego Health and Human Services Agency"/>
+								</elm:value>
+							</elm:element>
+						</elm:element>
+					</elm:value>
+				</elm:element>
+			</elm:expression>
 		</def>
 
 	</expressions>
-
-	<triggers>
-		<trigger>
-			<eventType>DataEvent</eventType>
-			<expression xsi:type="ExpressionRef" name="PertussisProblems" />
-		</trigger>
-		<trigger>
-			<eventType>DataEvent</eventType>
-			<expression xsi:type="ExpressionRef" name="PertussisProblemsWithDeathVS" />
-		</trigger>
-		<trigger>
-			<eventType>DataEvent</eventType>
-			<expression xsi:type="ExpressionRef" name="BPertussisTestResults" />
-		</trigger>
-		<trigger>
-			<eventType>DataEvent</eventType>
-			<expression xsi:type="ExpressionRef" name="BPertussisCultureTests" />
-		</trigger>
-		<trigger>
-			<eventType>DataEvent</eventType>
-			<expression xsi:type="ExpressionRef" name="GeneralCultureTests" />
-		</trigger>
-	</triggers>
 
 	<conditions>
 		<!-- These are the reporting criteria Patient lives in San Diego county 
@@ -739,31 +727,37 @@
 			List shows Pertussis or Death caused by Pertussis - time range) TO DO: Death 
 			contributed to by Pertussis -->
 		<condition>
-			<logic xsi:type="And">
-				<description>(Patient lives in SD or Care encounter was in SD) and
+			<logic xsi:type="elm:And">
+				<elm:annotation xsi:type="a:Annotation"><a:s>(Patient lives in SD or Care encounter was in SD) and
 					(Diagnosed with Pertussis or Cause of Death was Pertussis
 					or Test
 					results specific to pertussis available or culture results
 					positive
 					for pertussis)
-				</description>
-				<operand xsi:type="Or">
-					<operand xsi:type="ExpressionRef" name="PatientLivesInSDCounty" />
-					<operand xsi:type="ExpressionRef" name="RelatedEncounterWasInSDCounty" />
-				</operand>
-				<operand xsi:type="Or">
+				</a:s></elm:annotation>
+				<elm:operand xsi:type="elm:Or">
+					<elm:operand xsi:type="elm:ExpressionRef" name="PatientLivesInSDCounty" />
+					<elm:operand xsi:type="elm:ExpressionRef" name="RelatedEncounterWasInSDCounty" />
+				</elm:operand>
+				<elm:operand xsi:type="elm:Or">
 					<!-- Necessary clinical conditions -->
-					<operand xsi:type="ExpressionRef" name="HasActivePertussisProblems" />
-					<operand xsi:type="ExpressionRef" name="DeathWasCausedByPertussis" />
-					<operand xsi:type="ExpressionRef" name="HasPertussisCultureResultsPositive" />
-					<operand xsi:type="ExpressionRef"
-						name="HasGeneralCultureResultsPositiveForPertussis" />
-					<operand xsi:type="ExpressionRef" name="HasBPertussisTestResults" />
-				</operand>
+					<elm:operand xsi:type="elm:Or">
+						<elm:operand xsi:type="elm:Or">
+							<elm:operand xsi:type="elm:Or">
+								<elm:operand xsi:type="elm:ExpressionRef" name="HasActivePertussisProblems" />
+								<elm:operand xsi:type="elm:ExpressionRef" name="DeathWasCausedByPertussis" />
+							</elm:operand>
+							<elm:operand xsi:type="elm:ExpressionRef" name="HasPertussisCultureResultsPositive" />
+						</elm:operand>
+						<elm:operand xsi:type="elm:ExpressionRef" name="HasGeneralCultureResultsPositiveForPertussis" /> 
+					</elm:operand>
+					<elm:operand xsi:type="elm:ExpressionRef" name="HasBPertussisTestResults" />
+				</elm:operand>
 			</logic>
 			<conditionRole value="ApplicableScenario" />
 		</condition>
 	</conditions>
+
 	<actionGroup>
 		<subElements>
 			<!-- The first action is a message to the recipient alerting them to a 
@@ -771,14 +765,11 @@
 			<!-- The second action (group)is the action to communicate the case to 
 				the public health agency -->
 			<simpleAction xsi:type="CreateAction">
-				<actionSentence xsi:type="ObjectExpression"
-					objectType="vmr:CommunicationProposal">
-					<property name="message">
-						<value xsi:type="ComplexLiteral">
-							<value xsi:type="dt:ED"
-								value="This patient has or is suspected of having pertussis. Patients diagnosed with or suspected of having pertussis must be reported to County of San Diego Health and Human Services Agency within one working day of identification or suspicion" />
-						</value>
-					</property>
+				<actionSentence xsi:type="elm:Instance"
+					classType="vmr:CommunicationProposal">
+					<elm:element name="message">
+						<elm:value xsi:type="elm:Literal" valueType="t:String" value="This patient has or is suspected of having pertussis. Patients diagnosed with or suspected of having pertussis must be reported to County of San Diego Health and Human Services Agency within one working day of identification or suspicion"/>
+					</elm:element>
 				</actionSentence>
 			</simpleAction>
 			<actionGroup>
@@ -803,26 +794,61 @@
 							<behavior xsi:type="PrecheckBehavior" value="No" />
 						</behaviors>
 						<textEquivalent value="mail to epi program at SDDHHS" />
-						<actionSentence xsi:type="ObjectRedefine">
-							<source xsi:type="ExpressionRef" name="CommunicateTopicToRecipient" />
-							<property name="recipient">
-								<value xsi:type="List">
-									<element xsi:type="ComplexLiteral">
-										<value xsi:type="vmr:Organization">
-											<vmr:name
-												value="County of San Diego Health and Human Services Agency" />
-											<vmr:address>
-												<dt:part type="SAL" value="3851 Rosecrans Street" />
-												<dt:part type="ADL" value="Mailstop P577" />
-												<dt:part type="CTY" value="San Diego" />
-												<dt:part type="ZIP" value="92110" />
-												<dt:part type="STA" value="CA" />
-												<dt:part type="CNT" value="USA" />
-											</vmr:address>
-										</value>
-									</element>
-								</value>
-							</property>
+						<actionSentence xsi:type="elm:Query">
+							<elm:source alias="O">
+								<elm:expression xsi:type="elm:ExpressionRef" name="CommunicateTopicToRecipient"/>
+							</elm:source>
+							<elm:return>
+								<elm:expression xsi:type="elm:Instance" classType="vmr:CommunicationProposal">
+									<elm:element name="reason"><elm:value xsi:type="elm:Property" path="reason" scope="O"/></elm:element>
+									<elm:element name="proposedCommunicationTime"><elm:value xsi:type="elm:Property" path="proposedCommunicationTime" scope="O"/></elm:element>
+									<elm:element name="recipient">
+										<elm:value xsi:type="elm:List">
+											<elm:element xsi:type="elm:Instance" classType="vmr:Organization">
+												<elm:element name="name">
+													<elm:value xsi:type="elm:List">
+														<elm:element xsi:type="elm:Literal" valueType="t:String" value="County of San Diego Health and Human Services Agency"/>
+													</elm:value>
+												</elm:element>
+												<elm:element name="address">
+													<elm:value xsi:type="elm:List">
+														<elm:element xsi:type="elm:Instance" classType="dt:AD">
+															<elm:element name="part">
+																<elm:value xsi:type="elm:List">
+																	<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
+																		<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="SAL"/></elm:element>
+																		<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="3851 Rosecrans Street"/></elm:element>
+																	</elm:element>
+																	<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
+																		<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="ADL"/></elm:element>
+																		<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="Mailstop P577"/></elm:element>
+																	</elm:element>
+																	<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
+																		<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="CTY"/></elm:element>
+																		<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="San Diego"/></elm:element>
+																	</elm:element>
+																	<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
+																		<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="ZIP"/></elm:element>
+																		<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="92110"/></elm:element>
+																	</elm:element>
+																	<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
+																		<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="STA"/></elm:element>
+																		<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="CA"/></elm:element>
+																	</elm:element>
+																	<elm:element xsi:type="elm:Instance" classType="dt:ADXP">
+																		<elm:element name="type"><elm:value xsi:type="elm:Literal" valueType="dt:AddressPartType" value="CNT"/></elm:element>
+																		<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="USA"/></elm:element>
+																	</elm:element>
+																</elm:value>
+															</elm:element>
+														</elm:element>
+													</elm:value>
+												</elm:element>
+											</elm:element>
+										</elm:value>
+									</elm:element>
+								</elm:expression>
+							</elm:return>
 						</actionSentence>
 					</simpleAction>
 					<simpleAction xsi:type="CreateAction">
@@ -830,20 +856,40 @@
 							<behavior xsi:type="PrecheckBehavior" value="No" />
 						</behaviors>
 						<textEquivalent value="phone epi program at SDDHHS" />
-						<actionSentence xsi:type="ObjectRedefine">
-							<source xsi:type="ExpressionRef" name="CommunicateTopicToRecipient" />
-							<property name="recipient">
-								<value xsi:type="List">
-									<element xsi:type="ComplexLiteral">
-										<value xsi:type="vmr:Organization">
-											<vmr:name
-												value="County of San Diego Health and Human Services Agency" />
-											<vmr:telecom value="tel:619-692-8499" use="WP"
-												capabilities="voice" />
-										</value>
-									</element>
-								</value>
-							</property>
+						<actionSentence xsi:type="elm:Query">
+							<elm:source alias="O">
+								<elm:expression xsi:type="elm:ExpressionRef" name="CommunicateTopicToRecipient"/>
+							</elm:source>
+							<elm:return>
+								<elm:expression xsi:type="elm:Instance" classType="vmr:CommunicationProposal">
+									<elm:element name="reason"><elm:value xsi:type="elm:Property" path="reason" scope="O"/></elm:element>
+									<elm:element name="proposedCommunicationTime"><elm:value xsi:type="elm:Property" path="proposedCommunicationTime" scope="O"/></elm:element>
+									<elm:element name="recipient">
+										<elm:value xsi:type="elm:List">
+											<elm:element xsi:type="elm:Instance" classType="vmr:Organization">
+												<elm:element name="name">
+													<elm:value xsi:type="elm:List">
+														<elm:element xsi:type="elm:Literal" valueType="t:String" value="County of San Diego Health and Human Services Agency"/>
+													</elm:value>
+												</elm:element>
+												<elm:element name="telecom">
+													<elm:value xsi:type="elm:List">
+														<elm:element xsi:type="elm:Instance" classType="dt:TEL">
+															<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="tel:619-692-8499"/></elm:element>
+															<elm:element name="use">
+																<elm:value xsi:type="elm:List"><elm:element xsi:type="elm:Code" code="WP"><elm:system name="Telecom Use"/></elm:element></elm:value>
+															</elm:element>
+															<elm:element name="capabilities">
+																<elm:value xsi:type="elm:List"><elm:element xsi:type="elm:Code" code="voice"><elm:system name="Telecom Capabilities"/></elm:element></elm:value>
+															</elm:element>
+														</elm:element>
+													</elm:value>
+												</elm:element>
+											</elm:element>
+										</elm:value>
+									</elm:element>
+								</elm:expression>
+							</elm:return>
 						</actionSentence>
 					</simpleAction>
 					<simpleAction xsi:type="CreateAction">
@@ -851,20 +897,40 @@
 							<behavior xsi:type="PrecheckBehavior" value="No" />
 						</behaviors>
 						<textEquivalent value="fax epi program at SDDHHS" />
-						<actionSentence xsi:type="ObjectRedefine">
-							<source xsi:type="ExpressionRef" name="CommunicateTopicToRecipient" />
-							<property name="recipient">
-								<value xsi:type="List">
-									<element xsi:type="ComplexLiteral">
-										<value xsi:type="vmr:Organization">
-											<vmr:name
-												value="County of San Diego Health and Human Services Agency" />
-											<vmr:telecom value="tel:858-715-6458" use="WP"
-												capabilities="fax" />
-										</value>
-									</element>
-								</value>
-							</property>
+						<actionSentence xsi:type="elm:Query">
+							<elm:source alias="O">
+								<elm:expression xsi:type="elm:ExpressionRef" name="CommunicateTopicToRecipient"/>
+							</elm:source>
+							<elm:return>
+								<elm:expression xsi:type="elm:Instance" classType="vmr:CommunicationProposal">
+									<elm:element name="reason"><elm:value xsi:type="elm:Property" path="reason" scope="O"/></elm:element>
+									<elm:element name="proposedCommunicationTime"><elm:value xsi:type="elm:Property" path="proposedCommunicationTime" scope="O"/></elm:element>
+									<elm:element name="recipient">
+										<elm:value xsi:type="elm:List">
+											<elm:element xsi:type="elm:Instance" classType="vmr:Organization">
+												<elm:element name="name">
+													<elm:value xsi:type="elm:List">
+														<elm:element xsi:type="elm:Literal" valueType="t:String" value="County of San Diego Health and Human Services Agency"/>
+													</elm:value>
+												</elm:element>
+												<elm:element name="telecom">
+													<elm:value xsi:type="elm:List">
+														<elm:element xsi:type="elm:Instance" classType="dt:TEL">
+															<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="tel:858-715-6458"/></elm:element>
+															<elm:element name="use">
+																<elm:value xsi:type="elm:List"><elm:element xsi:type="elm:Code" code="WP"><elm:system name="Telecom Use"/></elm:element></elm:value>
+															</elm:element>
+															<elm:element name="capabilities">
+																<elm:value xsi:type="elm:List"><elm:element xsi:type="elm:Code" code="fax"><elm:system name="Telecom Capabilities"/></elm:element></elm:value>
+															</elm:element>
+														</elm:element>
+													</elm:value>
+												</elm:element>
+											</elm:element>
+										</elm:value>
+									</elm:element>
+								</elm:expression>
+							</elm:return>
 						</actionSentence>
 					</simpleAction>
 					<simpleAction xsi:type="CreateAction">
@@ -872,21 +938,40 @@
 							<behavior xsi:type="PrecheckBehavior" value="Yes" />
 						</behaviors>
 						<textEquivalent value="report via web to epi program at SDDHHS" />
-						<actionSentence xsi:type="ObjectRedefine">
-							<source xsi:type="ExpressionRef" name="CommunicateTopicToRecipient" />
-							<property name="recipient">
-								<value xsi:type="List">
-									<element xsi:type="ComplexLiteral">
-										<value xsi:type="vmr:Organization">
-											<vmr:name
-												value="County of San Diego Health and Human Services Agency" />
-											<vmr:telecom
-												value="http://www.sdcounty.ca.gov/hhsa/programs/phs/community_epidemiology/disease_reporting_requirements_for_health_care_providers.html"
-												capabilities="data" />
-										</value>
-									</element>
-								</value>
-							</property>
+						<actionSentence xsi:type="elm:Query">
+							<elm:source alias="O">
+								<elm:expression xsi:type="elm:ExpressionRef" name="CommunicateTopicToRecipient"/>
+							</elm:source>
+							<elm:return>
+								<elm:expression xsi:type="elm:Instance" classType="vmr:CommunicationProposal">
+									<elm:element name="reason"><elm:value xsi:type="elm:Property" path="reason" scope="O"/></elm:element>
+									<elm:element name="proposedCommunicationTime"><elm:value xsi:type="elm:Property" path="proposedCommunicationTime" scope="O"/></elm:element>
+									<elm:element name="recipient">
+										<elm:value xsi:type="elm:List">
+											<elm:element xsi:type="elm:Instance" classType="vmr:Organization">
+												<elm:element name="name">
+													<elm:value xsi:type="elm:List">
+														<elm:element xsi:type="elm:Literal" valueType="t:String" value="County of San Diego Health and Human Services Agency"/>
+													</elm:value>
+												</elm:element>
+												<elm:element name="telecom">
+													<elm:value xsi:type="elm:List">
+														<elm:element xsi:type="elm:Instance" classType="dt:TEL">
+															<elm:element name="value"><elm:value xsi:type="elm:Literal" valueType="t:String" value="http://www.sdcounty.ca.gov/hhsa/programs/phs/community_epidemiology/disease_reporting_requirements_for_health_care_providers.html"/></elm:element>
+															<elm:element name="use">
+																<elm:value xsi:type="elm:List"><elm:element xsi:type="elm:Code" code="WP"><elm:system name="Telecom Use"/></elm:element></elm:value>
+															</elm:element>
+															<elm:element name="capabilities">
+																<elm:value xsi:type="elm:List"><elm:element xsi:type="elm:Code" code="data"><elm:system name="Telecom Capabilities"/></elm:element></elm:value>
+															</elm:element>
+														</elm:element>
+													</elm:value>
+												</elm:element>
+											</elm:element>
+										</elm:value>
+									</elm:element>
+								</elm:expression>
+							</elm:return>
 						</actionSentence>
 					</simpleAction>
 				</subElements>

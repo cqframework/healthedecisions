@@ -19,6 +19,11 @@ namespace CREF.Translation
 	{
 		#region IArtifactWriter Members
 
+		public String GetExtension()
+		{
+			return ".xml";
+		}
+
 		public void Write(Stream outputStream, object artifact)
 		{
             using (var stream = new MemoryStream())

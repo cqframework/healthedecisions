@@ -32,10 +32,10 @@ namespace HeD.CDSS.Model {
         
         private CDSExecutionMessageSourceComponentType sourceComponentTypeField;
         
-        private ObjectDescriptor sourceComponentIdField;
+        private II sourceComponentIdField;
         
         public CDSExecutionMessage() {
-            this.sourceComponentIdField = new ObjectDescriptor();
+            this.sourceComponentIdField = new II();
             this.sourceComponentTypeField = new CDSExecutionMessageSourceComponentType();
             this.messageField = new ST();
             this.levelField = new CDSExecutionMessageLevel1();
@@ -94,7 +94,7 @@ namespace HeD.CDSS.Model {
         }
         
         [System.Xml.Serialization.XmlElementAttribute(Order=5)]
-        public ObjectDescriptor sourceComponentId {
+        public II sourceComponentId {
             get {
                 return this.sourceComponentIdField;
             }

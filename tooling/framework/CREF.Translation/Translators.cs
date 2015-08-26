@@ -79,13 +79,13 @@ namespace CREF.Translation
 				result.TypeSpecified = true;
 				result.Value = node.GetAttribute<string>("value");
 			}
-			else if (DataTypes.Equal(node.ResultType, DataTypes.Real))
+			else if (DataTypes.Equal(node.ResultType, DataTypes.Decimal))
 			{
 				result.Type = Model.ValueType.Decimal;
 				result.TypeSpecified = true;
 				result.Value = node.GetAttribute<string>("value");
 			}
-			else if (DataTypes.Equal(node.ResultType, DataTypes.Timestamp))
+			else if (DataTypes.Equal(node.ResultType, DataTypes.DateTime))
 			{
 				result.Type = Model.ValueType.Date;
 				result.TypeSpecified = true;
@@ -114,7 +114,7 @@ namespace CREF.Translation
 
 		public object Translate(TranslationContext context, ASTNode node)
 		{
-			if (DataTypes.Equal(node.ResultType, DataTypes.TimestampInterval))
+			if (DataTypes.Equal(node.ResultType, DataTypes.DateTimeInterval))
 			{
 				var result = new CREFModel.DateRange();
 

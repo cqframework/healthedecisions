@@ -46,7 +46,7 @@ namespace FHIR.Model
             var resultType = (ObjectType)DataTypes.ResolveType(dataType);
             resultType.Properties.Remove(resultType.Properties.Find(p => p.Name == "value"));
             resultType.GetHashCode(); // resets the sorted properties due to the way caching is done within the ObjectType (see ObjectType.SortedProperties)
-            resultType.Properties.Add(new PropertyDef("value", DataTypes.Timestamp));
+            resultType.Properties.Add(new PropertyDef("value", DataTypes.DateTime));
 
             return resultType;
         }

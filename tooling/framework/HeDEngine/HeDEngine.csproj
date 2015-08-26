@@ -39,16 +39,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ELMLibrarySettings.Designer.cs" />
+    <Compile Include="ELMLibrarySettings1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>ELMLibrarySettings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Reading\ELMLibraryReader.cs" />
+    <Compile Include="Verification\ELMModuleRegistrar.cs" />
     <Compile Include="Model\Artifact.cs" />
+    <Compile Include="Model\CodeSystemDef.cs" />
     <Compile Include="Model\DataType.cs" />
     <Compile Include="Model\datatypes.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\ExpressionDef.cs" />
     <Compile Include="Model\Extensions.cs" />
+    <Compile Include="Model\FunctionDef.cs" />
     <Compile Include="Model\HandlerFactory.cs" />
     <Compile Include="Model\HandlerType.cs" />
     <Compile Include="Model\HeDModelTypeResolver.cs" />
+    <Compile Include="Model\Library.cs" />
+    <Compile Include="Model\LibraryRef.cs" />
     <Compile Include="Model\ModelRef.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -57,8 +69,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\Symbol.cs" />
+    <Compile Include="Model\ValueSetDef.cs" />
     <Compile Include="Reading\ArtifactReader.cs" />
     <Compile Include="Model\Node.cs" />
+    <Compile Include="Reading\ILibraryReader.cs" />
+    <Compile Include="Reading\LibraryReaderFactory.cs" />
     <Compile Include="Reading\NodeReader.cs" />
     <Compile Include="Model\HandlerMap.cs" />
     <Compile Include="Model\ParameterDef.cs" />
@@ -74,10 +89,13 @@
     <Compile Include="Translation\TranslationContext.cs" />
     <Compile Include="Verification\ArtifactVerifier.cs" />
     <Compile Include="Verification\BaseModuleRegistrar.cs" />
+    <Compile Include="Verification\ELMVerifiers.cs" />
     <Compile Include="Verification\IModuleRegistrar.cs" />
     <Compile Include="Verification\INodeVerifier.cs" />
     <Compile Include="Verification\IOperatorHandler.cs" />
     <Compile Include="Verification\ITypeResolver.cs" />
+    <Compile Include="Verification\LibraryFactory.cs" />
+    <Compile Include="Verification\LibraryVerifier.cs" />
     <Compile Include="Verification\ModuleRegistrarFactory.cs" />
     <Compile Include="Verification\OperatorHandlerFactory.cs" />
     <Compile Include="Verification\OperatorHandlers.cs" />
@@ -96,12 +114,22 @@
     <Folder Include="Runtime\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ELMLibrarySettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>ELMLibrarySettings1.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Maps\HandlerMap.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Maps\ELMVerificationHandlerMap.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Maps\LibraryHandlerMap.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Maps\ModuleMap.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -113,6 +141,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ELM.Model\ELM.Model.csproj">
+      <Project>{17ace00e-1393-4c7a-b84c-80dff9cbb83d}</Project>
+      <Name>ELM.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?schematron-schema href="../main/schematron/knowledgeartifact.sch"?>
 <?schematron-schema href="../main/schematron/ordersets.sch"?>
-<knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
-	xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:dt="urn:hl7-org:cdsdt:r2"
-	xmlns:p1="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace"
+<knowledgeDocument 
+	xmlns="urn:hl7-org:knowledgeartifact:r1"
+	xmlns:vmr="urn:hl7-org:vmr:r2" 
+	xmlns:dt="urn:hl7-org:cdsdt:r2" 
+	xmlns:elm="urn:hl7-org:elm:r1" 
+	xmlns:t="urn:hl7-org:elm-types:r1"
+	xmlns:a="urn:hl7-org:cql-annotations:r1"
+	xmlns:p1="http://www.w3.org/1999/xhtml" 
+	xmlns:xml="http://www.w3.org/XML/1998/namespace"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../main/schema/knowledgeartifact/knowledgedocument.xsd ">
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd urn:hl7-org:elm:r1 ../schema/elm/clinicalexpression.xsd urn:hl7-org:elm-types:r1 ../schema/elm/types.xsd urn:hl7-org:cql-annotations:r1 ../schema/elm/cqlannotations.xsd">
 
 	<!--
 	Respiratory Order
@@ -127,6 +133,9 @@
 			</publisher>
 		</publishers>
 	</metadata>
+	<externalData>
+		<codesystem name="SNOMED-CT" id="2.16.840.1.113883.6.96"/>
+	</externalData>
 	<expressions/>
 	<actionGroup> <!-- Respiratory Order -->
 		<behaviors>
@@ -143,10 +152,10 @@
 				<subElements>
 					<simpleAction xsi:type="CreateAction">  <!-- Ventilator Settings -->
 						<textEquivalent value="Ventilator Settings"/>
-						<actionSentence xsi:type="ObjectExpression" objectType="vmr:ProcedureProposal">
-							<property name="procedureCode">
-								<value xsi:type="CodeLiteral" code="410210009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT" displayName="Ventilator care management (procedure)"/>
-							</property>
+						<actionSentence xsi:type="elm:Instance" classType="vmr:ProcedureProposal">
+							<elm:element name="procedureCode">
+								<elm:value xsi:type="elm:Code" code="410210009" display="Ventilator care management (procedure)"><elm:system name="SNOMED-CT"/></elm:value>
+							</elm:element>
 						</actionSentence>
 					</simpleAction>
 					<actionGroup>  <!-- Oxygenation Assessment group -->
@@ -156,18 +165,18 @@
 						<subElements>
 							<simpleAction xsi:type="CreateAction"> <!-- Pulse Oxymetry -->
 								<textEquivalent value="Pulse Oxymetry"/>
-								<actionSentence xsi:type="ObjectExpression" objectType="vmr:ProcedureProposal">
-									<property name="procedureCode">
-										<value xsi:type="CodeLiteral" code="252465000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT" displayName="Pulse oximetry (procedure)"/>
-									</property>
+								<actionSentence xsi:type="elm:Instance" classType="vmr:ProcedureProposal">
+									<elm:element name="procedureCode">
+										<elm:value xsi:type="elm:Code" code="252465000" display="Pulse oximetry (procedure)"><elm:system name="SNOMED-CT"/></elm:value>
+									</elm:element>
 								</actionSentence>
 							</simpleAction>
 							<simpleAction xsi:type="CreateAction">  <!-- Blood gas, arterial -->
 								<textEquivalent value="Blood gas, arterial"/>
-								<actionSentence xsi:type="ObjectExpression" objectType="vmr:ProcedureProposal">
-									<property name="procedureCode">
-										<value xsi:type="CodeLiteral" code="32564009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT" displayName="Arterial specimen collection for laboratory test (procedure)"/>
-									</property>
+								<actionSentence xsi:type="elm:Instance" classType="vmr:ProcedureProposal">
+									<elm:element name="procedureCode">
+										<elm:value xsi:type="elm:Code" code="32564009" display="Arterial specimen collection for laboratory test (procedure)"><elm:system name="SNOMED-CT"/></elm:value>
+									</elm:element>
 								</actionSentence>
 							</simpleAction>
 						</subElements>
@@ -186,34 +195,34 @@
 						<subElements>
 							<simpleAction xsi:type="CreateAction">  <!--	Oxygen via nasal canula -->
 								<textEquivalent value="Oxygen via nasal canula"/>
-								<actionSentence xsi:type="ObjectExpression" objectType="vmr:ProcedureProposal">
-									<property name="procedureCode">
-										<value xsi:type="CodeLiteral" code="371907003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT" displayName="Oxygen administration by nasal cannula (procedure)"/>
-									</property>
+								<actionSentence xsi:type="elm:Instance" classType="vmr:ProcedureProposal">
+									<elm:element name="procedureCode">
+										<elm:value xsi:type="elm:Code" code="371907003" display="Oxygen administration by nasal cannula (procedure)"><elm:system name="SNOMED-CT"/></elm:value>
+									</elm:element>
 								</actionSentence>
 							</simpleAction>
 							<simpleAction xsi:type="CreateAction"> <!--	Oxygen via nonrebreather face mask. Note that this is not an exact match with SNOMED CT. -->
 								<textEquivalent value="Oxygen via nonrebreather face mask"/>
-								<actionSentence xsi:type="ObjectExpression" objectType="vmr:ProcedureProposal">
-									<property name="procedureCode">
-										<value xsi:type="CodeLiteral" code="371908008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT" displayName="Oxygen administration by mask (procedure)"/>
-									</property>
+								<actionSentence xsi:type="elm:Instance" classType="vmr:ProcedureProposal">
+									<elm:element name="procedureCode">
+										<elm:value xsi:type="elm:Code" code="371908008" display="Oxygen administration by mask (procedure)"><elm:system name="SNOMED-CT"/></elm:value>
+									</elm:element>
 								</actionSentence>
 							</simpleAction>
 							<simpleAction xsi:type="CreateAction">  <!--	Oxygen via simple face mask. Note that this is not an exact match with SNOMED CT. -->
 								<textEquivalent value="Oxygen via simple face mask"/>
-								<actionSentence xsi:type="ObjectExpression" objectType="vmr:ProcedureProposal">
-									<property name="procedureCode">
-										<value xsi:type="CodeLiteral" code="371908008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT" displayName="Oxygen administration by mask (procedure)"/>
-									</property>
+								<actionSentence xsi:type="elm:Instance" classType="vmr:ProcedureProposal">
+									<elm:element name="procedureCode">
+										<elm:value xsi:type="elm:Code" code="371908008" display="Oxygen administration by mask (procedure)"><elm:system name="SNOMED-CT"/></elm:value>
+									</elm:element>
 								</actionSentence>
 							</simpleAction>
 							<simpleAction xsi:type="CreateAction">  <!--	Oxygen via venturi mask -->
 								<textEquivalent value="Oxygen via venturi mask"/>
-								<actionSentence xsi:type="ObjectExpression" objectType="vmr:ProcedureProposal">
-									<property name="procedureCode">
-										<value xsi:type="CodeLiteral" code="429253002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT" displayName="Oxygen administration by Venturi mask (procedure)"/>
-									</property>
+								<actionSentence xsi:type="elm:Instance" classType="vmr:ProcedureProposal">
+									<elm:element name="procedureCode">
+										<elm:value xsi:type="elm:Code" code="429253002" display="Oxygen administration by Venturi mask (procedure)"><elm:system name="SNOMED-CT"/></elm:value>
+									</elm:element>
 								</actionSentence>
 							</simpleAction>
 						</subElements>
@@ -225,18 +234,18 @@
 						<subElements>
 							<simpleAction xsi:type="CreateAction"> <!-- Pulse Oxymetry -->
 								<textEquivalent value="Pulse Oxymetry"/>
-								<actionSentence xsi:type="ObjectExpression" objectType="vmr:ProcedureProposal">
-									<property name="procedureCode">
-										<value xsi:type="CodeLiteral" code="252465000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT" displayName="Pulse oximetry (procedure)"/>
-									</property>
+								<actionSentence xsi:type="elm:Instance" classType="vmr:ProcedureProposal">
+									<elm:element name="procedureCode">
+										<elm:value xsi:type="elm:Code" code="252465000" display="Pulse oximetry (procedure)"><elm:system name="SNOMED-CT"/></elm:value>
+									</elm:element>
 								</actionSentence>
 							</simpleAction>
 							<simpleAction xsi:type="CreateAction">  <!-- Blood gas, arterial -->
 								<textEquivalent value="Blood gas, arterial"/>
-								<actionSentence xsi:type="ObjectExpression" objectType="vmr:ProcedureProposal">
-									<property name="procedureCode">
-										<value xsi:type="CodeLiteral" code="32564009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT" displayName="Arterial specimen collection for laboratory test (procedure)"/>
-									</property>
+								<actionSentence xsi:type="elm:Instance" classType="vmr:ProcedureProposal">
+									<elm:element name="procedureCode">
+										<elm:value xsi:type="elm:Code" code="32564009" display="Arterial specimen collection for laboratory test (procedure)"><elm:system name="SNOMED-CT"/></elm:value>
+									</elm:element>
 								</actionSentence>
 							</simpleAction>
 						</subElements>

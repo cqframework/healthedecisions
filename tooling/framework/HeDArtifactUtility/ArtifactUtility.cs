@@ -73,7 +73,7 @@ namespace HeDArtifactUtility
 					}
 					//schemaSet.Compile();
 
-					var artifact = ArtifactReader.Read(artifactDocument, schemaSet);
+					var artifact = ArtifactReader.Read(artifactDocument, schemaSet, Path.GetDirectoryName(InputFileName));
 
 					DoMessage("Verifying artifact semantics...");
 
@@ -103,7 +103,7 @@ namespace HeDArtifactUtility
 
 						    var writer = ArtifactWriterFactory.GetHandler(TargetFormat);
 
-						    var outputFileName = GetOutputFileName();
+						    var outputFileName = GetOutputFileName(writer.GetExtension());
 						    using (var outputFile = File.Open(outputFileName, FileMode.Create))
 						    {
 							    writer.Write(outputFile, translatedArtifact);
@@ -120,11 +120,11 @@ namespace HeDArtifactUtility
 			}
 		}
 
-		private string GetOutputFileName()
+		private string GetOutputFileName(string targetExtension)
 		{
 			if (String.IsNullOrEmpty(OutputFileName))
 			{
-				OutputFileName = String.Format("{0}.{1}{2}", Path.GetFileNameWithoutExtension(InputFileName), TargetFormat, Path.GetExtension(InputFileName));
+				OutputFileName = String.Format("{0}.{1}{2}", Path.GetFileNameWithoutExtension(InputFileName), TargetFormat, targetExtension);
 			}
 
 			return OutputFileName;
@@ -141,6 +141,7 @@ namespace HeDArtifactUtility
 					{
 						case HandlerType.ModuleRegistration : ModuleRegistrarFactory.LoadMap(MapReader.ReadMap(mapDocument)); break;
 						case HandlerType.TypeResolution : TypeResolverFactory.LoadMap(MapReader.ReadMap(mapDocument)); break;
+						case HandlerType.LibraryReader : LibraryReaderFactory.LoadMap(MapReader.ReadMap(mapDocument)); break;
 						case HandlerType.Verification : NodeVerifierFactory.LoadMap(MapReader.ReadMap(mapDocument)); break;
 						case HandlerType.Translation : ArtifactTranslatorFactory.LoadMap(MapReader.ReadMap(mapDocument)); break;
 						case HandlerType.NodeTranslation : NodeTranslatorFactory.LoadMap(MapReader.ReadMap(mapDocument)); break;
@@ -157,7 +158,7 @@ namespace HeDArtifactUtility
 			{
 				foreach (var o in moduleRegistrar.Register())
 				{
-					OperatorMap.RegisterOperator(o);
+					OperatorMap.Core.RegisterOperator(o);
 				}
 			}
 		}

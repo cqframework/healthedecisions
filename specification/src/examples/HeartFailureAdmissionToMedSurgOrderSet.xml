@@ -2,12 +2,18 @@
 <?schematron-schema href="../main/schematron/knowledgeartifact.sch"?>
 <?schematron-schema href="../main/schematron/ordersets.sch"?>
 <!-- Rationale: -->
-<knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
-	xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:dt="urn:hl7-org:cdsdt:r2"
-	xmlns:p1="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace"
+<knowledgeDocument 
+	xmlns="urn:hl7-org:knowledgeartifact:r1"
+	xmlns:vmr="urn:hl7-org:vmr:r2" 
+	xmlns:dt="urn:hl7-org:cdsdt:r2" 
+	xmlns:elm="urn:hl7-org:elm:r1" 
+	xmlns:t="urn:hl7-org:elm-types:r1"
+	xmlns:a="urn:hl7-org:cql-annotations:r1"
+	xmlns:p1="http://www.w3.org/1999/xhtml" 
+	xmlns:xml="http://www.w3.org/XML/1998/namespace"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../main/schema/knowledgeartifact/knowledgedocument.xsd
-	 urn:hl7-org:vmr:r2 ../main/schema/vmr/vmr.xsd">
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd
+	 urn:hl7-org:vmr:r2 ../schema/vmr/vmr.xsd urn:hl7-org:elm:r1 ../schema/elm/clinicalexpression.xsd urn:hl7-org:elm-types:r1 ../schema/elm/types.xsd urn:hl7-org:cql-annotations:r1 ../schema/elm/cqlannotations.xsd">
 	<!-- Heart Failure Admission to Med/Surg Unit This is a partial order set 
 		for Heart Failure, Admission to the Med/Surg unit of a hospital. This example 
 		was chosen to illustrate a routine order set and how to represent sections, 
@@ -125,65 +131,57 @@
 		</publishers>
 	</metadata>
 	<externalData>
+		<codesystem name="SNOMED-CT" id="2.16.840.1.113883.6.96"/>
+		<codesystem name="NDF-RT" id="2.16.840.1.113883.3.26.1.5"/>
+		<codesystem name="RxNorm" id="2.16.840.1.113883.6.88"/>
+		<codesystem name="FDA Routes of Administration" id="2.16.840.1.113883.3.26.1.1.1"/>
+		<codesystem name="LOINC" id="2.16.840.1.113883.6.1"/>
+		<codesystem name="Frequencies" id="???"/>
 		<def name="Patient">
-			<expression xsi:type="ClinicalRequest" cardinality="Single"
-				dataType="vmr:EvaluatedPerson" isInitial="true" />
+			<elm:expression xsi:type="elm:SingletonFrom">
+				<elm:operand xsi:type="elm:Retrieve" dataType="vmr:EvaluatedPerson" />
+			</elm:expression>
 		</def>
 		<def name="AdverseReactionToACEInhibitors">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
-				dataType="vmr:AdverseEvent" isInitial="true">
-				<codes xsi:type="List">
-					<element xsi:type="CodeLiteral" code="293500009"
-						codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"
-						displayName="Angiotensin-converting-enzyme inhibitor adverse reaction (disorder)" />
-					<element xsi:type="CodeLiteral" code="295036000"
-						codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"
-						displayName="Angiotensin-converting-enzyme inhibitor allergy (disorder)" />
-					<element xsi:type="CodeLiteral" code="407579007"
-						codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"
-						displayName="History of - angiotensin II receptor antagonist allergy (situation)" />
-					<element xsi:type="CodeLiteral" code="407590002"
-						codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"
-						displayName="Angiotensin II receptor antagonist adverse reaction " />
-				</codes>
-			</expression>
+			<elm:expression xsi:type="elm:Retrieve" dataType="vmr:AdverseEvent">
+				<elm:codes xsi:type="elm:List">
+					<elm:element xsi:type="elm:Code" code="293500009" display="Angiotensin-converting-enzyme inhibitor adverse reaction (disorder)" ><elm:system name="SNOMED-CT"/></elm:element>
+					<elm:element xsi:type="elm:Code" code="295036000" display="Angiotensin-converting-enzyme inhibitor allergy (disorder)" ><elm:system name="SNOMED-CT"/></elm:element>
+					<elm:element xsi:type="elm:Code" code="407579007" display="History of - angiotensin II receptor antagonist allergy (situation)" ><elm:system name="SNOMED-CT"/></elm:element>
+					<elm:element xsi:type="elm:Code" code="407590002" display="Angiotensin II receptor antagonist adverse reaction " ><elm:system name="SNOMED-CT"/></elm:element>
+				</elm:codes>
+			</elm:expression>
 		</def>
 		<def name="AdministeredACEInhibitors">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
+			<elm:expression xsi:type="elm:Retrieve"
 				dataType="vmr:SubstanceAdministrationEvent" codeProperty="substanceAdministrationGeneralPurpose"
-				dateProperty="administrationTimeInterval.low" useValueSets="true">
-				<description>ACE inhibitor administered to patient</description>
-				<codes xsi:type="List">
-					<element xsi:type="CodeLiteral" code="N0000000181"
-						codeSystem="2.16.840.1.113883.3.26.1.5" codeSystemName="NDF-RT"
-						displayName="Angiotensin-Converting Enzyme Inhibitors" />
-				</codes>
-			</expression>
+				dateProperty="administrationTimeInterval.low">
+				<elm:annotation xsi:type="a:Annotation"><a:s>ACE inhibitor administered to patient</a:s></elm:annotation>
+				<elm:codes xsi:type="elm:List">
+					<elm:element xsi:type="elm:Code" code="N0000000181" display="Angiotensin-Converting Enzyme Inhibitors" ><elm:system name="NDF-RT"/></elm:element>
+				</elm:codes>
+			</elm:expression>
 		</def>
 		<def name="PrescribedACEInhibitors">
-			<expression xsi:type="ClinicalRequest" cardinality="Multiple"
+			<elm:expression xsi:type="elm:Retrieve"
 				dataType="vmr:SubstanceAdministrationProposal" codeProperty="substanceAdministrationGeneralPurpose"
-				dateProperty="proposedAdministrationTimeInterval.low" useValueSets="true">
-				<description>Patient prescribed ACE inhibitor medication</description>
-				<codes xsi:type="List">
-					<element xsi:type="CodeLiteral" code="N0000000181"
-						codeSystem="2.16.840.1.113883.3.26.1.5" codeSystemName="NDF-RT"
-						displayName="Angiotensin-Converting Enzyme Inhibitors" />
-				</codes>
-			</expression>
+				dateProperty="proposedAdministrationTimeInterval.low">
+				<elm:annotation xsi:type="a:Annotation"><a:s>Patient prescribed ACE inhibitor medication</a:s></elm:annotation>
+				<elm:codes xsi:type="elm:List">
+					<elm:element xsi:type="elm:Code" code="N0000000181" display="Angiotensin-Converting Enzyme Inhibitors" ><elm:system name="NDF-RT"/></elm:element>
+				</elm:codes>
+			</elm:expression>
 		</def>
 	</externalData>
 	<expressions>
 		<def name="PatientAgeInYears">
-			<expression xsi:type="DateDiff">
-				<description>Number of years from patient's birth time to today</description>
-				<startDate xsi:type="Property" path="birthTime">
-					<source xsi:type="ExpressionRef" name="Patient" />
-				</startDate>
-				<endDate xsi:type="Today" />
-				<granularity xsi:type="Literal" valueType="DateGranularity"
-					value="Year" />
-			</expression>
+			<elm:expression xsi:type="elm:DurationBetween" precision="Year">
+				<elm:annotation xsi:type="a:Annotation"><a:s>Number of years from patient's birth time to today</a:s></elm:annotation>
+				<elm:operand xsi:type="elm:Property" path="birthTime">
+					<elm:source xsi:type="elm:ExpressionRef" name="Patient" />
+				</elm:operand>
+				<elm:operand xsi:type="elm:Today" />
+			</elm:expression>
 		</def>
 	</expressions>
 	<actionGroup>
@@ -218,13 +216,11 @@
 								</resources>
 							</evidence>
 						</supportingEvidence>
-						<actionSentence xsi:type="ObjectExpression"
-							objectType="vmr:CommunicationProposal">
-							<property name="message">
-								<value xsi:type="ComplexLiteral">
-									<value xsi:type="dt:ED" value="ADHERE Risk Model" />
-								</value>
-							</property>
+						<actionSentence xsi:type="elm:Instance"
+							classType="vmr:CommunicationProposal">
+							<elm:element name="message">
+								<elm:value xsi:type="elm:Literal" valueType="t:String" value="ADHERE Risk Model"/>
+							</elm:element>
 						</actionSentence>
 					</simpleAction>
 					<simpleAction xsi:type="CreateAction">
@@ -239,13 +235,11 @@
 								</resources>
 							</evidence>
 						</supportingEvidence>
-						<actionSentence xsi:type="ObjectExpression"
-							objectType="vmr:CommunicationProposal">
-							<property name="message">
-								<value xsi:type="ComplexLiteral">
-									<value xsi:type="dt:ED" value="Heart Failure Survival Score" />
-								</value>
-							</property>
+						<actionSentence xsi:type="elm:Instance"
+							classType="vmr:CommunicationProposal">
+							<elm:element name="message">
+								<elm:value xsi:type="elm:Literal" valueType="t:String" value="Heart Failure Survival Score"/>
+							</elm:element>
 						</actionSentence>
 					</simpleAction>
 				</subElements>
@@ -265,24 +259,22 @@
 						<!-- Create a proposed procedure to be presented to the physician at 
 							CPOE time -->
 						<textEquivalent value="Ambulate" />
-						<actionSentence xsi:type="ObjectExpression"
-							objectType="vmr:ProcedureProposal">
-							<property name="procedureCode">
-								<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.96"
-									code="62013009" codeSystemName="SNOMED-CT" displayName="Ambulating Patient" />
-							</property>
+						<actionSentence xsi:type="elm:Instance"
+							classType="vmr:ProcedureProposal">
+							<elm:element name="procedureCode">
+								<elm:value xsi:type="elm:Code" code="62013009" display="Ambulating Patient" ><elm:system name="SNOMED-CT"/></elm:value>
+							</elm:element>
 						</actionSentence>
 					</simpleAction>
 					<simpleAction xsi:type="CreateAction">
 						<textEquivalent value="Bed rest" />
-						<actionSentence xsi:type="ObjectExpression"
-							objectType="vmr:ProcedureProposal">
-							<property name="procedureCode">
-								<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.96"
-									code="183074009" codeSystemName="SNOMED-CT" displayName="Recommendation to rest in bed" />
+						<actionSentence xsi:type="elm:Instance"
+							classType="vmr:ProcedureProposal">
+							<elm:element name="procedureCode">
+								<elm:value xsi:type="elm:Code" code="183074009" display="Recommendation to rest in bed" ><elm:system name="SNOMED-CT"/></elm:value>
 								<!-- Terminology note: this is supposed to be an order, not a recommendation, 
 									so SNOMED-CT term is not a good fit for this -->
-							</property>
+							</elm:element>
 						</actionSentence>
 					</simpleAction>
 				</subElements>
@@ -305,26 +297,23 @@
 									<behavior xsi:type="PrecheckBehavior" value="Yes" />
 								</behaviors>
 								<textEquivalent value="Cardiac Monitor" />
-								<actionSentence xsi:type="ObjectExpression"
-									objectType="vmr:ProcedureProposal">
-									<property name="procedureCode">
-										<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.96"
-											code="88140007" codeSystemName="SNOMED-CT" displayName="Cardiac monitor surveillance" />
-									</property>
+								<actionSentence xsi:type="elm:Instance"
+									classType="vmr:ProcedureProposal">
+									<elm:element name="procedureCode">
+										<elm:value xsi:type="elm:Code" code="88140007" display="Cardiac monitor surveillance" ><elm:system name="SNOMED-CT"/></elm:value>
+									</elm:element>
 								</actionSentence>
 							</simpleAction>
 							<simpleAction xsi:type="CreateAction">
 								<!-- Measure blood pressure, orthostatic -->
 								<textEquivalent value="Measure blood pressure, orthostatic" />
-								<actionSentence xsi:type="ObjectExpression"
-									objectType="vmr:ProcedureProposal">
-									<property name="procedureCode">
-										<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.96"
-											code="425058005" codeSystemName="SNOMED-CT"
-											displayName="Taking orthostatic vital signs" />
+								<actionSentence xsi:type="elm:Instance"
+									classType="vmr:ProcedureProposal">
+									<elm:element name="procedureCode">
+										<elm:value xsi:type="elm:Code" code="425058005" display="Taking orthostatic vital signs" ><elm:system name="SNOMED-CT"/></elm:value>
 										<!-- Terminology comment: SNOMED Term is an indirect match for 
 											the desired order -->
-									</property>
+									</elm:element>
 								</actionSentence>
 							</simpleAction>
 						</subElements>
@@ -337,23 +326,20 @@
 						<subElements>
 							<simpleAction xsi:type="CreateAction">
 								<textEquivalent value="Elevate head of bed" />
-								<actionSentence xsi:type="ObjectExpression"
-									objectType="vmr:ProcedureProposal">
-									<property name="procedureCode">
-										<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.96"
-											code="423171007" codeSystemName="SNOMED-CT" displayName="Elevation of head of bed" />
-									</property>
+								<actionSentence xsi:type="elm:Instance"
+									classType="vmr:ProcedureProposal">
+									<elm:element name="procedureCode">
+										<elm:value xsi:type="elm:Code" code="423171007" display="Elevation of head of bed" ><elm:system name="SNOMED-CT"/></elm:value>
+									</elm:element>
 								</actionSentence>
 							</simpleAction>
 							<simpleAction xsi:type="CreateAction">
 								<textEquivalent value="Urinary catheter initiation/management" />
-								<actionSentence xsi:type="ObjectExpression"
-									objectType="vmr:ProcedureProposal">
-									<property name="procedureCode">
-										<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.96"
-											code="429723008" codeSystemName="SNOMED-CT"
-											displayName="Procedure involving urinary catheter" />
-									</property>
+								<actionSentence xsi:type="elm:Instance"
+									classType="vmr:ProcedureProposal">
+									<elm:element name="procedureCode">
+										<elm:value xsi:type="elm:Code" code="429723008" display="Procedure involving urinary catheter" ><elm:system name="SNOMED-CT"/></elm:value>
+									</elm:element>
 								</actionSentence>
 							</simpleAction>
 						</subElements>
@@ -377,28 +363,27 @@
 									to consider ordering an ACE inhibitor. -->
 								<conditions>
 									<condition>
-										<logic xsi:type="And">
-											<operand xsi:type="GreaterOrEqual">
-												<operand xsi:type="ExpressionRef" name="PatientAgeInYears" />
-												<operand xsi:type="RealLiteral" value="18" />
-											</operand>
-											<operand xsi:type="IsEmpty">
-												<operand xsi:type="ExpressionRef" name="AdverseReactionToACEInhibitors" />
-											</operand>
+										<logic xsi:type="elm:And">
+											<elm:operand xsi:type="elm:GreaterOrEqual">
+												<elm:operand xsi:type="elm:ExpressionRef" name="PatientAgeInYears" />
+												<elm:operand xsi:type="elm:Literal" valueType="t:Integer" value="18" />
+											</elm:operand>
+											<elm:operand xsi:type="elm:Not">
+												<elm:operand xsi:type="elm:Exists">
+													<elm:operand xsi:type="elm:ExpressionRef" name="AdverseReactionToACEInhibitors" />
+												</elm:operand>
+											</elm:operand>
 										</logic>
 										<conditionRole value="ApplicableScenario" />
 									</condition>
 								</conditions>
 								<textEquivalent
 									value="If the patient is over 18 years old and not allergic to an ACE inhibitor and not receiving an ACE inhibitor and LVEF is less than 40%, then consider prescribing an ACE inhibitor." />
-								<actionSentence xsi:type="ObjectExpression"
-									objectType="vmr:CommunicationProposal">
-									<property name="message">
-										<value xsi:type="ComplexLiteral">
-											<value xsi:type="dt:ED"
-												value="If the patient is over 18 years old and not allergic to an ACE inhibitor and not receiving an ACE inhibitor and LVEF is less than 40%, then consider prescribing an ACE inhibitor." />
-										</value>
-									</property>
+								<actionSentence xsi:type="elm:Instance"
+									classType="vmr:CommunicationProposal">
+									<elm:element name="message">
+												<elm:value xsi:type="elm:Literal" valueType="t:String" value="If the patient is over 18 years old and not allergic to an ACE inhibitor and not receiving an ACE inhibitor and LVEF is less than 40%, then consider prescribing an ACE inhibitor."/>
+									</elm:element>
 								</actionSentence>
 							</simpleAction>
 						</subElements>
@@ -461,43 +446,45 @@
 									<simpleAction xsi:type="CreateAction">
 										<textEquivalent
 											value="captopril 6.25 milligram orally 3 times a day" />
-										<actionSentence xsi:type="ObjectExpression"
-											objectType="vmr:SubstanceAdministrationProposal">
-											<property name="substance.substanceCode">
-												<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.88"
-													code="1998" codeSystemName="RxNorm" displayName="captopril" />
-											</property>
-											<property name="dose">
-												<value xsi:type="List">
-													<element xsi:type="ObjectExpression" objectType="vmr:Dose">
-														<property name="doseQuantity">
-															<value xsi:type="PhysicalQuantityIntervalLiteral"
-																lowClosed="true" highClosed="true">
-																<low value="6.25" unit="mg" />
-																<high value="6.25" unit="mg" />
-															</value>
-														</property>
-														<property name="deliveryRoute">
-															<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.3.26.1.1.1"
-																code="001" codeSystemName="FDA Routes of Administration"
-																displayName="ORAL" />
-														</property>
-														<property name="frequency">
-															<value xsi:type="ComplexLiteral">
-																<value xsi:type="vmr:Schedule">
-																	<vmr:cycle>
-																		<vmr:cycleTiming xsi:type="vmr:CodedRecurringEvent">
-																			<vmr:repeatCode code="??">
-																				<dt:displayName value="3 times per day" />
-																			</vmr:repeatCode>
-																		</vmr:cycleTiming>
-																	</vmr:cycle>
-																</value>
-															</value>
-														</property>
-													</element>
-												</value>
-											</property>
+										<actionSentence xsi:type="elm:Instance"
+											classType="vmr:SubstanceAdministrationProposal">
+											<elm:element name="substance.substanceCode">
+												<elm:value xsi:type="elm:Code" code="1998" display="captopril" ><elm:system name="RxNorm"/></elm:value>
+											</elm:element>
+											<elm:element name="dose">
+												<elm:value xsi:type="elm:List">
+													<elm:element xsi:type="elm:Instance" classType="vmr:Dose">
+														<elm:element name="doseQuantity">
+															<elm:value xsi:type="elm:Interval" lowClosed="true" highClosed="true">
+																<elm:low xsi:type="elm:Quantity" value="6.25" unit="mg" />
+																<elm:high xsi:type="elm:Quantity" value="6.25" unit="mg" />
+															</elm:value>
+														</elm:element>
+														<elm:element name="deliveryRoute">
+															<elm:value xsi:type="elm:Code" code="001" display="ORAL" ><elm:system name="FDA Routes of Administration"/></elm:value>
+														</elm:element>
+														<elm:element name="frequency">
+															<elm:value xsi:type="elm:Instance" classType="vmr:Schedule">
+																<elm:element name="cycle">
+																	<elm:value xsi:type="elm:List">
+																		<elm:element xsi:type="elm:Instance" classType="vmr:Cycle">
+																			<elm:element name="cycleTiming">
+																				<elm:value xsi:type="elm:List">
+																					<elm:element xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+																						<elm:element name="repeatCode">
+																							<elm:value xsi:type="elm:Code" code="??" display="3 times per day"><elm:system name="Frequencies"/></elm:value>
+																						</elm:element>
+																					</elm:element>
+																				</elm:value>
+																			</elm:element>
+																		</elm:element>
+																	</elm:value>
+																</elm:element>
+															</elm:value>
+														</elm:element>
+													</elm:element>
+												</elm:value>
+											</elm:element>
 
 											<!-- vMR does not have a way to say "3 times per day". Instead, 
 												a dosing period must be specified. Since 3 times per day would be every 8 
@@ -515,132 +502,138 @@
 									<simpleAction xsi:type="CreateAction">
 										<textEquivalent
 											value="captopril 12.5 milligram orally 3 times a day" />
-										<actionSentence xsi:type="ObjectExpression"
-											objectType="vmr:SubstanceAdministrationProposal">
-											<property name="substance.substanceCode">
-												<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.88"
-													code="1998" codeSystemName="RxNorm" displayName="captopril" />
-											</property>
-											<property name="dose">
-												<value xsi:type="List">
-													<element xsi:type="ObjectExpression" objectType="vmr:Dose">
-														<property name="doseQuantity">
-															<value xsi:type="PhysicalQuantityIntervalLiteral"
-																lowClosed="true" highClosed="true">
-																<low value="12.5" unit="mg" />
-																<high value="12.5" unit="mg" />
-															</value>
-														</property>
-														<property name="deliveryRoute">
-															<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.3.26.1.1.1"
-																code="001" codeSystemName="FDA Routes of Administration"
-																displayName="ORAL" />
-														</property>
-														<property name="frequency">
-															<value xsi:type="ComplexLiteral">
-																<value xsi:type="vmr:Schedule">
-																	<vmr:cycle>
-																		<vmr:cycleTiming xsi:type="vmr:CodedRecurringEvent">
-																			<vmr:repeatCode code="??">
-																				<dt:displayName value="3 times per day" />
-																			</vmr:repeatCode>
-																		</vmr:cycleTiming>
-																	</vmr:cycle>
-																</value>
-															</value>
-														</property>
-													</element>
-												</value>
-											</property>
+										<actionSentence xsi:type="elm:Instance"
+											classType="vmr:SubstanceAdministrationProposal">
+											<elm:element name="substance.substanceCode">
+												<elm:value xsi:type="elm:Code" code="1998" display="captopril" ><elm:system name="RxNorm"/></elm:value>
+											</elm:element>
+											<elm:element name="dose">
+												<elm:value xsi:type="elm:List">
+													<elm:element xsi:type="elm:Instance" classType="vmr:Dose">
+														<elm:element name="doseQuantity">
+															<elm:value xsi:type="elm:Interval" lowClosed="true" highClosed="true">
+																<elm:low xsi:type="elm:Quantity" value="12.5" unit="mg" />
+																<elm:high xsi:type="elm:Quantity" value="12.5" unit="mg" />
+															</elm:value>
+														</elm:element>
+														<elm:element name="deliveryRoute">
+															<elm:value xsi:type="elm:Code" code="001" display="ORAL" ><elm:system  name="FDA Routes of Administration"/></elm:value>
+														</elm:element>
+														<elm:element name="frequency">
+															<elm:value xsi:type="elm:Instance" classType="vmr:Schedule">
+																<elm:element name="cycle">
+																	<elm:value xsi:type="elm:List">
+																		<elm:element xsi:type="elm:Instance" classType="vmr:Cycle">
+																			<elm:element name="cycleTiming">
+																				<elm:value xsi:type="elm:List">
+																					<elm:element xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+																						<elm:element name="repeatCode">
+																							<elm:value xsi:type="elm:Code" code="??" display="3 times per day"><elm:system name="Frequencies"/></elm:value>
+																						</elm:element>
+																					</elm:element>
+																				</elm:value>
+																			</elm:element>
+																		</elm:element>
+																	</elm:value>
+																</elm:element>
+															</elm:value>
+														</elm:element>
+													</elm:element>
+												</elm:value>
+											</elm:element>
 										</actionSentence>
 									</simpleAction>
 									<simpleAction xsi:type="CreateAction">
 										<textEquivalent value="captopril 25 milligram orally 3 times a day" />
-										<actionSentence xsi:type="ObjectExpression"
-											objectType="vmr:SubstanceAdministrationProposal">
-											<property name="substance.substanceCode">
-												<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.88"
-													code="1998" codeSystemName="RxNorm" displayName="captopril" />
-											</property>
-											<property name="dose">
-												<value xsi:type="List">
-													<element xsi:type="ObjectExpression" objectType="vmr:Dose">
-														<property name="doseQuantity">
-															<value xsi:type="PhysicalQuantityIntervalLiteral"
-																lowClosed="true" highClosed="true">
-																<low value="25" unit="mg" />
-																<high value="25" unit="mg" />
-															</value>
-														</property>
-														<property name="deliveryRoute">
-															<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.3.26.1.1.1"
-																code="001" codeSystemName="FDA Routes of Administration"
-																displayName="ORAL" />
-														</property>
-														<property name="frequency">
-															<value xsi:type="ComplexLiteral">
-																<value xsi:type="vmr:Schedule">
-																	<vmr:cycle>
-																		<vmr:cycleTiming xsi:type="vmr:CodedRecurringEvent">
-																			<vmr:repeatCode code="??">
-																				<dt:displayName value="3 times per day" />
-																			</vmr:repeatCode>
-																		</vmr:cycleTiming>
-																	</vmr:cycle>
-																</value>
-															</value>
-														</property>
-													</element>
-												</value>
-											</property>
+										<actionSentence xsi:type="elm:Instance"
+											classType="vmr:SubstanceAdministrationProposal">
+											<elm:element name="substance.substanceCode">
+												<elm:value xsi:type="elm:Code" code="1998" display="captopril" ><elm:system name="RxNorm"/></elm:value>
+											</elm:element>
+											<elm:element name="dose">
+												<elm:value xsi:type="elm:List">
+													<elm:element xsi:type="elm:Instance" classType="vmr:Dose">
+														<elm:element name="doseQuantity">
+															<elm:value xsi:type="elm:Interval" lowClosed="true" highClosed="true">
+																<elm:low xsi:type="elm:Quantity" value="25" unit="mg" />
+																<elm:high xsi:type="elm:Quantity" value="25" unit="mg" />
+															</elm:value>
+														</elm:element>
+														<elm:element name="deliveryRoute">
+															<elm:value xsi:type="elm:Code" code="001" display="ORAL" ><elm:system name="FDA Routes of Administration"/></elm:value>
+														</elm:element>
+														<elm:element name="frequency">
+															<elm:value xsi:type="elm:Instance" classType="vmr:Schedule">
+																<elm:element name="cycle">
+																	<elm:value xsi:type="elm:List">
+																		<elm:element xsi:type="elm:Instance" classType="vmr:Cycle">
+																			<elm:element name="cycleTiming">
+																				<elm:value xsi:type="elm:List">
+																					<elm:element xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+																						<elm:element name="repeatCode">
+																							<elm:value xsi:type="elm:Code" code="??" display="3 times per day"><elm:system name="Frequencies"/></elm:value>
+																						</elm:element>
+																					</elm:element>
+																				</elm:value>
+																			</elm:element>
+																		</elm:element>
+																	</elm:value>
+																</elm:element>
+															</elm:value>
+														</elm:element>
+													</elm:element>
+												</elm:value>
+											</elm:element>
 										</actionSentence>
 									</simpleAction>
 								</subElements>
 							</actionGroup>
 							<simpleAction xsi:type="CreateAction">
 								<textEquivalent value="lisinopril 2.5 milligram orally once a day" />
-								<actionSentence xsi:type="ObjectExpression"
-									objectType="vmr:SubstanceAdministrationProposal">
-									<property name="substance.substanceCode">
-										<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.88"
-											code="29046" codeSystemName="RxNorm" displayName="Lisinopril" />
-									</property>
-									<property name="dose">
-										<value xsi:type="List">
-											<element xsi:type="ObjectExpression" objectType="vmr:Dose">
-												<property name="doseQuantity">
+								<actionSentence xsi:type="elm:Instance"
+									classType="vmr:SubstanceAdministrationProposal">
+									<elm:element name="substance.substanceCode">
+										<elm:value xsi:type="elm:Code" code="29046" display="Lisinopril" ><elm:system name="RxNorm"/></elm:value>
+									</elm:element>
+									<elm:element name="dose">
+										<elm:value xsi:type="elm:List">
+											<elm:element xsi:type="elm:Instance" classType="vmr:Dose">
+												<elm:element name="doseQuantity">
 													<!-- units should be coded value, but ISO datatypes do not support 
 														a coded value for the units of meausre. We will work with the vMR group to 
 														address this. In the meantime, we are using coded values for all UOM from 
 														UCUM (https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.113883.6.8) 
 														until this issue is addressed ... -->
-													<value xsi:type="PhysicalQuantityIntervalLiteral"
-														lowClosed="true" highClosed="true">
-														<low value="2.5" unit="mg" />
-														<high value="2.5" unit="mg" />
-													</value>
-												</property>
-												<property name="deliveryRoute">
-													<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.3.26.1.1.1"
-														code="001" codeSystemName="FDA Routes of Administration"
-														displayName="ORAL" />
-												</property>
-												<property name="frequency">
-													<value xsi:type="ComplexLiteral">
-														<value xsi:type="vmr:Schedule">
-															<vmr:cycle>
-																<vmr:cycleTiming xsi:type="vmr:CodedRecurringEvent">
-																	<vmr:repeatCode code="??">
-																		<dt:displayName value="3 times per day" />
-																	</vmr:repeatCode>
-																</vmr:cycleTiming>
-															</vmr:cycle>
-														</value>
-													</value>
-												</property>
-											</element>
-										</value>
-									</property>
+													<elm:value xsi:type="elm:Interval" lowClosed="true" highClosed="true">
+														<elm:low xsi:type="elm:Quantity" value="2.5" unit="mg" />
+														<elm:high xsi:type="elm:Quantity" value="2.5" unit="mg" />
+													</elm:value>
+												</elm:element>
+												<elm:element name="deliveryRoute">
+													<elm:value xsi:type="elm:Code" code="001" display="ORAL" ><elm:system name="FDA Routes of Administration"/></elm:value>
+												</elm:element>
+												<elm:element name="frequency">
+													<elm:value xsi:type="elm:Instance" classType="vmr:Schedule">
+														<elm:element name="cycle">
+															<elm:value xsi:type="elm:List">
+																<elm:element xsi:type="elm:Instance" classType="vmr:Cycle">
+																	<elm:element name="cycleTiming">
+																		<elm:value xsi:type="elm:List">
+																			<elm:element xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+																				<elm:element name="repeatCode">
+																					<elm:value xsi:type="elm:Code" code="??" display="3 times per day"><elm:system name="Frequencies"/></elm:value>
+																				</elm:element>
+																			</elm:element>
+																		</elm:value>
+																	</elm:element>
+																</elm:element>
+															</elm:value>
+														</elm:element>
+													</elm:value>
+												</elm:element>
+											</elm:element>
+										</elm:value>
+									</elm:element>
 								</actionSentence>
 							</simpleAction>
 						</subElements>
@@ -702,27 +695,23 @@
 							<simpleAction xsi:type="CreateAction">
 								<textEquivalent
 									value="carvedilol 3.125 milligram orally 2 times a day" />
-								<actionSentence xsi:type="ObjectExpression"
-									objectType="vmr:SubstanceAdministrationProposal">
-									<property name="substance.substanceCode">
-										<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.88"
-											code="20352" codeSystemName="RxNorm" displayName="carvedilol" />
-									</property>
-									<property name="dose">
-										<value xsi:type="List">
-											<element xsi:type="ObjectExpression" objectType="vmr:Dose">
-												<property name="doseQuantity">
-													<value xsi:type="PhysicalQuantityIntervalLiteral"
-														lowClosed="true" highClosed="true">
-														<low value="3.125" unit="mg" />
-														<high value="3.125" unit="mg" />
-													</value>
-												</property>
-												<property name="deliveryRoute">
-													<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.3.26.1.1.1"
-														code="001" codeSystemName="FDA Routes of Administration"
-														displayName="ORAL" />
-												</property>
+								<actionSentence xsi:type="elm:Instance"
+									classType="vmr:SubstanceAdministrationProposal">
+									<elm:element name="substance.substanceCode">
+										<elm:value xsi:type="elm:Code" code="20352" display="carvedilol" ><elm:system name="RxNorm"/></elm:value>
+									</elm:element>
+									<elm:element name="dose">
+										<elm:value xsi:type="elm:List">
+											<elm:element xsi:type="elm:Instance" classType="vmr:Dose">
+												<elm:element name="doseQuantity">
+													<elm:value xsi:type="elm:Interval" lowClosed="true" highClosed="true"> 
+														<elm:low xsi:type="elm:Quantity" value="3.125" unit="mg" />
+														<elm:high xsi:type="elm:Quantity" value="3.125" unit="mg" />
+													</elm:value>
+												</elm:element>
+												<elm:element name="deliveryRoute">
+													<elm:value xsi:type="elm:Code" code="001" display="ORAL" ><elm:system name="FDA Routes of Administration"/></elm:value>
+												</elm:element>
 												<!-- vMR does not have a way to say "2 times per day". Instead, 
 													a dosing period must be specified. Since 2 times per day would be every 12 
 													hours for a fixed dosing period, we set 12 hours as the dosing period. The 
@@ -732,22 +721,28 @@
 												<!-- Since dosing frequency is typically a coded value in EMR's, 
 													perhaps we should consider adding a coded frequency field to vMR? Otherwise, 
 													this may be very difficult for current EMR's to process. -->
-												<property name="frequency">
-													<value xsi:type="ComplexLiteral">
-														<value xsi:type="vmr:Schedule">
-															<vmr:cycle>
-																<vmr:cycleTiming xsi:type="vmr:CodedRecurringEvent">
-																	<vmr:repeatCode code="??">
-																		<dt:displayName value="2 times per day" />
-																	</vmr:repeatCode>
-																</vmr:cycleTiming>
-															</vmr:cycle>
-														</value>
-													</value>
-												</property>
-											</element>
-										</value>
-									</property>
+												<elm:element name="frequency">
+													<elm:value xsi:type="elm:Instance" classType="vmr:Schedule">
+														<elm:element name="cycle">
+															<elm:value xsi:type="elm:List">
+																<elm:element xsi:type="elm:Instance" classType="vmr:Cycle">
+																	<elm:element name="cycleTiming">
+																		<elm:value xsi:type="elm:List">
+																			<elm:element xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+																				<elm:element name="repeatCode">
+																					<elm:value xsi:type="elm:Code" code="??" display="2 times per day"><elm:system name="Frequencies"/></elm:value>
+																				</elm:element>
+																			</elm:element>
+																		</elm:value>
+																	</elm:element>
+																</elm:element>
+															</elm:value>
+														</elm:element>
+													</elm:value>
+												</elm:element>
+											</elm:element>
+										</elm:value>
+									</elm:element>
 								</actionSentence>
 							</simpleAction>
 							<actionGroup>  <!-- Note that this sentence group has the same orderable item in both cases 
@@ -768,99 +763,101 @@
 									<simpleAction xsi:type="CreateAction">
 										<textEquivalent
 											value="metoprolol succinate SR 25 mg 24 hr tab 0.5 tablet orally once a day" />
-										<actionSentence xsi:type="ObjectExpression"
-											objectType="vmr:SubstanceAdministrationProposal">
-											<property name="substance.substanceCode">
-												<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.88"
-													code="TBD - now missing from RxNorm" codeSystemName="RxNorm"
-													displayName="24 HR Metoprolol Succinate 25 MG Extended Release Tablet" />
-											</property>
-											<property name="dose">
-												<value xsi:type="List">
-													<element xsi:type="ObjectExpression" objectType="vmr:Dose">
+										<actionSentence xsi:type="elm:Instance"
+											classType="vmr:SubstanceAdministrationProposal">
+											<elm:element name="substance.substanceCode">
+												<elm:value xsi:type="elm:Code" code="TBD - now missing from RxNorm" display="24 HR Metoprolol Succinate 25 MG Extended Release Tablet" ><elm:system name="RxNorm"/></elm:value>
+											</elm:element>
+											<elm:element name="dose">
+												<elm:value xsi:type="elm:List">
+													<elm:element xsi:type="elm:Instance" classType="vmr:Dose">
 
-														<property name="doseQuantity">
+														<elm:element name="doseQuantity">
 															<!-- units should be coded value, but ISO datatypes do not 
 																support a coded value for the units of measure. We will work with the vMR 
 																group to address this. In the meantime, we are using coded values for all 
 																UOM from UCUM (https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.113883.6.8) 
 																until this issue is addressed ... -->
-															<value xsi:type="PhysicalQuantityIntervalLiteral"
-																lowClosed="true" highClosed="true">
-																<low value="0.5" unit="tbl" />
-																<high value="0.5" unit="tbl" />
-															</value>
-														</property>
-														<property name="deliveryRoute">
-															<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.3.26.1.1.1"
-																code="001" codeSystemName="FDA Routes of Administration"
-																displayName="ORAL" />
-														</property>
-														<property name="frequency">
-															<value xsi:type="ComplexLiteral">
-																<value xsi:type="vmr:Schedule">
-																	<vmr:cycle>
-																		<vmr:cycleTiming xsi:type="vmr:CodedRecurringEvent">
-																			<vmr:repeatCode code="??">
-																				<dt:displayName value="1 times per day" />
-																			</vmr:repeatCode>
-																		</vmr:cycleTiming>
-																	</vmr:cycle>
-																</value>
-															</value>
-														</property>
-													</element>
-												</value>
-											</property>
+															<elm:value xsi:type="elm:Interval" lowClosed="true" highClosed="true">
+																<elm:low xsi:type="elm:Quantity" value="0.5" unit="tbl" />
+																<elm:high xsi:type="elm:Quantity" value="0.5" unit="tbl" />
+															</elm:value>
+														</elm:element>
+														<elm:element name="deliveryRoute">
+															<elm:value xsi:type="elm:Code" code="001" display="ORAL" ><elm:system name="FDA Routes of Administration"/></elm:value>
+														</elm:element>
+														<elm:element name="frequency">
+															<elm:value xsi:type="elm:Instance" classType="vmr:Schedule">
+																<elm:element name="cycle">
+																	<elm:value xsi:type="elm:List">
+																		<elm:element xsi:type="elm:Instance" classType="vmr:Cycle">
+																			<elm:element name="cycleTiming">
+																				<elm:value xsi:type="elm:List">
+																					<elm:element xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+																						<elm:element name="repeatCode">
+																							<elm:value xsi:type="elm:Code" code="??" display="1 time per day"><elm:system name="Frequencies"/></elm:value>
+																						</elm:element>
+																					</elm:element>
+																				</elm:value>
+																			</elm:element>
+																		</elm:element>
+																	</elm:value>
+																</elm:element>
+															</elm:value>
+														</elm:element>
+													</elm:element>
+												</elm:value>
+											</elm:element>
 										</actionSentence>
 									</simpleAction>
 									<simpleAction xsi:type="CreateAction">
 										<textEquivalent
 											value="metoprolol succinate SR 25 mg 24 hr tab 1 tablet orally once a day" />
-										<actionSentence xsi:type="ObjectExpression"
-											objectType="vmr:SubstanceAdministrationProposal">
-											<property name="substance.substanceCode">
-												<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.88"
-													code="TBD - now missing from RxNorm" codeSystemName="RxNorm"
-													displayName="24 HR Metoprolol Succinate 25 MG Extended Release Tablet" />
-											</property>
-											<property name="dose">
-												<value xsi:type="List">
-													<element xsi:type="ObjectExpression" objectType="vmr:Dose">
+										<actionSentence xsi:type="elm:Instance"
+											classType="vmr:SubstanceAdministrationProposal">
+											<elm:element name="substance.substanceCode">
+												<elm:value xsi:type="elm:Code" code="TBD - now missing from RxNorm" display="24 HR Metoprolol Succinate 25 MG Extended Release Tablet" ><elm:system name="RxNorm"/></elm:value>
+											</elm:element>
+											<elm:element name="dose">
+												<elm:value xsi:type="elm:List">
+													<elm:element xsi:type="elm:Instance" classType="vmr:Dose">
 
-														<property name="doseQuantity">
+														<elm:element name="doseQuantity">
 															<!-- units should be coded value, but ISO datatypes do not 
 																support a coded value for the units of measure. We will work with the vMR 
 																group to address this. In the meantime, we are using coded values for all 
 																UOM from UCUM (https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.113883.6.8) 
 																until this issue is addressed ... -->
-															<value xsi:type="PhysicalQuantityIntervalLiteral"
-																lowClosed="true" highClosed="true">
-																<low value="1" unit="tbl" />
-																<high value="1" unit="tbl" />
-															</value>
-														</property>
-														<property name="deliveryRoute">
-															<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.3.26.1.1.1"
-																code="001" codeSystemName="FDA Routes of Administration"
-																displayName="ORAL" />
-														</property>
-														<property name="frequency">
-															<value xsi:type="ComplexLiteral">
-																<value xsi:type="vmr:Schedule">
-																	<vmr:cycle>
-																		<vmr:cycleTiming xsi:type="vmr:CodedRecurringEvent">
-																			<vmr:repeatCode code="??">
-																				<dt:displayName value="1 times per day" />
-																			</vmr:repeatCode>
-																		</vmr:cycleTiming>
-																	</vmr:cycle>
-																</value>
-															</value>
-														</property>
-													</element>
-												</value>
-											</property>
+															<elm:value xsi:type="elm:Interval" lowClosed="true" highClosed="true">
+																<elm:low xsi:type="elm:Quantity" value="1" unit="tbl" />
+																<elm:high xsi:type="elm:Quantity" value="1" unit="tbl" />
+															</elm:value>
+														</elm:element>
+														<elm:element name="deliveryRoute">
+															<elm:value xsi:type="elm:Code" code="001" display="ORAL" ><elm:system name="FDA Routes of Administration"/></elm:value>
+														</elm:element>
+														<elm:element name="frequency">
+															<elm:value xsi:type="elm:Instance" classType="vmr:Schedule">
+																<elm:element name="cycle">
+																	<elm:value xsi:type="elm:List">
+																		<elm:element xsi:type="elm:Instance" classType="vmr:Cycle">
+																			<elm:element name="cycleTiming">
+																				<elm:value xsi:type="elm:List">
+																					<elm:element xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+																						<elm:element name="repeatCode">
+																							<elm:value xsi:type="elm:Code" code="??" display="1 time per day"><elm:system name="Frequencies"/></elm:value>
+																						</elm:element>
+																					</elm:element>
+																				</elm:value>
+																			</elm:element>
+																		</elm:element>
+																	</elm:value>
+																</elm:element>
+															</elm:value>
+														</elm:element>
+													</elm:element>
+												</elm:value>
+											</elm:element>
 										</actionSentence>
 									</simpleAction>
 								</subElements>
@@ -868,50 +865,51 @@
 							<simpleAction xsi:type="CreateAction">
 								<textEquivalent
 									value="metoprolol succinate SR 50 mg 24 hr tab 1 tablet orally once a day" />
-								<actionSentence xsi:type="ObjectExpression"
-									objectType="vmr:SubstanceAdministrationProposal">
-									<property name="substance.substanceCode">
-										<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.88"
-											code="TBD - now missing from RxNorm" codeSystemName="RxNorm"
-											displayName="24 HR Metoprolol Succinate 50 MG Extended Release Tablet" />
-									</property>
-									<property name="dose">
-										<value xsi:type="List">
-											<element xsi:type="ObjectExpression" objectType="vmr:Dose">
+								<actionSentence xsi:type="elm:Instance"
+									classType="vmr:SubstanceAdministrationProposal">
+									<elm:element name="substance.substanceCode">
+										<elm:value xsi:type="elm:Code" code="TBD - now missing from RxNorm" display="24 HR Metoprolol Succinate 50 MG Extended Release Tablet" ><elm:system name="RxNorm"/></elm:value>
+									</elm:element>
+									<elm:element name="dose">
+										<elm:value xsi:type="elm:List">
+											<elm:element xsi:type="elm:Instance" classType="vmr:Dose">
 
-												<property name="doseQuantity">
+												<elm:element name="doseQuantity">
 													<!-- units should be coded value, but ISO datatypes do not support 
 														a coded value for the units of measure. We will work with the vMR group to 
 														address this. In the meantime, we are using coded values for all UOM from 
 														UCUM (https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.113883.6.8) 
 														until this issue is addressed ... -->
-													<value xsi:type="PhysicalQuantityIntervalLiteral"
-														lowClosed="true" highClosed="true">
-														<low value="1" unit="tbl" />
-														<high value="1" unit="tbl" />
-													</value>
-												</property>
-												<property name="deliveryRoute">
-													<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.3.26.1.1.1"
-														code="001" codeSystemName="FDA Routes of Administration"
-														displayName="ORAL" />
-												</property>
-												<property name="frequency">
-													<value xsi:type="ComplexLiteral">
-														<value xsi:type="vmr:Schedule">
-															<vmr:cycle>
-																<vmr:cycleTiming xsi:type="vmr:CodedRecurringEvent">
-																	<vmr:repeatCode code="??">
-																		<dt:displayName value="1 times per day" />
-																	</vmr:repeatCode>
-																</vmr:cycleTiming>
-															</vmr:cycle>
-														</value>
-													</value>
-												</property>
-											</element>
-										</value>
-									</property>
+													<elm:value xsi:type="elm:Interval" lowClosed="true" highClosed="true">
+														<elm:low xsi:type="elm:Quantity" value="1" unit="tbl" />
+														<elm:high xsi:type="elm:Quantity" value="1" unit="tbl" />
+													</elm:value>
+												</elm:element>
+												<elm:element name="deliveryRoute">
+													<elm:value xsi:type="elm:Code" code="001" display="ORAL" ><elm:system name="FDA Routes of Administration"/></elm:value>
+												</elm:element>
+												<elm:element name="frequency">
+													<elm:value xsi:type="elm:Instance" classType="vmr:Schedule">
+														<elm:element name="cycle">
+															<elm:value xsi:type="elm:List">
+																<elm:element xsi:type="elm:Instance" classType="vmr:Cycle">
+																	<elm:element name="cycleTiming">
+																		<elm:value xsi:type="elm:List">
+																			<elm:element xsi:type="elm:Instance" classType="vmr:CodedRecurringEvent">
+																				<elm:element name="repeatCode">
+																					<elm:value xsi:type="elm:Code" code="??" display="1 time per day"><elm:system name="Frequencies"/></elm:value>
+																				</elm:element>
+																			</elm:element>
+																		</elm:value>
+																	</elm:element>
+																</elm:element>
+															</elm:value>
+														</elm:element>
+													</elm:value>
+												</elm:element>
+											</elm:element>
+										</elm:value>
+									</elm:element>
 								</actionSentence>
 							</simpleAction>
 						</subElements>
@@ -931,25 +929,21 @@
 				<subElements>
 					<simpleAction xsi:type="CreateAction">
 						<textEquivalent value="B-type natriuretc peptide (BNP)" />
-						<actionSentence xsi:type="ObjectExpression"
-							objectType="vmr:ProcedureProposal">
-							<property name="procedureCode">
-								<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.1"
-									code="42637-9" codeSystemName="LOINC"
-									displayName="Natriuretic peptide B [Mass/​volume] in Blood" />
-							</property>
+						<actionSentence xsi:type="elm:Instance"
+							classType="vmr:ProcedureProposal">
+							<elm:element name="procedureCode">
+								<elm:value xsi:type="elm:Code" code="42637-9" display="Natriuretic peptide B [Mass/​volume] in Blood" ><elm:system name="LOINC"/></elm:value>
+							</elm:element>
 						</actionSentence>
 					</simpleAction>
 					<simpleAction xsi:type="CreateAction">
 						<textEquivalent
 							value="Complete blood cell count with automated white blood cell differential" />
-						<actionSentence xsi:type="ObjectExpression"
-							objectType="vmr:ProcedureProposal">
-							<property name="procedureCode">
-								<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.1"
-									code="57021-8" codeSystemName="LOINC"
-									displayName="CBC W Auto Differential panel in Blood" />
-							</property>
+						<actionSentence xsi:type="elm:Instance"
+							classType="vmr:ProcedureProposal">
+							<elm:element name="procedureCode">
+								<elm:value xsi:type="elm:Code" code="57021-8" display="CBC W Auto Differential panel in Blood" ><elm:system name="LOINC"/></elm:value>
+							</elm:element>
 						</actionSentence>
 					</simpleAction>
 				</subElements>
@@ -967,22 +961,20 @@
 				<subElements>
 					<simpleAction xsi:type="CreateAction">
 						<textEquivalent value="Radiograph, chest, 2 views" />
-						<actionSentence xsi:type="ObjectExpression"
-							objectType="vmr:ProcedureProposal">
-							<property name="procedureCode">
-								<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.96"
-									code="399208008" codeSystemName="SNOMED-CT" displayName="Plain chest X-ray (procedure)" />
-							</property>
+						<actionSentence xsi:type="elm:Instance"
+							classType="vmr:ProcedureProposal">
+							<elm:element name="procedureCode">
+								<elm:value xsi:type="elm:Code" code="399208008" display="Plain chest X-ray (procedure)" ><elm:system name="SNOMED-CT"/></elm:value>
+							</elm:element>
 						</actionSentence>
 					</simpleAction>
 					<simpleAction xsi:type="CreateAction">
 						<textEquivalent value="12-lead ECG " />
-						<actionSentence xsi:type="ObjectExpression"
-							objectType="vmr:ProcedureProposal">
-							<property name="procedureCode">
-								<value xsi:type="CodeLiteral" codeSystem="2.16.840.1.113883.6.96"
-									code="268400002" codeSystemName="SNOMED-CT" displayName="12 lead ECG (procedure)" />
-							</property>
+						<actionSentence xsi:type="elm:Instance"
+							classType="vmr:ProcedureProposal">
+							<elm:element name="procedureCode">
+								<elm:value xsi:type="elm:Code" code="268400002" display="12 lead ECG (procedure)" ><elm:system name="SNOMED-CT"/></elm:value>
+							</elm:element>
 						</actionSentence>
 					</simpleAction>
 				</subElements>

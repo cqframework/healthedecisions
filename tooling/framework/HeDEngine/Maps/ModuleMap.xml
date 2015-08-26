@@ -2,4 +2,6 @@
 <map xmlns="urn:hl7-org:knowledgeartifact:r1:engine" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1:engine HandlerMap.xsd" handlerType="ModuleRegistration">
 	<entry key="urn:hl7-org:knowledgeartifact:r1" value="HeD.Engine.Verification.BaseModuleRegistrar"/>
 	<entry key="urn:hl7-org:vmr:r2" value="vMR.Model.vMRModuleRegistrar, vMR.Model"/>
+	<entry key="urn:hl7-org:elm:r1" value="ELM.Model.ELMModuleRegistrar, HeDEngine"/>
+	<entry key="http://hl7.org/fhir" value="FHIR.Model.FHIRModuleRegistrar, FHIR.Model"/>
 </map>

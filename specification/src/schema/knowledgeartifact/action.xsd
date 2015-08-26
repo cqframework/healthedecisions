@@ -1,11 +1,19 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns="urn:hl7-org:knowledgeartifact:r1" 
+	xmlns:dt="urn:hl7-org:cdsdt:r2" 
+	xmlns:elm="urn:hl7-org:elm:r1"
+	xmlns:sch="http://purl.oclc.org/dsdl/schematron" 
+	targetNamespace="urn:hl7-org:knowledgeartifact:r1" 
+	elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>
 			This file defines the Action types used to describe guidance within a knowledge artifact. 
 		</xs:documentation>
 	</xs:annotation>
 	<xs:import namespace="urn:hl7-org:cdsdt:r2" schemaLocation="../common/datatypes.xsd"/>
+	<xs:import namespace="urn:hl7-org:elm:r1" schemaLocation="../elm/expression.xsd"/>
 	<xs:include schemaLocation="base.xsd"/>
 	<xs:include schemaLocation="behavior.xsd"/>
 	<xs:include schemaLocation="actor.xsd"/>
@@ -24,6 +32,11 @@
 					<xs:documentation>An identifier for the action. The identifier must
 						be unique within the scope of the artifact.
 					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="number" type="FormattedText" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A number for the action primarily for display to the user. This is different than the actionId which is used as a key to identify the action or group internally.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="supportingEvidence" type="SupportingEvidence" minOccurs="0">
@@ -102,6 +115,11 @@
 				specified in the container elements. </xs:documentation> </xs:annotation> 
 				</xs:element> -->
 		</xs:sequence>
+		<xs:attribute name="order" type="xs:int" use="optional">
+			<xs:annotation>
+				<xs:documentation>If specified, determines the ordering for this element within the group.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="ActionGroup">
 		<xs:annotation>
@@ -118,14 +136,14 @@
 		<xs:complexContent>
 			<xs:extension base="ActionBase">
 				<xs:sequence>
-					<xs:element name="title" type="dt:ST" minOccurs="0">
+					<xs:element name="title" type="FormattedText" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>A brief title that is shown to the user of the
 								artifact, i.e., the recipient of the CDS
 							</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="description" type="dt:ST" minOccurs="0">
+					<xs:element name="description" type="FormattedText" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>A lengthier description of the action group
 								that can
@@ -241,7 +259,7 @@
 		<xs:complexContent>
 			<xs:extension base="AtomicAction">
 				<xs:sequence>
-					<xs:element name="actionSentence" type="Expression" minOccurs="0" maxOccurs="1">
+					<xs:element name="actionSentence" type="elm:Expression" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The parameters of the action that is to be
 								executed. For example, an action may be to order a medication.
@@ -271,7 +289,7 @@
 		<xs:complexContent>
 			<xs:extension base="AtomicAction">
 				<xs:sequence>
-					<xs:element name="actionSentence" type="Expression">
+					<xs:element name="actionSentence" type="elm:Expression">
 						<xs:annotation>
 							<xs:documentation>The modification to the action. This is
 								specified by modifying the properties of an existing action using
@@ -292,7 +310,7 @@
 		<xs:complexContent>
 			<xs:extension base="AtomicAction">
 				<xs:sequence>
-					<xs:element name="actionSentence" type="Expression">
+					<xs:element name="actionSentence" type="elm:Expression">
 						<xs:annotation>
 							<xs:documentation>The expression must resolve to the action that
 								is being removed.
@@ -303,7 +321,10 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="FireEventAction">
+	<!-- BTR: It's not clear how this would be used, it doesn't seem that there is enough information to enable eventing.
+		At a minimum, we would need to be able to name the event so that it could be surfaced in an event bus and subscribed. 
+		Propose that for now, the action be removed until an example can be developed that illustrates usage. -->
+	<!--xs:complexType name="FireEventAction">
 		<xs:annotation>
 			<xs:documentation>This action fires an event. The event can serve as
 				a trigger to another artifact.
@@ -328,7 +349,7 @@
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
-	</xs:complexType>
+	</xs:complexType-->
 	<xs:complexType name="DeclareResponseAction">
 		<xs:annotation>
 			<xs:documentation>
@@ -386,7 +407,7 @@
 							</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="initialValue" type="Expression" minOccurs="0" maxOccurs="1">
+					<xs:element name="initialValue" type="elm:Expression" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>An expression to compute an initial value for
 								the documentation concept. The initial value could be computed

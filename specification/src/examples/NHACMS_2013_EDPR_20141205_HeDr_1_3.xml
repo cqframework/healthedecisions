@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?schematron-schema href="../schematron/knowledgeartifact.sch"?>
+<?schematron-schema href="../schematron/documentationtemplates.sch"?>
+<!--  Shows excerpts of the same form translated from SDC to HeD -->
+<!--  Illustrates how SDC sections, questions, guards, fill-ins translate to HeD forms -->
+<knowledgeDocument xmlns="urn:hl7-org:knowledgeartifact:r1"
+	xmlns:vmr="urn:hl7-org:vmr:r2" xmlns:dt="urn:hl7-org:cdsdt:r2"
+	xmlns:elm="urn:hl7-org:elm:r1" xmlns:t="urn:hl7-org:elm-types:r1"
+	xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:hl7-org:knowledgeartifact:r1 ../schema/knowledgeartifact/knowledgedocument.xsd
+		urn:hl7-org:vmr:r2  ../schema/vmr/vmr.xsd">
+	<metadata>
+		<identifiers>
+			<identifier root="c439af65-17b9-4a62-9fac-01fe8a79cdf3"
+				version="1" />
+		</identifiers>
+		<artifactType value="Documentation Template" />
+		<schemaIdentifier root="urn:hl7-org:knowledgeartifact:r1" />
+		<dataModels>
+			<modelReference>
+				<description value="Virtual Medical Record model" />
+				<referencedModel value="urn:hl7-org:vmr:r2" />
+			</modelReference>
+		</dataModels>
+		<title
+			value="National Hospital Ambulatory Medical Care Survey 2013 Emergency Department Patient Record" />
+		<status value="Draft" />
+	</metadata>
+	<externalData>
+		<codesystem name="SNOMED Clinical Terms" id="2.16.840.1.113883.6.96"/>
+		<def name="Patient">
+			<elm:expression xsi:type="elm:SingletonFrom">
+				<elm:operand xsi:type="elm:Retrieve" dataType="vmr:EvaluatedPerson"/>
+			</elm:expression>
+		</def>
+	</externalData>
+	<expressions>
+		<def name="PatientDoB">
+			<elm:expression xsi:type="elm:Property" path="birthTime">
+				<elm:source xsi:type="elm:ExpressionRef"  name="Patient"/>
+			</elm:expression>
+		</def>
+	</expressions>
+	<actionGroup>
+		<subElements>
+			<simpleAction xsi:type="DeclareResponseAction"/>
+			<actionGroup>
+				<title>
+					<label>PATIENT INFORMATION</label>
+					<style>section</style>
+				</title>
+				<subElements>
+					<simpleAction xsi:type="CollectInformationAction">
+						<behaviors>
+							<behavior xsi:type="RequiredBehavior" value="Must" />
+						</behaviors>
+						<documentationConcept>
+							<identifier
+								root="oid:2.16.840.1.113883.3.2146.1.1000.2.2.1:2012-09-21" />
+							<prompt>
+								<label>Patient medical record number</label>
+								<style>boldQuestion</style>
+							</prompt>
+							<responseDataType value="String" />
+							<responseCardinality value="Single" />
+						</documentationConcept>
+					</simpleAction>
+					<simpleAction xsi:type="CollectInformationAction">
+						<behaviors>
+							<behavior xsi:type="RequiredBehavior" value="Must" />
+						</behaviors>
+						<documentationConcept>
+							<identifier
+								root="oid:2.16.840.1.113883.3.2146.1.1000.2.2.4:2012-09-21"/>
+							<prompt>
+								<label>Date and time of visit</label>
+							</prompt>
+							<!-- SDC does this as String data type with a mask/format for date-time stamp -->
+							<responseDataType value="Timestamp"/>
+							<responseCardinality value="Single" />
+						</documentationConcept>
+					</simpleAction>
+					<simpleAction xsi:type="CollectInformationAction">
+						<behaviors>
+							<behavior xsi:type="RequiredBehavior" value="Must" />
+						</behaviors>
+						<documentationConcept>
+							<identifier
+								root="oid:2.16.840.1.113883.3.2146.1.1000.2.2.6:2012-09-21"/>
+							<prompt>
+								<label>Date and time of visit</label>
+							</prompt>
+							<additionalInstructions>
+							    <label>ED departure, if released or transferred</label>
+							</additionalInstructions>
+							<responseDataType value="Timestamp"/>
+							<responseCardinality value="Single" />
+						</documentationConcept>
+					</simpleAction>
+					<!-- Illustration of how the initial value can be used to prefill the field with
+					an arbitrary expression -->
+					<simpleAction xsi:type="CollectInformationAction">
+						<behaviors>
+							<behavior xsi:type="RequiredBehavior" value="Must" />
+						</behaviors>
+						<documentationConcept>
+							<identifier
+								root="oid:2.16.840.1.113883.3.2146.1.1000.2.2.3:2012-09-21"/>
+							<prompt>
+								<label>Date and time of visit</label>
+							</prompt>
+							<additionalInstructions>
+							    <label>Date of Birth</label>
+							</additionalInstructions>
+							<responseDataType value="Timestamp"/>
+							<responseCardinality value="Single" />
+						</documentationConcept>
+						<initialValue xsi:type="elm:ExpressionRef" name="PatientDoB"/>
+					</simpleAction>
+				</subElements>
+			</actionGroup>
+			<actionGroup>
+				<actionId root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6"/>
+				<title>
+					<label>DIAGNOSTIC SERVICES</label>
+				</title>
+				<description>
+					<label>Mark (X) all ordered or provided at this visit.</label>
+				</description>
+				<subElements>
+					<simpleAction xsi:type="CollectInformationAction">
+						<behaviors>
+							<behavior xsi:type="RequiredBehavior" value="Must" />
+						</behaviors>
+						<documentationConcept>
+							<identifier
+								root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4" />
+							<prompt>
+				                <label>Imaging:</label>
+							</prompt>
+							<responseDataType value="String" />
+							<responseCardinality value="Multiple" />
+							<responseRange xsi:type="EnumerationConstraint" strictSelection="true">
+								<constraintType value="List"/>
+								<item>
+									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_1"/>
+									<number><label>26</label></number>
+									<value xsi:type="elm:Literal" valueType="t:String" value="26"/>
+									<displayText><label>X-ray</label></displayText>
+								</item>
+
+								<item>
+									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_2"/>
+									<number><label>27</label></number>
+									<value xsi:type="elm:Literal" valueType="t:String" value="27"/>
+									<displayText><label>Intravenous contrast</label></displayText>
+								</item>
+
+								<item>
+									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_3"/>
+									<number><label>28</label></number>
+									<value xsi:type="elm:Literal" valueType="t:String" value="28"/>
+									<displayText><label>CT scan</label></displayText>
+								</item>
+
+								<item>
+									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_4"/>
+									<number><label>29</label></number>
+									<value xsi:type="elm:Literal" valueType="t:String" value="29"/>
+									<displayText><label>MRI</label></displayText>
+								</item>
+
+								<item>
+									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_5"/>
+									<number><label>30</label></number>
+									<value xsi:type="elm:Literal" valueType="t:String" value="30"/>
+									<displayText><label>Ultrasound</label></displayText>
+								</item>
+								<item>
+									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_6"/>
+									<number><label>31</label></number>
+									<value xsi:type="elm:Literal" valueType="t:String" value="31"/>
+									<displayText><label>Other imaging</label></displayText>
+								</item>
+							</responseRange>
+							
+						</documentationConcept>
+						<responseBinding property="ImagingTestType"/>
+					</simpleAction>
+
+					<simpleAction xsi:type="CollectInformationAction">
+						<behaviors>
+							<behavior xsi:type="RequiredBehavior" value="Must" />
+						</behaviors>
+						<conditions>
+							<!--  equivalent to the guard. If response to previous question
+							includes 28 (for CT scan), then show this question  -->
+							<condition>
+								<logic xsi:type="elm:In">
+									<elm:operand xsi:type="elm:Literal" valueType="t:String" value="28"/>
+									<elm:operand xsi:type="elm:Property" path="ImagingTestType">
+										<elm:source xsi:type="elm:ParameterRef" name="Responses"/>
+									</elm:operand>
+								</logic>
+								<conditionRole value="ApplicableScenario"/>
+							</condition>
+						</conditions>
+						<documentationConcept>
+							<identifier
+								root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_3/guarded_question_1" />
+							<prompt>
+				                <label>Body Location of CT Scan</label>
+							</prompt>
+							<responseDataType value="Code" />
+							<responseCardinality value="Multiple" />
+							<responseRange xsi:type="EnumerationConstraint" strictSelection="true">
+								<constraintType value="List"/>
+								<item>
+									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_3/guarded_question_1/list_item_1"/>
+									<value xsi:type="elm:Code" code="419394006"><elm:system name="SNOMED Clinical Terms"/></value>
+									<displayText><label>Abdomen/Pelvis</label></displayText>
+								</item>
+								<item>
+									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_3/guarded_question_1/list_item_2"/>
+									<value xsi:type="elm:Code" code="169069000"><elm:system name="SNOMED Clinical Terms"/></value>
+									<displayText><label>Chest</label></displayText>
+								</item>
+								<item>
+									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_3/guarded_question_1/list_item_3"/>
+									<value xsi:type="elm:Code" code="303653007"><elm:system name="SNOMED Clinical Terms"/></value>
+									<displayText><label>Head</label></displayText>
+								</item>
+								<item fillIn="true">
+									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_3/guarded_question_1/list_item_4"/>
+									<displayText><label>Other</label></displayText>
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+
+					<simpleAction xsi:type="CollectInformationAction">
+						<behaviors>
+							<behavior xsi:type="RequiredBehavior" value="Must" />
+						</behaviors>
+						<conditions>
+							<!--  equivalent to the guard. If response to previous question
+							includes 30(for ultrasound), then show this question  -->
+							<condition>
+								<logic xsi:type="elm:In">
+									<elm:operand xsi:type="elm:Literal" valueType="t:String" value="30"/>
+									<elm:operand xsi:type="elm:Property" path="ImagingTestType">
+										<elm:source xsi:type="elm:ParameterRef" name="Responses"/>
+									</elm:operand>
+								</logic>
+								<conditionRole value="ApplicableScenario"/>
+							</condition>
+						</conditions>
+						<documentationConcept>
+							<identifier
+								root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_5/guarded_question_1" />
+							<prompt>
+				                <label>Performer of ultrasound</label>
+							</prompt>
+							<responseDataType value="String" />
+							<responseCardinality value="Multiple" />
+							<responseRange xsi:type="EnumerationConstraint" strictSelection="true">
+								<constraintType value="List"/>
+								<item>
+									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_5/guarded_question_1/list_item_1"/>
+									<value xsi:type="elm:Literal" valueType="t:String" value="Performed by emergency physician"/>
+									<displayText><label>Performed by emergency physician</label></displayText>
+								</item>
+								<item>
+									<identifier root="http://ushik.ahrq.gov/form/section_identifier#2013_ED/section_6/question_4/list_item_5/guarded_question_1/list_item_2"/>
+									<value xsi:type="elm:Literal" valueType="t:String" value="Other"/>
+									<displayText><label>Other</label></displayText>
+								</item>
+							</responseRange>
+						</documentationConcept>
+					</simpleAction>
+ 				</subElements>
+			
+			</actionGroup>			
+		</subElements>
+	</actionGroup>
+</knowledgeDocument>

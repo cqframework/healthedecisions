@@ -6,7 +6,7 @@
       <Value Profile="(Default)">Maps</Value>
     </Setting>
     <Setting Name="SchemaLocation" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Schema\knowledgeartifact\knowledgedocument.xsd;Schema\vmr\vmr.xsd</Value>
+      <Value Profile="(Default)">Schema\knowledgeartifact\knowledgedocument.xsd;Schema\vmr\vmr.xsd;Schema\elm\library.xsd</Value>
     </Setting>
   </Settings>
 </SettingsFile>

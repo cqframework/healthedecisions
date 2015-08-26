@@ -1,11 +1,18 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns="urn:hl7-org:knowledgeartifact:r1" 
+	xmlns:elm="urn:hl7-org:elm:r1"
+	xmlns:sch="http://purl.oclc.org/dsdl/schematron" 
+	xmlns:xhtml="http://www.w3.org/1999/xhtml" 
+	targetNamespace="urn:hl7-org:knowledgeartifact:r1" 
+	elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>
 			This file defines the condition components used in knowledge artifacts.
 		</xs:documentation>
 	</xs:annotation>
-	<xs:include schemaLocation="expression.xsd"/>
+	<xs:import namespace="urn:hl7-org:elm:r1" schemaLocation="../elm/expression.xsd"/>
 	<xs:include schemaLocation="enum/conditionroletype.xsd"/>
 	<xs:complexType name="Condition">
 		<xs:annotation>
@@ -16,7 +23,7 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="logic" type="Expression">
+			<xs:element name="logic" type="elm:Expression">
 				<xs:annotation>
 					<xs:documentation>The logic specification of the condition. Often,
 						though not necessarily, the logic is an expression about patient

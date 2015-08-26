@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using CQL.ELM.Model.Types;
 using HeD.Model;
 
 namespace HeD.Engine.Model
@@ -21,33 +22,21 @@ namespace HeD.Engine.Model
 	{
 		private static readonly Dictionary<string, DataType> _resolvedTypes = new Dictionary<string, DataType>();
 
-		public static readonly ObjectType Any = (ObjectType)ResolveType(typeof(ANY));
-        public static readonly ObjectType Quantity = (ObjectType)ResolveType(typeof(QTY));
+		public static readonly ObjectType Any = (ObjectType)ResolveType(typeof(Any));
 		public static readonly ScalarType Boolean = new ScalarType("Boolean", Any);
-		public static readonly ScalarType Integer = new ScalarType("Integer", Quantity);
-		public static readonly ScalarType Real = new ScalarType("Real", Quantity);
+		public static readonly ScalarType Integer = new ScalarType("Integer", Any);
+		public static readonly IntervalType IntegerInterval = new IntervalType(Integer);
+		public static readonly ScalarType Decimal = new ScalarType("Decimal", Any);
+		public static readonly IntervalType DecimalInterval = new IntervalType(Decimal);
 		public static readonly ScalarType String = new ScalarType("String", Any);
-		public static readonly ScalarType Timestamp = new ScalarType("Timestamp", Quantity);
-		public static readonly ObjectType PhysicalQuantity = (ObjectType)ResolveType(typeof(PQ));
-		public static readonly ObjectType Ratio = (ObjectType)ResolveType(typeof(RTO));
-		//public static readonly ObjectType IntegerRatio = (ObjectType)ResolveType(typeof(RTO_INT));
-		//public static readonly ObjectType PhysicalQuantityRatio = (ObjectType)ResolveType(typeof(RTO_PQ));
-		public static readonly IntervalType TimestampInterval = new IntervalType(DataTypes.Timestamp);
-		public static readonly IntervalType RealInterval = new IntervalType(DataTypes.Real);
-		//public static readonly IntervalType IntegerRatioInterval = new IntervalType(DataTypes.IntegerRatio);
-		//public static readonly IntervalType PhysicalQuantityRatioInterval = new IntervalType(DataTypes.PhysicalQuantityRatio);
-        public static readonly IntervalType QuantityInterval = new IntervalType(DataTypes.Quantity);
-		public static readonly IntervalType PhysicalQuantityInterval = new IntervalType(DataTypes.PhysicalQuantity);
-		public static readonly IntervalType IntegerInterval = new IntervalType(DataTypes.Integer);
-		public static readonly ScalarType DateGranularity = new ScalarType("DateGranularity");
-		public static readonly ObjectType Identifier = (ObjectType)ResolveType(typeof(II));
-		public static readonly ObjectType Code = (ObjectType)ResolveType(typeof(CD));
-        public static readonly ObjectType CodedOrdinal = (ObjectType)ResolveType(typeof(CO));
-        public static readonly ObjectType SimpleCode = (ObjectType)ResolveType(typeof(CS));
-        public static readonly ObjectType EntityName = (ObjectType)ResolveType(typeof(EN));
-        public static readonly ObjectType Period = (ObjectType)ResolveType(typeof(HeD.Model.PIVL_TS));
-        public static readonly ObjectType URL = (ObjectType)ResolveType(typeof(HeD.Model.TEL));
+		public static readonly ScalarType DateTime = new ScalarType("DateTime", Any);
+		public static readonly IntervalType DateTimeInterval = new IntervalType(DateTime);
+		public static readonly ScalarType Time = new ScalarType("Time", Any);
+        public static readonly ObjectType Quantity = (ObjectType)ResolveType(typeof(Quantity));
+		public static readonly IntervalType QuantityInterval = new IntervalType(Quantity);
+		public static readonly ObjectType Code = (ObjectType)ResolveType(typeof(Code));
 		public static readonly ListType CodeList = new ListType(Code);
+		public static readonly ObjectType Concept = (ObjectType)ResolveType(typeof(Concept));
 
 		/// <summary>
 		/// Compares two DataType instances for equality.
@@ -132,7 +121,7 @@ namespace HeD.Engine.Model
 
             if (type.IsEnum)
             {
-                
+                return DataTypes.Code; // TODO: This may not be the best mapping, but it should work for what we're doing right now...
             }
 
 			switch (type.Name)
@@ -143,23 +132,27 @@ namespace HeD.Engine.Model
 				case "Int32" :
 				case "Int64" : return DataTypes.Integer;
 				case "String" : return DataTypes.String;
-				case "DateTime" : return DataTypes.Timestamp;
+				case "DateTime" : return DataTypes.DateTime;
 				case "Single" :
 				case "Double" :
-				case "Decimal" : return DataTypes.Real;
+				case "Decimal" : return DataTypes.Decimal;
 
 				// cdsdt data types
+				case "ANY" : return DataTypes.Any;
 				case "BL" : return DataTypes.Boolean;
 				case "INT" : return DataTypes.Integer;
-				case "REAL" : return DataTypes.Real;
+				case "REAL" : return DataTypes.Decimal;
 				case "ST" : return DataTypes.String;
-				case "TS" : return DataTypes.Timestamp;
-				case "IVL_TS" : return DataTypes.TimestampInterval;
-				case "IVL_REAL" : return DataTypes.RealInterval;
+				case "TS" : return DataTypes.DateTime;
+				case "CD" : return DataTypes.Code; // Map CD directly to the Code type, this is hack, proper implementation would be an "equivalent" notion? Need to map cdsdt types to elm-types
+				case "PQ" : return DataTypes.Quantity;
+				case "ED" : return DataTypes.String;
+				case "IVL_TS" : return DataTypes.DateTimeInterval;
+				case "IVL_REAL" : return DataTypes.DecimalInterval;
 				//case "IVL_RTO" : return DataTypes.IntegerRatioInterval;
 				//case "IVL_RTO_INT" : return DataTypes.IntegerRatioInterval;
-				//case "IVL_RTO_PQ" : return DataTypes.PhysicalQuantityRatioInterval;
-				case "IVL_PQ" : return DataTypes.PhysicalQuantityInterval;
+				//case "IVL_RTO_PQ" : return DataTypes.QuantityRatioInterval;
+				case "IVL_PQ" : return DataTypes.QuantityInterval;
 				case "IVL_INT" : return DataTypes.IntegerInterval;
 
 				// Everything else is either an object type, or a base type (if it's represented as an enum)

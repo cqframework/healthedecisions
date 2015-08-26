@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+******************************************************************************
+RFD Retrieve Form Response (ITI-34) containing an HTML Response 
+
+FORM NAME:      MedWatch 3500
+PURPOSE:        Response for MedWatch 3500 form using RFD (ITI-34) transaction in SDC sample HTML format.
+
+REVISIONS: 
+Ver        Date         Author              Description
+1.0        12/01/2014   VP/RM               Added RFD wrapper and schema validation 
+                                            Need to fix RFD schema to add <instanceID> for SDC
+1.1        12/03/2014   Denise Warzel       Populated the sdc_html_form section containing html content           
+1.2        12/11/2014   DW/WS/SJ/VP/RM      InstanceID removed, schema location moved
+******************************************************************************/
+-->
+
+<RetrieveFormResponse 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="urn:ihe:iti:rfd:2007 ../../../Schemas/RFD.xsd" 
+   xmlns="urn:ihe:iti:rfd:2007"
+   xmlns:sdc="http://nlm.nih.gov/sdc/form"
+   xmlns:mfi13="http://www.iso.org/19763/13/2013"
+   xmlns:dex="urn:ihe:qrph:dex:2013"
+   xmlns:mfi6="http://www.iso.org/19763/6/2013"
+   xmlns:mdr3="http://www.iso.org/11179/3/2013"
+   >
+
+   <!--Issue: We need an RFD element to specify the PackageID and formID , to help ensure the correct form response is included within this transaction-->
+   <form>
+       <Structured>
+         <sdc:sdc_html_package>
+            <sdc:supplemental_data>
+               <!-- Contains supplemental data related to the form instance e.g., generation date, pre-pop data, special instructions, etc. -->
+                </sdc:supplemental_data>
+            <sdc:form_info>
+               <!-- Contains mapping, and administrative info; this is the same content as from the form design package -->
+               <sdc:mapping_package mapping_package_identifier="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/mapping_package_identifier#4617751v1.0/1"
+                  form_design_identifier="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier#4617751v1.0">
+                  <sdc:mdr_mapping mdr_mapping_identifier="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/mdr_mapping_identifier#4617751v1.0/1">
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2003301v4.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619801v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2423393v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619812v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#793v5.1</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619803v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2200604v3.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619804v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2184687v2.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632819v1</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2179689v4.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619807v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#4461362v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619815v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2998028v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619820v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2004152v3.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632824v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2179613v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619828	v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2182850v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619829v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2188132v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632827v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2179660v2.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626771v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#4631994v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632832v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#4632014v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632835v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#4632039v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632837v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#3175751v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632836v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#4632073v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632839v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2540498v4.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632841v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2182728v2.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632842v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#3028750v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632843v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2179582v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626718v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#3631708v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632985v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2192901v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632986v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2192888v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632991v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2748048v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633041v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#3761048v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633024v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2479726v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633042v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2748053v2.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626915v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#4385191v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626862v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2192895v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626860v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#3631708v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633040v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2192897v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626795v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2192901v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626797v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2196242v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626793v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2004505v4.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626799v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2192987v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633056v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2192991v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626803v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#2192999v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626801v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#4385738v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626859v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#4385747v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626914v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#4385757v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626806v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                     <sdc:question_element_data_element_association>
+                        <mfi13:data_element_scoped_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/data_element_scoped_identifier#4385754v1.0</mfi13:data_element_scoped_identifier>
+                        <mfi13:association_type xmlns:mfi13="http://www.iso.org/19763/13/2013">related</mfi13:association_type>
+                        <mfi13:question_element_identifier xmlns:mfi13="http://www.iso.org/19763/13/2013">http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626858v1.0</mfi13:question_element_identifier>
+                     </sdc:question_element_data_element_association>
+                  </sdc:mdr_mapping>
+               </sdc:mapping_package>
+               <sdc:administrative_package>
+                  <sdc:submission_rule rule_id_and_version="Version1">
+                     <sdc:destination>
+                        <sdc:endpoint>http:cdc</sdc:endpoint>
+                        <sdc:description>CDC Form Receiver URL</sdc:description>
+                     </sdc:destination>
+                  </sdc:submission_rule>
+                  <sdc:compliance_rule/>
+                  <sdc:compliance_rule/>
+                  <sdc:originating_registry_summary>
+                     <mfi6:registry_organization xmlns:mfi6="http://www.iso.org/19763/6/2013">
+                        <mdr3:name xmlns:mdr3="http://www.iso.org/11179/3/2013">NCI</mdr3:name>
+                        <mdr3:uri xmlns:mdr3="http://www.iso.org/11179/3/2013">2.16.840.1.113883.3.26.2</mdr3:uri>
+                     </mfi6:registry_organization>
+                     <mfi6:reference_standard_identifier xmlns:mfi6="http://www.iso.org/19763/6/2013">ISO/IEC 19763-13 Form_Design</mfi6:reference_standard_identifier>
+                     <mfi6:SLA_for_registry xmlns:mfi6="http://www.iso.org/19763/6/2013"/>
+                     <mfi6:purpose_for_registry xmlns:mfi6="http://www.iso.org/19763/6/2013">
+                        <mdr3:title xmlns:mdr3="http://www.iso.org/11179/3/2013">CDEs and Forms for Cancer Clinical Trials</mdr3:title>
+                     </mfi6:purpose_for_registry>
+                     <mfi6:manual_for_registry xmlns:mfi6="http://www.iso.org/19763/6/2013">
+                        <mdr3:title xmlns:mdr3="http://www.iso.org/11179/3/2013">https://wiki.nci.nih.gov/x/Q4EI</mdr3:title>
+                     </mfi6:manual_for_registry>
+                     <mfi6:specification_for_interface xmlns:mfi6="http://www.iso.org/19763/6/2013">
+                        <mfi6:name>caDSR API</mfi6:name>
+                        <mfi6:description>caDSR API Domain Class Browser</mfi6:description>
+                        <mfi6:URL>http://cadsrapi.nci.nih.gov</mfi6:URL>
+                        <mfi6:version>4.0</mfi6:version>
+                     </mfi6:specification_for_interface>
+                  </sdc:originating_registry_summary>
+                  <sdc:form_language>
+                     <mfi13:style_language xmlns:mfi13="http://www.iso.org/19763/13/2013"/>
+                     <mfi13:logic_language xmlns:mfi13="http://www.iso.org/19763/13/2013"/>
+                     <mfi13:format_language xmlns:mfi13="http://www.iso.org/19763/13/2013"/>
+                     <sdc:textual_language>eng</sdc:textual_language>
+                  </sdc:form_language>
+                  <sdc:contacts/>
+                  <sdc:registration>
+                     <sdc:state>
+                        <mdr3:registration_status xmlns:mdr3="http://www.iso.org/11179/3/2013">STANDARD</mdr3:registration_status>
+                        <mdr3:effective_date xmlns:mdr3="http://www.iso.org/11179/3/2013">2014-12-09T00:07:20.0</mdr3:effective_date>
+                        <mdr3:until_date xmlns:mdr3="http://www.iso.org/11179/3/2013"/>
+                        <mdr3:administrative_note xmlns:mdr3="http://www.iso.org/11179/3/2013"/>
+                        <mdr3:administrative_status xmlns:mdr3="http://www.iso.org/11179/3/2013">DRAFT NEW</mdr3:administrative_status>
+                     </sdc:state>
+                     <sdc:stewardship_record>
+                        <sdc:organization>
+                           <sdc:name>National Cancer Institute (NCI)</sdc:name>
+                           <sdc:fhir_mail_address>
+                              <sdc:line>BG 9609 MSC 9760</sdc:line>
+                              <sdc:line>9609 Medical Center Drive</sdc:line>
+                              <sdc:city>Bethesda</sdc:city>
+                              <sdc:state>MD</sdc:state>
+                              <sdc:zip>20892-97609609</sdc:zip>
+                              <sdc:country>USA</sdc:country>
+                           </sdc:fhir_mail_address>
+                        </sdc:organization>
+                     </sdc:stewardship_record>
+                     <sdc:creation_date/>
+                     <sdc:explanatory_comment/>
+                  </sdc:registration>
+               </sdc:administrative_package>
+               <sdc:stylesheet/>
+            
+            </sdc:form_info>
+             <sdc:sdc_html_form><![CDATA[
+                <html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>MedWatch 3500</title><style>
+                    body {
+                        color:          #333;
+                        font-family:    "Helvetica Neue, Helvetica, Arial, sans-serif";
+                        font-size:      14px;
+                        line-height:   1.42857;
+                    }
+                    .panel-section {
+                        margin:     3px;
+                        padding:    0px;
+                        border-radius:  4px;
+                        border:   1px solid black;
+                    }
+                    .panel-question {
+                        padding:    2px 0 2px 5px;
+                        margin:     5px;
+                        border:     1px solid #428bca;
+                        border-radius:  4px;
+                    
+                    }
+                    .form-header-instruction{
+                        font-size:18px;
+                    }
+                    .section-header{
+                        margin:0;
+                        padding:5px 0 5px 5px;
+                        border-radius:4px 4px 0 0;
+                        background-color:#d4d8d1;
+                    }
+                    .form-cdeId{
+                        font-size:12px;
+                    }
+                    .guarded-element-question{
+                        text-indent:60px;
+                        }
+                    h4{
+                        margin:2px 0 2px 0;
+                    }</style></head>
+   <body id="form">
+      <form method="post" action="http:cdc">
+         <div id="form-heading-section">
+            <h1 style="padding: 0 5px 0 5px"><span class="text-center"><strong>MedWatch 3500</strong></span><br></h1>
+         </div>
+         <p style="padding: 0 5px 0 5px">
+            HEADER for MedWatch 3500 
+            
+         </p>
+         <p class="form-header-instruction" style="padding: 0 5px 0 5px">
+            U.S. Department of Health and Human Services - The FDA Safety Information and Adverse
+            Event Reporting Program - Form Approved: OMB No. 0910-0291, Expires: 6/30/2015. See
+            PRA
+            Statement.
+            
+         </p>
+         <div class="form-section panel-section">
+            <h2 class="section-header"> FDA USE ONLY</h2>
+            <p style="margin-left: 3px"></p>
+         </div>
+         <div class="form-section panel-section">
+            <h2 class="section-header"> A. PATIENT INFORMATION</h2>
+            <p style="margin-left: 3px"></p>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619801v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Patient Identifier</label><p style="margin: 0;">
+                  
+                  In Confidence
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619801v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619801v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2003301v4.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619812v1.0" class="question-prompt" style="display: block; font-weight: bold;"> The calculation of age based on the equation of Date of Event-Date of
+                  Birth.</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619812v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619812v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2423393v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619803v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Date of Birth</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p> (MM/DD/YYYY) <input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619803v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619803v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:793v5.1</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619804v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Sex</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619804v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619804v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2200604v3.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632819v1" class="question-prompt" style="display: block; font-weight: bold;"> Weight (lb)</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632819v1" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632819v1" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2184687v2.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619807v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Weight (kg)</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619807v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619807v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2179689v4.0</p></span></div>
+         </div>
+         <div class="form-section panel-section">
+            <h2 class="section-header"> B. ADVERSE EVENT, PRODUCT PROBLEM, OR ERROR</h2>
+            <p style="margin-left: 3px"></p>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619815v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Check all that apply (Report Type)</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619815v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619815v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:4461362v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619820v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Outcomes Attributed to Adverse Event</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619820v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619820v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2998028v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632824v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Date of Death</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p> (DD/MON/YYYY) <input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632824v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632824v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2004152v3.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619828&#x9;v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Date of Event</label><p style="margin: 0;">
+                  
+                  Please type the data of the event in 2 digit month / 2 digit day / 4 digit
+                  year.
+                  
+                  
+               </p> (MM/DD/YYYY) <input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619828&#x9;v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619828&#x9;v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2179613v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619829v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Date of this Report</label><p style="margin: 0;">
+                  
+                  Please type the date of the report in 2 digit month / 2 digit day / 4 digit
+                  year.
+                  
+                  
+               </p> (MM/DD/YYYY) <input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619829v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4619829v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2182850v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632827v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Describe event, Problem or Product Use Error</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632827v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632827v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2188132v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626771v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Other Relevant History, Including Preexisting Medical
+                  Conditions</label><p style="margin: 0;">
+                  
+                  Including Preexisting Medical Conditions (e.g. allergies, race, pregnancy, smoking
+                  and alcohol use, liver/kidney problems, etc.)
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626771v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626771v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2179660v2.0</p></span></div>
+         </div>
+         <div class="form-section panel-section">
+            <h2 class="section-header"> C. PRODUCT AVAILABILITY</h2>
+            <p style="margin-left: 3px"></p>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632832v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Product Available for Evaluation?</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632832v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632832v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:4631994v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632835v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Returned to Manufacturer on: (mm/dd/yyyy)</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p> (MM/DD/YYYY) <input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632835v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632835v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:4632014v1.0</p></span></div>
+         </div>
+         <div class="form-section panel-section">
+            <h2 class="section-header"> D. SUSPECT PRODUCT(S)</h2>
+            <p style="margin-left: 3px"></p>Repeat 2 timesResponse # 1
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632837v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Name</label><p style="margin: 0;">
+                  
+                  (from product label)
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632837v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632837v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:4632039v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632836v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Strength</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632836v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632836v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:3175751v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632839v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Manufacturer</label><p style="margin: 0;">
+                  
+                  (from product label)
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632839v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632839v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:4632073v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632841v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Frequency</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632841v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632841v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2540498v4.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632842v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Dose</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632842v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632842v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2182728v2.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632843v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Dose Units</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632843v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632843v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:3028750v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626718v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Route</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626718v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626718v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2179582v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632985v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Manufacturer Lot Identifier</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632985v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632985v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:3631708v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632986v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Expiration Date</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p> (MM/DD/YYYY) <input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632986v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632986v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2192901v1.0</p></span></div>Response # 2
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632837v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Name</label><p style="margin: 0;">
+                  
+                  (from product label)
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632837v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632837v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:4632039v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632836v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Strength</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632836v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632836v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:3175751v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632839v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Manufacturer</label><p style="margin: 0;">
+                  
+                  (from product label)
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632839v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632839v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:4632073v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632841v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Frequency</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632841v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632841v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2540498v4.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632842v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Dose</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632842v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632842v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2182728v2.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632843v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Dose Units</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632843v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632843v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:3028750v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626718v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Route</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626718v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626718v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2179582v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632985v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Manufacturer Lot Identifier</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632985v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632985v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:3631708v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632986v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Expiration Date</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p> (MM/DD/YYYY) <input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632986v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632986v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2192901v1.0</p></span></div><br><br></div>
+         <div class="form-section panel-section">
+            <h2 class="section-header"> E. SUSPECT MEDICAL DEVICE</h2>
+            <p style="margin-left: 3px"></p>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632991v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Brand name</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632991v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4632991v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2192888v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633041v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Common Device Name</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633041v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633041v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2748048v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633024v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Procode</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633024v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633024v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:3761048v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633042v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Manufacturer Name</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633042v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633042v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2479726v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626915v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Manufacturer City</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626915v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626915v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2748053v2.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626862v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Manufacturer State Code</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626862v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626862v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:4385191v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626860v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Model Number</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626860v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626860v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2192895v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633040v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Lot#</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633040v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633040v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:3631708v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626795v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Catalog Number</label><p style="margin: 0;">
+                  
+                  Please type the catalog number of the suspected medical device here.
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626795v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626795v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2192897v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626797v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Expiration Date</label><p style="margin: 0;">
+                  
+                  Please type the expiration date of the suspected medical device here in 2 digit
+                  month / 2 digit day / 4 digit year here.
+                  
+                  
+               </p> (MM/DD/YYYY) <input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626797v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626797v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2192901v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626793v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Serial No</label><p style="margin: 0;">
+                  
+                  Please type the serial number of the suspected medical device here.
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626793v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626793v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2196242v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626799v1.0" class="question-prompt" style="display: block; font-weight: bold;"> If Implanted, Give Date</label><p style="margin: 0;">
+                  
+                  If implanted give data MM / DD / YYYY
+                  
+                  
+               </p> (MM/DD/YYYY) <input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626799v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626799v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2004505v4.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633056v1.0" class="question-prompt" style="display: block; font-weight: bold;"> If explanted, give date</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p> (MM/DD/YYYY) <input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633056v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4633056v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2192987v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626803v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Is this a single-use device that was reprocessed and reused on a
+                  patient?</label><p style="margin: 0;">
+                  
+                  
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626803v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626803v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2192991v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626801v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Name of reprocessor</label><p style="margin: 0;">
+                  
+                  If Yes to Item No. 8, Enter Name of the reprocessor here.
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626801v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626801v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:2192999v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626859v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Reprocessor Street Address Line 1 [Line 2]</label><p style="margin: 0;">
+                  
+                  If Yes to Item No. 8, Enter Street Address Line 1 of the reprocessor here
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626859v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626859v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:4385738v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626914v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Reprocessor City</label><p style="margin: 0;">
+                  
+                  If Yes to Item No. 8, Enter City of the reprocessor here
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626914v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626914v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:4385747v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626806v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Reprocessor State Code</label><p style="margin: 0;">
+                  
+                  If Yes to Item No. 8, Enter State of the reprocessor here
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626806v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626806v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:4385757v1.0</p></span></div>
+            <div class="panel-question"><label for="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626858v1.0" class="question-prompt" style="display: block; font-weight: bold;"> Reprocessor Zip Code</label><p style="margin: 0;">
+                  
+                  If Yes to Item No. 8, Enter Zipcode of the reprocessor here
+                  
+                  
+               </p><input type="text" name="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626858v1.0" id="http://nci.nih.gov/xml/owl/cadsr/form/form_design_identifier/4617751v1.0/question_identifier#4626858v1.0" size="30"><span class="form-cdeId">
+                  <p>CDE NCI:4385754v1.0</p></span></div>
+         </div>
+         <div class="form-section panel-section">
+            <h2 class="section-header"> F. OTHER (CONCOMITANT) MEDICAL PRODUCTS</h2>
+            <p style="margin-left: 3px"></p>
+         </div>
+         <div class="form-section panel-section">
+            <h2 class="section-header"> G. REPORTER </h2>
+            <p style="margin-left: 3px">(See confidentiality section on back)</p>
+         </div>Form FDA 3500 Submission of a report does not constitute an admission that medical
+         personnel or the product caused or contributed to the event.<input type="submit" value="Send Info"><input type="reset"></form>
+   </body>
+</html>]]>
+            </sdc:sdc_html_form>
+         </sdc:sdc_html_package>
+      </Structured>
+
+      <!-- Comment: Optionally, insert GUID/UUID to track the RFD RetrieveFormResponse transaction -->
+      <instanceID/>
+
+   </form>
+
+   <contentType>HTML</contentType>
+   <responseCode>Request succeeded</responseCode>
+   <!-- Value is not required for the responseCode but will be useful -->
+
+
+</RetrieveFormResponse>
