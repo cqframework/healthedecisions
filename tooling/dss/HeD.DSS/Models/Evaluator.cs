@@ -8,9 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
+using elm = CQL.ELM.Model;
 using HeD.CDSS.Model;
 using HeD.Model;
 using vMR.Model;
+using System.Xml;
 
 namespace HeD.DSS.Models
 {
@@ -179,22 +181,52 @@ namespace HeD.DSS.Models
                                             {
                                                 actionId = new II { extension = Guid.NewGuid().ToString("N") },
                                                 actionSentence =
-                                                    new ComplexLiteral
+                                                    new elm.Instance
                                                     {
-                                                        value = 
-                                                            new SubstanceAdministrationProposal
-                                                            {
-                                                                id = new II { extension = Guid.NewGuid().ToString("N") },
-                                                                substanceAdministrationGeneralPurpose = 
-                                                                    new CD 
-                                                                    { 
-                                                                        code = "ASPIRIN", 
-                                                                        codeSystem = "org.hl7.example", 
-                                                                        codeSystemName = "org.hl7.example", 
-                                                                        displayName = new ST { value = "Aspirin" }
-                                                                    },
-                                                                proposedAdministrationTimeInterval = new IVL_TS { low = new TS { value = "20130729" } }
-                                                            }
+														classType = new XmlQualifiedName("SubstanceAdministrationProposal"),
+														element = new List<elm.InstanceElement>
+														{
+															new elm.InstanceElement
+															{
+																name = "id",
+																value = new elm.Instance 
+																{ 
+																	classType = new XmlQualifiedName("II"), 
+																	element = new List<elm.InstanceElement> 
+																	{ 
+																		new elm.InstanceElement 
+																		{ 
+																			name = "extension", 
+																			value = new elm.Literal { value = Guid.NewGuid().ToString("N"), valueType = new XmlQualifiedName("t:String") }  
+																		}
+																	} 
+																}
+															},
+															new elm.InstanceElement 
+															{ 
+																name = "susbtanceAdministrationGeneralPurpose", 
+																value = new elm.Code { code = "ASPIRIN", display = "Aspirin", system = new elm.CodeSystemRef { name = "org.hl7.example" } } 
+															},
+															new elm.InstanceElement
+															{
+																name = "proposedAdministrationTimeInterval",
+																value = new elm.Interval { low = new elm.Literal { value = "2013-07-29", valueType = new XmlQualifiedName("t:DateTime") } }
+															}
+														}
+														//value = 
+														//	new SubstanceAdministrationProposal
+														//	{
+														//		id = new II { extension = Guid.NewGuid().ToString("N") },
+														//		substanceAdministrationGeneralPurpose = 
+														//			new CD 
+														//			{ 
+														//				code = "ASPIRIN", 
+														//				codeSystem = "org.hl7.example", 
+														//				codeSystemName = "org.hl7.example", 
+														//				displayName = new ST { value = "Aspirin" }
+														//			},
+														//		proposedAdministrationTimeInterval = new IVL_TS { low = new TS { value = "20130729" } }
+														//	}
                                                     }
                                             }
                                         }

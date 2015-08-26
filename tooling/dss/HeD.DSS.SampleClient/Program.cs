@@ -15,6 +15,7 @@ using HeD.CDSS.Model;
 using HeD.DSS.Models;
 using HeD.Model;
 using vMR.Model;
+using elm = CQL.ELM.Model;
 
 namespace HeD.DSS.SampleClient
 {
@@ -99,22 +100,20 @@ namespace HeD.DSS.SampleClient
                 }
                 else
                 {
-                    var proposalLiteral = createAction.actionSentence as ComplexLiteral;
+                    var proposalLiteral = createAction.actionSentence as elm.Instance;
                     if (proposalLiteral == null)
                     {
-                        Console.WriteLine("Resulting CreateAction does not have a ComplexLiteral as the Action Sentence.");
+                        Console.WriteLine("Resulting CreateAction does not have an ELM Instance as the Action Sentence.");
                     }
                     else
                     {
-                        var proposal = proposalLiteral.value as SubstanceAdministrationProposal;
-
-                        if (proposal == null)
+						if (proposalLiteral.classType.Name != "SubstanceAdministrationProposal")
                         {
                             Console.WriteLine("Resulting proposal is not a substance administration proposal");
                         }
                         else
                         {
-                            Console.WriteLine("Substance Administration Proposed: {0}.", proposal.substanceAdministrationGeneralPurpose.displayName);
+                            Console.WriteLine("Substance Administration Proposed: {0}.", (proposalLiteral.element.Single(e => e.name == "substanceAdministrationGeneralPurpose").value as elm.Code).display);
                         }
                     }
                 }

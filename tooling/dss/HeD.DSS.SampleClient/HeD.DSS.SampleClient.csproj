@@ -57,6 +57,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\framework\ELM.Model\ELM.Model.csproj">
+      <Project>{17ace00e-1393-4c7a-b84c-80dff9cbb83d}</Project>
+      <Name>ELM.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\framework\HeDEngine\HeDEngine.csproj">
       <Project>{de75f0a0-3755-4d35-886b-c0b53c95980a}</Project>
       <Name>HeDEngine</Name>
