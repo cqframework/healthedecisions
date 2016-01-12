@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A78674C3-0343-41CA-95E6-B0932F62583F}"
 	ProjectSection(SolutionItems) = preProject
@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "framework", "framework", "{356696BA-8F59-49E9-AA18-7A5283C8F4D6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dss", "dss", "{600CB953-3AB0-41F8-99FE-AA4A44DB1103}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeDEngine", "framework\HeDEngine\HeDEngine.csproj", "{DE75F0A0-3755-4D35-886B-C0B53C95980A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vMR.Model", "framework\vMR.Model\vMR.Model.csproj", "{AD62A3AE-B9BE-4360-8AA2-EF633337BF1E}"
@@ -17,8 +19,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CREF.Translation", "framework\CREF.Translation\CREF.Translation.csproj", "{3AB79FC6-0681-4A66-9AC8-CB3854100709}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeDArtifactUtility", "framework\HeDArtifactUtility\HeDArtifactUtility.csproj", "{3F0C727B-ED1D-411A-B177-065148F35A2E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dss", "dss", "{600CB953-3AB0-41F8-99FE-AA4A44DB1103}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeD.DSS", "dss\HeD.DSS\HeD.DSS.csproj", "{1CD1D739-00D4-4247-81C0-B86B24688693}"
 EndProject
